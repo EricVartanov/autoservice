@@ -1,5 +1,23 @@
 // src/lib/mock-data.js
 
+export const mockGlobal = {
+    logo: '/mock/logo.svg',
+    phone: '+7 999 123-45-67',
+    email: 'info@example.com',
+    address: 'г. Краснодар, ул. Примерная, 1',
+    socials: [
+        { name: 'telegram', url: 'https://t.me/example' },
+        { name: 'whatsapp', url: 'https://wa.me/79991234567' },
+    ],
+    menu: [
+        { label: 'О компании', link: '#about' },
+        { label: 'Услуги', link: '#services' },
+        { label: 'Новости', link: '#news' },
+        { label: 'Контакты', link: '#contacts' },
+    ],
+};
+
+
 export const mockPage = {
     sections: [
         {
