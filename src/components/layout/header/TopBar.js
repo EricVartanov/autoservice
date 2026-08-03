@@ -27,7 +27,7 @@ export default function TopBar({branches, logo}) {
             )}
 
             <Link className={'absolute left-1/2 transform -translate-x-1/2 top-[15]'} href="/">
-                <Image src={logo.path} alt={logo.alt} loading='eager' width={172} height={62} className="w-24 md:w-36 xl:w-[172] h-auto"/>
+                <Image src={logo.path} alt={logo.alt} loading='eager' width={343} height={122} className="h-auto w-24 md:w-36 xl:w-[172px]"/>
             </Link>
 
             {rightBranch && (

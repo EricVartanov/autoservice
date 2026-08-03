@@ -36,10 +36,38 @@ export const mockPage = {
     sections: [
         {
             type: 'hero',
-            title: 'Ремонт автомобилей. Понятный процесс, надежный результат!',
-            subtitle: 'Подзаголовок',
+            title: 'Ремонт автомобилей.\nПонятный процесс,\nнадёжный результат!',
             backgroundVideo: '/mock/hero-video.mp4',
-            cta: { label: 'Узнать больше', link: '#about' },
+            slides: [
+                {
+                    title: 'Диагностика,\nобслуживание\nи ремонт',
+                    text: 'Когда всё - от диагностики до сложного ремонта - можно сделать в одном месте, жизнь становится проще. Мы работаем так, чтобы Вы могли спокойно заниматься своими делами. Просто привозите автомобиль — остальное мы берём на себя',
+                },
+                {
+                    title: 'Кузовной\nремонт\nи покраска',
+                    text: 'Второй слайд с описанием услуги...',
+                },
+                {
+                    title: 'Шиномонтаж\nи развал-\nсхождение',
+                    text: 'Третий слайд с описанием услуги...',
+                },
+            ],
+            stats: [
+                { value: '900+', label: 'Довольных клиентов' },
+                { value: '10', label: 'Лет на рынке' },
+            ],
+            cta: { label: 'Оставить заявку', link: '#contacts' },
+            phone: '+7 (861) 207-07-71',
+            brands: [
+                { name: 'Renault', logo: '/mock/brands/renault.svg' },
+                { name: 'Citroen', logo: '/mock/brands/citroen.svg' },
+                { name: 'Audi', logo: '/mock/brands/audi.svg' },
+                { name: 'Ford', logo: '/mock/brands/ford.svg' },
+                { name: 'Opel', logo: '/mock/brands/opel.svg' },
+                { name: 'Chevrolet', logo: '/mock/brands/chevrolet.svg' },
+                { name: 'Nissan', logo: '/mock/brands/nissan.svg' },
+                { name: 'Volkswagen', logo: '/mock/brands/volkswagen.svg' },
+            ],
         },
         {
             type: 'about',
