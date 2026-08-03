@@ -1,30 +1,44 @@
 // src/lib/mock-data.js
 
-export const mockGlobal = {
-    logo: '/mock/logo.svg',
-    phone: '+7 999 123-45-67',
-    email: 'info@example.com',
-    address: 'г. Краснодар, ул. Примерная, 1',
-    socials: [
-        { name: 'telegram', url: 'https://t.me/example' },
-        { name: 'whatsapp', url: 'https://wa.me/79991234567' },
-    ],
+export const mockHeader = {
+    logo: {path: '/mock/logo.png', alt: 'main Logo'},
+    branches: {
+        leftBranch: { name: 'Филиал 1', shortName: 'ф-л 2-я Дорожная', workHours: 'Пн - Вс, с 09:00 до 20:00', address: 'г. Краснодар, ул. 2-я Дорожная, д. 39', phone: '+7 (861) 207-07-71' },
+        rightBranch: { name: 'Филиал 2', shortName: 'ф-л 1-го Мая', workHours: 'Пн - Вс, с 09:00 до 20:00', address: 'г. Краснодар, ул. 1-го Мая, д. 316', phone: '+7 (861) 207-17-74' },
+    },
     menu: [
-        { label: 'О компании', link: '#about' },
-        { label: 'Услуги', link: '#services' },
-        { label: 'Новости', link: '#news' },
-        { label: 'Контакты', link: '#contacts' },
+        { label: 'Об автосервисе', link: '/#about' },
+        { label: 'Услуги', link: '/#services' },
+        { label: 'Контакты', link: '/#contacts' },
+        { label: 'Новости', link: '/news' },
+        { label: 'Коммерческий транспорт', link: '/#commercial' },
     ],
+    messengers: [
+        {name: 'ф-л 2-я Дорожная', url: 'http://max.ru', logo: '/mock/max-logo.png', alt: 'Max'},
+        {name: 'ф-л 1-го Мая', url: 'http://max.ru', logo: '/mock/max-logo.png', alt: 'Max'}
+
+    ],
+    socials: [{ name: 'vk', url: 'https://vk.com/example', logo: '/mock/vk-logo.png', alt: 'Vk'}],
 };
 
+export const mockFooter = {
+    logo: '/mock/logo.svg',
+    description: 'Ремонт автомобилей. Понятный процесс, надёжный результат.',
+    columns: [
+        { title: 'Меню', links: [{ label: 'Услуги', link: '/#services' }, { label: 'Контакты', link: '/#contacts' }] },
+        { title: 'Филиалы', links: [{ label: 'ф-л 2-я Дорожная', link: '#' }, { label: 'ф-л 1-го Мая', link: '#' }] },
+    ],
+    legal: '© 2026 Автритет. Все права защищены.',
+    socials: [{ name: 'vk', url: 'https://vk.com/example' }],
+};
 
 export const mockPage = {
     sections: [
         {
             type: 'hero',
-            title: 'Заголовок Hero-секции',
+            title: 'Ремонт автомобилей. Понятный процесс, надежный результат!',
             subtitle: 'Подзаголовок',
-            backgroundImage: '/mock/hero-bg.jpg',
+            backgroundVideo: '/mock/hero-video.mp4',
             cta: { label: 'Узнать больше', link: '#about' },
         },
         {

@@ -3,33 +3,40 @@
 /* включаем класс-based dark mode (класс .dark на <html>) */
 @variant dark (&:where(.dark, .dark *));
 
-/* светлая тема — дефолтные значения */
 :root {
     --color-background: #ffffff;
-    --color-foreground: #0a0a0a;
-    --color-primary: #1d4ed8;
-    --color-primary-light: #3b82f6;
-    --color-muted: #6b7280;
-    --color-border: #e5e7eb;
+    --color-background-secondary: #F4F4F4;
+    --color-foreground: #000000;
+    --color-foreground-light: #00000099;
+    --color-foreground-fixed: #ffffff;
+    --color-foreground-light-fixed: #ffffff99;
+    --color-primary: #C60303;
+    --color-primary-light: #FF0000;
+    --color-border: rgba(0, 0, 0, 0.2);
 }
+/* светлая тема — дефолтные значения */
 
 /* тёмная тема — переопределяем те же переменные */
 .dark {
-    --color-background: #0a0a0a;
-    --color-foreground: #f5f5f5;
-    --color-primary: #60a5fa;
-    --color-primary-light: #93c5fd;
-    --color-muted: #9ca3af;
-    --color-border: #27272a;
+    --color-background: #000000;
+    --color-background-secondary: #000000;
+    --color-foreground: #ffffff;
+    --color-foreground-light: #ffffff99;
+    --color-primary: #C60303;
+    --color-primary-light: #FF0000;
+    --color-border: rgba(0, 0, 0, 0.2);
 }
 
 /* прокидываем переменные в Tailwind-утилиты (bg-background, text-primary и тд) */
 @theme inline {
     --color-background: var(--color-background);
+    --color-background-secondary: var(--color-background-secondary);
     --color-foreground: var(--color-foreground);
+    --color-foreground-light: var(--color-foreground-light);
+    --color-foreground-fixed: var(--color-foreground-fixed);
+    --color-foreground-light-fixed: var(--color-foreground-light-fixed);
     --color-primary: var(--color-primary);
     --color-primary-light: var(--color-primary-light);
-    --color-muted: var(--color-muted);
     --color-border: var(--color-border);
 
     --font-heading: var(--font-muller);
@@ -38,6 +45,14 @@
     --font-roboto: var(--font-roboto);
     --font-sf-pro: var(--font-sf-pro);
     --font-neue-haas: var(--font-neue-haas);
+
+    --breakpoint-xs: 30rem;   /* 480px */
+    --breakpoint-sm: 40rem;   /* 640px */
+    --breakpoint-md: 48rem;   /* 768px */
+    --breakpoint-lg: 64rem;   /* 1024px */
+    --breakpoint-xl: 80rem;   /* 1280px */
+
+    --max-width-container: 1560px;
 }
 
 body {

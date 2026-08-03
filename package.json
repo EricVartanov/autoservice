@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "build:icons": "node scripts/build-sprite.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.7.1",
@@ -23,6 +24,7 @@
     "@tailwindcss/postcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
+    "svg-sprite": "^2.0.4",
     "tailwindcss": "^4"
   }
 }

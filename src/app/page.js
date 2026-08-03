@@ -1,5 +1,5 @@
 import { mockPage } from '@/lib/mock-data';
-import Hero from '@/components/sections/Hero';
+import Hero from '@/components/sections/Hero/Hero';
 import About from '@/components/sections/About';
 import ServicesSlider from '@/components/sections/ServicesSlider';
 import Gallery from '@/components/sections/Gallery';
@@ -17,11 +17,11 @@ const SECTION_MAP = {
 
 export default function Home() {
     return (
-        <main>
+        <main className={'h-[2000px]'}>
             {mockPage.sections.map((section, i) => {
                 const Component = SECTION_MAP[section.type];
                 if (!Component) return null;
-                return <Component key={i} {...section} />;
+                return <Component key={i} {...section} data={section} />;
             })}
         </main>
     );

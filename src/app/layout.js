@@ -1,8 +1,7 @@
 import { muller, helveticaNeue, helvetica, roboto, sfPro, neueHaas } from './fonts';
 import './globals.css';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import { mockGlobal } from '@/lib/mock-data';
+import Header from '@/components/layout/header/Header';
+import Footer from '@/components/layout/footer/Footer';
 import { ThemeProvider } from '@/components/ThemeProvider';
 
 const fontVariables = [
@@ -24,9 +23,9 @@ export default function RootLayout({ children }) {
         <html lang="ru" className={fontVariables} suppressHydrationWarning>
             <body>
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-                    <Header data={mockGlobal} />
+                    <Header />
                         {children}
-                    <Footer data={mockGlobal} />
+                    <Footer />
                 </ThemeProvider>
             </body>
         </html>
