@@ -15,6 +15,20 @@
     --color-primary-light: #FF0000;
     --color-border: rgba(0, 0, 0, 0.2);
     --color-brands-bg: #B5B5B5;
+
+
+    --shimmer-gradient: linear-gradient(
+            90deg,
+            #bcbaba 0%,
+            #efefef 20%,
+            #efefef 30%,
+            #ffffff 45%,
+            rgba(255,255,255, 0.5) 50%,
+            #ffffff 55%,
+            #efefef 70%,
+            #efefef 80%,
+            #bcbaba 100%
+    );
 }
 
 /* тёмная тема — переопределяем те же переменные */
@@ -27,6 +41,17 @@
     --color-primary-light: #FF0000;
     --color-border: rgba(0, 0, 0, 0.2);
     --color-brands-bg: #000000;
+
+    --shimmer-gradient: linear-gradient(
+            90deg,
+            #000000 0%,
+            #171515 20%,
+            #171515 40%,
+            #aeacac 50%,
+            #171515 60%,
+            #171515 80%,
+            #000000 100%
+    );
 }
 
 /* прокидываем переменные в Tailwind-утилиты (bg-background, text-primary и тд) */
@@ -41,6 +66,8 @@
     --color-primary-light: var(--color-primary-light);
     --color-border: var(--color-border);
     --color-brands-bg: var(--color-brands-bg);
+
+    --shimmer-gradient: var(--shimmer-gradient);
 
     --font-heading: var(--font-muller);
     --font-sans: var(--font-helvetica-neue);
@@ -64,6 +91,7 @@ body {
     font-family: var(--font-sans);
 }
 
+/** бренды карусель **/
 @keyframes marquee {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
@@ -72,3 +100,32 @@ body {
 .animate-marquee {
     animation: marquee 30s linear infinite;
 }
+/** бренды карусель **/
+
+
+
+/** фон тайтлов **/
+.shimmer-text {
+    color: transparent;
+
+    background: var(--shimmer-gradient);
+
+    background-size: 200% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    animation: shimmer-wave 7s linear infinite;
+}
+
+
+@keyframes shimmer-wave {
+    from {
+        background-position: 100% 0;
+    }
+    to {
+        background-position: -100% 0;
+    }
+}
+
+
+/** фон тайтлов **/
