@@ -20,7 +20,7 @@ const variants = {
 
 export default function HeroSlideContent({ slide, activeIndex, direction = 1 }) {
     return (
-        <div className="relative min-h-[250px] w-full overflow-hidden">
+        <div className="relative min-h-[300px] w-full overflow-hidden">
             <AnimatePresence mode="wait" custom={direction}>
                 <motion.div
                     key={activeIndex}

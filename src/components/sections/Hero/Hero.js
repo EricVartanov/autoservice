@@ -8,6 +8,9 @@ import HeroStats from './HeroStats';
 import BrandsMarquee from './BrandsMarquee';
 import {Video} from "@/components/ui/Video";
 import {Container} from "@/components/Container";
+import {useModalStore} from "../../../../public/store/useModalStore";
+import Button from "@/components/ui/Button";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 export default function Hero({data}) {
     const {title, backgroundVideo, slides, stats, cta, phone, brands} = data
@@ -23,6 +26,12 @@ export default function Hero({data}) {
     const prevSlide = () => {
         setDirection(-1);
         setActiveSlide((i) => (i - 1 + slides.length) % slides.length);
+    };
+
+    const openModal = useModalStore((s) => s.openModal);
+
+    const scrollToForm = () => {
+        document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
     };
 
     return (
@@ -70,24 +79,23 @@ export default function Hero({data}) {
                </div>
 
                {/* кнопки действия */}
-               <div className="relative z-10 flex items-center gap-4 px-8 pb-24">
-                   <a href={cta.link}
-                      className="bg-primary hover:bg-primary-light transition-colors text-white font-medium px-6 py-3 rounded-full"
-                   >
+               <div className="relative z-10 relative flex justify-center items-center gap-4 px-8 pb-10">
+                   <Button variant="primary" onClick={scrollToForm}>
                        {cta.label}
-                   </a>
+                   </Button>
 
-                   <a href={`tel:${phone}`}
-                      className="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
-                      aria-label="Позвонить"
-                   >
-                       <Icon name="phone-filled" className="w-5 h-5"/>
-                   </a>
+                   <Button variant="icon" onClick={() => openModal('call')}>
+                       <Icon name="phone-unfilled" className="w-6 h-6"/>
+                   </Button>
+
+                   <div className={'absolute z-10 -top-2 right-0 w-[70] h-[70]'}>
+                       <ThemeToggle />
+                   </div>
                </div>
            </Container>
 
             {/* бегущая лента брендов */}
-            <div className="relative z-10 border-t border-white/10">
+            <div className="relative z-10 py-[60] bg-brands-bg">
                 <BrandsMarquee brands={brands}/>
             </div>
         </section>

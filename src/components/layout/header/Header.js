@@ -35,7 +35,7 @@ export default function Header() {
                             collapsed ? 'max-h-0 opacity-0 p-0' : 'max-h-28 opacity-100'
                         }`}
                     >
-                        <TopBar branches={mockHeader.branches} logo={mockHeader.logo} />
+                        <TopBar logo={mockHeader.logo} />
                     </div>
                 )}
             </Container>

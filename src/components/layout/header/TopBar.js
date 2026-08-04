@@ -1,10 +1,13 @@
 import Icon from "@/components/icons/Icon";
 import Link from "next/link";
 import Image from "next/image";
+import {mockBranches} from "@/lib/mock-data";
 
-export default function TopBar({branches, logo}) {
-    const leftBranch = branches.leftBranch;
-    const rightBranch = branches.rightBranch;
+export default function TopBar({logo}) {
+
+    const branches = mockBranches
+    const leftBranch = branches[0];
+    const rightBranch = branches[1];
 
     return (
         <div className="flex items-center justify-between text-xs">

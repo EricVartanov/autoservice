@@ -3,6 +3,7 @@
 /* включаем класс-based dark mode (класс .dark на <html>) */
 @variant dark (&:where(.dark, .dark *));
 
+/* светлая тема — дефолтные значения */
 :root {
     --color-background: #ffffff;
     --color-background-secondary: #F4F4F4;
@@ -13,8 +14,8 @@
     --color-primary: #C60303;
     --color-primary-light: #FF0000;
     --color-border: rgba(0, 0, 0, 0.2);
+    --color-brands-bg: #B5B5B5;
 }
-/* светлая тема — дефолтные значения */
 
 /* тёмная тема — переопределяем те же переменные */
 .dark {
@@ -25,6 +26,7 @@
     --color-primary: #C60303;
     --color-primary-light: #FF0000;
     --color-border: rgba(0, 0, 0, 0.2);
+    --color-brands-bg: #000000;
 }
 
 /* прокидываем переменные в Tailwind-утилиты (bg-background, text-primary и тд) */
@@ -38,6 +40,7 @@
     --color-primary: var(--color-primary);
     --color-primary-light: var(--color-primary-light);
     --color-border: var(--color-border);
+    --color-brands-bg: var(--color-brands-bg);
 
     --font-heading: var(--font-muller);
     --font-sans: var(--font-helvetica-neue);
@@ -59,4 +62,13 @@ body {
     background: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+}
+
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+    animation: marquee 30s linear infinite;
 }

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export default function HeroStats({ stats }) {
     return (
-        <div className="flex pl-10 flex-col gap-12 shrink-0 border border-l-foreground-fixed">
+        <div className="flex pl-10 flex-col gap-12 shrink-0 border-l border-l-foreground-fixed">
             {stats.map((stat, i) => (
                 <motion.div
                     key={stat.label}
@@ -13,10 +13,10 @@ export default function HeroStats({ stats }) {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: i * 0.15 }}
                 >
-                    <div className="font-heading font-bold text-primary text-4xl md:text-5xl">
+                    <div className="font-heading leading-none font-bold text-primary-light text-[68px]">
                         {stat.value}
                     </div>
-                    <div className="text-white/60 text-sm mt-1">{stat.label}</div>
+                    <div className="text-foreground-fixed font-sans text-lg">{stat.label}</div>
                 </motion.div>
             ))}
         </div>
