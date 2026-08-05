@@ -12,9 +12,10 @@ export default function Button({
 
     const variants = {
         primary: 'bg-primary border border-primary hover:bg-transparent text-foreground-fixed px-10 py-3.5',
-        outline: 'border border-white/30 text-white px-6 py-3 hover:bg-white/10',
         icon: 'w-[54] h-[54] border border-white/20 text-foreground-fixed hover:bg-white/10',
-        ghost: 'text-white hover:text-white/70 px-2 py-1',
+        serviceCard: 'font-normal text-base font-helvetica px-5 py-2',
+        transparent: 'font-bold text-base font-helvetica px-5 py-4 border border-neutral-700',
+
     };
 
     return (
@@ -22,7 +23,7 @@ export default function Button({
             type={type}
             onClick={onClick}
             disabled={disabled}
-            className={`${base} ${variants[variant]} ${className}`}
+            className={`${base} ${variants[variant]} ${className} `}
             {...props}
         >
             {children}

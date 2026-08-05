@@ -15,6 +15,7 @@
     --color-primary-light: #FF0000;
     --color-border: rgba(0, 0, 0, 0.2);
     --color-brands-bg: #B5B5B5;
+    --color-transparent-btn-text: #FF0000;
 
 
     --shimmer-gradient: linear-gradient(
@@ -41,6 +42,7 @@
     --color-primary-light: #FF0000;
     --color-border: rgba(0, 0, 0, 0.2);
     --color-brands-bg: #000000;
+    --color-transparent-btn-text: #ffffff;
 
     --shimmer-gradient: linear-gradient(
             90deg,
@@ -66,6 +68,7 @@
     --color-primary-light: var(--color-primary-light);
     --color-border: var(--color-border);
     --color-brands-bg: var(--color-brands-bg);
+    --color-transparent-btn-text: var(--color-transparent-btn-text);
 
     --shimmer-gradient: var(--shimmer-gradient);
 

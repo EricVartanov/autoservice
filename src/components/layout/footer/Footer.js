@@ -1,7 +1,13 @@
+import {Container} from "@/components/Container";
+
 export default function Footer({ data }) {
     return (
-        <header>
-            footer
-        </header>
+        <footer>
+            <Container>
+                <div className={'w-full h-60 bg-background'}>
+                    here will be footer
+                </div>
+            </Container>
+        </footer>
     );
 }

@@ -1,23 +1,37 @@
 import ShimmerText from "@/components/ui/ShimmerText";
+import Icon from "@/components/icons/Icon";
 
-export default function SectionTitle({title = '', subtitle = '', titleBack = '',}) {
+export default function SectionTitle({title = '', subtitle = '', titleBack = '', mark, variant = 'center'}) {
+
+    const variants = {
+        center: 'text-center',
+        left: 'text-left',
+    };
+
     return (
-        <>
-            <ShimmerText
-                as="h3"
-                className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[clamp(2.5rem,8vw,6rem)] font-bold font-heading tracking-tight"
-            >
-                {titleBack}
-            </ShimmerText>
-
-            <div className="relative mx-auto text-center">
-                <h2 className="font-heading text-[54px] text-foreground leading-none whitespace-pre-line">
+        <div className={`mx-auto ${variants[variant]}`}>
+            {mark && (
+                <p className="flex items-center gap-1.5 text-lg font-sans text-foreground mb-4">
+                    <Icon name={'star'} className={'text-primary-light size-3'}/>
+                    {mark}
+                </p>
+            )}
+            <div className={'relative'}>
+                <h2 className="font-heading tracking-tight text-[54px] text-foreground leading-none whitespace-pre-line">
                     {title}
                 </h2>
-                <p className="mt-7 max-w-2xl mx-auto text-lg text-foreground-light leading-6 whitespace-pre-line">
-                    {subtitle}
-                </p>
+
+                <ShimmerText
+                    as="h3"
+                    className="absolute left-1/2 -translate-x-1/2 z-[-1] bottom-0 whitespace-nowrap text-[120px] leading-none font-bold font-heading tracking-tight"
+                >
+                    {titleBack}
+                </ShimmerText>
             </div>
-        </>
+
+            <p className="mt-7 max-w-2xl mx-auto text-lg text-foreground-light leading-6 whitespace-pre-line">
+                {subtitle}
+            </p>
+        </div>
     )
 }

@@ -143,13 +143,72 @@ export const mockPage = {
             ]
         },
         {
-            type: 'services_slider',
-            title: 'Наши услуги',
-            slides: [
-                {title: 'Услуга 1', image: '/mock/service-1.jpg', description: '...'},
-                {title: 'Услуга 2', image: '/mock/service-2.jpg', description: '...'},
-                {title: 'Услуга 3', image: '/mock/service-3.jpg', description: '...'},
-            ],
+            type: 'services',
+            title: 'Вы получаете полный спектр\nуслуг по диагностике, ремонту\nи обслуживанию автомобиля',
+            titleBack: 'наши услуги',
+            mark: 'Услуги',
+            services: [
+                {
+                    slug: "engine",
+                    title: "Двигатель",
+                    price: "от 1100 руб.",
+                    image: "/mock/services/engine.webp",
+                },
+                {
+                    slug: "suspension",
+                    title: "Ходовая часть и подвеска",
+                    price: "от 1350 руб.",
+                    image: "/mock/services/suspension.webp",
+                },
+                {
+                    slug: "ac-system",
+                    title: "Система кондиционирования",
+                    price: "от 550 руб.",
+                    image: "/mock/services/ac-system.webp",
+                },
+                {
+                    slug: "brakes",
+                    title: "Тормозная система",
+                    price: "от 1600 руб.",
+                    image: "/mock/services/brakes.webp",
+                },
+                {
+                    slug: "transmission",
+                    title: "Трансмиссия",
+                    price: "от 2600 руб.",
+                    image: "/mock/services/transmission.webp",
+                },
+                {
+                    slug: "exhaust",
+                    title: "Выхлопная система",
+                    price: "от 1375 руб.",
+                    image: "/mock/services/exhaust.webp",
+                },
+                {
+                    slug: "fuel-system",
+                    title: "Топливная система",
+                    price: "от 1375 руб.",
+                    image: "/mock/services/fuel-system.webp",
+                },
+                {
+                    slug: "maintenance",
+                    title: "Техническое обслуживание",
+                    price: "от 550 руб.",
+                    image: "/mock/services/maintenance.webp",
+                },
+                {
+                    slug: "steering-system",
+                    title: "Рулевое управление\nЭлектрооборудование",
+                    price: "от 550 руб.",
+                    image: "/mock/services/steering-system.webp",
+                },
+                {
+                    slug: "cooling-system",
+                    title: "Система охлаждения",
+                    price: "от 550 руб.",
+                    image: "/mock/services/cooling-system.webp",
+                },
+            ]
         },
         {
             type: 'gallery',
