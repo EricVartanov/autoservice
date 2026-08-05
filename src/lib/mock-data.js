@@ -113,7 +113,8 @@ export const mockPage = {
         {
             type: 'statistic',
             stats: [
-                {   id: 1,
+                {
+                    id: 1,
                     image: "/mock/statistics/tools.png",
                     alt: 'tools',
                     value: '10',
@@ -211,13 +212,47 @@ export const mockPage = {
             ]
         },
         {
-            type: 'gallery',
-            title: 'Фотографии',
-            images: [
-                '/mock/gallery-1.jpg',
-                '/mock/gallery-2.jpg',
-                '/mock/gallery-3.jpg',
+            type: 'steps',
+            title: 'Процесс работы от первого шага до результата',
+            mark: 'Этапы',
+            steps: [
+                {
+                    number: '01',
+                    title: "Диагностика и понимание задачи",
+                    text: "Мы изучаем автомобиль и фиксируем факты по его состоянию. Объясняем, что происходит и какие есть варианты решения. Вы получаете ясную картину без догадок",
+                },
+                {
+                    number: '02',
+                    title: 'Обсуждение вариантов ремонта',
+                    text: 'Мы предлагаем несколько подходов — по глубине работ, срокам и бюджету. Вы выбирает тот формат ремонта, который Вам подходит',
+                },
+                {
+                    number: '03',
+                    title: 'Согласование плана',
+                    text: 'Формируем понятный план действий, их порядок. Если появляется новая информация — она обсуждается сразу, до выполнения. Согласование — это спокойный, честный диалог',
+                },
+                {
+                    number: '04',
+                    title: 'Выполнение работ',
+                    text: 'Работы выполняет мастер, который закрепляется за Вашим автомобилем от начала до конца. Вы получаете обновления по ключевым этапам. Процесс идёт четко по согласованию',
+                },
+                {
+                    number: '05',
+                    title: 'Проверка и выдача',
+                    text: 'Мы проверяем результат и убеждаемся, что всё работает корректно. Передаём автомобиль с отчётом и рекомендациями. Вы уезжаете с пониманием, что сделано и что нужно делать дальше',
+                },
             ],
+            images: [
+                {id: 1, image: '/mock/steps/slide1.webp', alt: 'mechanic'},
+                {id: 2, image: '/mock/steps/slide2.webp', alt: 'mechanic'},
+                {id: 3, image: '/mock/steps/slide3.webp', alt: 'mechanic'},
+                {id: 4, image: '/mock/steps/slide4.webp', alt: 'mechanic'},
+                {id: 5, image: '/mock/steps/slide5.webp', alt: 'mechanic'},
+                {id: 6, image: '/mock/steps/slide6.webp', alt: 'mechanic'},
+                {id: 7, image: '/mock/steps/slide7.webp', alt: 'mechanic'},
+                {id: 8, image: '/mock/steps/slide8.webp', alt: 'mechanic'},
+                {id: 9, image: '/mock/steps/slide9.webp', alt: 'mechanic'}
+            ]
         },
         {
             type: 'news',

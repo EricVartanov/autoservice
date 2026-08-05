@@ -3,12 +3,14 @@ import Hero from '@/components/sections/Hero/Hero';
 import About from '@/components/sections/About/About';
 import Services from '@/components/sections/Services/Services';
 import Statistic from "@/components/sections/Statistic/Statistic";
+import Steps from "@/components/sections/Steps/Steps";
 
 const SECTION_MAP = {
     hero: Hero,
     about: About,
     statistic: Statistic,
     services: Services,
+    steps: Steps,
 };
 
 export default function Home() {
