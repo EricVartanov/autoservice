@@ -1,7 +1,6 @@
 // src/components/sections/hero/Hero.js
 'use client';
 
-import {useState} from 'react';
 import Icon from '@/components/icons/Icon';
 import HeroSlideContent from './HeroSlideContent';
 import HeroStats from './HeroStats';
@@ -11,22 +10,10 @@ import {Container} from "@/components/Container";
 import {useModalStore} from "../../../../public/store/useModalStore";
 import Button from "@/components/ui/Button";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import Slider from "@/components/ui/Slider";
 
 export default function Hero({data}) {
     const {title, backgroundVideo, slides, stats, cta, phone, brands} = data
-
-    const [activeSlide, setActiveSlide] = useState(0);
-    const [direction, setDirection] = useState(1);
-
-    const nextSlide = () => {
-        setDirection(1);
-        setActiveSlide((i) => (i + 1) % slides.length);
-    };
-
-    const prevSlide = () => {
-        setDirection(-1);
-        setActiveSlide((i) => (i - 1 + slides.length) % slides.length);
-    };
 
     const openModal = useModalStore((s) => s.openModal);
 
@@ -50,30 +37,19 @@ export default function Hero({data}) {
 
                {/* нижний блок: слайдер + статистика */}
                <div className="relative z-10 flex flex-col md:flex-row items-start  justify-between mt-[210]">
-                   <div className="w-lg relative">
-                       <div className="absolute z-10 top-0 right-0 flex-col gap-3.5 shrink-0">
-                           <button
-                               onClick={prevSlide}
-                               className="w-9 h-9 text-foreground-fixed hover:opacity-60 cursor-pointer"
-                               aria-label="Предыдущий слайд"
-                           >
-                               <Icon name={"arrow-left"} className="w-8 h-8"/>
-                           </button>
-                           <button
-                               onClick={nextSlide}
-                               className="w-9 h-9 text-foreground-fixed hover:opacity-60 cursor-pointer"
-                               aria-label="Следующий слайд"
-                           >
-                               <Icon name={"arrow-right"} className="w-8 h-8"/>
-                           </button>
-                       </div>
-
-                       <HeroSlideContent
-                           slide={slides[activeSlide]}
-                           activeIndex={activeSlide}
-                           direction={direction}
-                       />
-                   </div>
+                   <Slider
+                       count={slides.length}
+                       arrowsPlacement="stack"
+                       className="w-lg"
+                   >
+                       {({index, direction}) => (
+                           <HeroSlideContent
+                               slide={slides[index]}
+                               activeIndex={index}
+                               direction={direction}
+                           />
+                       )}
+                   </Slider>
 
                    <HeroStats stats={stats}/>
                </div>
