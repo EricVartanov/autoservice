@@ -88,13 +88,61 @@ export default function Commercial({data}) {
         setCarBrand("");
     };
 
-    const carBrandField = form.fields.find((f) => f.name === "carBrand");
-    const phoneField = form.fields.find((f) => f.name === "phone");
-
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border bg-transparent px-4 py-2.5 text-foreground text-sm outline-none placeholder:text-foreground-light/50 transition-colors ${
-            hasError ? "border-red-500" : "border-white/20 focus:border-primary"
+        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-3.5 font-helvetica text-base outline-none placeholder:text-foreground-fixed transition-colors ${
+            hasError ? "border-primary" : "border-white/20 focus:border-foreground-fixed"
         }`;
+
+    const renderField = (field) => {
+        let control = null;
+
+        if (field.type === "text") {
+            control = (
+                <input
+                    type="text"
+                    value={name}
+                    onChange={handleNameChange}
+                    placeholder={field.placeholder}
+                    className={fieldInputClass(!!errors.name)}
+                />
+            );
+        } else if (field.type === "tel") {
+            control = (
+                <PhoneInput
+                    value={phoneDigits}
+                    onChange={handlePhoneChange}
+                    placeholder={field.placeholder}
+                    className={fieldInputClass(!!errors.phone)}
+                />
+            );
+        } else if (field.type === "select") {
+            control = (
+                <Select
+                    options={field.options ?? []}
+                    value={carBrand}
+                    onChange={handleCarBrandChange}
+                    placeholder={field.placeholder}
+                    error={!!errors.carBrand}
+                    variant="pill"
+                />
+            );
+        }
+
+        return (
+            <div key={field.name} className={'min-w-[320] relative'}>
+                <label className="block text-base font-helvetica font-bold text-foreground-fixed mb-3.5">
+                    {field.label}
+                    {field.required && <span className="text-primary"> *</span>}
+                </label>
+                {control}
+                {errors[field.name] && (
+                    <p className="absolute left-0 top-full mt-1.5 text-xs text-primary whitespace-nowrap">
+                        {errors[field.name]}
+                    </p>
+                )}
+            </div>
+        );
+    };
 
     return (
         <section className="relative pt-[150] pb-[60]">
@@ -141,66 +189,20 @@ export default function Commercial({data}) {
                     noValidate
                     className="mt-10 rounded-[30] bg-black/60 p-[50]"
                 >
-                    <div className="flex flex-col md:flex-row md:items-end gap-5 md:gap-6 pb-5">
-                        <div className="relative flex-1 max-w-[320px]">
-                            <label className="block text-sm font-medium text-foreground mb-2">
-                                Как к Вам обращаться? <span className="text-primary">*</span>
-                            </label>
-                            <input
-                                type="text"
-                                value={name}
-                                onChange={handleNameChange}
-                                placeholder="начните вводить"
-                                className={fieldInputClass(!!errors.name)}
-                            />
-                            {errors.name && (
-                                <p className="absolute left-0 top-full mt-1.5 text-xs text-red-500 whitespace-nowrap">{errors.name}</p>
-                            )}
+                    <div className="flex flex-col md:flex-row md:items-end">
+                        <div className={'flex flex-col md:flex-row md:items-end gap-7 md:gap-6'}>
+                            {form.fields.map(renderField)}
                         </div>
-
-                        <div className="relative flex-1 min-w-[160px]">
-                            <label className="block text-sm font-medium text-foreground mb-2">
-                                Ваш номер телефона <span className="text-primary">*</span>
-                            </label>
-                            <PhoneInput
-                                value={phoneDigits}
-                                onChange={handlePhoneChange}
-                                placeholder={phoneField?.placeholder ?? "+7 (098) 465 95 05"}
-                                className={fieldInputClass(!!errors.phone)}
-                            />
-                            {errors.phone && (
-                                <p className="absolute left-0 top-full mt-1.5 text-xs text-red-500 whitespace-nowrap">{errors.phone}</p>
-                            )}
-                        </div>
-
-                        <div className="relative flex-1 min-w-[160px]">
-                            <label className="block text-sm font-medium text-foreground mb-2">
-                                Марка Вашего авто <span className="text-primary">*</span>
-                            </label>
-                            <Select
-                                options={carBrandField?.options ?? []}
-                                value={carBrand}
-                                onChange={handleCarBrandChange}
-                                placeholder={carBrandField?.placeholder ?? "выберите из списка"}
-                                error={!!errors.carBrand}
-                                variant="pill"
-                            />
-                            {errors.carBrand && (
-                                <p className="absolute left-0 top-full mt-1.5 text-xs text-red-500 whitespace-nowrap">{errors.carBrand}</p>
-                            )}
-                        </div>
-
-                        <Button type="submit" className="shrink-0 px-10 w-full md:w-auto">
+                        <Button type="submit" className="shrink-0 ml-auto min-w-[260] px-10 w-full md:w-auto">
                             {form.submitLabel}
                         </Button>
                     </div>
+                    {submitted && (
+                        <p className="absolute bottom-3 mt-4 text-base text-primary">
+                            Спасибо! Заявка отправлена, мы скоро свяжемся с Вами.
+                        </p>
+                    )}
                 </form>
-
-                {submitted && (
-                    <p className="mt-4 text-sm text-primary text-right">
-                        Спасибо! Заявка отправлена, мы скоро свяжемся с Вами.
-                    </p>
-                )}
             </Container>
         </section>
     );
