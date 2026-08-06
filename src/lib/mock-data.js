@@ -392,6 +392,33 @@ export const mockPage = {
             cta: {label: 'Смотреть все', link: '/reviews'},
         },
         {
+            type: 'commercial',
+            mark: 'Коммерческий транспорт',
+            title: 'Обслуживание\nи ремонт коммерческого\nтранспорта',
+            subtitle: 'Наш Автосервис также выполняет профессиональный ремонт\nи обслуживание коммерческого транспорта.',
+            cta: {label: 'Подробнее', link: '/commercial'},
+            backgroundImage: {path: '/mock/commercial/commercial-bg.webp', alt: 'commercial service'},
+            limitations: [
+                {image: '/mock/commercial/truck.webp', alt: 'truck', text: 'Не обслуживаем\nкрупнотоннажные грузовики'},
+                {image: '/mock/commercial/semi-truck.webp', alt: 'semi truck', text: 'Не обслуживаем автомобили\nвыше 3 метров'},
+            ],
+            form: {
+                fields: [
+                    {name: 'name', label: 'Как к Вам обращаться?', type: 'text', placeholder: 'начните вводить', required: true},
+                    {name: 'phone', label: 'Ваш номер телефона', type: 'tel', placeholder: '+7 (098) 465 95 05', required: true},
+                    {
+                        name: 'carBrand',
+                        label: 'Марка Вашего авто',
+                        type: 'select',
+                        placeholder: 'выберите из списка',
+                        required: true,
+                        options: ['Renault', 'Citroen', 'Ford', 'Volkswagen', 'Другая'],
+                    },
+                ],
+                submitLabel: 'Отправить',
+            },
+        },
+        {
             type: 'news',
             title: 'Новости',
             items: [

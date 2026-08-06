@@ -7,6 +7,7 @@ import Steps from "@/components/sections/Steps/Steps";
 import Team from "@/components/sections/Team/Team";
 import SpecialOffer from "@/components/sections/SpecialOffer/SpecialOffer";
 import Reviews from "@/components/sections/Reviews/Reviews";
+import Commercial from "@/components/sections/Commercial/Commercial";
 
 const SECTION_MAP = {
     hero: Hero,
@@ -17,6 +18,7 @@ const SECTION_MAP = {
     team: Team,
     specialOffer: SpecialOffer,
     reviews: Reviews,
+    commercial: Commercial,
 };
 
 export default function Home() {

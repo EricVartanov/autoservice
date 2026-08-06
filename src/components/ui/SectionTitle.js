@@ -10,7 +10,8 @@ export default function SectionTitle({
                                          mark,
                                          titleBackPosition = '',
                                          variant = 'center',
-                                         titleColor = 'text-foreground'
+                                         titleColor = 'text-foreground',
+                                         subtitleClass = '',
                                      }) {
     const variants = {
         center: 'text-center',
@@ -32,12 +33,14 @@ export default function SectionTitle({
                     {title}
                 </h2>
 
-                <ShimmerText
-                    as="h3"
-                    className={`absolute left-1/2 -translate-x-1/2 z-[-1] bottom-0 whitespace-nowrap text-[120px] leading-none font-bold font-heading tracking-tight ${titleBackPosition}`}
-                >
-                    {titleBack}
-                </ShimmerText>
+                {titleBack && (
+                    <ShimmerText
+                        as="h3"
+                        className={`absolute left-1/2 -translate-x-1/2 z-[-1] bottom-0 whitespace-nowrap text-[120px] leading-none font-bold font-heading tracking-tight ${titleBackPosition}`}
+                    >
+                        {titleBack}
+                    </ShimmerText>
+                )}
             </div>
 
             {highlightHtml ? (
@@ -53,7 +56,7 @@ export default function SectionTitle({
                 </div>
             ) : (
                 subtitle && (
-                    <p className="mt-7 max-w-2xl mx-auto text-lg text-foreground-light leading-6 whitespace-pre-line">
+                    <p className={`mt-7 max-w-2xl mx-auto text-lg text-foreground-light leading-6 whitespace-pre-line ${subtitleClass}`}>
                         {subtitle}
                     </p>
                 )
