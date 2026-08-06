@@ -42,7 +42,7 @@ export default function Steps({data}) {
 
                             <Container className="relative py-[150] ">
                                 <div className={'flex flex-col justify-start w-[47%] ml-auto'}>
-                                    <SectionTitle title={title} mark={mark} variant={'left'}/>
+                                    <SectionTitle title={title} mark={mark} variant={'left'} titleColor={'text-foreground-fixed'}/>
                                     <div className={'flex flex-wrap mt-[50] gap-x-[50] gap-y-[30]'}>
                                         {steps.map((step) => (
                                             <div className={'max-w-[calc(50%-30px)]'} key={step.number}>

@@ -11,7 +11,7 @@ export default function Button({
         'inline-flex cursor-pointer items-center justify-center rounded-full font-bold text-base transition disabled:opacity-50 disabled:cursor-not-allowed';
 
     const variants = {
-        primary: 'bg-primary border border-primary hover:bg-transparent text-foreground-fixed px-10 py-3.5',
+        primary: 'bg-primary border border-primary hover:bg-transparent text-foreground-fixed min-w-[213] px-10 py-3.5',
         icon: 'w-[54] h-[54] border border-white/20 text-foreground-fixed hover:bg-white/10',
         serviceCard: 'font-normal text-base font-helvetica px-5 py-2',
         transparent: 'font-bold text-base font-helvetica px-5 py-4 border border-btn-border',

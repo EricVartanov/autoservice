@@ -8,7 +8,8 @@ export default function SectionTitle({
                                          titleBack = '',
                                          highlightHtml = null,
                                          mark,
-                                         variant = 'center'
+                                         variant = 'center',
+                                         titleColor='text-foreground'
                                      }) {
     const variants = {
         center: 'text-center',
@@ -19,14 +20,14 @@ export default function SectionTitle({
     return (
         <div className={`mx-auto ${variants[variant]}`}>
             {mark && (
-                <p className={`flex items-center gap-1.5 text-lg font-sans text-foreground mb-4 ${variant === 'center' ? 'justify-center' : ''}`}>
+                <p className={`flex items-center gap-1.5 text-lg ${titleColor} font-sans  mb-4 ${variant === 'center' ? 'justify-center' : ''}`}>
                     <Icon name={'star'} className={'text-primary-light size-3'}/>
                     {mark}
                 </p>
             )}
 
             <div className={'relative'}>
-                <h2 className="font-heading tracking-tight text-[54px] text-foreground leading-none whitespace-pre-line">
+                <h2 className={`font-heading tracking-tight text-[54px] ${titleColor} leading-none whitespace-pre-line`}>
                     {title}
                 </h2>
 

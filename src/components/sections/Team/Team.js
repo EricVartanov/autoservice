@@ -28,7 +28,7 @@ export default function Team({data}) {
                     transition={{ duration: 0.7, ease: "easeOut" }}
                     className={'mt-[90] relative'}
                 >
-                    <div className="flex items-end justify-center">
+                    <div className="flex items-end justify-center rounded-[30] overflow-hidden">
                         <Image src={image.path} alt={image.alt} width={1527} height={479} className={'w-full h-auto'} />
                     </div>
                     <div className="absolute z-[-1] w-[134] top-0 left-1/3 hidden md:block">

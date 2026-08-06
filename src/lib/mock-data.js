@@ -264,6 +264,58 @@ export const mockPage = {
             image: {path: '/mock/team/team.webp', alt: 'the best team'}
         },
         {
+            type: 'specialOffer',
+            title: [
+                'Отремонтируем сегодня — ',
+                'оплатите потом.'
+            ],
+            subtitle: 'Чтобы рассчитать условия кредита уточняйте информацию у менеджера',
+            highlightHtml: "Поломка <span> не должна менять</span> ваши планы",
+            highlightMark: 'Специальное предложение',
+            image: {path: '/mock/specialOffer/specialOffer.webp', alt: 'special Offer'}
+        },
+        {
+            type: 'reviews',
+            mark: 'Отзывы',
+            title: 'Мы слышим Вас, поэтому\nкаждый отзыв важен',
+            titleBack: 'отзывы',
+            summary: {
+                count: '900+',
+                countLabel: 'отзывов на 3-х площадках',
+                platforms: ['google', 'yandex', '2gis'],
+            },
+            branches: [
+                {id: '2-dorozhnaya', label: 'Филиал на 2-я Дорожная'},
+                {id: '1-maya', label: 'Филиал на 1-го Мая'},
+            ],
+            platforms: [
+                {id: 'yandex', label: 'Отзывы Яндекс'},
+                {id: '2gis', label: 'Отзывы 2GIS'},
+                {id: 'google', label: 'Отзывы Google'},
+            ],
+            items: [
+                {
+                    id: 1,
+                    branch: '1-maya',
+                    platform: 'yandex',
+                    author: 'm0kik',
+                    avatar: '/mock/reviews/avatar-1.jpg',
+                    rating: 4.9,
+                    text: 'Обратился с проблемами в электрике. Сделали полную диагностику, нашли неисправный датчик и проблемы с проводкой. Все исправили аккуратно, объяснили, что и как, дали гарантию. Электроника теперь работает отлично.',
+                },
+                {
+                    id: 2,
+                    branch: '1-maya',
+                    platform: 'yandex',
+                    author: 'Anastasia Deshevaya-Butkevich',
+                    avatar: '/mock/reviews/avatar-2.jpg',
+                    rating: 4.9,
+                    text: 'Всем кто ищет сто для своего авто, всем в Авторитет. Здесь вы получите качественное обслуживание, менеджеры грамотно проконсультируют и ответят на все вопросы.',
+                },
+            ],
+            cta: {label: 'Смотреть все', link: '/reviews'},
+        },
+        {
             type: 'news',
             title: 'Новости',
             items: [
