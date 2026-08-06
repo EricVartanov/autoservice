@@ -16,6 +16,9 @@
     --color-btn-border: rgba(0, 0, 0, 0.2);
     --color-brands-bg: #B5B5B5;
     --color-transparent-btn-text: #FF0000;
+    --color-platforms-border: #f4f4f4;
+    --color-grey-white: rgba(0, 0, 0, 0.2);
+    --color-white-grey: #ffffff;
 
 
     --shimmer-gradient: linear-gradient(
@@ -43,6 +46,9 @@
     --color-btn-border: rgba(255, 255, 255, 0.2);
     --color-brands-bg: #000000;
     --color-transparent-btn-text: #ffffff;
+    --color-platforms-border: #000000;
+    --color-grey-white: #ffffff;
+    --color-white-grey: #1a1a1a;
 
     --shimmer-gradient: linear-gradient(
             90deg,
@@ -69,6 +75,9 @@
     --color-btn-border: var(--color-btn-border);
     --color-brands-bg: var(--color-brands-bg);
     --color-transparent-btn-text: var(--color-transparent-btn-text);
+    --color-platforms-border: var(--color-platforms-border);
+    --color-grey-white: var(--color-grey-white);
+    --color-white-grey: var(--color-white-grey);
 
     --shimmer-gradient: var(--shimmer-gradient);
 

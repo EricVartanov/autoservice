@@ -8,8 +8,9 @@ export default function SectionTitle({
                                          titleBack = '',
                                          highlightHtml = null,
                                          mark,
+                                         titleBackPosition = '',
                                          variant = 'center',
-                                         titleColor='text-foreground'
+                                         titleColor = 'text-foreground'
                                      }) {
     const variants = {
         center: 'text-center',
@@ -18,7 +19,7 @@ export default function SectionTitle({
     };
 
     return (
-        <div className={`mx-auto ${variants[variant]}`}>
+        <div className={`${variants[variant]}`}>
             {mark && (
                 <p className={`flex items-center gap-1.5 text-lg ${titleColor} font-sans  mb-4 ${variant === 'center' ? 'justify-center' : ''}`}>
                     <Icon name={'star'} className={'text-primary-light size-3'}/>
@@ -33,7 +34,7 @@ export default function SectionTitle({
 
                 <ShimmerText
                     as="h3"
-                    className="absolute left-1/2 -translate-x-1/2 z-[-1] bottom-0 whitespace-nowrap text-[120px] leading-none font-bold font-heading tracking-tight"
+                    className={`absolute left-1/2 -translate-x-1/2 z-[-1] bottom-0 whitespace-nowrap text-[120px] leading-none font-bold font-heading tracking-tight ${titleBackPosition}`}
                 >
                     {titleBack}
                 </ShimmerText>

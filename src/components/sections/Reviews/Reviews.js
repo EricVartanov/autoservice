@@ -5,80 +5,85 @@ import {useState, useMemo} from "react";
 import {motion, AnimatePresence} from "framer-motion";
 import Image from "next/image";
 import Icon from "@/components/icons/Icon";
-import ShimmerText from "@/components/ui/ShimmerText";
 import {mockBranches} from "@/lib/mock-data";
+import {Container} from "@/components/Container";
+import SectionTitle from "@/components/ui/SectionTitle";
+import Button from "@/components/ui/Button";
+import BlurredCircle from "@/components/ui/blurredCircle";
 
-export default function Reviews({section}) {
-    const {mark, title, titleBack, summary, platforms, items, cta} = section;
+const VISIBLE_COUNT = 4;
+
+export default function Reviews({data}) {
+    const {mark, title, titleBack, summary, platforms, items, cta} = data;
 
     const availableBranches = mockBranches.filter((b) =>
-        items.some((r) => r.branch === b.id)
+        items.some((r) => r.branchId === b.id)
     );
 
     const [activeBranch, setActiveBranch] = useState(availableBranches[0]?.id);
     const [activePlatform, setActivePlatform] = useState(platforms[0]?.id);
+    const [showAll, setShowAll] = useState(false);
 
-    const filtered = useMemo(
+    const handleBranchChange = (id) => {
+        setActiveBranch(id);
+        setShowAll(false);
+    };
+
+    const handlePlatformChange = (id) => {
+        setActivePlatform(id);
+        setShowAll(false);
+    };
+
+    const matched = useMemo(
         () =>
             items.filter(
-                (r) => r.branch === activeBranch && r.platform === activePlatform
+                (r) => r.branchId === activeBranch && r.platform === activePlatform
             ),
         [items, activeBranch, activePlatform]
     );
 
+    const visible = showAll ? matched : matched.slice(0, VISIBLE_COUNT);
+    const hasMore = matched.length > VISIBLE_COUNT;
+
     return (
-        <section className="relative py-24 md:py-32">
-            <div className="container mx-auto px-6">
-                <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-                    <div className="text-left">
-                        <p className="flex items-center gap-1.5 text-lg font-sans text-foreground mb-4">
-                            <Icon name="star" className="text-primary-light size-3"/>
-                            {mark}
-                        </p>
-                        <div className="relative">
-                            <h2 className="font-heading tracking-tight text-[40px] md:text-[54px] text-foreground leading-tight whitespace-pre-line">
-                                {title}
-                            </h2>
-                            <ShimmerText
-                                as="h3"
-                                className="absolute left-0 z-[-1] bottom-0 whitespace-nowrap text-[90px] md:text-[120px] leading-none font-bold font-heading tracking-tight"
-                            >
-                                {titleBack}
-                            </ShimmerText>
-                        </div>
-                    </div>
+        <section className="relative py-24 md:py-32 overflow-hidden">
+            <BlurredCircle className={'right-[-15%] top-[25%]  transform'}/>
+            <Container>
+                <div className="flex items-center justify-between gap-8">
+                    <SectionTitle title={title} titleBack={titleBack} mark={mark} variant={'left'}
+                                  titleBackPosition={'left-full'}/>
 
                     {summary && (
-                        <div className="flex items-center gap-3 shrink-0">
-                            <div className="flex -space-x-2">
-                                {summary.platforms.map((icon) => (
+                        <div className="flex items-center gap-5 shrink-0">
+                            <div className="flex -space-x-3">
+                                {summary.platforms.map((platform) => (
                                     <span
-                                        key={icon}
-                                        className="size-9 rounded-full bg-background flex items-center justify-center ring-2 ring-background"
+                                        key={platform.id}
+                                        className="size-13.75 border-[3px] border-platforms-border overflow-hidden rounded-full bg-foreground-fixed flex items-center justify-center shadow-[-3px_4px_20px_0_rgba(0,0,0,0.25)]"
                                     >
-                                        <Icon name={icon} className="size-5"/>
+                                        <Image src={platform.logo} alt={platform.alt} width={55} height={55}/>
                                     </span>
                                 ))}
                             </div>
-                            <div className="leading-tight">
-                                <p className="text-2xl font-bold text-foreground">{summary.count}</p>
-                                <p className="text-sm text-foreground-light">{summary.countLabel}</p>
+                            <div className="leading-none">
+                                <p className="text-[34px] font-bold text-transparent-btn-text font-heading">{summary.count}</p>
+                                <p className="text-base text-foreground font-helvetica">{summary.countLabel}</p>
                             </div>
                         </div>
                     )}
                 </div>
 
                 <div
-                    className="mt-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-white/10 pb-4">
+                    className="mt-[70] flex bg-white-grey flex-col rounded-full shadow-[0px_4px_20px_0_rgba(0,0,0,0.15)] md:flex-row md:items-center md:justify-between gap-4 px-10 py-3.5">
                     <div className="flex items-center gap-2">
                         {availableBranches.map((branch) => (
                             <button
                                 key={branch.id}
-                                onClick={() => setActiveBranch(branch.id)}
-                                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
+                                onClick={() => handleBranchChange(branch.id)}
+                                className={`px-4 py-2 rounded-full text-base font-helvetica cursor-pointer ${
                                     activeBranch === branch.id
-                                        ? "bg-primary text-white"
-                                        : "bg-white/5 text-foreground-light hover:text-foreground"
+                                        ? "bg-primary text-foreground-fixed"
+                                        : "border-b-white/20 border-b"
                                 }`}
                             >
                                 {branch.shortName}
@@ -90,28 +95,21 @@ export default function Reviews({section}) {
                         {platforms.map((platform) => (
                             <button
                                 key={platform.id}
-                                onClick={() => setActivePlatform(platform.id)}
-                                className={`relative pb-3 text-sm font-medium transition-colors cursor-pointer ${
-                                    activePlatform === platform.id
-                                        ? "text-foreground"
-                                        : "text-foreground-light hover:text-foreground"
-                                }`}
+                                onClick={() => handlePlatformChange(platform.id)}
+                                className={`relative text-base font-helvetica cursor-pointer text-foreground`}
                             >
                                 {platform.label}
-                                {activePlatform === platform.id && (
-                                    <motion.span
-                                        layoutId="platform-underline"
-                                        className="absolute left-0 right-0 -bottom-[1px] h-[2px] bg-primary"
-                                    />
-                                )}
+                                <span
+                                    className={`absolute left-0 right-0 -bottom-2.5 ${activePlatform === platform.id ? 'bg-primary h-0.5' : 'bg-grey-white h-px'}`}
+                                />
                             </button>
                         ))}
                     </div>
                 </div>
 
-                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                    <AnimatePresence mode="popLayout">
-                        {filtered.map((review) => (
+                <motion.div layout className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
+                    <AnimatePresence>
+                        {visible.map((review) => (
                             <motion.div
                                 key={review.id}
                                 layout
@@ -119,50 +117,51 @@ export default function Reviews({section}) {
                                 animate={{opacity: 1, y: 0}}
                                 exit={{opacity: 0, y: -10}}
                                 transition={{duration: 0.3}}
-                                className="rounded-2xl border border-primary/30 bg-white/[0.02] p-5"
+                                className="rounded-[30] min-h-80 font-helvetica border border-primary text-foreground-fixed bg-[#111111] p-5"
                             >
-                                <div className="flex items-center justify-between mb-4">
+                                <div className="flex items-center gap-2.5 justify-between">
                                     <div className="flex items-center gap-2.5">
-                                        <div className="relative size-9 rounded-full overflow-hidden bg-white/10">
+                                        <div className="relative size-10 rounded-full overflow-hidden ">
                                             <Image src={review.avatar} alt={review.author} fill
                                                    className="object-cover"/>
                                         </div>
                                         <span
-                                            className="text-sm font-medium text-foreground leading-tight max-w-[120px]">
+                                            className="text-base font-medium leading-tight">
                                             {review.author}
                                         </span>
                                     </div>
                                     <span
-                                        className="flex items-center gap-1 text-xs font-medium bg-white/5 rounded-full px-2 py-1 text-foreground">
+                                        className="flex items-center text-base bg-white/10 rounded-full px-2.5 py-1">
                                         {review.rating}
-                                        <Icon name="star-filled" className="size-3 text-yellow-400"/>
+                                        <Icon name="star-filled" className="size-6 text-[#FFAE00]"/>
                                     </span>
                                 </div>
-                                <p className="text-sm text-foreground-light leading-6 line-clamp-4">
+                                <p className="mt-5 text-base leading-6 line-clamp-11">
                                     {review.text}
                                 </p>
                             </motion.div>
                         ))}
                     </AnimatePresence>
-                </div>
+                </motion.div>
 
-                {filtered.length === 0 && (
+                {matched.length === 0 && (
                     <p className="text-center text-foreground-light py-12">
                         Пока нет отзывов по этому фильтру
                     </p>
                 )}
 
-                {cta && (
+                {hasMore && (
                     <div className="flex justify-center mt-10">
-
-                        <a href={cta.link}
-                           className="px-6 py-3 rounded-full border border-white/15 text-sm font-medium text-foreground hover:bg-white/5 transition-colors cursor-pointer"
+                        <Button
+                            variant={'transparent'}
+                            onClick={() => setShowAll((v) => !v)}
+                            className={'text-transparent-btn-text px-12 hover:bg-foreground-fixed hover:text-black'}
                         >
-                            {cta.label}
-                        </a>
+                            {showAll ? "Свернуть" : (cta?.label ?? "Смотреть все")}
+                        </Button>
                     </div>
                 )}
-            </div>
+            </Container>
         </section>
     );
 }
