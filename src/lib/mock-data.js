@@ -18,14 +18,18 @@ export const mockHeader = {
 };
 
 export const mockFooter = {
-    logo: '/mock/logo.svg',
-    description: 'Ремонт автомобилей. Понятный процесс, надёжный результат.',
-    columns: [
-        {title: 'Меню', links: [{label: 'Услуги', link: '/#services'}, {label: 'Контакты', link: '/#contacts'}]},
-        {title: 'Филиалы', links: [{label: 'ф-л 2-я Дорожная', link: '#'}, {label: 'ф-л 1-го Мая', link: '#'}]},
+    logo: {path: '/mock/footer-logo.png', alt: 'Авторитет'},
+    logoDark: {path: '/mock/footer-logo-light.png', alt: 'Авторитет'},
+    copyright: 'Авторитет',
+    legal: [
+        {label: 'Политика конфиденциальности', link: '#'},
+        {label: 'Согласие на обработку перс. данных', link: '#'},
     ],
-    legal: '© 2026 Автритет. Все права защищены.',
-    socials: [{name: 'vk', url: 'https://vk.com/example'}],
+    branches: [
+        {label: 'ф-л 2-я Дорожная', link: '#', logo: '/mock/max-logo.png'},
+        {label: 'ф-л 1-го Мая', link: '#', logo: '/mock/max-logo.png'},
+    ],
+    socials: [{name: 'vk', url: 'https://vk.com/example', logo: '/mock/vk-logo.png', alt: 'Vk'}],
 };
 
 export const mockBranches = [
@@ -607,6 +611,53 @@ export const mockPage = {
             mapImage: '/mock/contacts/map.svg',
             mapAlt: 'Карта Краснодарского края',
             branches: mockBranches,
+        },
+        {
+            type: 'feedback',
+            id: 'feedback',
+            intro:
+                'У Вас есть рекомендации по улучшению качества услуг? \nОстались нерешённые вопросы после обслуживания? \nИли Вы просто хотите поделиться своими впечатлениями?',
+            title: 'Будь то благодарность или конструктивная критика, пишите и мы свяжемся с вами',
+            manager: {
+                title: 'Менеджер по работе с клиентами – Мария',
+                photo: {path: '/mock/feedback/maria.webp', alt: 'Мария'},
+            },
+            tires: {path: '/mock/feedback/tires.webp', alt: ''},
+            form: {
+                fields: [
+                    {
+                        name: 'name',
+                        label: 'Как к Вам обращаться?',
+                        type: 'text',
+                        placeholder: 'начните вводить',
+                        required: true,
+                    },
+                    {
+                        name: 'phone',
+                        label: 'Ваш номер телефона',
+                        type: 'tel',
+                        placeholder: 'начните вводить',
+                        required: true,
+                    },
+                ],
+                branch: {
+                    name: 'branch',
+                    label: 'В каком филиале Вы обслуживались',
+                    required: true,
+                    options: [
+                        {value: 'dorozhnaya', label: 'филиал на 2-ой Дорожной'},
+                        {value: 'maya', label: 'филиал на 1-го Мая'},
+                    ],
+                },
+                message: {
+                    name: 'message',
+                    label: 'Напишите Ваше обращение',
+                    hint: 'указание номера Заказ-наряда упрощает задачу по установлению обстоятельств по Вашему случаю',
+                    placeholder: 'начните вводить',
+                    required: false,
+                },
+                submitLabel: 'Отправить',
+            },
         },
     ],
 };

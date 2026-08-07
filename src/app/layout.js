@@ -22,7 +22,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="ru" className={fontVariables} suppressHydrationWarning>
-            <body>
+            <body className={'overflow-x-hidden'}>
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
                     <Header />
                         {children}

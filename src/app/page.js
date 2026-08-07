@@ -11,6 +11,7 @@ import Commercial from "@/components/sections/Commercial/Commercial";
 import Faq from "@/components/sections/Faq/Faq";
 import ContactForm from "@/components/sections/ContactForm/ContactForm";
 import Contacts from "@/components/sections/Contacts/Contacts";
+import Feedback from "@/components/sections/Feedback/Feedback";
 
 const SECTION_MAP = {
     hero: Hero,
@@ -25,6 +26,7 @@ const SECTION_MAP = {
     commercial: Commercial,
     contact_form: ContactForm,
     contacts: Contacts,
+    feedback: Feedback,
 };
 
 export default function Home() {
