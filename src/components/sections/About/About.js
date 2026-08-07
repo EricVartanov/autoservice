@@ -4,26 +4,32 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import Icon from "@/components/icons/Icon";
 import Image from "next/image";
 import QualityCard from "@/components/sections/About/QualityCard";
+import Statistic from "@/components/sections/About/Statistic";
 
 export default function About({data}) {
 
-    const {titleBack, cards, title, subtitle} = data
+    const {titleBack, cards, title, subtitle, stats} = data
     return (
-        <section className="relative py-[150] overflow-hidden">
-            <Container>
-               <SectionTitle titleBack={titleBack} title={title} subtitle={subtitle} />
+        <section className="overflow-hidden">
+            <div className={'relative py-[150]'}>
+                <Container>
+                    <SectionTitle titleBack={titleBack} title={title} subtitle={subtitle} />
 
-                <div className="relative mx-auto mt-20 flex justify-center items-center gap-7">
-                    {cards.map((card) => (
-                        <QualityCard key={card.title} card={card}/>
-                    ))}
+                    <div className="relative mx-auto mt-20 flex justify-center items-center gap-7">
+                        {cards.map((card) => (
+                            <QualityCard key={card.title} card={card}/>
+                        ))}
 
-                    {/* декоративные точки */}
-                    <div className="absolute z-[-1] w-[134] top-[-12%] left-[-2%] hidden md:block">
-                        <Icon name={'dots'} className={'text-primary-light w-[134]'} />
+                        {/* декоративные точки */}
+                        <div className="absolute z-[-1] w-[134] top-[-12%] left-[-2%] hidden md:block">
+                            <Icon name={'dots'} className={'text-primary-light w-[134]'} />
+                        </div>
                     </div>
-                </div>
-            </Container>
+                </Container>
+            </div>
+            <div>
+                <Statistic data={stats} />
+            </div>
         </section>
     );
 }
