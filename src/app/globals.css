@@ -19,6 +19,8 @@
     --color-platforms-border: #f4f4f4;
     --color-grey-white: rgba(0, 0, 0, 0.2);
     --color-white-grey: #ffffff;
+    --color-btn-shadow: rgba(0, 0, 0, 0.3);
+
 
 
     --shimmer-gradient: linear-gradient(
@@ -49,6 +51,8 @@
     --color-platforms-border: #000000;
     --color-grey-white: #ffffff;
     --color-white-grey: #1a1a1a;
+    --color-btn-shadow: rgba(255, 255, 255, 0.3);
+
 
     --shimmer-gradient: linear-gradient(
             90deg,
@@ -78,6 +82,7 @@
     --color-platforms-border: var(--color-platforms-border);
     --color-grey-white: var(--color-grey-white);
     --color-white-grey: var(--color-white-grey);
+    --color-btn-shadow: var(--color-btn-shadow);
 
     --shimmer-gradient: var(--shimmer-gradient);
 

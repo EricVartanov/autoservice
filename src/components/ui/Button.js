@@ -5,6 +5,9 @@ export default function Button({
                                    onClick,
                                    type = 'button',
                                    disabled = false,
+                                   href,
+                                   target,
+                                   rel,
                                    ...props
                                }) {
     const base =
@@ -18,12 +21,28 @@ export default function Button({
 
     };
 
+    const classes = `${base} ${variants[variant]} ${className}`;
+
+    if (href) {
+        return (
+            <a
+                href={href}
+                target={target}
+                rel={rel ?? (target === '_blank' ? 'noopener noreferrer' : undefined)}
+                className={classes}
+                {...props}
+            >
+                {children}
+            </a>
+        );
+    }
+
     return (
         <button
             type={type}
             onClick={onClick}
             disabled={disabled}
-            className={`${base} ${variants[variant]} ${className}`}
+            className={classes}
             {...props}
         >
             {children}

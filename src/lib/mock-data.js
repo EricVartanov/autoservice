@@ -32,18 +32,28 @@ export const mockBranches = [
     {
         id: 1,
         name: 'Филиал 1',
+        title: '2-я Дорожная',
         shortName: 'ф-л 2-я Дорожная',
-        workHours: 'Пн - Вс, с 09:00 до 20:00',
-        address: 'г. Краснодар, ул. 2-я Дорожная, д. 39',
-        phone: '+7 (861) 207-07-71'
+        workHours: 'Ежедневно с 9:00 до 20:00',
+        address: 'г. Краснодар, \nул. 2-я Дорожная, д. 39',
+        phone: '+7 (861) 207-07-71',
+        panoramaUrl: '#',
+        mapUrl: '#',
+        // lower pin on map (left card connector)
+        marker: {x: 52, y: 60},
     },
     {
         id: 2,
         name: 'Филиал 2',
+        title: '1-го Мая',
         shortName: 'ф-л 1-го Мая',
-        workHours: 'Пн - Вс, с 09:00 до 20:00',
-        address: 'г. Краснодар, ул. 1-го Мая, д. 316',
-        phone: '+7 (861) 207-17-74'
+        workHours: 'Ежедневно с 9:00 до 20:00',
+        address: 'г. Краснодар, \nул. 1-го Мая, д. 316',
+        phone: '+7 (861) 207-17-74',
+        panoramaUrl: '#',
+        mapUrl: '#',
+        // upper pin on map (right card connector)
+        marker: {x: 53, y: 40},
     },
 ];
 
@@ -481,14 +491,6 @@ export const mockPage = {
             ],
         },
         {
-            type: 'news',
-            title: 'Новости',
-            items: [
-                {title: 'Новость 1', excerpt: '...', date: '2026-07-20', image: '/mock/news-1.jpg', slug: 'news-1'},
-                {title: 'Новость 2', excerpt: '...', date: '2026-07-15', image: '/mock/news-2.jpg', slug: 'news-2'},
-            ],
-        },
-        {
             type: 'contact_form',
             id: 'contact-form',
             title: 'Не откладывайте ремонт — чем раньше Вы решите вопрос, тем дешевле он Вам обойдётся!',
@@ -597,6 +599,14 @@ export const mockPage = {
                 },
                 submitLabel: 'Отправить',
             },
+        },
+        {
+            type: 'contacts',
+            id: 'contacts',
+            email: 'Avtoritet-servis23@yandex.ru',
+            mapImage: '/mock/contacts/map.svg',
+            mapAlt: 'Карта Краснодарского края',
+            branches: mockBranches,
         },
     ],
 };
