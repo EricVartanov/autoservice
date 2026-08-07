@@ -9,6 +9,7 @@ import SpecialOffer from "@/components/sections/SpecialOffer/SpecialOffer";
 import Reviews from "@/components/sections/Reviews/Reviews";
 import Commercial from "@/components/sections/Commercial/Commercial";
 import Faq from "@/components/sections/Faq/Faq";
+import ContactForm from "@/components/sections/ContactForm/ContactForm";
 
 const SECTION_MAP = {
     hero: Hero,
@@ -21,6 +22,7 @@ const SECTION_MAP = {
     reviews: Reviews,
     faq: Faq,
     commercial: Commercial,
+    contact_form: ContactForm,
 };
 
 export default function Home() {

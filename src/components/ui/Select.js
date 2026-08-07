@@ -65,7 +65,7 @@ export default function Select({
                         animate={{opacity: 1, y: 0, scale: 1}}
                         exit={{opacity: 0, y: -8, scale: 0.98}}
                         transition={{duration: 0.15, ease: "easeOut"}}
-                        className="absolute left-0 right-0 top-full mt-2 z-30 rounded-xl border border-white/10 bg-black/60 shadow-[0_8px_30px_rgba(0,0,0,0.4)] overflow-hidden py-1 max-h-60 overflow-y-auto"
+                        className="absolute left-0 right-0 top-full mt-2 z-30 rounded-xl border border-white/10 bg-black/90 shadow-[0_8px_30px_rgba(0,0,0,0.4)] overflow-hidden py-1 max-h-60 overflow-y-auto"
                     >
                         {options.map((opt) => {
                             const val = opt.value ?? opt;
@@ -82,7 +82,7 @@ export default function Select({
                                         className={`w-full text-left px-4 py-2.5 text-sm transition-colors cursor-pointer ${
                                             isActive
                                                 ? "text-primary bg-primary/10"
-                                                : "text-foreground-fixed hover:bg-white/5 hover:text-foreground-light-fixed"
+                                                : "text-foreground-fixed hover:bg-white/50 hover:text-foreground-light-fixed"
                                         }`}
                                     >
                                         {label}
