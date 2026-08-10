@@ -18,7 +18,7 @@ const SECTION_MAP = {
     about: About,
     services: Services,
     steps: Steps,
-    // team: Team,
+    team: Team,
     // specialOffer: SpecialOffer,
     // reviews: Reviews,
     // faq: Faq,

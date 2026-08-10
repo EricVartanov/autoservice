@@ -11,7 +11,7 @@ function StepList({steps, className = ''}) {
     return (
         <div className={className}>
             {steps.map((step) => (
-                <div key={step.number}>
+                <div key={step.number} className={'md:max-w-[calc(50%-25px)] lg:max-w-[calc(50%-30px)]'}>
                     <div className={'relative inline-block'}>
                         <span className={'text-sm font-helvetica text-foreground-fixed'}>
                             {step.number}
@@ -66,7 +66,7 @@ export default function Steps({data}) {
                                     />
                                     <StepList
                                         steps={steps}
-                                        className="mt-[30] flex flex-col gap-5 md:mt-[50] md:flex-row md:flex-wrap md:gap-x-[50] md:gap-y-9 lg:gap-y-[24] md:[&>div]:max-w-[calc(50%-12px)] lg:[&>div]:max-w-[calc(50%-30px)]"
+                                        className="mt-[30] flex flex-col gap-5 md:mt-[50] md:flex-row md:flex-wrap md:gap-x-[50] md:gap-y-9 lg:gap-y-[24]"
                                     />
                                 </div>
                             </Container>
