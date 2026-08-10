@@ -47,7 +47,7 @@ export default function MainNav({data, isHome, collapsed}) {
     const closeMenu = () => setMenuOpen(false);
 
     return (
-        <nav className="relative flex flex-col gap-4 pt-5 pb-4 text-lg text-foreground-fixed lg:flex-row lg:items-center lg:justify-between lg:gap-0">
+        <nav className="relative flex flex-col gap-5 xl:gap-4 pt-5 pb-4 md:pb-5 xl:pb-4 text-lg text-foreground-fixed lg:flex-row lg:items-center lg:justify-between lg:gap-0">
             {/* Logo + actions (< lg) */}
             <div className="flex items-center justify-between lg:hidden">
                 <Link href="/">
@@ -56,11 +56,11 @@ export default function MainNav({data, isHome, collapsed}) {
                         alt={data.logo.alt}
                         width={343}
                         height={122}
-                        className="h-auto w-28 max-md:w-24"
+                        className="h-auto w-36 max-md:w-24"
                     />
                 </Link>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-5 md:gap-7">
                     {data.socials.map((social) => (
                         <a
                             key={social.name}
@@ -84,7 +84,7 @@ export default function MainNav({data, isHome, collapsed}) {
                             type="button"
                             onClick={() => setBranchesOpen((v) => !v)}
                             aria-expanded={branchesOpen}
-                            className="inline-flex cursor-pointer items-center gap-2.5 rounded-full border border-white/40 px-4 py-2 text-base text-foreground-fixed transition hover:bg-white/5"
+                            className="inline-flex cursor-pointer items-center gap-2.5 rounded-full border border-foreground-fixed px-8 py-1.5 text-base text-foreground-fixed transition hover:bg-white/5"
                         >
                             Филиалы
                             <span className="flex flex-col gap-1" aria-hidden>
@@ -227,7 +227,7 @@ export default function MainNav({data, isHome, collapsed}) {
             )}
 
             {/* Menu row: tablet + desktop (hidden on mobile) */}
-            <ul className="hidden flex-wrap items-center gap-x-4 gap-y-2 text-sm text-white md:flex max-lg:justify-start sm:gap-x-5 lg:gap-7 lg:text-lg">
+            <ul className="hidden flex-wrap items-center gap-x-4 gap-y-2 text-sm text-foreground-fixed md:flex max-lg:justify-start sm:gap-x-5 lg:gap-6 xl:gap-7 lg:text-lg">
                 {data.menu.map((item) => (
                     <li key={item.link}>
                         <Link href={item.link} className="transition-colors hover:text-white/70">

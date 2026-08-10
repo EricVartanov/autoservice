@@ -12,7 +12,7 @@ export default function TopBar({logo}) {
     return (
         <div className="flex items-center justify-between">
             {leftBranch && (
-                <div className={'text-left hidden xl:flex flex-col text-lg'}>
+                <div className={'text-left hidden lg:flex flex-col text-lg'}>
                     <div className={'flex text-foreground-light-fixed gap-10'}>
                         <span>{leftBranch.name}</span>
                         <span>{leftBranch.workHours}</span>
@@ -34,7 +34,7 @@ export default function TopBar({logo}) {
             </Link>
 
             {rightBranch && (
-                <div className={'text-right hidden xl:flex flex-col text-lg'}>
+                <div className={'text-right hidden lg:flex flex-col text-lg'}>
                     <div className={'flex text-foreground-light-fixed gap-10 justify-end'}>
                         <span>{rightBranch.name}</span>
                         <span>{rightBranch.workHours}</span>

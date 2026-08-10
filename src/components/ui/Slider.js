@@ -1,10 +1,14 @@
 'use client';
 
 import {useState, useEffect, useCallback} from 'react';
+import {motion} from 'framer-motion';
 import Icon from '@/components/icons/Icon';
 
 const arrowBtnClass =
     'w-9 h-9 text-foreground-fixed hover:opacity-60 cursor-pointer';
+
+const SWIPE_OFFSET = 50;
+const SWIPE_VELOCITY = 300;
 
 export default function Slider({
     count,
@@ -13,6 +17,7 @@ export default function Slider({
     pauseOnHover = false,
     showArrows = true,
     arrowsPlacement = 'stack',
+    swipeable = false,
     className = '',
     children,
 }) {
@@ -36,6 +41,19 @@ export default function Slider({
         return () => clearInterval(t);
     }, [autoplay, paused, next, interval, count]);
 
+    const handleDragEnd = useCallback(
+        (_event, info) => {
+            const {offset, velocity} = info;
+            if (Math.abs(offset.y) > Math.abs(offset.x)) return;
+            if (offset.x < -SWIPE_OFFSET || velocity.x < -SWIPE_VELOCITY) {
+                next();
+            } else if (offset.x > SWIPE_OFFSET || velocity.x > SWIPE_VELOCITY) {
+                prev();
+            }
+        },
+        [next, prev],
+    );
+
     if (count <= 0) return null;
 
     const hoverProps =
@@ -48,11 +66,25 @@ export default function Slider({
 
     const arrowsVisible = showArrows && count > 1;
 
+    const content =
+        typeof children === 'function'
+            ? children({index, direction})
+            : children;
+
     return (
         <div className={`relative overflow-hidden ${className}`} {...hoverProps}>
-            {typeof children === 'function'
-                ? children({index, direction})
-                : children}
+            {swipeable && count > 1 ? (
+                <motion.div
+                    drag="x"
+                    dragConstraints={{left: 0, right: 0}}
+                    dragElastic={0.15}
+                    onDragEnd={handleDragEnd}
+                >
+                    {content}
+                </motion.div>
+            ) : (
+                content
+            )}
 
             {arrowsVisible && arrowsPlacement === 'stack' && (
                 <div className="absolute z-10 top-0 right-0 flex gap-3.5 shrink-0">

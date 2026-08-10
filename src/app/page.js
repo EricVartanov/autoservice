@@ -15,17 +15,17 @@ import SectionIndicator from '@/components/ui/SectionIndicator';
 
 const SECTION_MAP = {
     hero: Hero,
-    about: About,
-    services: Services,
-    steps: Steps,
-    team: Team,
-    specialOffer: SpecialOffer,
-    reviews: Reviews,
-    faq: Faq,
-    commercial: Commercial,
-    contact_form: ContactForm,
-    contacts: Contacts,
-    feedback: Feedback,
+    // about: About,
+    // services: Services,
+    // steps: Steps,
+    // team: Team,
+    // specialOffer: SpecialOffer,
+    // reviews: Reviews,
+    // faq: Faq,
+    // commercial: Commercial,
+    // contact_form: ContactForm,
+    // contacts: Contacts,
+    // feedback: Feedback,
 };
 
 /** Ordered section meta for scroll indicator (must match mockPage.sections order). */

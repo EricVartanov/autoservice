@@ -11,18 +11,20 @@ import {useModalStore} from "../../../../public/store/useModalStore";
 import Button from "@/components/ui/Button";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import Slider from "@/components/ui/Slider";
+import {useMediaQuery} from "@/hooks/useMediaQuery";
 
 export default function Hero({data}) {
     const {title, backgroundVideo, slides, stats, cta, phone, brands} = data
 
     const openModal = useModalStore((s) => s.openModal);
+    const isMobile = useMediaQuery('(max-width: 767px)');
 
     const scrollToForm = () => {
         document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
     };
 
     return (
-        <section className="relative flex flex-col justify-end overflow-hidden bg-black max-lg:pt-40 max-md:pt-28 lg:pt-[290]">
+        <section className="relative flex flex-col justify-end overflow-hidden bg-black max-lg:pt-40 max-md:pt-22 lg:pt-[290]">
            <Container>
                {/* фон */}
                <div className="absolute inset-0">
@@ -30,26 +32,19 @@ export default function Hero({data}) {
                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20"/>
                </div>
 
-               {/* Title; tablet: + stats side by side */}
-               <div className="relative z-10 flex items-start justify-between gap-6 lg:block">
-                   <h1 className="relative font-heading font-bold text-foreground-fixed text-7xl md:text-6xl leading-none whitespace-pre-line max-lg:text-[40px] max-md:text-[28px] md:max-lg:text-[48px]">
-                       {title}
-                   </h1>
-                   <div className="hidden shrink-0 md:block lg:hidden">
-                       <HeroStats stats={stats} compact />
-                   </div>
-               </div>
+               {/* Title;*/}
+               <h1 className="relative font-heading font-bold text-foreground-fixed text-7xl md:text-6xl leading-none whitespace-pre-line max-lg:text-[40px] max-md:text-[28px] md:max-lg:text-[48px]">
+                   {title}
+               </h1>
 
-               {/* Mobile: stats in a row under title */}
-               <div className="relative z-10 mt-8 md:hidden">
-                   <HeroStats stats={stats} layout="row" />
-               </div>
 
                {/* нижний блок: слайдер + статистика (desktop) */}
-               <div className="relative z-10 mt-10 flex flex-col items-start justify-between max-lg:mt-12 max-md:mt-8 lg:mt-[210] lg:flex-row">
+               <div className="relative z-10 gap-[90] md:gap-[65] lg:gap-unset flex flex-col-reverse items-start md:items-end lg:items-start justify-between mt-5 md:mt-7 lg:mt-[210] lg:flex-row">
                    <Slider
                        count={slides.length}
                        arrowsPlacement="stack"
+                       swipeable={isMobile}
+                       showArrows={!isMobile}
                        className="w-full max-lg:max-w-none lg:w-lg"
                    >
                        {({index, direction}) => (
@@ -61,14 +56,12 @@ export default function Hero({data}) {
                        )}
                    </Slider>
 
-                   <div className="hidden lg:block">
-                       <HeroStats stats={stats}/>
-                   </div>
+                    <HeroStats stats={stats}/>
                </div>
 
                {/* кнопки действия */}
-               <div className="relative z-10 flex items-center gap-4 px-0 pb-10 pt-8 max-lg:justify-start max-md:pt-6 max-md:pb-8 lg:justify-center lg:px-8">
-                   <Button variant="primary" onClick={scrollToForm} className="max-md:flex-1 max-md:min-w-0">
+               <div className="relative z-10 flex items-center gap-4 px-0 pb-5 md:pb-9 pt-4 md:pt-8 lg:pb-10 justify-center lg:px-8">
+                   <Button variant="primary" onClick={scrollToForm}>
                        {cta.label}
                    </Button>
 
@@ -83,7 +76,7 @@ export default function Hero({data}) {
            </Container>
 
             {/* бегущая лента брендов / mobile grid */}
-            <div className="relative z-10 py-[60] max-md:py-8 bg-brands-bg">
+            <div className="relative z-10 py-[50] md:py-[60] bg-brands-bg">
                 <BrandsMarquee brands={brands}/>
             </div>
         </section>
