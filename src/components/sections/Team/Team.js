@@ -11,7 +11,7 @@ export default function Team({data}) {
     const {title, mark, titleBack, highlightHtml, subtitle, image} = data
 
     return (
-        <section className="relative py-24 md:py-[150]">
+        <section className="relative py-24 lg:py-[150]">
             <Container>
                 <SectionTitle
                     variant="center"

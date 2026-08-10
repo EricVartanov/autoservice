@@ -18,12 +18,12 @@ export default function Services({data}) {
     const hasMore = visibleCount < services.length;
 
     return (
-        <section className="relative py-24 px-6 md:px-10 overflow-hidden">
+        <section className="relative py-24 px-6 max-md:px-0 max-md:py-14 md:px-10 overflow-hidden">
             <Container className={'relative'}>
                <SectionTitle titleBack={titleBack} title={title} mark={mark} variant={'left'}/>
 
                 {/* сетка услуг */}
-                <div className="mt-[84] flex flex-wrap gap-[30] justify-start">
+                <div className="mt-[84] grid grid-cols-4 gap-[30] max-lg:grid-cols-2 max-lg:gap-5 max-md:mt-10 max-md:grid-cols-1 max-md:gap-4">
                     {visibleServices.map((service) => (
                         <ServiceCard key={service.slug} service={service}/>
                     ))}
@@ -31,11 +31,11 @@ export default function Services({data}) {
 
                 {/* показать еще */}
                 {hasMore && (
-                    <div className="mt-20 flex justify-center">
+                    <div className="mt-20 max-md:mt-10 flex justify-center">
                         <Button
                             variant={'transparent'}
                             onClick={() => setVisibleCount((c) => c + LOAD_STEP)}
-                            className={'text-transparent-btn-text px-12 hover:bg-foreground-fixed hover:text-black'}
+                            className={'text-transparent-btn-text px-12 max-md:px-8 hover:bg-foreground-fixed hover:text-black'}
                         >
                             Показать еще
                         </Button>

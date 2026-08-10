@@ -26,10 +26,10 @@ export default function SectionIndicator({ sections }) {
     // In site dark mode theme-aware sections become black — always use light indicator
     const effectiveTheme = resolvedTheme === 'dark' ? 'dark' : theme;
     const color = THEME_COLOR[effectiveTheme] ?? THEME_COLOR.dark;
-    console.log(sections)
+
     return (
         <motion.div
-            className="pointer-events-none fixed top-[30%] right-[9%] z-40 hidden flex-col items-center gap-2.5 lg:flex"
+            className="pointer-events-none fixed top-[30%] z-50 hidden flex-col items-center gap-2.5 lg:flex right-[max(0px,calc((100vw-var(--max-width-container))/2))]"
             animate={{ color }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             aria-hidden

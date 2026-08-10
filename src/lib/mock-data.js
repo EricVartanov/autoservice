@@ -26,10 +26,10 @@ export const mockFooter = {
         {label: 'Согласие на обработку перс. данных', link: '#'},
     ],
     branches: [
-        {label: 'ф-л 2-я Дорожная', link: '#', logo: '/mock/max-logo.png'},
-        {label: 'ф-л 1-го Мая', link: '#', logo: '/mock/max-logo.png'},
+        {label: 'ф-л 2-я Дорожная', link: '#', logo: '/mock/max-logo-black.png', logoDark: '/mock/max-logo.png'},
+        {label: 'ф-л 1-го Мая', link: '#', logo: '/mock/max-logo-black.png', logoDark: '/mock/max-logo.png'},
     ],
-    socials: [{name: 'vk', url: 'https://vk.com/example', logo: '/mock/vk-logo.png', alt: 'Vk'}],
+    socials: [{name: 'vk', url: 'https://vk.com/example', logo: '/mock/vk-logo-black.png', logoDark: '/mock/vk-logo.png', alt: 'Vk'}],
 };
 
 export const mockBranches = [

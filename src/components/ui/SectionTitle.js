@@ -29,14 +29,14 @@ export default function SectionTitle({
             )}
 
             <div className={'relative'}>
-                <h2 className={`font-heading tracking-tight text-[54px] ${titleColor} leading-none whitespace-pre-line`}>
+                <h2 className={`font-heading tracking-tight text-[54px] max-lg:text-[36px] max-md:text-[28px] ${titleColor} leading-none whitespace-pre-line`}>
                     {title}
                 </h2>
 
                 {titleBack && (
                     <ShimmerText
                         as="h3"
-                        className={`absolute left-1/2 -translate-x-1/2 z-[-1] bottom-0 whitespace-nowrap text-[120px] leading-none font-bold font-heading tracking-tight ${titleBackPosition}`}
+                        className={`absolute left-1/2 -translate-x-1/2 z-[-1] bottom-0 whitespace-nowrap text-[120px] max-lg:text-[64px] max-md:text-[42px] leading-none font-bold font-heading tracking-tight ${titleBackPosition}`}
                     >
                         {titleBack}
                     </ShimmerText>
@@ -45,7 +45,7 @@ export default function SectionTitle({
 
             {highlightHtml ? (
                 <div className="mt-9 text-left flex flex-col lg:justify-between gap-2.5">
-                    <p className="max-w-md text-[34px] font-bold font-heading leading-none [&_span]:text-primary"
+                    <p className="max-w-md text-[34px] max-lg:text-[24px] max-md:text-[20px] font-bold font-heading leading-none [&_span]:text-primary"
                        dangerouslySetInnerHTML={{__html: highlightHtml}}>
                     </p>
                     {subtitle && (
@@ -56,7 +56,7 @@ export default function SectionTitle({
                 </div>
             ) : (
                 subtitle && (
-                    <p className={`mt-7 max-w-2xl mx-auto text-lg text-foreground-light leading-6 whitespace-pre-line ${subtitleClass}`}>
+                    <p className={`mt-7 max-w-2xl mx-auto text-lg max-md:mt-5 max-md:text-base text-foreground-light leading-6 whitespace-pre-line ${subtitleClass}`}>
                         {subtitle}
                     </p>
                 )

@@ -10,7 +10,7 @@ export default function TopBar({logo}) {
     const rightBranch = branches[1];
 
     return (
-        <div className="flex items-center justify-between text-xs">
+        <div className="flex items-center justify-between">
             {leftBranch && (
                 <div className={'text-left hidden xl:flex flex-col text-lg'}>
                     <div className={'flex text-foreground-light-fixed gap-10'}>

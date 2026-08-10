@@ -91,6 +91,25 @@ export default function Slider({
                     </button>
                 </>
             )}
+
+            {arrowsVisible && arrowsPlacement === 'bottom' && (
+                <div className="relative z-10 mt-4 flex items-center justify-center gap-10">
+                    <button
+                        onClick={prev}
+                        className={arrowBtnClass}
+                        aria-label="Предыдущий слайд"
+                    >
+                        <Icon name="arrow-left" className="w-8 h-8" />
+                    </button>
+                    <button
+                        onClick={next}
+                        className={arrowBtnClass}
+                        aria-label="Следующий слайд"
+                    >
+                        <Icon name="arrow-right" className="w-8 h-8" />
+                    </button>
+                </div>
+            )}
         </div>
     );
 }

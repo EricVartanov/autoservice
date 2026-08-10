@@ -129,7 +129,7 @@ export default function Commercial({data}) {
         }
 
         return (
-            <div key={field.name} className={'min-w-[320] relative'}>
+            <div key={field.name} className={'min-w-0 lg:max-w-[320px] w-full relative'}>
                 <label className="block text-base font-helvetica font-bold text-foreground-fixed mb-3.5">
                     {field.label}
                     {field.required && <span className="text-primary"> *</span>}
@@ -145,13 +145,13 @@ export default function Commercial({data}) {
     };
 
     return (
-        <section className="relative pt-[150] pb-[60]">
+        <section className="relative pt-[150] pb-[60] max-lg:pt-24 max-lg:pb-12">
             <div className="absolute inset-0 -z-10 overflow-hidden">
                 <Image src={backgroundImage.path} alt={backgroundImage.alt} fill className="object-cover"/>
             </div>
 
             <Container className="relative flex flex-col justify-between">
-               <div className={'w-1/2 ml-auto'}>
+               <div className={'w-1/2 ml-auto max-lg:ml-0 max-lg:w-full'}>
                    <SectionTitle
                        variant="left"
                        mark={mark}
@@ -171,9 +171,9 @@ export default function Commercial({data}) {
                    )}
                </div>
 
-                <div className="flex flex-wrap gap-12 mt-4">
+                <div className="flex flex-wrap gap-12 mt-4 max-lg:justify-center max-lg:gap-8">
                     {limitations.map((item, i) => (
-                        <div key={i} className="flex flex-col items-start gap-3.5 max-w-[250px]">
+                        <div key={i} className="flex flex-col items-start gap-3.5 max-w-[250px] max-lg:items-center max-lg:text-center">
                             <span className="shrink-0 size-[50] rounded-full bg-primary flex items-center justify-center">
                                 <Image src={item.image} width={40} height={40} className="text-white" alt={item.alt}/>
                             </span>
@@ -187,13 +187,13 @@ export default function Commercial({data}) {
                 <form
                     onSubmit={handleSubmit}
                     noValidate
-                    className="mt-10 rounded-[30] bg-black/60 p-[50]"
+                    className="mt-10 rounded-[30] bg-black/60 p-[50] max-lg:p-6"
                 >
-                    <div className="flex flex-col md:flex-row md:items-end">
-                        <div className={'flex flex-col md:flex-row md:items-end gap-7 md:gap-6'}>
+                    <div className="flex flex-col lg:flex-row lg:items-end lg:gap-7">
+                        <div className={'flex flex-col gap-7 min-w-0 flex-1 lg:flex-row lg:items-end lg:gap-6'}>
                             {form.fields.map(renderField)}
                         </div>
-                        <Button type="submit" className="shrink-0 ml-auto min-w-[260] px-10 w-full md:w-auto">
+                        <Button type="submit" className="shrink-0 ml-auto min-w-0 px-10 w-full max-lg:mt-6 lg:w-auto lg:min-w-[200] xl:min-w-[260]">
                             {form.submitLabel}
                         </Button>
                     </div>

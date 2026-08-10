@@ -5,7 +5,7 @@ export default function ServiceCard({service}) {
     return (
 
         <div
-            className={`cursor-pointer group overflow-hidden relative rounded-[30] w-full max-w-[356] min-h-[330] flex flex-col justify-end p-7`}
+            className={`cursor-pointer group overflow-hidden relative rounded-[30] w-full min-h-[330] max-lg:min-h-[280] max-md:min-h-[240] flex flex-col justify-end p-7 max-lg:p-5 max-md:p-4`}
         >
             <Image
                 src={service.image}
