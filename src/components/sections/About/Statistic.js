@@ -3,11 +3,13 @@ import StatBlock from "@/components/sections/About/StatBlock";
 
 export default function Statistic({data}) {
     return (
-        <section className={'py-20 max-md:py-12 bg-primary'}>
+        <section className={'py-[60] md:py-20 bg-primary'}>
             <Container>
-                <div className={'flex justify-between gap-24 max-lg:grid max-lg:grid-cols-2 max-lg:gap-x-8 max-lg:gap-y-10 max-md:gap-x-4 max-md:gap-y-8'}>
+                <div className={'flex lg:justify-between justify-center flex-wrap lg:flex-nowrap gap-x-1 gap-y-5 md:gap-x-10 md:gap-y-[30]'}>
                     {data.map((stat) => (
-                        <StatBlock key={stat.id} data={stat}/>
+                        <div key={stat.id}  className={'w-[calc(50%-2px)] md:w-[calc(50%-20px)] lg:w-1/4'}>
+                            <StatBlock data={stat}/>
+                        </div>
                     ))}
                 </div>
             </Container>

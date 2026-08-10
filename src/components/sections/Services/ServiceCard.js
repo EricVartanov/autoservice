@@ -5,7 +5,7 @@ export default function ServiceCard({service}) {
     return (
 
         <div
-            className={`cursor-pointer group overflow-hidden relative rounded-[30] w-full min-h-[330] max-lg:min-h-[280] max-md:min-h-[240] flex flex-col justify-end p-7 max-lg:p-5 max-md:p-4`}
+            className={`cursor-pointer group overflow-hidden relative rounded-[30] w-full min-h-[200] md:min-h-[300] lg:min-h-[330] flex flex-col justify-end p-7 md:pb-11 lg:p-7`}
         >
             <Image
                 src={service.image}
@@ -19,11 +19,11 @@ export default function ServiceCard({service}) {
             />
 
             <div className={'flex h-full z-10 flex-col justify-end items-center'}>
-                <h3 className="text-foreground-fixed font-bold font-heading text-[22px] leading-none max-w-4/5 text-center">
+                <h3 className="text-foreground-fixed font-bold font-heading text-lg md:text-[22px] leading-none md:max-w-4/5 text-center">
                     {service.title}
                 </h3>
-                <p className="mt-5 text-foreground-fixed text-lg">{service.price}</p>
-                <Button variant={'serviceCard'} className={'mt-12 bg-primary transition text-foreground-fixed group-hover:bg-foreground-fixed group-hover:text-primary'}>
+                <p className="mt-2.5 lg:mt-5 text-foreground-fixed text-sm md:text-lg">{service.price}</p>
+                <Button variant={'serviceCard'} className={'mt-5 md:mt-[30] lg:mt-12 bg-primary transition text-foreground-fixed group-hover:bg-foreground-fixed group-hover:text-primary'}>
                     Подробнее
                 </Button>
             </div>

@@ -81,13 +81,13 @@ export default function Feedback({data}) {
         }`;
 
     return (
-        <section className="relative bg-background-secondary py-[150] max-lg:py-20">
+        <section className="relative bg-background-secondary py-20 lg:py-[150]">
             <Container className="relative">
-                <div className="relative z-[21] flex gap-5 justify-between max-lg:flex-col">
+                <div className="relative z-[21] flex flex-col gap-5 lg:flex-row lg:justify-between">
                     <form
                         onSubmit={handleSubmit}
                         noValidate
-                        className={`w-[calc(50%-10px)] max-lg:w-full relative z-10 flex flex-col rounded-[30] py-12 px-10 max-lg:px-6 max-lg:py-8 text-foreground-fixed ${cardGradient}`}
+                        className={`w-full lg:w-[calc(50%-10px)] relative z-10 flex flex-col rounded-[30] py-8 px-6 lg:py-12 lg:px-10 text-foreground-fixed ${cardGradient}`}
                     >
                         <p className="font-helvetica text-lg leading-tight text-foreground-light-fixed whitespace-break-spaces">
                             {intro}
@@ -96,14 +96,14 @@ export default function Feedback({data}) {
                             {title}
                         </h2>
 
-                        <div className="mt-12 flex gap-7 max-lg:flex-col max-lg:gap-5">
+                        <div className="mt-12 flex flex-col gap-5 lg:flex-row lg:gap-7">
                             {form.fields.map((field) => {
                                 const hasError = !!errors[field.name];
 
                                 return (
                                     <div
                                         key={field.name}
-                                        className="relative w-full sm:w-[calc(50%-14px)] max-lg:sm:w-full"
+                                        className="relative w-full lg:w-[calc(50%-14px)]"
                                     >
                                         <label className="mb-2.5 block font-helvetica text-base font-bold">
                                             {field.label}
@@ -220,7 +220,7 @@ export default function Feedback({data}) {
                     </form>
 
                     <div
-                        className={`w-[calc(50%-10px)] max-lg:w-full max-h-[544] max-lg:max-h-[420] relative z-10 flex flex-col overflow-hidden rounded-[30] py-12 px-10 max-lg:px-6 ${cardGradient2}`}
+                        className={`w-full lg:w-[calc(50%-10px)] max-h-[420] lg:max-h-[544] relative z-10 flex flex-col overflow-hidden rounded-[30] py-12 px-6 lg:px-10 ${cardGradient2}`}
                     >
                         <p className="z-10 font-heading leading-none text-[22px] whitespace-break-spaces text-foreground-fixed max-w-[230]">
                             {manager.title}
@@ -238,7 +238,7 @@ export default function Feedback({data}) {
                 </div>
             </Container>
             {/*{tires?.path && (*/}
-            {/*    <div className="pointer-events-none z-20 absolute w-full max-w-[860] right-[-12%] bottom-[-13%] max-lg:opacity-40 max-lg:max-w-[420] max-lg:right-[-8%] max-lg:bottom-[-5%]">*/}
+            {/*    <div className="pointer-events-none z-20 absolute w-full max-w-[420] right-[-8%] bottom-[-5%] opacity-40 lg:opacity-100 lg:max-w-[860] lg:right-[-12%] lg:bottom-[-13%]">*/}
             {/*        <Image*/}
             {/*            src={tires.path}*/}
             {/*            alt={tires.alt || ""}*/}

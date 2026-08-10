@@ -24,7 +24,7 @@ export default function Hero({data}) {
     };
 
     return (
-        <section className="relative flex flex-col justify-end overflow-hidden bg-black max-lg:pt-40 max-md:pt-22 lg:pt-[290]">
+        <section className="relative flex flex-col justify-end overflow-hidden bg-black pt-22 md:pt-40 lg:pt-[290]">
            <Container>
                {/* фон */}
                <div className="absolute inset-0">
@@ -33,7 +33,7 @@ export default function Hero({data}) {
                </div>
 
                {/* Title;*/}
-               <h1 className="relative font-heading font-bold text-foreground-fixed text-7xl md:text-6xl leading-none whitespace-pre-line max-lg:text-[40px] max-md:text-[28px] md:max-lg:text-[48px]">
+               <h1 className="relative font-heading font-bold text-foreground-fixed text-[28px] md:text-[48px] lg:text-7xl leading-none whitespace-pre-line">
                    {title}
                </h1>
 
@@ -45,7 +45,7 @@ export default function Hero({data}) {
                        arrowsPlacement="stack"
                        swipeable={isMobile}
                        showArrows={!isMobile}
-                       className="w-full max-lg:max-w-none lg:w-lg"
+                       className="w-full max-w-none lg:w-lg"
                    >
                        {({index, direction}) => (
                            <HeroSlideContent
@@ -69,7 +69,7 @@ export default function Hero({data}) {
                        <Icon name="phone-unfilled" className="w-6 h-6"/>
                    </Button>
 
-                   <div className={'absolute z-10 -top-2 right-0 w-[70] h-[70] max-lg:hidden'}>
+                   <div className={'absolute z-10 -top-2 right-0 w-[70] h-[70] hidden lg:block'}>
                        <ThemeToggle />
                    </div>
                </div>

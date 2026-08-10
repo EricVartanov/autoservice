@@ -60,14 +60,14 @@ export default function Faq({data}) {
                             variant="left"
                         />
 
-                        <div className="mt-12 flex flex-wrap items-center gap-7 max-lg:gap-3">
+                        <div className="mt-12 flex flex-wrap items-center gap-3 lg:gap-7">
                             {messengers?.map((messenger) => (
                                 <a
                                     key={messenger.name}
                                     href={messenger.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="rounded-full flex gap-2.5 min-w-[253] max-lg:min-w-0 max-lg:flex-1 justify-center items-center bg-primary px-7 max-lg:px-4 py-3 text-lg max-lg:text-base font-helvetica text-foreground-fixed transition hover:opacity-90"
+                                    className="rounded-full flex gap-2.5 min-w-0 flex-1 lg:min-w-[253] lg:flex-none justify-center items-center bg-primary px-4 lg:px-7 py-3 text-base lg:text-lg font-helvetica text-foreground-fixed transition hover:opacity-90"
                                 >
                                     <Image src={messenger.logo} width={30} height={30} alt={messenger.alt} className={'size-[30] text-foreground-fixed'}/>
                                     {messenger.name}

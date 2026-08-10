@@ -49,7 +49,7 @@ export default function Reviews({data}) {
         <section className="relative py-24 md:py-32 overflow-hidden">
             <BlurredCircle className={'right-[-15%] top-[25%]  transform'}/>
             <Container>
-                <div className="flex items-center justify-between gap-8 max-lg:flex-col max-lg:items-start max-lg:gap-6">
+                <div className="flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
                     <SectionTitle title={title} titleBack={titleBack} mark={mark} variant={'left'}
                                   titleBackPosition={'left-full'}/>
 
@@ -66,7 +66,7 @@ export default function Reviews({data}) {
                                 ))}
                             </div>
                             <div className="leading-none">
-                                <p className="text-[34px] max-lg:text-[28px] font-bold text-transparent-btn-text font-heading">{summary.count}</p>
+                                <p className="text-[28px] lg:text-[34px] font-bold text-transparent-btn-text font-heading">{summary.count}</p>
                                 <p className="text-base text-foreground font-helvetica">{summary.countLabel}</p>
                             </div>
                         </div>
@@ -74,7 +74,7 @@ export default function Reviews({data}) {
                 </div>
 
                 <div
-                    className="mt-[70] flex bg-white-grey flex-col rounded-full max-lg:rounded-3xl shadow-[0px_4px_20px_0_rgba(0,0,0,0.15)] md:flex-row md:items-center md:justify-between gap-4 px-10 max-lg:px-5 py-3.5">
+                    className="mt-[70] flex bg-white-grey flex-col rounded-3xl lg:rounded-full shadow-[0px_4px_20px_0_rgba(0,0,0,0.15)] md:flex-row md:items-center md:justify-between gap-4 px-5 lg:px-10 py-3.5">
                     <div className="flex flex-wrap items-center gap-2">
                         {availableBranches.map((branch) => (
                             <button
@@ -91,7 +91,7 @@ export default function Reviews({data}) {
                         ))}
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-6 max-lg:gap-4">
+                    <div className="flex flex-wrap items-center gap-4 lg:gap-6">
                         {platforms.map((platform) => (
                             <button
                                 key={platform.id}
@@ -107,7 +107,7 @@ export default function Reviews({data}) {
                     </div>
                 </div>
 
-                <motion.div layout className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-lg:grid-cols-1 xl:gap-7">
+                <motion.div layout className="mt-12 grid grid-cols-1 lg:grid-cols-4 gap-4 xl:gap-7">
                     <AnimatePresence>
                         {visible.map((review) => (
                             <motion.div

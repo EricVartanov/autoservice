@@ -56,7 +56,7 @@ export default function MainNav({data, isHome, collapsed}) {
                         alt={data.logo.alt}
                         width={343}
                         height={122}
-                        className="h-auto w-36 max-md:w-24"
+                        className="h-auto w-24 md:w-36"
                     />
                 </Link>
 
@@ -227,7 +227,7 @@ export default function MainNav({data, isHome, collapsed}) {
             )}
 
             {/* Menu row: tablet + desktop (hidden on mobile) */}
-            <ul className="hidden flex-wrap items-center gap-x-4 gap-y-2 text-sm text-foreground-fixed md:flex max-lg:justify-start sm:gap-x-5 lg:gap-6 xl:gap-7 lg:text-lg">
+            <ul className="hidden flex-wrap items-center gap-x-4 gap-y-2 text-sm text-foreground-fixed md:flex md:justify-start sm:gap-x-5 lg:gap-6 xl:gap-7 lg:justify-normal lg:text-lg">
                 {data.menu.map((item) => (
                     <li key={item.link}>
                         <Link href={item.link} className="transition-colors hover:text-white/70">

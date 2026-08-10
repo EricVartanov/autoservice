@@ -15,9 +15,9 @@ import SectionIndicator from '@/components/ui/SectionIndicator';
 
 const SECTION_MAP = {
     hero: Hero,
-    // about: About,
-    // services: Services,
-    // steps: Steps,
+    about: About,
+    services: Services,
+    steps: Steps,
     // team: Team,
     // specialOffer: SpecialOffer,
     // reviews: Reviews,

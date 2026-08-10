@@ -3,14 +3,14 @@ import Image from "next/image";
 export default function QualityCard({card}) {
     if (card.variant === "third") {
         return (
-            <div className="relative p-10 max-lg:p-7 max-md:p-5 bg-[#181818] rounded-[30] overflow-hidden min-h-[488px] max-lg:min-h-[360px] max-md:min-h-[300px] flex flex-col justify-between">
-                <span className="absolute right-0 top-0 h-full w-[8.5%] bg-primary"/>
-                <div className="text-[34px] leading-none font-bold text-foreground-fixed font-heading">{card.stat}</div>
-                <p className="text-base mt-1 text-foreground-light-fixed">{card.statLabel}</p>
+            <div className="relative px-5 py-6 md:p-10 bg-[#181818] rounded-[30] overflow-hidden min-h-[300px] md:min-h-[360px] lg:min-h-[488px] flex flex-col justify-between">
+                <span className="absolute right-0 top-0 h-full w-[15] md:w-[42] lg:w-[8.5%] bg-primary"/>
+                <div className="text-[22px] md:text-[34px] leading-none font-bold text-foreground-fixed font-heading">{card.stat}</div>
+                <p className="text-sm md:text-base mt-1 text-foreground-light-fixed">{card.statLabel}</p>
 
                 <div className="relative pt-0 mt-auto">
-                    <h5 className="text-foreground-fixed leading-none text-[22px] font-bold font-heading mb-5">{card.title}</h5>
-                    <p className="text-foreground-light-fixed text-base leading-5 whitespace-pre-line">
+                    <h5 className="text-foreground-fixed leading-none text-lg md:text-[22px] font-bold font-heading mb-3.5 md:mb-5">{card.title}</h5>
+                    <p className="text-foreground-light-fixed text-sm md:text-base leading-5 whitespace-pre-line">
                         {card.text}
                     </p>
                 </div>
@@ -20,7 +20,7 @@ export default function QualityCard({card}) {
 
     if (card.variant === 'first') {
         return (
-            <div className="relative p-10 max-lg:p-7 max-md:p-5 border border-primary rounded-[30] overflow-hidden min-h-[488px] max-lg:min-h-[360px] max-md:min-h-[300px] flex flex-col justify-between">
+            <div className="relative px-5 py-6 md:p-10 border border-primary rounded-[30] overflow-hidden min-h-[300px] md:min-h-[360px] lg:min-h-[488px] flex flex-col justify-between">
                 <Image
                     src={card.image}
                     alt={card.title}
@@ -30,14 +30,16 @@ export default function QualityCard({card}) {
                 />
 
                 {card.eyebrow && (
-                    <p className="relative ml-auto leading-5 text-base text-foreground-fixed font-helvetica max-w-[190]">
+                    <p className="hidden md:block relative ml-auto leading-5 text-base text-foreground-fixed font-helvetica max-w-[190]">
                         {card.eyebrow}
                     </p>
                 )}
 
                 <div className="relative pt-0 mt-auto">
-                    <h5 className="text-foreground-fixed leading-none text-[22px] font-bold font-heading mb-5">{card.title}</h5>
-                    <p className="text-foreground-light-fixed text-base leading-5 whitespace-pre-line">
+                    <h5 className="text-foreground-fixed leading-none text-lg md:text-[22px] font-bold font-heading mb-3.5 md:mb-5">
+                        {card.title}
+                    </h5>
+                    <p className="text-foreground-light-fixed text-sm md:text-base leading-5 whitespace-pre-line">
                         {card.text}
                     </p>
                 </div>
@@ -46,7 +48,7 @@ export default function QualityCard({card}) {
     }
 
     return (
-        <div className="relative p-10 max-lg:p-7 max-md:p-5 rounded-[30] overflow-hidden min-h-[488px] max-lg:min-h-[360px] max-md:min-h-[300px] flex flex-col justify-between">
+        <div className="relative px-5 py-6 md:p-10 rounded-[30] overflow-hidden min-h-[300px] md:min-h-[360px] lg:min-h-[488px] flex flex-col justify-between">
             <Image
                 src={card.image}
                 alt={card.title}
@@ -59,14 +61,14 @@ export default function QualityCard({card}) {
 
 
             {card.eyebrow && (
-                <p className="relative ml-auto leading-5 text-base text-foreground-fixed font-helvetica max-w-[190]">
+                <p className="hidden md:block relative ml-auto leading-5 text-base text-foreground-fixed font-helvetica max-w-[190]">
                     {card.eyebrow}
                 </p>
             )}
 
             <div className="relative pt-0 mt-auto">
-                <h5 className="text-foreground-fixed leading-none text-[22px] font-bold font-heading mb-5">{card.title}</h5>
-                <p className="text-foreground-light-fixed text-base leading-5 whitespace-pre-line">
+                <h5 className="text-foreground-fixed leading-none text-lg md:text-[22px] font-bold font-heading mb-3.5 md:mb-5">{card.title}</h5>
+                <p className="text-foreground-light-fixed text-sm md:text-base leading-5 whitespace-pre-line">
                     {card.text}
                 </p>
             </div>

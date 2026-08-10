@@ -183,7 +183,7 @@ export default function ContactForm({data}) {
         return (
             <div
                 key={field.name}
-                className={`relative w-[calc(50%-15px)] ${field.name === 'carBrand' ? 'max-lg:w-full' : ''}`}
+                className={`relative ${field.name === 'carBrand' ? 'w-full lg:w-[calc(50%-15px)]' : 'w-[calc(50%-15px)]'}`}
             >
                 <label className="mb-2.5 block font-helvetica text-base font-bold text-foreground-fixed">
                     {field.label}
@@ -294,7 +294,7 @@ export default function ContactForm({data}) {
     };
 
     return (
-        <section className="relative py-[100] max-lg:py-16">
+        <section className="relative py-16 lg:py-[100]">
             <div className="absolute inset-0 -z-10 overflow-hidden">
                 <Image
                     src={backgroundImage.path}
@@ -305,7 +305,7 @@ export default function ContactForm({data}) {
             </div>
 
             <Container className="relative justify-between flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-16">
-                <div className="lg:max-w-[555] mt-auto pb-[40] max-lg:pb-0">
+                <div className="lg:max-w-[555] mt-auto pb-0 lg:pb-[40]">
                     <SectionTitle
                         title={title}
                         titleColor={'text-foreground-fixed'}
@@ -316,7 +316,7 @@ export default function ContactForm({data}) {
                 <form
                     onSubmit={handleSubmit}
                     noValidate
-                    className="relative w-full rounded-[30] bg-black/60 p-[30] max-lg:p-5 lg:w-1/2 max-w-[715]"
+                    className="relative w-full rounded-[30] bg-black/60 p-5 lg:p-[30] lg:w-1/2 max-w-[715]"
                 >
                     <div className="flex flex-col">
                         <div className={'flex flex-wrap gap-y-6 gap-x-7'}>

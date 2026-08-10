@@ -105,18 +105,28 @@ export default function Slider({
                 </div>
             )}
 
-            {arrowsVisible && arrowsPlacement === 'sides' && (
+            {arrowsVisible &&
+                (arrowsPlacement === 'sides' ||
+                    arrowsPlacement === 'bottom-lg-sides') && (
                 <>
                     <button
                         onClick={prev}
-                        className={`absolute left-[8%] top-1/2 z-20 -translate-y-1/2 ${arrowBtnClass}`}
+                        className={`absolute left-[8%] top-1/2 z-20 -translate-y-1/2 ${
+                            arrowsPlacement === 'bottom-lg-sides'
+                                ? 'hidden lg:block'
+                                : ''
+                        } ${arrowBtnClass}`}
                         aria-label="Предыдущий слайд"
                     >
                         <Icon name="arrow-left" className="w-8 h-8" />
                     </button>
                     <button
                         onClick={next}
-                        className={`absolute right-[52%] top-1/2 z-20 -translate-y-1/2 ${arrowBtnClass}`}
+                        className={`absolute right-[52%] top-1/2 z-20 -translate-y-1/2 ${
+                            arrowsPlacement === 'bottom-lg-sides'
+                                ? 'hidden lg:block'
+                                : ''
+                        } ${arrowBtnClass}`}
                         aria-label="Следующий слайд"
                     >
                         <Icon name="arrow-right" className="w-8 h-8" />
@@ -124,8 +134,14 @@ export default function Slider({
                 </>
             )}
 
-            {arrowsVisible && arrowsPlacement === 'bottom' && (
-                <div className="relative z-10 mt-4 flex items-center justify-center gap-10">
+            {arrowsVisible &&
+                (arrowsPlacement === 'bottom' ||
+                    arrowsPlacement === 'bottom-lg-sides') && (
+                <div
+                    className={`relative z-10 mt-7 flex items-center justify-center gap-10 ${
+                        arrowsPlacement === 'bottom-lg-sides' ? 'lg:hidden' : ''
+                    }`}
+                >
                     <button
                         onClick={prev}
                         className={arrowBtnClass}

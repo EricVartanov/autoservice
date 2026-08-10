@@ -16,7 +16,7 @@ export default function Button({
     const variants = {
         primary: 'bg-primary border border-primary hover:bg-transparent text-foreground-fixed min-w-[160] md:min-w-[213] min-h-10 px-3 md:px-10 py-2.5 md:py-3.5',
         icon: 'w-10 h-10 md:w-[54] md:h-[54] border border-white/20 text-foreground-fixed hover:bg-white/10',
-        serviceCard: 'font-normal text-base font-helvetica px-5 py-2',
+        serviceCard: 'font-normal text-xs md:text-base font-helvetica px-8 py-4 md:px-5 md:py-2',
         transparent: 'font-bold text-base font-helvetica px-3 md:px-5 py-2.5 md:py-3.5 border border-btn-border min-h-10 min-w-[160] md:min-w-[213]',
 
     };

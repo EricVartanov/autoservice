@@ -9,18 +9,18 @@ export default function About({data}) {
     const {titleBack, cards, title, subtitle, stats} = data
     return (
         <section className="overflow-hidden">
-            <div className={'relative py-[150] max-lg:py-20 max-md:py-14'}>
+            <div className={'relative lg:py-[150] pt-10 pb-20 md:py-20'}>
                 <Container>
                     <SectionTitle titleBack={titleBack} title={title} subtitle={subtitle} />
 
-                    <div className="relative mx-auto mt-20 flex justify-center items-center gap-7 max-lg:flex-col max-lg:items-stretch max-lg:gap-5 max-md:mt-12 max-md:gap-4">
+                    <div className="relative mx-auto mt-[45] md:mt-[50] lg:mt-20 flex flex-col items-stretch gap-4 lg:gap-7 lg:flex-row lg:justify-center lg:items-center">
                         {cards.map((card) => (
                             <QualityCard key={card.title} card={card}/>
                         ))}
 
                         {/* декоративные точки */}
-                        <div className="absolute z-[-1] w-[134] top-[-12%] left-[-2%] hidden md:block">
-                            <Icon name={'dots'} className={'text-primary-light w-[134]'} />
+                        <div className="absolute z-[-1] left-[-2%] top-[-7%] h-[72] lg:top-[-12%] lg:left-[-2%]">
+                            <Icon name={'dots'} className={'text-primary-light w-[72] md:w-[134]'} />
                         </div>
                     </div>
                 </Container>

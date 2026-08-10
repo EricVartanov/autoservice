@@ -34,10 +34,10 @@ export default function Footer({data = mockFooter}) {
 
                 <hr className="mt-10 border-0 border-t border-foreground/20 md:mt-12" />
 
-                <div className="mt-6 flex text-lg font-helvetica text-foreground justify-between max-lg:flex-col max-lg:items-center max-lg:gap-6 max-lg:text-center">
-                    <p className="shrink-0 text-foreground-light max-lg:order-3">{copyright} {new Date().getFullYear()}</p>
+                <div className="mt-6 flex flex-col items-center gap-6 text-center text-lg font-helvetica text-foreground lg:flex-row lg:items-stretch lg:justify-between lg:gap-0 lg:text-left">
+                    <p className="order-3 shrink-0 text-foreground-light lg:order-none">{copyright} {new Date().getFullYear()}</p>
 
-                    <div className="flex justify-between gap-8 max-lg:flex-col max-lg:gap-3 max-lg:order-1 xl:gap-[97]">
+                    <div className="order-1 flex flex-col gap-3 lg:order-none lg:flex-row lg:justify-between lg:gap-8 xl:gap-[97]">
                         {legal?.map((item) => (
                             <Link
                                 key={item.label}
@@ -49,8 +49,8 @@ export default function Footer({data = mockFooter}) {
                         ))}
                     </div>
 
-                    <div className="flex flex-wrap items-center justify-between gap-8 max-lg:justify-center max-lg:gap-6 max-lg:order-2 xl:gap-[130]">
-                        <div className={'flex items-center gap-2.5 max-lg:flex-wrap max-lg:justify-center'}>
+                    <div className="order-2 flex flex-wrap items-center justify-center gap-6 lg:order-none lg:justify-between lg:gap-8 xl:gap-[130]">
+                        <div className={'flex flex-wrap items-center justify-center gap-2.5 lg:flex-nowrap lg:justify-start'}>
                             {branches?.map((branch) => (
                                 <Link
                                     key={branch.label}
@@ -77,7 +77,7 @@ export default function Footer({data = mockFooter}) {
                                             )}
                                         </>
                                     )}
-                                    <span className="max-lg:underline max-lg:underline-offset-2">{branch.label}</span>
+                                    <span className="underline underline-offset-2 lg:no-underline">{branch.label}</span>
                                 </Link>
                             ))}
                         </div>
