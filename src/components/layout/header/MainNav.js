@@ -213,29 +213,38 @@ export default function MainNav({data, isHome, collapsed}) {
                 </div>
             </div>
 
-            {/* Desktop collapsed logo */}
-            {(collapsed || !isHome) && (
-                <Link href="/" className="hidden lg:block">
+            {/* Logo + menu: tablet + desktop (hidden on mobile) */}
+            <div className="hidden items-center md:flex lg:gap-6 xl:gap-7">
+                {/* Desktop collapsed logo */}
+                <Link
+                    href="/"
+                    className={`hidden overflow-hidden transition-all duration-500 ease-out lg:block ${
+                        collapsed || !isHome
+                            ? 'max-w-32 opacity-100 scale-100'
+                            : 'pointer-events-none max-w-0 opacity-0 scale-95'
+                    }`}
+                    tabIndex={collapsed || !isHome ? undefined : -1}
+                    aria-hidden={!(collapsed || !isHome)}
+                >
                     <Image
                         src={data.logo.path}
                         alt={data.logo.alt}
                         width={343}
                         height={122}
-                        className="h-auto w-32"
+                        className="h-auto w-32 max-w-none"
                     />
                 </Link>
-            )}
 
-            {/* Menu row: tablet + desktop (hidden on mobile) */}
-            <ul className="hidden flex-wrap items-center gap-x-4 gap-y-2 text-sm text-foreground-fixed md:flex md:justify-start sm:gap-x-5 lg:gap-6 xl:gap-7 lg:justify-normal lg:text-lg">
-                {data.menu.map((item) => (
-                    <li key={item.link}>
-                        <Link href={item.link} className="transition-colors hover:text-white/70">
-                            {item.label}
-                        </Link>
-                    </li>
-                ))}
-            </ul>
+                <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-foreground-fixed sm:gap-x-5 lg:gap-6 xl:gap-7 lg:text-lg">
+                    {data.menu.map((item) => (
+                        <li key={item.link}>
+                            <Link href={item.link} className="transition-colors hover:text-white/70">
+                                {item.label}
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+            </div>
 
             {/* Desktop messengers + socials */}
             <div className="hidden items-center justify-center gap-10 lg:flex">

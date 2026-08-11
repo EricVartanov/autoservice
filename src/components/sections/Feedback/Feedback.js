@@ -243,7 +243,7 @@ export default function Feedback({data}) {
             </Container>
             {tires?.path && (
                 <div
-                    className="pointer-events-none z-30 absolute right-0 bottom-[-5%] lg:bottom-[-13%] w-full max-w-[320] overflow-hidden lg:max-w-[760]"
+                    className="pointer-events-none z-30 absolute right-0 bottom-[-5%] lg:bottom-[-13%] w-full max-w-[320] overflow-hidden lg:max-w-[580]"
                 >
                     <Image
                         src={tires.path}
