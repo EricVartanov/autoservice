@@ -32,7 +32,7 @@ export default function Select({
 
     const triggerClass =
         variant === "pill"
-            ? `w-full flex items-center text-foreground-fixed justify-between rounded-full border bg-transparent px-5 py-3.5 text-base outline-none transition-colors cursor-pointer ${
+            ? `w-full flex items-center text-foreground-fixed justify-between rounded-full border bg-transparent px-5 py-3.5 text-sm md:text-base outline-none transition-colors cursor-pointer ${
                   error ? "border-primary" : "border-white/20 focus:border-foreground-fixed"
               }`
             : `w-full flex items-center text-foreground-fixed justify-between bg-transparent border-b text-sm pb-2 outline-none transition-colors cursor-pointer ${

@@ -10,6 +10,7 @@ import Select from "@/components/ui/Select";
 import SectionTitle from "@/components/ui/SectionTitle";
 import {Container} from "@/components/Container";
 import Link from "next/link";
+import {useMediaQuery} from "@/hooks/useMediaQuery";
 
 function validate({name, phoneDigits, carBrand}) {
     const errors = {};
@@ -39,6 +40,9 @@ export default function Commercial({data}) {
     const [carBrand, setCarBrand] = useState("");
     const [errors, setErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
+
+    const isMobileOrTablet = useMediaQuery('(max-width: 1278px)');
+
 
     const clearError = (field) => {
         setErrors((prev) => {
@@ -89,7 +93,7 @@ export default function Commercial({data}) {
     };
 
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-3.5 font-helvetica text-base outline-none placeholder:text-foreground-fixed transition-colors ${
+        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-4 lg:py-3.5 font-helvetica text-sm lg:text-base outline-none placeholder:text-foreground-fixed transition-colors ${
             hasError ? "border-primary" : "border-white/20 focus:border-foreground-fixed"
         }`;
 
@@ -130,7 +134,7 @@ export default function Commercial({data}) {
 
         return (
             <div key={field.name} className={'min-w-0 lg:max-w-[320px] w-full relative'}>
-                <label className="block text-base font-helvetica font-bold text-foreground-fixed mb-3.5">
+                <label className="block text-sm lg:text-base font-helvetica font-bold text-foreground-fixed mb-2.5 lg:mb-3.5">
                     {field.label}
                     {field.required && <span className="text-primary"> *</span>}
                 </label>
@@ -145,39 +149,39 @@ export default function Commercial({data}) {
     };
 
     return (
-        <section className="relative pt-24 pb-12 lg:pt-[150] lg:pb-[60]">
+        <section className="relative py-[80] md:py-[90] lg:pt-[150] lg:pb-[60]">
             <div className="absolute inset-0 -z-10 overflow-hidden">
                 <Image src={backgroundImage.path} alt={backgroundImage.alt} fill className="object-cover"/>
             </div>
 
             <Container className="relative flex flex-col justify-between">
-               <div className={'w-full ml-0 lg:w-1/2 lg:ml-auto'}>
+               <div className={'w-full ml-0 lg:w-1/2 lg:ml-auto text-center lg:text-left '}>
                    <SectionTitle
-                       variant="left"
+                       variant={isMobileOrTablet ? 'center' : "left"}
                        mark={mark}
                        title={title}
                        subtitle={subtitle}
                        titleColor={'text-foreground-fixed'}
-                       subtitleClass={'!mx-0 text-left !text-foreground-fixed'}
+                       subtitleClass={`!mx-0 ${isMobileOrTablet ? 'text-center' : 'text-left'} !text-foreground-fixed`}
                    />
 
                    {cta && (
                        <Link
                            href={cta.link}
-                           className="inline-block mt-3 text-lg text-foreground-fixed underline underline-offset-4 hover:text-primary transition-colors"
+                           className="inline-block mt-7 lg:mt-3 text-lg text-foreground-fixed underline underline-offset-4 hover:text-primary transition-colors"
                        >
                            {cta.label}
                        </Link>
                    )}
                </div>
 
-                <div className="flex flex-wrap justify-center gap-8 mt-4 lg:justify-start lg:gap-12">
+                <div className="flex flex-wrap justify-center mt-12 lg:mt-4 lg:justify-start gap-12">
                     {limitations.map((item, i) => (
                         <div key={i} className="flex flex-col items-center text-center gap-3.5 max-w-[250px] lg:items-start lg:text-left">
                             <span className="shrink-0 size-[50] rounded-full bg-primary flex items-center justify-center">
                                 <Image src={item.image} width={40} height={40} className="text-white" alt={item.alt}/>
                             </span>
-                            <p className="text-lg font-helvetica text-foreground-fixed leading-tight whitespace-pre-line">
+                            <p className="text-sm lg:text-lg font-helvetica text-foreground-fixed leading-tight whitespace-pre-line">
                                 {item.text}
                             </p>
                         </div>
@@ -187,13 +191,13 @@ export default function Commercial({data}) {
                 <form
                     onSubmit={handleSubmit}
                     noValidate
-                    className="mt-10 rounded-[30] bg-black/60 p-6 lg:p-[50]"
+                    className="mt-8 lg:mt-10 px-[25] py-[30] rounded-[30] w-full mx-auto lg:mx-0 max-w-[450] lg:max-w-none bg-black/60 p-6 lg:p-[50]"
                 >
                     <div className="flex flex-col lg:flex-row lg:items-end lg:gap-7">
-                        <div className={'flex flex-col gap-7 min-w-0 flex-1 lg:flex-row lg:items-end lg:gap-6'}>
+                        <div className={'flex flex-col gap-5 min-w-0 flex-1 lg:flex-row lg:items-end lg:gap-6'}>
                             {form.fields.map(renderField)}
                         </div>
-                        <Button type="submit" className="shrink-0 ml-auto min-w-0 px-10 w-full mt-6 lg:mt-0 lg:w-auto lg:min-w-[200] xl:min-w-[260]">
+                        <Button type="submit" className="shrink-0 py-4 lg:ml-auto md:max-w-[213] mx-auto lg:mx-0 lg:max-w-none min-w-0 px-10 w-full mt-6 lg:mt-0 lg:w-auto lg:min-w-[200] xl:min-w-[260]">
                             {form.submitLabel}
                         </Button>
                     </div>

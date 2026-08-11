@@ -49,10 +49,10 @@ export default function Faq({data}) {
     );
 
     return (
-        <section className="py-24 md:py-32 overflow-hidden">
+        <section className="py-20 md:py-[150] overflow-hidden">
             <Container className={'relative'}>
                 <BlurredCircle className="left-1/2 top-1/2 -translate-1/2 transform opacity-40"/>
-                <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+                <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-[50] lg:gap-20">
                     <div className="relative">
                         <SectionTitle
                             title={title}
@@ -60,14 +60,14 @@ export default function Faq({data}) {
                             variant="left"
                         />
 
-                        <div className="mt-12 flex flex-wrap items-center gap-3 lg:gap-7">
+                        <div className="mt-7 lg:mt-12 flex justify-center md:justify-start flex-wrap items-center gap-3 md:gap-7">
                             {messengers?.map((messenger) => (
                                 <a
                                     key={messenger.name}
                                     href={messenger.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="rounded-full flex gap-2.5 min-w-0 flex-1 lg:min-w-[253] lg:flex-none justify-center items-center bg-primary px-4 lg:px-7 py-3 text-base lg:text-lg font-helvetica text-foreground-fixed transition hover:opacity-90"
+                                    className="rounded-full flex gap-2.5 w-full min-w-0 max-w-[253] lg:max-w-none lg:min-w-[253] lg:flex-none justify-center items-center bg-primary px-4 lg:px-7 py-3 text-base md:text-lg font-helvetica text-foreground-fixed transition hover:opacity-90"
                                 >
                                     <Image src={messenger.logo} width={30} height={30} alt={messenger.alt} className={'size-[30] text-foreground-fixed'}/>
                                     {messenger.name}
@@ -101,7 +101,7 @@ export default function Faq({data}) {
                         </div>
 
                         {hasMore && (
-                            <div className="mt-[80]">
+                            <div className="text-center lg:text-left mt-[30] md:mt-[50] lg:mt-[80]">
                                 <Button
                                     variant="transparent"
                                     onClick={handleShowAllToggle}
@@ -113,7 +113,7 @@ export default function Faq({data}) {
                         )}
                     </div>
                 </div>
-                <div className="absolute z-[-1] w-[134] top-full left-0 hidden md:block">
+                <div className="absolute z-[-1] w-[134] top-[80%] left-[-10%] lg:top-full lg:left-0 hidden md:block">
                     <Icon name="dots" className="text-primary-light w-[134]"/>
                 </div>
             </Container>

@@ -10,6 +10,7 @@ import PhoneInput, {getCleanPhone} from "@/components/ui/PhoneInput";
 import Select from "@/components/ui/Select";
 import {Container} from "@/components/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
+import {useMediaQuery} from "@/hooks/useMediaQuery";
 
 function validate({name, phoneDigits, carBrand, timing, branch, consent}) {
     const errors = {};
@@ -56,6 +57,9 @@ export default function ContactForm({data}) {
     const [extraOpen, setExtraOpen] = useState(false);
     const [errors, setErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
+
+    const isMobileOrTablet = useMediaQuery('(max-width: 1278px)');
+
 
     const clearError = (field) => {
         setErrors((prev) => {
@@ -141,7 +145,7 @@ export default function ContactForm({data}) {
     };
 
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-3.5 font-helvetica text-base outline-none placeholder:text-foreground-fixed transition-colors ${
+        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-4 md:py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed transition-colors ${
             hasError ? "border-primary" : "border-white/20 focus:border-foreground-fixed"
         }`;
 
@@ -183,9 +187,9 @@ export default function ContactForm({data}) {
         return (
             <div
                 key={field.name}
-                className={`relative ${field.name === 'carBrand' ? 'w-full lg:w-[calc(50%-15px)]' : 'w-[calc(50%-15px)]'}`}
+                className={`relative w-full md:w-[calc(50%-5px)] lg:w-[calc(50%-15px)] lg:min-w-none ${field.name === 'carBrand' ? 'lg:w-full': 'lg:w-auto'}`}
             >
-                <label className="mb-2.5 block font-helvetica text-base font-bold text-foreground-fixed">
+                <label className="mb-2.5 block font-helvetica text-sm md:text-base font-bold text-foreground-fixed">
                     {field.label}
                     {field.required && <span className="text-primary"> *</span>}
                 </label>
@@ -206,20 +210,20 @@ export default function ContactForm({data}) {
 
         return (
             <div key={group.name} className="relative">
-                <p className="mb-4 font-helvetica text-base font-bold text-foreground-fixed">
+                <p className="mb-4 font-helvetica text-sm md:text-base font-bold text-foreground-fixed">
                     {group.label}
                     {group.required && <span className="text-primary"> *</span>}
                 </p>
-                <div className="flex flex-wrap gap-x-5 gap-y-3">
+                <div className="flex flex-col md:flex-row md:flex-wrap gap-x-5 gap-y-3">
                     {group.options.map((opt) => {
                         const checked = value === opt.value;
                         return (
                             <label
                                 key={opt.value}
-                                className="flex cursor-pointer items-center gap-1.5 font-helvetica text-base text-foreground-fixed"
+                                className="flex cursor-pointer items-center gap-1.5 font-helvetica text-sm md:text-base text-foreground-fixed"
                             >
                                 <span
-                                    className={`flex size-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
+                                    className={`flex size-5 md:size-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
                                         hasError
                                             ? "border-primary"
                                             : checked
@@ -227,7 +231,7 @@ export default function ContactForm({data}) {
                                                 : "border-white/40"
                                     }`}
                                 >
-                                    {checked && <span className="size-3.5 rounded-full bg-primary"/>}
+                                    {checked && <span className="size-2.5 md:size-3.5 rounded-full bg-primary"/>}
                                 </span>
                                 <input
                                     type="radio"
@@ -278,8 +282,8 @@ export default function ContactForm({data}) {
         }
 
         return (
-            <div key={field.name} className="relative w-[calc(50%-15px)]">
-                <label className="mb-2.5 block font-helvetica text-base font-bold text-foreground-fixed">
+            <div key={field.name} className="relative w-full md:w-[calc(50%-15px)]">
+                <label className="mb-2.5 block font-helvetica text-sm md:text-base font-bold text-foreground-fixed">
                     {field.label}
                     {field.required && <span className="text-primary"> *</span>}
                 </label>
@@ -294,7 +298,7 @@ export default function ContactForm({data}) {
     };
 
     return (
-        <section className="relative py-16 lg:py-[100]">
+        <section className="relative py-[90] lg:py-[100]">
             <div className="absolute inset-0 -z-10 overflow-hidden">
                 <Image
                     src={backgroundImage.path}
@@ -304,22 +308,22 @@ export default function ContactForm({data}) {
                 />
             </div>
 
-            <Container className="relative justify-between flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-16">
+            <Container className="relative justify-between flex flex-col gap-[50] md:gap-[100] lg:gap-10 lg:flex-row lg:items-center lg:gap-16">
                 <div className="lg:max-w-[555] mt-auto pb-0 lg:pb-[40]">
                     <SectionTitle
                         title={title}
                         titleColor={'text-foreground-fixed'}
-                        variant="left"
+                        variant={isMobileOrTablet ? 'center' : 'left'}
                     />
                 </div>
 
                 <form
                     onSubmit={handleSubmit}
                     noValidate
-                    className="relative w-full rounded-[30] bg-black/60 p-5 lg:p-[30] lg:w-1/2 max-w-[715]"
+                    className="relative w-full rounded-[30] bg-black/60 p-5 pb-10 md:p-[30] lg:w-1/2 max-w-[715]"
                 >
                     <div className="flex flex-col">
-                        <div className={'flex flex-wrap gap-y-6 gap-x-7'}>
+                        <div className={'flex flex-wrap gap-5 md:gap-y-6 md:gap-2.5 lg:gap-y-6 lg:gap-x-7'}>
                             {form.fields.map(renderMainField)}
                         </div>
 
@@ -337,7 +341,7 @@ export default function ContactForm({data}) {
                                         aria-expanded={extraOpen}
                                     >
                                     <span
-                                        className="font-heading leading-none font-bold text-[22px] text-foreground-fixed">
+                                        className="font-heading leading-none font-bold text-sm md:text-base md:text-[22px] text-foreground-fixed">
                                         {form.extraSection.title}
                                     </span>
                                         <Icon
@@ -361,7 +365,7 @@ export default function ContactForm({data}) {
                                                 }}
                                                 className="overflow-hidden"
                                             >
-                                                <div className="mt-6 flex flex-wrap gap-y-6 gap-x-7">
+                                                <div className="mt-6 flex flex-col md:flex-row md:flex-wrap gap-2.5 lg:gap-y-6 lg:gap-x-7">
                                                     {form.extraSection.fields.map(renderExtraField)}
                                                 </div>
                                             </motion.div>
@@ -372,8 +376,9 @@ export default function ContactForm({data}) {
                         </div>
 
                         <div className="mt-6 relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-                            <label
-                                className="flex cursor-pointer items-center gap-2.5 font-helvetica text-base text-foreground-fixed">
+                            <div className={'relative pb-1'}>
+                                <label
+                                    className="flex cursor-pointer items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed">
                                 <span
                                     className={`mt-0.5 flex size-7 shrink-0 items-center justify-center rounded border transition-colors ${
                                         errors.consent
@@ -384,34 +389,36 @@ export default function ContactForm({data}) {
                                     }`}
                                 >
                                     {consent && (
-                                       <Icon name={'square'} className={'size-6'} />
+                                        <Icon name={'square'} className={'size-6'} />
                                     )}
                                 </span>
-                                <input
-                                    type="checkbox"
-                                    checked={consent}
-                                    onChange={handleConsentChange}
-                                    className="sr-only"
-                                />
-                                <span>
+                                    <input
+                                        type="checkbox"
+                                        checked={consent}
+                                        onChange={handleConsentChange}
+                                        className="sr-only"
+                                    />
+                                    <span>
                                     {form.consent.label}{" "}
-                                    <Link
-                                        href={form.consent.url}
-                                        className="pb-px border-b hover:text-primary"
-                                    >
+                                        <Link
+                                            href={form.consent.url}
+                                            className="pb-px border-b hover:text-primary"
+                                        >
                                         {form.consent.linkText}
                                     </Link>
                                 </span>
-                            </label>
+
+                                </label>
+                                {errors.consent && (
+                                    <p className="absolute bottom-[-20] left-0 text-xs text-primary">{errors.consent}</p>
+                                )}
+                            </div>
+
 
                             <Button type="submit" className="shrink-0 w-full sm:w-auto min-w-[180]">
                                 {form.submitLabel}
                             </Button>
                         </div>
-
-                        {errors.consent && (
-                            <p className="-mt-4 text-xs text-primary">{errors.consent}</p>
-                        )}
                     </div>
 
                     {submitted && (

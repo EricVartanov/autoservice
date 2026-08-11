@@ -6,30 +6,30 @@ export default function BranchCard({branch}) {
 
     return (
         <div
-            className={`flex flex-col gap-7 items-center text-center`}
+            className={`flex flex-col lg:gap-7 items-center text-center`}
         >
             <div className="text-center max-w-[250]">
                 <p className={`flex justify-center items-center gap-1.5 font-helvetica text-lg text-foreground`}>
                     <Icon name="star" className="text-primary-light size-3 shrink-0"/>
                     {branch.name}
                 </p>
-                <p className="mt-7 text-base lg:text-[22px] font-heading leading-none text-foreground whitespace-break-spaces">{branch.address}</p>
+                <p className="mt-5 md:mt-7 text-base lg:text-[22px] font-heading leading-none text-foreground whitespace-break-spaces">{branch.address}</p>
             </div>
 
-            <div className="mt-10 lg:mt-[140]">
+            <div className="mt-3 md:mt-5 lg:mt-[140]">
                 <p className="text-lg text-foreground-light">{branch.workHours}</p>
-                <h3 className="mt-7 font-heading text-[32px] lg:text-[54px] font-medium leading-none tracking-tight text-foreground">
+                <h3 className="mt-5 md:mt-10 lg:mt-7 font-heading text-[32px] md:text-[40px] lg:text-[54px] font-medium leading-none tracking-tight text-foreground">
                     {branch.title}
                 </h3>
                 <a
                     href={phoneHref}
-                    className="mt-8 lg:mt-[130] block font-heading text-[20px] lg:text-[34px] font-medium leading-none tracking-tight text-foreground hover:text-primary-light transition"
+                    className="mt-5 md:mt-10 lg:mt-8 lg:mt-[130] block font-heading text-[22px] lg:text-[34px] font-medium leading-none tracking-tight text-foreground hover:text-primary-light transition"
                 >
                     {branch.phone}
                 </a>
             </div>
 
-            <div className={`flex flex-col gap-2.5 w-full max-w-none lg:max-w-70`}>
+            <div className={`mt-5 md:mt-[60] lg:mt-0 flex flex-col gap-2.5 w-full max-w-none lg:max-w-70`}>
                 <Button
                     href={branch.panoramaUrl}
                     variant="transparent"
