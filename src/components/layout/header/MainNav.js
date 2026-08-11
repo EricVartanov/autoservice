@@ -3,9 +3,12 @@
 import {useEffect, useRef, useState} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import {usePathname} from 'next/navigation';
 import {mockBranches} from '@/lib/mock-data';
+import {getHashId, scrollToSection} from '@/lib/scrollToSection';
 
 export default function MainNav({data, isHome, collapsed}) {
+    const pathname = usePathname();
     const [branchesOpen, setBranchesOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const branchesRef = useRef(null);
@@ -45,6 +48,23 @@ export default function MainNav({data, isHome, collapsed}) {
     }, [menuOpen]);
 
     const closeMenu = () => setMenuOpen(false);
+
+    const handleNavClick = (e, href) => {
+        const id = getHashId(href);
+        if (!id) {
+            closeMenu();
+            return;
+        }
+
+        // On home: smooth-scroll in place instead of full navigation
+        if (pathname === '/') {
+            e.preventDefault();
+            scrollToSection(id);
+            window.history.pushState(null, '', `/#${id}`);
+        }
+
+        closeMenu();
+    };
 
     return (
         <nav className="relative flex flex-col gap-5 xl:gap-4 pt-5 pb-4 md:pb-5 xl:pb-4 text-lg text-foreground-fixed lg:flex-row lg:items-center lg:justify-between lg:gap-0">
@@ -158,7 +178,7 @@ export default function MainNav({data, isHome, collapsed}) {
                                             <Link
                                                 href={item.link}
                                                 className="block transition-colors hover:text-white/70"
-                                                onClick={closeMenu}
+                                                onClick={(e) => handleNavClick(e, item.link)}
                                             >
                                                 {item.label}
                                             </Link>
@@ -238,7 +258,11 @@ export default function MainNav({data, isHome, collapsed}) {
                 <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-foreground-fixed sm:gap-x-5 lg:gap-6 xl:gap-7 lg:text-lg">
                     {data.menu.map((item) => (
                         <li key={item.link}>
-                            <Link href={item.link} className="transition-colors hover:text-white/70">
+                            <Link
+                                href={item.link}
+                                className="transition-colors hover:text-white/70"
+                                onClick={(e) => handleNavClick(e, item.link)}
+                            >
                                 {item.label}
                             </Link>
                         </li>

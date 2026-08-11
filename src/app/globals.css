@@ -102,6 +102,10 @@
     --max-width-container: 1560px;
 }
 
+html {
+    scroll-padding-top: 7.5rem; /* fixed header offset for section anchors */
+}
+
 body {
     background: var(--color-background);
     color: var(--color-foreground);

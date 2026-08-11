@@ -12,6 +12,7 @@ import ContactForm from "@/components/sections/ContactForm/ContactForm";
 import Contacts from "@/components/sections/Contacts/Contacts";
 import Feedback from "@/components/sections/Feedback/Feedback";
 import SectionIndicator from '@/components/ui/SectionIndicator';
+import HashScroll from '@/components/HashScroll';
 
 const SECTION_MAP = {
     hero: Hero,
@@ -47,6 +48,7 @@ const LANDING_SECTIONS = [
 export default function Home() {
     return (
         <main>
+            <HashScroll />
             <SectionIndicator sections={LANDING_SECTIONS} />
             {mockPage.sections.map((section, i) => {
                 const Component = SECTION_MAP[section.type];
