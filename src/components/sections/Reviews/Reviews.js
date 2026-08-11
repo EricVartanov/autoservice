@@ -10,6 +10,7 @@ import {Container} from "@/components/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
 import Button from "@/components/ui/Button";
 import BlurredCircle from "@/components/ui/blurredCircle";
+import {useMediaQuery} from "@/hooks/useMediaQuery";
 
 const VISIBLE_COUNT = 4;
 
@@ -23,6 +24,7 @@ export default function Reviews({data}) {
     const [activeBranch, setActiveBranch] = useState(availableBranches[0]?.id);
     const [activePlatform, setActivePlatform] = useState(platforms[0]?.id);
     const [showAll, setShowAll] = useState(false);
+    const isMobileOrTablet = useMediaQuery('(max-width: 1279px)');
 
     const handleBranchChange = (id) => {
         setActiveBranch(id);
@@ -46,12 +48,12 @@ export default function Reviews({data}) {
     const hasMore = matched.length > VISIBLE_COUNT;
 
     return (
-        <section className="relative py-24 md:py-32 overflow-hidden">
-            <BlurredCircle className={'right-[-15%] top-[25%]  transform'}/>
+        <section className="relative py-14 md:py-[150] overflow-hidden">
+            <BlurredCircle className={'right-[-15%] top-[10%] md:top-[25%]'}/>
             <Container>
-                <div className="flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
-                    <SectionTitle title={title} titleBack={titleBack} mark={mark} variant={'left'}
-                                  titleBackPosition={'left-full'}/>
+                <div className="flex flex-col gap-6 md:gap-12 lg:flex-row items-center lg:justify-between lg:gap-8">
+                    <SectionTitle title={title} titleBack={titleBack} mark={mark} variant={isMobileOrTablet ? 'center' : 'left'}
+                                  titleBackPosition={isMobileOrTablet ? '' : 'left-full'}/>
 
                     {summary && (
                         <div className="flex items-center gap-5 shrink-0">
@@ -66,7 +68,7 @@ export default function Reviews({data}) {
                                 ))}
                             </div>
                             <div className="leading-none">
-                                <p className="text-[28px] lg:text-[34px] font-bold text-transparent-btn-text font-heading">{summary.count}</p>
+                                <p className="text-[28px] md:text-[34px] font-bold text-transparent-btn-text font-heading">{summary.count}</p>
                                 <p className="text-base text-foreground font-helvetica">{summary.countLabel}</p>
                             </div>
                         </div>
@@ -74,13 +76,13 @@ export default function Reviews({data}) {
                 </div>
 
                 <div
-                    className="mt-[70] flex bg-white-grey flex-col rounded-3xl lg:rounded-full shadow-[0px_4px_20px_0_rgba(0,0,0,0.15)] md:flex-row md:items-center md:justify-between gap-4 px-5 lg:px-10 py-3.5">
-                    <div className="flex flex-wrap items-center gap-2">
+                    className="mt-10 lg:mt-[70] flex bg-white-grey flex-col flex-wrap justify-center rounded-3xl lg:rounded-full shadow-[0px_4px_20px_0_rgba(0,0,0,0.15)] md:flex-row md:items-center lg:justify-between gap-7 lg:gap-4 px-5 lg:px-10 py-7 lg:py-3.5">
+                    <div className="flex justify-center flex-wrap items-center gap-2">
                         {availableBranches.map((branch) => (
                             <button
                                 key={branch.id}
                                 onClick={() => handleBranchChange(branch.id)}
-                                className={`px-4 py-2 rounded-full text-base font-helvetica cursor-pointer ${
+                                className={`px-5 min-w-[190] lg:px-4 py-2 rounded-full text-base font-helvetica cursor-pointer ${
                                     activeBranch === branch.id
                                         ? "bg-primary text-foreground-fixed"
                                         : "border-b-white/20 border-b"
@@ -91,7 +93,7 @@ export default function Reviews({data}) {
                         ))}
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-4 lg:gap-6">
+                    <div className="flex flex-wrap justify-center items-center gap-7 lg:gap-6">
                         {platforms.map((platform) => (
                             <button
                                 key={platform.id}
@@ -107,7 +109,7 @@ export default function Reviews({data}) {
                     </div>
                 </div>
 
-                <motion.div layout className="mt-12 grid grid-cols-1 lg:grid-cols-4 gap-4 xl:gap-7">
+                <motion.div layout className="mt-2.5 lg:mt-12 grid grid-cols-1 lg:grid-cols-4 gap-2.5 lg:gap-4 xl:gap-7">
                     <AnimatePresence>
                         {visible.map((review) => (
                             <motion.div
@@ -117,26 +119,26 @@ export default function Reviews({data}) {
                                 animate={{opacity: 1, y: 0}}
                                 exit={{opacity: 0, y: -10}}
                                 transition={{duration: 0.3}}
-                                className="rounded-[30] min-h-80 font-helvetica border border-primary text-foreground-fixed bg-[#111111] p-5"
+                                className="rounded-[30] min-h-44 lg:min-h-80 font-helvetica border border-primary text-foreground-fixed bg-[#111111] p-4 md:p-5"
                             >
                                 <div className="flex items-center gap-2.5 justify-between">
                                     <div className="flex items-center gap-2.5">
-                                        <div className="relative size-10 rounded-full overflow-hidden ">
+                                        <div className="relative shrink-0 size-10 rounded-full overflow-hidden ">
                                             <Image src={review.avatar} alt={review.author} fill
                                                    className="object-cover"/>
                                         </div>
                                         <span
-                                            className="text-base font-medium leading-tight">
+                                            className="text-sm md:text-base font-medium leading-tight">
                                             {review.author}
                                         </span>
                                     </div>
                                     <span
-                                        className="flex items-center text-base bg-white/10 rounded-full px-2.5 py-1">
+                                        className="flex items-center text-sm md:text-base bg-white/10 rounded-full px-2 md:px-2.5 py-1">
                                         {review.rating}
-                                        <Icon name="star-filled" className="size-6 text-[#FFAE00]"/>
+                                        <Icon name="star-filled" className="size-5 md:size-6 text-[#FFAE00]"/>
                                     </span>
                                 </div>
-                                <p className="mt-5 text-base leading-6 line-clamp-11">
+                                <p className="mt-3 md:mt-5 text-sm md:text-base leading-tight md:leading-6 line-clamp-11">
                                     {review.text}
                                 </p>
                             </motion.div>
@@ -151,7 +153,7 @@ export default function Reviews({data}) {
                 )}
 
                 {hasMore && (
-                    <div className="flex justify-center mt-10">
+                    <div className="flex justify-center mt-12 lg:mt-10">
                         <Button
                             variant={'transparent'}
                             onClick={() => setShowAll((v) => !v)}

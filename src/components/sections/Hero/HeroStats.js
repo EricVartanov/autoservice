@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 export default function HeroStats({ stats,}) {
     return (
         <div
-            className={`flex shrink-0 md:flex-col border-l border-2 border-l-foreground-fixed gap-[18] lg:gap-12 pl-[18] lg:pl-10`}
+            className={`flex shrink-0 md:flex-col border-l-2 border-l-foreground-fixed gap-[18] lg:gap-12 pl-[18] lg:pl-10`}
         >
             {stats.map((stat, i) => (
                 <motion.div

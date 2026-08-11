@@ -20,7 +20,7 @@ const SECTION_MAP = {
     steps: Steps,
     team: Team,
     specialOffer: SpecialOffer,
-    // reviews: Reviews,
+    reviews: Reviews,
     // faq: Faq,
     // commercial: Commercial,
     // contact_form: ContactForm,

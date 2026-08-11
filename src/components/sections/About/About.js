@@ -19,7 +19,7 @@ export default function About({data}) {
                         ))}
 
                         {/* декоративные точки */}
-                        <div className="absolute z-[-1] left-[-2%] top-[-7%] h-[72] lg:top-[-12%] lg:left-[-2%]">
+                        <div className="absolute z-[-1] left-[-2%] top-[-7%] md:top-[10%] md:left-[-6%] h-[72] lg:top-[-12%] lg:left-[-2%]">
                             <Icon name={'dots'} className={'text-primary-light w-[72] md:w-[134]'} />
                         </div>
                     </div>
