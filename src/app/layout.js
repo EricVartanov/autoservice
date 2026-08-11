@@ -4,6 +4,7 @@ import Header from '@/components/layout/header/Header';
 import Footer from '@/components/layout/footer/Footer';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import CallModal from "@/components/modals/CallModal";
+import ServiceModal from "@/components/modals/ServiceModal";
 
 const fontVariables = [
     muller.variable,
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
                         {children}
                     <Footer />
                     <CallModal />
+                    <ServiceModal />
                 </ThemeProvider>
             </body>
         </html>

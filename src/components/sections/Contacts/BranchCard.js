@@ -1,7 +1,7 @@
 import Button from "@/components/ui/Button";
 import Icon from "@/components/icons/Icon";
 
-export default function BranchCard({branch}) {
+export default function BranchCard({branch, embedded = false}) {
     const phoneHref = `tel:${branch.phone.replace(/\D/g, '')}`;
 
     return (
@@ -16,14 +16,14 @@ export default function BranchCard({branch}) {
                 <p className="mt-5 md:mt-7 text-base lg:text-[22px] font-heading leading-none text-foreground whitespace-break-spaces">{branch.address}</p>
             </div>
 
-            <div className="mt-3 md:mt-5 lg:mt-[140]">
+            <div className={`mt-3 md:mt-5 ${embedded ? 'lg:mt-[60]' : 'lg:mt-[140]'}`}>
                 <p className="text-lg text-foreground-light">{branch.workHours}</p>
                 <h3 className="mt-5 md:mt-10 lg:mt-7 font-heading text-[32px] md:text-[40px] lg:text-[54px] font-medium leading-none tracking-tight text-foreground">
                     {branch.title}
                 </h3>
                 <a
                     href={phoneHref}
-                    className="mt-5 md:mt-10 lg:mt-8 lg:mt-[130] block font-heading text-[22px] lg:text-[34px] font-medium leading-none tracking-tight text-foreground hover:text-primary-light transition"
+                    className={`mt-5 md:mt-10 lg:mt-8  ${embedded ? 'lg:mt-20' : 'lg:mt-[130]'} block font-heading text-[22px] lg:text-[34px] font-medium leading-none tracking-tight text-foreground hover:text-primary-light transition`}
                 >
                     {branch.phone}
                 </a>

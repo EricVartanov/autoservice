@@ -1,10 +1,25 @@
+'use client';
+
 import Image from "next/image";
 import Button from "@/components/ui/Button";
+import {useModalStore} from "../../../../public/store/useModalStore";
 
 export default function ServiceCard({service}) {
-    return (
+    const openModal = useModalStore((s) => s.openModal);
 
+    const openService = () => openModal('service', {slug: service.slug});
+
+    return (
         <div
+            role="button"
+            tabIndex={0}
+            onClick={openService}
+            onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openService();
+                }
+            }}
             className={`cursor-pointer group overflow-hidden relative rounded-[30] w-full min-h-[200] md:min-h-[300] lg:min-h-[330] flex flex-col justify-end p-7 md:pb-11 lg:p-7`}
         >
             <Image
@@ -19,11 +34,18 @@ export default function ServiceCard({service}) {
             />
 
             <div className={'flex h-full z-10 flex-col justify-end items-center'}>
-                <h3 className="text-foreground-fixed font-bold font-heading text-lg md:text-[22px] leading-none md:max-w-4/5 text-center">
+                <h3 className="text-foreground-fixed font-bold font-heading text-lg md:text-[22px] leading-none md:max-w-4/5 text-center whitespace-pre-line">
                     {service.title}
                 </h3>
                 <p className="mt-2.5 lg:mt-5 text-foreground-fixed text-sm md:text-lg">{service.price}</p>
-                <Button variant={'serviceCard'} className={'mt-5 md:mt-[30] lg:mt-12 bg-primary transition text-foreground-fixed group-hover:bg-foreground-fixed group-hover:text-primary'}>
+                <Button
+                    variant={'serviceCard'}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        openService();
+                    }}
+                    className={'mt-5 md:mt-[30] lg:mt-12 bg-primary transition text-foreground-fixed group-hover:bg-foreground-fixed group-hover:text-primary'}
+                >
                     Подробнее
                 </Button>
             </div>

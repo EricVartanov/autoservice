@@ -29,7 +29,13 @@ export const mockFooter = {
         {label: 'ф-л 2-я Дорожная', link: '#', logo: '/mock/max-logo-black.png', logoDark: '/mock/max-logo.png'},
         {label: 'ф-л 1-го Мая', link: '#', logo: '/mock/max-logo-black.png', logoDark: '/mock/max-logo.png'},
     ],
-    socials: [{name: 'vk', url: 'https://vk.com/example', logo: '/mock/vk-logo-black.png', logoDark: '/mock/vk-logo.png', alt: 'Vk'}],
+    socials: [{
+        name: 'vk',
+        url: 'https://vk.com/example',
+        logo: '/mock/vk-logo-black.png',
+        logoDark: '/mock/vk-logo.png',
+        alt: 'Vk'
+    }],
 };
 
 export const mockBranches = [
@@ -60,6 +66,454 @@ export const mockBranches = [
         marker: {x: 53, y: 40},
     },
 ];
+
+const sharedQuickForm = {
+    fields: [
+        {
+            name: 'name',
+            label: 'Как к Вам обращаться?',
+            type: 'text',
+            placeholder: 'начните вводить',
+            required: true,
+        },
+        {
+            name: 'phone',
+            label: 'Ваш номер телефона',
+            type: 'tel',
+            placeholder: '+7 (098) 465 95 05',
+            required: true,
+        },
+        {
+            name: 'carBrand',
+            label: 'Марка вашего авто',
+            type: 'select',
+            placeholder: 'выберите из списка',
+            required: true,
+            options: ['Renault', 'Citroen', 'Ford', 'Volkswagen', 'Toyota', 'Другая'],
+        },
+    ],
+    consent: {
+        label: 'Согласен на обработку',
+        linkText: 'персональных данных',
+        url: '/privacy',
+        required: true,
+    },
+    submitLabel: 'Отправить',
+};
+
+const SERVICE_ICONS = {
+    engine: {path: '/mock/services/icons/engine.png', alt: 'Двигатель'},
+    car: {path: '/mock/services/icons/car.png', alt: 'Автомобиль'},
+    fire: {path: '/mock/services/icons/fire.png', alt: 'Огонь'},
+    gears: {path: '/mock/services/icons/gears.png', alt: 'Шестерни'},
+    gear: {path: '/mock/services/icons/gear.png', alt: 'Шестерня'},
+    warning: {path: '/mock/services/icons/warning.png', alt: 'Предупреждение'},
+};
+
+const ENGINE_BENEFITS = [
+    {icon: SERVICE_ICONS.engine, text: 'Стабильная работа двигателя'},
+    {icon: SERVICE_ICONS.car, text: 'Экономия топлива'},
+    {icon: SERVICE_ICONS.fire, text: 'Сохранение мощности'},
+    {icon: SERVICE_ICONS.gears, text: 'Увеличение ресурса'},
+    {icon: SERVICE_ICONS.gear, text: 'Безопасность на дороге'},
+];
+
+const ENGINE_SYMPTOMS = [
+    {icon: SERVICE_ICONS.warning, text: 'Повышенный расход масла'},
+    {icon: SERVICE_ICONS.warning, text: 'Посторонние шумы'},
+    {icon: SERVICE_ICONS.warning, text: 'Дым из выхлопной'},
+    {icon: SERVICE_ICONS.warning, text: 'Потеря тяги'},
+    {icon: SERVICE_ICONS.warning, text: 'Перегрев двигателя'},
+];
+
+const ENGINE_POPULAR = [
+    {title: 'Диагностика двигателя', price: 'от 1 200 руб.', image: '/mock/services/engine.webp'},
+    {title: 'Замена масла и фильтров', price: 'от 1 100 руб.', image: '/mock/services/maintenance.webp'},
+    {title: 'Ремонт ГРМ', price: 'от 8 500 руб.', image: '/mock/services/engine.webp'},
+    {title: 'Чистка форсунок', price: 'от 3 200 руб.', image: '/mock/services/fuel-system.webp'},
+];
+
+const ENGINE_PRICE_LIST = [
+    {title: 'Диагностика двигателя', price: 'от 1 200 руб.'},
+    {title: 'Замена масла двигателя', price: 'от 1 100 руб.'},
+    {title: 'Замена масляного фильтра', price: 'от 550 руб.'},
+    {title: 'Замена воздушного фильтра', price: 'от 550 руб.'},
+    {title: 'Замена свечей зажигания', price: 'от 2 450 руб.'},
+    {title: 'Замена ремня ГРМ', price: 'от 8 500 руб.'},
+    {title: 'Замена цепи ГРМ', price: 'от 18 000 руб.'},
+    {title: 'Ремонт головки блока цилиндров', price: 'от 25 000 руб.'},
+    {title: 'Капитальный ремонт двигателя', price: 'от 85 000 руб.'},
+    {title: 'Чистка дроссельной заслонки', price: 'от 2 800 руб.'},
+    {title: 'Чистка форсунок', price: 'от 3 200 руб.'},
+    {title: 'Замена прокладки ГБЦ', price: 'от 12 000 руб.'},
+    {title: 'Замена помпы', price: 'от 4 500 руб.'},
+    {title: 'Замена термостата', price: 'от 2 900 руб.'},
+    {title: 'Регулировка клапанов', price: 'от 3 500 руб.'},
+    {title: 'Замена прокладки клапанной крышки', price: 'от 2 200 руб.'},
+];
+
+function buildServiceDetail({slug, title, price, image, description, benefits, symptoms, popular, priceList, trust}) {
+    return {
+        slug,
+        mark: 'Услуги',
+        title,
+        description,
+        heroImage: image,
+        quickForm: sharedQuickForm,
+        benefitsTitle: 'Что дает своевременный уход и ремонт',
+        benefits,
+        symptomsTitle: 'Признаки неисправностей:',
+        symptoms,
+        trust,
+        popularTitle: 'Популярные услуги',
+        popular,
+        priceListTitle: 'Все услуги*',
+        priceListSubTitle: '* Обращаем Ваше внимание, что здесь представлен не исчерпывающий перечень услуг. Если Вы не обнаружили интересующую Вас работу, просим связаться с нами по телефону или оставить заявку. Вероятно, мы сумеем Вам помочь.',
+        priceList,
+        startingPrice: price,
+    };
+}
+
+const SERVICE_DETAIL_SEED = [
+    {
+        slug: 'engine',
+        title: 'Двигатель',
+        price: 'от 1100 руб.',
+        image: '/mock/services/modalbg.png',
+        description: 'Двигатель — сердце автомобиля, и от его состояния зависит всё: динамика, расход топлива, безопасность и срок службы автомобиля. Регулярное обслуживание помогает избежать серьёзных поломок и серьезных трат, которые часто возникают неожиданно и приводят к дорогостоящему ремонту.',
+        benefits: ENGINE_BENEFITS,
+        symptoms: ENGINE_SYMPTOMS,
+        popular: ENGINE_POPULAR,
+        priceList: ENGINE_PRICE_LIST,
+        trust: {
+            image: '/mock/services/modal2gisbg.png',
+            imageAlt: 'Премия 2ГИС',
+            title: 'Почему клиенты доверяют нам ремонт двигателя',
+            text: 'Мотористы с профильным стажем, диагностика на современном оборудовании и гарантия на работы. Согласуем смету до начала ремонта — без скрытых доплат.',
+        },
+    },
+    {
+        slug: 'suspension',
+        title: 'Ходовая часть и подвеска',
+        price: 'от 1350 руб.',
+        image: '/mock/services/modalbg.png',
+        description:
+            'Исправная подвеска — это комфорт и безопасность. Диагностируем износ узлов, устраняем стуки и восстанавливаем геометрию.',
+        benefits: [
+            {icon: SERVICE_ICONS.engine, text: 'Комфорт на любой дороге'},
+            {icon: SERVICE_ICONS.car, text: 'Устойчивость в поворотах'},
+            {icon: SERVICE_ICONS.fire, text: 'Меньший износ шин'},
+            {icon: SERVICE_ICONS.gears, text: 'Точная управляемость'},
+            {icon: SERVICE_ICONS.gear, text: 'Предсказуемое поведение'},
+        ],
+        symptoms: [
+            {icon: SERVICE_ICONS.warning, text: 'Стуки на кочках'},
+            {icon: SERVICE_ICONS.warning, text: 'Увод в сторону'},
+            {icon: SERVICE_ICONS.warning, text: 'Неравномерный износ шин'},
+            {icon: SERVICE_ICONS.warning, text: 'Течи амортизаторов'},
+            {icon: SERVICE_ICONS.warning, text: 'Крен кузова'},
+        ],
+        popular: [
+            {title: 'Диагностика ходовой', price: 'от 1 350 руб.', image: '/mock/services/engine1.png'},
+            {title: 'Замена амортизаторов', price: 'от 4 500 руб.', image: '/mock/services/engine2.png'},
+            {title: 'Замена шаровых опор', price: 'от 2 800 руб.', image: '/mock/services/engine3.png'},
+            {title: 'Замена сайлентблоков', price: 'от 3 200 руб.', image: '/mock/services/engine4.png'},
+        ],
+        priceList: [
+            {title: 'Диагностика ходовой части', price: 'от 1 350 руб.'},
+            {title: 'Замена амортизатора', price: 'от 4 500 руб.'},
+            {title: 'Замена пружины', price: 'от 3 800 руб.'},
+            {title: 'Замена шаровой опоры', price: 'от 2 800 руб.'},
+            {title: 'Замена стойки стабилизатора', price: 'от 1 600 руб.'},
+            {title: 'Замена сайлентблока', price: 'от 3 200 руб.'},
+            {title: 'Замена ступичного подшипника', price: 'от 4 200 руб.'},
+            {title: 'Развал-схождение', price: 'от 2 500 руб.'},
+        ],
+        trust: {
+            image: '/mock/services/modal2gisbg.png',
+            imageAlt: 'Диагностика подвески',
+            title: 'Ходовая под контролем профессионалов',
+            text: 'Проверяем подвеску на подъёмнике, фиксируем износ по узлам и предлагаем ремонт только того, что реально требует замены. После работ — проверка геометрии.',
+        },
+    },
+    {
+        slug: 'ac-system',
+        title: 'Система кондиционирования',
+        price: 'от 550 руб.',
+        image: '/mock/services/modalbg.png',
+        description:
+            'Заправка, диагностика утечек и ремонт кондиционера — чтобы в салоне снова было комфортно в любую жару.',
+        benefits: ENGINE_BENEFITS.map((b, i) => ({
+            ...b,
+            text: ['Прохлада в салоне', 'Чистый воздух', 'Меньше нагрузки на мотор', 'Защита от плесени', 'Стабильный климат'][i],
+        })),
+        symptoms: ENGINE_SYMPTOMS.map((s, i) => ({
+            ...s,
+            text: ['Слабый холод', 'Посторонний запах', 'Шум компрессора', 'Подтёки фреона', 'Ошибки климата'][i],
+        })),
+        popular: [
+            {title: 'Заправка кондиционера', price: 'от 2 500 руб.', image: '/mock/services/engine1.png'},
+            {title: 'Диагностика системы', price: 'от 550 руб.', image: '/mock/services/engine2.png'},
+            {title: 'Антибактериальная обработка', price: 'от 1 800 руб.', image: '/mock/services/engine3.png'},
+            {title: 'Замена компрессора', price: 'от 12 000 руб.', image: '/mock/services/engine4.png'},
+        ],
+        priceList: [
+            {title: 'Диагностика кондиционера', price: 'от 550 руб.'},
+            {title: 'Заправка фреоном', price: 'от 2 500 руб.'},
+            {title: 'Поиск утечки', price: 'от 1 900 руб.'},
+            {title: 'Замена компрессора', price: 'от 12 000 руб.'},
+            {title: 'Замена радиатора кондиционера', price: 'от 8 500 руб.'},
+            {title: 'Антибактериальная обработка', price: 'от 1 800 руб.'},
+        ],
+        trust: {
+            image: '/mock/services/modal2gisbg.png',
+            imageAlt: 'Сервис кондиционера',
+            title: 'Климат в салоне — наша зона ответственности',
+            text: 'Ищем утечки фреона, заправляем по норме производителя и делаем антибактериальную обработку. Комфорт возвращается уже в день визита.',
+        },
+    },
+    {
+        slug: 'brakes',
+        title: 'Тормозная система',
+        price: 'от 1600 руб.',
+        image: '/mock/services/modalbg.png',
+        description:
+            'Тормоза — главный элемент безопасности. Меняем колодки и диски, прокачиваем систему, устраняем биение и скрип.',
+        benefits: ENGINE_BENEFITS.map((b, i) => ({
+            ...b,
+            text: ['Короткий тормозной путь', 'Стабильное замедление', 'Меньше износа дисков', 'Предсказуемая педаль', 'Безопасность пассажиров'][i],
+        })),
+        symptoms: ENGINE_SYMPTOMS.map((s, i) => ({
+            ...s,
+            text: ['Скрип при торможении', 'Биение руля', 'Увод при торможении', 'Мягкая педаль', 'Индикатор ABS'][i],
+        })),
+        popular: [
+            {title: 'Замена колодок', price: 'от 1 600 руб.', image: '/mock/services/engine1.png'},
+            {title: 'Замена тормозных дисков', price: 'от 4 200 руб.', image: '/mock/services/engine2.png'},
+            {title: 'Прокачка тормозов', price: 'от 1 800 руб.', image: '/mock/services/engine3.png'},
+            {title: 'Диагностика тормозов', price: 'от 1 200 руб.', image: '/mock/services/engine4.png'},
+        ],
+        priceList: [
+            {title: 'Диагностика тормозной системы', price: 'от 1 200 руб.'},
+            {title: 'Замена передних колодок', price: 'от 1 600 руб.'},
+            {title: 'Замена задних колодок', price: 'от 1 800 руб.'},
+            {title: 'Замена тормозного диска', price: 'от 4 200 руб.'},
+            {title: 'Замена тормозной жидкости', price: 'от 2 100 руб.'},
+            {title: 'Прокачка тормозов', price: 'от 1 800 руб.'},
+            {title: 'Замена суппорта', price: 'от 6 500 руб.'},
+        ],
+        trust: {
+            image: '/mock/services/modal2gisbg.png',
+            imageAlt: 'Ремонт тормозов',
+            title: 'Тормоза, которым можно доверять',
+            text: 'Используем проверенные колодки и диски, прокачиваем контур и проверяем систему после сборки. Безопасность — приоритет на каждом этапе.',
+        },
+    },
+    {
+        slug: 'transmission',
+        title: 'Трансмиссия',
+        price: 'от 2600 руб.',
+        image: '/mock/services/modalbg.png',
+        description:
+            'МКПП, АКПП и сцепление — обслуживаем и ремонтируем трансмиссию с диагностикой и прозрачной сметой.',
+        benefits: ENGINE_BENEFITS,
+        symptoms: ENGINE_SYMPTOMS.map((s, i) => ({
+            ...s,
+            text: ['Рывки при переключении', 'Шум КПП', 'Пробуксовка', 'Течь масла', 'Затруднённое включение'][i],
+        })),
+        popular: [
+            {title: 'Диагностика КПП', price: 'от 2 600 руб.', image: '/mock/services/engine1.png'},
+            {title: 'Замена масла АКПП', price: 'от 4 800 руб.', image: '/mock/services/engine2.png'},
+            {title: 'Замена сцепления', price: 'от 18 000 руб.', image: '/mock/services/engine3.png'},
+            {title: 'Ремонт МКПП', price: 'от 25 000 руб.', image: '/mock/services/engine4.png'},
+        ],
+        priceList: [
+            {title: 'Диагностика трансмиссии', price: 'от 2 600 руб.'},
+            {title: 'Замена масла МКПП', price: 'от 2 800 руб.'},
+            {title: 'Замена масла АКПП', price: 'от 4 800 руб.'},
+            {title: 'Замена сцепления', price: 'от 18 000 руб.'},
+            {title: 'Замена привода', price: 'от 5 500 руб.'},
+            {title: 'Ремонт АКПП', price: 'от 45 000 руб.'},
+        ],
+        trust: {
+            image: '/mock/services/modal2gisbg.png',
+            imageAlt: 'Обслуживание КПП',
+            title: 'Трансмиссия без сюрпризов',
+            text: 'Мы работаем с двигателями всех типов — бензиновыми, дизельными, турбированными и гибридными. Используем профессиональное оборудование, оригинальные расходники, расходные материалы  и даём гарантию на выполненные работы. Каждый автомобиль проходит индивидуальную диагностику, а клиент получает рекомендации без навязывания лишних услуг',
+        },
+    },
+    {
+        slug: 'exhaust',
+        title: 'Выхлопная система',
+        price: 'от 1375 руб.',
+        image: '/mock/services/modalbg.png',
+        description:
+            'Устраняем шум, заменяем гофру, катализатор и глушитель — выхлоп снова тихий и экологичный.',
+        benefits: ENGINE_BENEFITS,
+        symptoms: ENGINE_SYMPTOMS.map((s, i) => ({
+            ...s,
+            text: ['Громкий выхлоп', 'Запах в салоне', 'Потеря тяги', 'Ошибка катализатора', 'Вибрация под днищем'][i],
+        })),
+        popular: [
+            {title: 'Замена гофры', price: 'от 3 500 руб.', image: '/mock/services/engine1.png'},
+            {title: 'Замена глушителя', price: 'от 4 200 руб.', image: '/mock/services/engine2.png'},
+            {title: 'Ремонт выхлопа', price: 'от 1 375 руб.', image: '/mock/services/engine3.png'},
+            {title: 'Замена катализатора', price: 'от 12 000 руб.', image: '/mock/services/engine4.png'},
+        ],
+        priceList: [
+            {title: 'Диагностика выхлопной системы', price: 'от 1 375 руб.'},
+            {title: 'Замена гофры', price: 'от 3 500 руб.'},
+            {title: 'Замена резонатора', price: 'от 4 000 руб.'},
+            {title: 'Замена глушителя', price: 'от 4 200 руб.'},
+            {title: 'Замена катализатора', price: 'от 12 000 руб.'},
+        ],
+        trust: {
+            image: '/mock/services/modal2gisbg.png',
+            imageAlt: 'Ремонт выхлопа',
+            title: 'Тихий и исправный выхлоп',
+            text: 'Свариваем и меняем элементы выхлопа с учётом геометрии кузова. Подбираем аналоги или оригинал — вы выбираете бюджет и ресурс.',
+        },
+    },
+    {
+        slug: 'fuel-system',
+        title: 'Топливная система',
+        price: 'от 1375 руб.',
+        image: '/mock/services/modalbg.png',
+        description:
+            'Чистка форсунок, замена фильтров и насоса — стабильная подача топлива и ровная работа мотора.',
+        benefits: ENGINE_BENEFITS,
+        symptoms: ENGINE_SYMPTOMS.map((s, i) => ({
+            ...s,
+            text: ['Трудный запуск', 'Плавают обороты', 'Повышенный расход', 'Провалы при разгоне', 'Запах топлива'][i],
+        })),
+        popular: [
+            {title: 'Чистка форсунок', price: 'от 3 200 руб.', image: '/mock/services/engine1.png'},
+            {title: 'Замена топливного фильтра', price: 'от 1 375 руб.', image: '/mock/services/engine2.png'},
+            {title: 'Замена бензонасоса', price: 'от 6 500 руб.', image: '/mock/services/engine3.png'},
+            {title: 'Диагностика топливной', price: 'от 1 500 руб.', image: '/mock/services/engine4.png'},
+        ],
+        priceList: [
+            {title: 'Диагностика топливной системы', price: 'от 1 500 руб.'},
+            {title: 'Замена топливного фильтра', price: 'от 1 375 руб.'},
+            {title: 'Чистка форсунок', price: 'от 3 200 руб.'},
+            {title: 'Замена бензонасоса', price: 'от 6 500 руб.'},
+            {title: 'Замена регулятора давления', price: 'от 3 800 руб.'},
+        ],
+        trust: {
+            image: '/mock/services/modal2gisbg.png',
+            imageAlt: 'Топливная система',
+            title: 'Топливная система работает ровно',
+            text: 'Замеряем давление, чистим форсунки и меняем фильтры по факту диагностики. Цель — стабильный запуск и расход без «плавающих» оборотов.',
+        },
+    },
+    {
+        slug: 'maintenance',
+        title: 'Техническое обслуживание',
+        price: 'от 550 руб.',
+        image: '/mock/services/modalbg.png',
+        description:
+            'Плановое ТО по регламенту: масло, фильтры, жидкости и проверка узлов — без сюрпризов в дороге.',
+        benefits: ENGINE_BENEFITS,
+        symptoms: ENGINE_SYMPTOMS.map((s, i) => ({
+            ...s,
+            text: ['Пробег до ТО', 'Индикатор сервиса', 'Шумы после пробега', 'Течи жидкостей', 'Снижение динамики'][i],
+        })),
+        popular: [
+            {title: 'ТО-1', price: 'от 3 500 руб.', image: '/mock/services/engine1.png'},
+            {title: 'Замена масла', price: 'от 1 100 руб.', image: '/mock/services/engine2.png'},
+            {title: 'Замена фильтров', price: 'от 550 руб.', image: '/mock/services/engine3.png'},
+            {title: 'Компьютерная диагностика', price: 'от 1 200 руб.', image: '/mock/services/engine4.png'},
+        ],
+        priceList: [
+            {title: 'Компьютерная диагностика', price: 'от 1 200 руб.'},
+            {title: 'Замена масла двигателя', price: 'от 1 100 руб.'},
+            {title: 'Замена воздушного фильтра', price: 'от 550 руб.'},
+            {title: 'Замена салонного фильтра', price: 'от 550 руб.'},
+            {title: 'Замена свечей', price: 'от 2 450 руб.'},
+            {title: 'ТО по регламенту', price: 'от 3 500 руб.'},
+        ],
+        trust: {
+            image: '/mock/services/modal2gisbg.png',
+            imageAlt: 'Плановое ТО',
+            title: 'ТО по регламенту — без лишнего',
+            text: 'Соблюдаем межсервисные интервалы производителя, ставим согласованные масла и фильтры. Вы получаете чек-лист выполненных работ и рекомендации на следующий визит.',
+        },
+    },
+    {
+        slug: 'steering-system',
+        title: 'Рулевое управление\nЭлектрооборудование',
+        price: 'от 550 руб.',
+        image: '/mock/services/modalbg.png',
+        description:
+            'Ремонт рулевых реек, наконечников и электрики: от аккумулятора до генератора и стартера.',
+        benefits: ENGINE_BENEFITS,
+        symptoms: ENGINE_SYMPTOMS.map((s, i) => ({
+            ...s,
+            text: ['Люфт руля', 'Тяжёлое руление', 'Стук в рейке', 'Разряд АКБ', 'Не крутит стартер'][i],
+        })),
+        popular: [
+            {title: 'Диагностика электрики', price: 'от 550 руб.', image: '/mock/services/engine1.png'},
+            {title: 'Замена наконечника', price: 'от 2 200 руб.', image: '/mock/services/engine2.png'},
+            {title: 'Ремонт рулевой рейки', price: 'от 12 000 руб.', image: '/mock/services/engine3.png'},
+            {title: 'Замена генератора', price: 'от 5 500 руб.', image: '/mock/services/engine4.png'},
+        ],
+        priceList: [
+            {title: 'Диагностика электрооборудования', price: 'от 550 руб.'},
+            {title: 'Замена рулевого наконечника', price: 'от 2 200 руб.'},
+            {title: 'Замена рулевой тяги', price: 'от 2 800 руб.'},
+            {title: 'Ремонт рулевой рейки', price: 'от 12 000 руб.'},
+            {title: 'Замена генератора', price: 'от 5 500 руб.'},
+            {title: 'Замена стартера', price: 'от 4 800 руб.'},
+        ],
+        trust: {
+            image: '/mock/services/modal2gisbg.png',
+            imageAlt: 'Рулевое и электрика',
+            title: 'Точное руление и надёжная электрика',
+            text: 'Диагностируем рейку, наконечники и бортовую сеть сканером. Устраняем люфты и проблемы с зарядкой так, чтобы руль и электроника работали предсказуемо.',
+        },
+    },
+    {
+        slug: 'cooling-system',
+        title: 'Система охлаждения',
+        price: 'от 550 руб.',
+        image: '/mock/services/modalbg.png',
+        description:
+            'Боремся с перегревом: радиатор, помпа, термостат, антифриз и герметичность системы.',
+        benefits: ENGINE_BENEFITS,
+        symptoms: ENGINE_SYMPTOMS.map((s, i) => ({
+            ...s,
+            text: ['Перегрев', 'Низкий уровень ОЖ', 'Течь радиатора', 'Холодная печка', 'Белый дым'][i],
+        })),
+        popular: [
+            {title: 'Замена антифриза', price: 'от 2 200 руб.', image: '/mock/services/engine1.png'},
+            {title: 'Замена термостата', price: 'от 2 900 руб.', image: '/mock/services/engine2.png'},
+            {title: 'Замена помпы', price: 'от 4 500 руб.', image: '/mock/services/engine3.png'},
+            {title: 'Промывка системы', price: 'от 3 500 руб.', image: '/mock/services/engine4.png'},
+        ],
+        priceList: [
+            {title: 'Диагностика системы охлаждения', price: 'от 550 руб.'},
+            {title: 'Замена антифриза', price: 'от 2 200 руб.'},
+            {title: 'Замена термостата', price: 'от 2 900 руб.'},
+            {title: 'Замена помпы', price: 'от 4 500 руб.'},
+            {title: 'Замена радиатора', price: 'от 7 500 руб.'},
+            {title: 'Промывка системы охлаждения', price: 'от 3 500 руб.'},
+        ],
+        trust: {
+            image: '/mock/services/modal2gisbg.png',
+            imageAlt: 'Система охлаждения',
+            title: 'Защита двигателя от перегрева',
+            text: 'Проверяем герметичность, меняем антифриз и узлы по результату опрессовки. Стабильная температура — меньше риска дорогого ремонта мотора.',
+        },
+    },
+];
+
+export const mockServiceDetails = Object.fromEntries(
+    SERVICE_DETAIL_SEED.map((item) => [item.slug, buildServiceDetail(item)])
+);
+
+export function getServiceDetail(slug) {
+    return mockServiceDetails[slug] ?? null;
+}
 
 export const mockPage = {
     sections: [
@@ -411,12 +865,28 @@ export const mockPage = {
             backgroundImage: {path: '/mock/commercial/commercial-bg.webp', alt: 'commercial service'},
             limitations: [
                 {image: '/mock/commercial/truck.webp', alt: 'truck', text: 'Не обслуживаем\nкрупнотоннажные грузовики'},
-                {image: '/mock/commercial/semi-truck.webp', alt: 'semi truck', text: 'Не обслуживаем автомобили\nвыше 3 метров'},
+                {
+                    image: '/mock/commercial/semi-truck.webp',
+                    alt: 'semi truck',
+                    text: 'Не обслуживаем автомобили\nвыше 3 метров'
+                },
             ],
             form: {
                 fields: [
-                    {name: 'name', label: 'Как к Вам обращаться?', type: 'text', placeholder: 'начните вводить', required: true},
-                    {name: 'phone', label: 'Ваш номер телефона', type: 'tel', placeholder: '+7 (098) 465 95 05', required: true},
+                    {
+                        name: 'name',
+                        label: 'Как к Вам обращаться?',
+                        type: 'text',
+                        placeholder: 'начните вводить',
+                        required: true
+                    },
+                    {
+                        name: 'phone',
+                        label: 'Ваш номер телефона',
+                        type: 'tel',
+                        placeholder: '+7 (098) 465 95 05',
+                        required: true
+                    },
                     {
                         name: 'carBrand',
                         label: 'Марка Вашего авто',
@@ -658,3 +1128,7 @@ export const mockPage = {
         },
     ],
 };
+
+export function getMockSection(type) {
+    return mockPage.sections.find((section) => section.type === type) ?? null;
+}
