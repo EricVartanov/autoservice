@@ -25,7 +25,7 @@ const SECTION_MAP = {
     faq: Faq,
     contact_form: ContactForm,
     contacts: Contacts,
-    // feedback: Feedback,
+    feedback: Feedback,
 };
 
 /** Ordered section meta for scroll indicator (must match mockPage.sections order). */

@@ -25,7 +25,7 @@ export default function Header() {
     const collapsed = isHome ? isScrolled : true;
 
     return (
-        <header className={`fixed top-0 left-0 w-full z-50 transition duration-300 backdrop-blur-sm text-foreground-fixed ${
+        <header className={`fixed top-0 left-0 w-full z-100 transition duration-300 backdrop-blur-sm text-foreground-fixed ${
             collapsed || !isHome ? 'bg-black' : 'bg-black/40'
         }`}>
             <Container className="hidden lg:block">

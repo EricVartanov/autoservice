@@ -12,6 +12,10 @@ const cardGradient =
 const cardGradient2 =
     "bg-[radial-gradient(circle_at_bottom_center,rgba(200,0,0,1)_0%,rgba(150,0,0,1)_40%,rgba(0,0,0,0.8)_75%,rgba(0,0,0,0.8)_100%)]";
 
+
+const cardGradient3 =
+    "bg-[linear-gradient(316deg,rgba(255,0,0,1)_0%,rgba(0,0,0,1)_100%)]";
+
 function validate({name, phoneDigits, branch}) {
     const errors = {};
 
@@ -76,36 +80,36 @@ export default function Feedback({data}) {
     };
 
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-3.5 font-helvetica text-base outline-none placeholder:text-foreground-fixed transition-colors ${
+        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed transition-colors ${
             hasError ? "border-primary" : "border-white/20 focus:border-foreground-fixed"
         }`;
 
     return (
-        <section className="relative bg-background-secondary py-20 lg:py-[150]">
-            <Container className="relative">
-                <div className="relative z-[21] flex flex-col gap-5 lg:flex-row lg:justify-between">
+        <section className="relative bg-background-secondary pb-[150] pt-20 lg:py-[150]">
+            <Container className="relative z-50">
+                <div className="relative z-20 flex flex-col gap-5 lg:flex-row lg:justify-between">
                     <form
                         onSubmit={handleSubmit}
                         noValidate
-                        className={`w-full lg:w-[calc(50%-10px)] relative z-10 flex flex-col rounded-[30] py-8 px-6 lg:py-12 lg:px-10 text-foreground-fixed ${cardGradient}`}
+                        className={`w-full lg:w-[calc(50%-10px)] relative z-10 flex flex-col rounded-[30] py-8 px-5 md:py-12 md:px-10 text-foreground-fixed ${cardGradient}`}
                     >
-                        <p className="font-helvetica text-lg leading-tight text-foreground-light-fixed whitespace-break-spaces">
+                        <p className="font-helvetica text-center lg:text-left text-base md:text-lg leading-tight text-foreground-light-fixed whitespace-break-spaces">
                             {intro}
                         </p>
-                        <h2 className="mt-7 font-heading text-[34px] font-bold leading-none whitespace-break-spaces">
+                        <h2 className="mt-7  text-center lg:text-left font-heading text-[22px] md:text-[34px] font-bold leading-none whitespace-break-spaces">
                             {title}
                         </h2>
 
-                        <div className="mt-12 flex flex-col gap-5 lg:flex-row lg:gap-7">
+                        <div className="mt-10 md:mt-12 flex flex-col gap-5 md:gap-2.5 md:flex-row lg:gap-7">
                             {form.fields.map((field) => {
                                 const hasError = !!errors[field.name];
 
                                 return (
                                     <div
                                         key={field.name}
-                                        className="relative w-full lg:w-[calc(50%-14px)]"
+                                        className="relative w-full md:w-[calc(50%-5px)] lg:w-[calc(50%-14px)]"
                                     >
-                                        <label className="mb-2.5 block font-helvetica text-base font-bold">
+                                        <label className="mb-2.5 block font-helvetica text-sm md:text-base font-bold">
                                             {field.label}
                                             {field.required && (
                                                 <span className="text-primary"> *</span>
@@ -144,7 +148,7 @@ export default function Feedback({data}) {
                         </div>
 
                         <div className="relative mt-6">
-                            <p className="mb-4 font-helvetica text-base font-bold">
+                            <p className="mb-4 font-helvetica text-sm md:text-base font-bold">
                                 {form.branch.label}
                                 {form.branch.required && (
                                     <span className="text-primary"> *</span>
@@ -156,10 +160,10 @@ export default function Feedback({data}) {
                                     return (
                                         <label
                                             key={opt.value}
-                                            className="flex cursor-pointer items-center gap-1.5 font-helvetica text-base"
+                                            className="flex cursor-pointer items-center gap-1.5 font-helvetica text-sm md:text-base"
                                         >
                                             <span
-                                                className={`flex size-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
+                                                className={`flex size-5 md:size-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
                                                     errors.branch
                                                         ? "border-primary"
                                                         : checked
@@ -168,7 +172,7 @@ export default function Feedback({data}) {
                                                 }`}
                                             >
                                                 {checked && (
-                                                    <span className="size-3.5 rounded-full bg-primary" />
+                                                    <span className="size-2.5 md:size-3.5 rounded-full bg-primary" />
                                                 )}
                                             </span>
                                             <input
@@ -195,11 +199,11 @@ export default function Feedback({data}) {
                         </div>
 
                         <div className="mt-6">
-                            <label className="mb-2.5 block font-helvetica text-base font-bold">
+                            <label className="mb-2.5 block font-helvetica text-sm md:text-base font-bold">
                                 {form.message.label}
                             </label>
                             {form.message.hint && (
-                                <p className="mb-3.5 font-helvetica text-base text-foreground-light-fixed">
+                                <p className="mb-3.5 font-helvetica text-sm md:text-base text-foreground-light-fixed">
                                     {form.message.hint}
                                 </p>
                             )}
@@ -208,11 +212,11 @@ export default function Feedback({data}) {
                                 onChange={(e) => setMessage(e.target.value)}
                                 placeholder={form.message.placeholder}
                                 rows={4}
-                                className="w-full resize-none rounded-[10] border border-white/20 bg-transparent px-5 py-3.5 font-helvetica text-base text-foreground-fixed outline-none placeholder:text-foreground-fixed focus:border-foreground-fixed"
+                                className="w-full resize-none rounded-[10] border border-white/20 bg-transparent px-5 py-3.5 font-helvetica text-sm md:text-base text-foreground-fixed outline-none placeholder:text-foreground-fixed focus:border-foreground-fixed"
                             />
                         </div>
 
-                        <div className="mt-10 flex justify-end">
+                        <div className="mt-5 flex justify-center lg:justify-end">
                             <Button type="submit" variant="primary">
                                 {form.submitLabel}
                             </Button>
@@ -220,34 +224,36 @@ export default function Feedback({data}) {
                     </form>
 
                     <div
-                        className={`w-full lg:w-[calc(50%-10px)] max-h-[420] lg:max-h-[544] relative z-10 flex flex-col overflow-hidden rounded-[30] py-12 px-6 lg:px-10 ${cardGradient2}`}
+                        className={`w-full min-h-[340] md:max-w-2xl md:mx-auto lg:max-w-none lg:mx-0 lg:w-[calc(50%-10px)] md:min-h-[317] lg:min-h-auto lg:max-h-[544] relative z-10 flex flex-col overflow-hidden rounded-[30] py-12 px-6 lg:px-10 ${cardGradient3} lg:${cardGradient2}`}
                     >
-                        <p className="z-10 font-heading leading-none text-[22px] whitespace-break-spaces text-foreground-fixed max-w-[230]">
+                        <p className="z-10 font-heading leading-none text-lg md:text-[22px] whitespace-break-spaces text-foreground-fixed max-w-[230]">
                             {manager.title}
                         </p>
-                        <div className="absolute z-10 left-1/2 -translate-x-1/2 bottom-0 flex flex-1 items-end justify-center">
+                        <div className="absolute w-[200] md:w-[250] lg:w-[410] z-10 right-[10%] lg:right-auto lg:left-1/2 lg:-translate-x-1/2 bottom-0 flex flex-1 items-end justify-center">
                             <Image
                                 src={manager.photo.path}
                                 alt={manager.photo.alt}
                                 width={410}
                                 height={517}
-                                className="relative z-10 h-auto w-full object-contain object-bottom"
+                                className="relative max-w-[410] z-10 h-auto w-full"
                             />
                         </div>
                     </div>
                 </div>
             </Container>
-            {/*{tires?.path && (*/}
-            {/*    <div className="pointer-events-none z-20 absolute w-full max-w-[420] right-[-8%] bottom-[-5%] opacity-40 lg:opacity-100 lg:max-w-[860] lg:right-[-12%] lg:bottom-[-13%]">*/}
-            {/*        <Image*/}
-            {/*            src={tires.path}*/}
-            {/*            alt={tires.alt || ""}*/}
-            {/*            width={750}*/}
-            {/*            height={824}*/}
-            {/*            className="h-auto w-full"*/}
-            {/*        />*/}
-            {/*    </div>*/}
-            {/*)}*/}
+            {tires?.path && (
+                <div
+                    className="pointer-events-none z-30 absolute right-0 bottom-[-5%] lg:bottom-[-13%] w-full max-w-[320] overflow-hidden lg:max-w-[760]"
+                >
+                    <Image
+                        src={tires.path}
+                        alt={tires.alt || ""}
+                        width={750}
+                        height={824}
+                        className="h-auto w-[140%] max-w-none -mr-[20%] lg:w-[125%] lg:-mr-[10%]"
+                    />
+                </div>
+            )}
         </section>
     );
 }

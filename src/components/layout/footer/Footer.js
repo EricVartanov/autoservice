@@ -17,7 +17,7 @@ export default function Footer({data = mockFooter}) {
                                 alt={logo.alt}
                                 width={420}
                                 height={160}
-                                className="h-auto dark:hidden lg:w-[410]"
+                                className="h-auto dark:hidden w-[172] lg:w-[410] z-50"
                             />
                             {logoDark && (
                                 <Image
@@ -25,19 +25,19 @@ export default function Footer({data = mockFooter}) {
                                     alt={logoDark.alt}
                                     width={420}
                                     height={160}
-                                    className="hidden h-auto dark:block lg:w-[410]"
+                                    className="hidden h-auto dark:block w-[172] lg:w-[410] z-50"
                                 />
                             )}
                         </>
                     )}
                 </div>
 
-                <hr className="mt-10 border-0 border-t border-foreground/20 md:mt-12" />
+                <hr className="mt-[30] border-0 border-t border-foreground/20 lg:mt-12" />
 
-                <div className="mt-6 flex flex-col items-center gap-6 text-center text-lg font-helvetica text-foreground lg:flex-row lg:items-stretch lg:justify-between lg:gap-0 lg:text-left">
-                    <p className="order-3 shrink-0 text-foreground-light lg:order-none">{copyright} {new Date().getFullYear()}</p>
+                <div className="mt-5 lg:mt-6 flex flex-col items-center gap-6 text-center text-lg font-helvetica text-foreground lg:flex-row lg:items-stretch lg:justify-between lg:gap-0 lg:text-left">
+                    <p className="order-2 shrink-0 text-foreground-light lg:order-none">{copyright} {new Date().getFullYear()}</p>
 
-                    <div className="order-1 flex flex-col gap-3 lg:order-none lg:flex-row lg:justify-between lg:gap-8 xl:gap-[97]">
+                    <div className="order-1 flex flex-col gap-3 lg:order-none md:flex-row lg:justify-between lg:gap-8 xl:gap-[97]">
                         {legal?.map((item) => (
                             <Link
                                 key={item.label}
@@ -49,7 +49,7 @@ export default function Footer({data = mockFooter}) {
                         ))}
                     </div>
 
-                    <div className="order-2 flex flex-wrap items-center justify-center gap-6 lg:order-none lg:justify-between lg:gap-8 xl:gap-[130]">
+                    <div className="order-3 flex flex-wrap items-center justify-center gap-6 lg:order-none lg:justify-between lg:gap-8 xl:gap-[130]">
                         <div className={'flex flex-wrap items-center justify-center gap-2.5 lg:flex-nowrap lg:justify-start'}>
                             {branches?.map((branch) => (
                                 <Link
