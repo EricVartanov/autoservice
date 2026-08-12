@@ -2,10 +2,11 @@
 
 import {useLayoutEffect, useRef} from 'react';
 import {gsap} from '@/lib/gsap';
+import {useInModal} from '@/components/modals/InModalContext';
 
 /**
  * Fade + slide-up reveal on scroll. Optionally staggers direct children.
- * Plays once and respects prefers-reduced-motion.
+ * Plays once and respects prefers-reduced-motion. Skipped inside modals.
  */
 export default function ScrollReveal({
     children,
@@ -16,10 +17,15 @@ export default function ScrollReveal({
     delay = 0,
     start = 'top 85%',
     as: Tag = 'div',
+    animate = true,
 }) {
     const ref = useRef(null);
+    const inModal = useInModal();
+    const enabled = animate && !inModal;
 
     useLayoutEffect(() => {
+        if (!enabled) return;
+
         const el = ref.current;
         if (!el) return;
 
@@ -55,7 +61,7 @@ export default function ScrollReveal({
         });
 
         return () => mm.revert();
-    }, [stagger, staggerEach, y, delay, start]);
+    }, [enabled, stagger, staggerEach, y, delay, start]);
 
     return (
         <Tag ref={ref} className={className}>

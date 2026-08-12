@@ -2,6 +2,7 @@
 
 import {useLayoutEffect, useRef} from 'react';
 import {gsap, SplitText} from '@/lib/gsap';
+import {useInModal} from '@/components/modals/InModalContext';
 
 // SplitText normalizes whitespace (incl. "\n") before the browser ever
 // renders it via CSS white-space, so manual line breaks in the source text
@@ -17,7 +18,7 @@ function withLineBreaks(children, breakClassName) {
 /**
  * Polymorphic heading wrapper that reveals its text letter-by-letter in a
  * "wave" cascade once the element scrolls into view. Plays once and respects
- * prefers-reduced-motion.
+ * prefers-reduced-motion. Skipped inside modals.
  */
 export default function WaveTitle({
                                        as: Tag = 'h2',
@@ -25,11 +26,16 @@ export default function WaveTitle({
                                        className = '',
                                        delay = 0,
                                        breakClassName = '',
+                                       animate = true,
                                        ...rest
                                    }) {
     const ref = useRef(null);
+    const inModal = useInModal();
+    const enabled = animate && !inModal;
 
     useLayoutEffect(() => {
+        if (!enabled) return;
+
         const el = ref.current;
         if (!el) return;
 
@@ -58,7 +64,7 @@ export default function WaveTitle({
         });
 
         return () => mm.revert();
-    }, [delay]);
+    }, [enabled, delay]);
 
     return (
         <Tag ref={ref} className={className} {...rest}>

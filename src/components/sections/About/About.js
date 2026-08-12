@@ -9,7 +9,7 @@ export default function About({data}) {
 
     const {titleBack, cards, title, subtitle, stats} = data
     return (
-        <section className="overflow-hidden">
+        <section className="overflow-hidden bg-background">
             <div className={'relative lg:py-[150] pt-10 pb-20 md:py-20'}>
                 <Container>
                     <SectionTitle titleBack={titleBack} title={title} subtitle={subtitle} />
