@@ -149,7 +149,7 @@ export default function ServiceHero({data}) {
             />
             <div className="absolute inset-0 bg-[linear-gradient(335deg,#be0000_0%,rgba(0,0,0,0.4)_50%,transparent_100%)]" />
 
-            <div className="relative z-10 flex h-full flex-col justify-between gap-8 lg:gap-[50] px-5 py-10 pr-14 md:px-10 md:py-12 md:pr-16 lg:px-20 lg:pt-20 lg:pb-[35]">
+            <div className="relative z-10 flex h-full flex-col justify-between gap-8 lg:gap-[50] px-5 py-10 md:px-10 md:py-12 md:pr-16 lg:px-20 lg:pt-20 lg:pb-[35]">
                 <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
                     <div className="max-w-xl">
                         <p className="font-helvetica text-base md:text-lg text-foreground-fixed">{mark}</p>

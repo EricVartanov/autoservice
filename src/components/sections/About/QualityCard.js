@@ -26,6 +26,7 @@ export default function QualityCard({card}) {
                     alt={card.title}
                     width={1080}
                     height={601}
+                    loading="eager"
                     className="absolute inset-0 h-full w-full object-cover object-right transition-transform duration-700"
                 />
 
@@ -54,6 +55,7 @@ export default function QualityCard({card}) {
                 alt={card.title}
                 width={1080}
                 height={601}
+                loading="eager"
                 className="absolute inset-0 h-full w-full object-cover object-right transition-transform duration-700"
             />
 

@@ -14,8 +14,8 @@ export default function SpecialOffer({data}) {
             <Container>
                 {/* фон */}
                 <div className="absolute inset-0">
-                    <Image src={image.path} alt={image.alt} width={1920} height={640}
-                           className={"inset-0 w-full h-full object-cover"}/>
+                    <Image src={image.path} alt={image.alt} fill sizes="100vw" priority
+                           className={"object-cover"}/>
                 </div>
 
                 <div className={'relative z-10 flex flex-col items-start gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-0'}>

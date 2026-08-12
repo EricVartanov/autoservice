@@ -126,8 +126,13 @@ export default function Reviews({data}) {
                                     <div className="flex items-center gap-2.5 justify-between">
                                         <div className="flex items-center gap-2.5">
                                             <div className="relative shrink-0 size-10 rounded-full overflow-hidden ">
-                                                <Image src={review.avatar} alt={review.author} fill
-                                                       className="object-cover"/>
+                                                <Image
+                                                    src={review.avatar}
+                                                    alt={review.author}
+                                                    width={40}
+                                                    height={40}
+                                                    className="size-full object-cover"
+                                                />
                                             </div>
                                             <span
                                                 className="text-sm md:text-base font-medium leading-tight">

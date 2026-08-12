@@ -29,7 +29,7 @@ export default function Team({data}) {
                     className={'mt-5 md:mt-[65] lg:mt-[90] relative'}
                 >
                     <div className="flex items-end justify-center rounded-[12] lg:rounded-[30] overflow-hidden">
-                        <Image src={image.path} alt={image.alt} width={1527} height={479} className={'w-full h-auto'} />
+                        <Image src={image.path} alt={image.alt} width={1527} height={479} loading="eager" className={'w-full h-auto'} />
                     </div>
                     <div className="absolute z-[-1] md:w-[70] lg:w-[134] top-[-20%] lg:top-0 left-1/3 hidden md:block">
                         <Icon name={'dots'} className={'text-primary-light w-full'} />

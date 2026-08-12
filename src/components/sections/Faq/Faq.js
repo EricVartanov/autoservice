@@ -61,7 +61,7 @@ export default function Faq({data}) {
                             variant="left"
                         />
 
-                        <div className="mt-7 lg:mt-12 flex justify-center md:justify-start md:flex-wrap lg:flex-nowrap items-center gap-3 md:gap-7">
+                        <div className="mt-7 lg:mt-12 flex flex-col justify-center md:justify-start md:flex-wrap lg:flex-nowrap items-center gap-3 md:gap-7">
                             {messengers?.map((messenger) => (
                                 <a
                                     key={messenger.name}

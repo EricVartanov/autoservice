@@ -26,6 +26,7 @@ export default function Footer({data = mockFooter}) {
                                 alt={logo.alt}
                                 width={420}
                                 height={160}
+                                loading="eager"
                                 className="h-auto dark:hidden w-[172] lg:w-[410] z-50"
                             />
                             {logoDark && (
@@ -34,6 +35,7 @@ export default function Footer({data = mockFooter}) {
                                     alt={logoDark.alt}
                                     width={420}
                                     height={160}
+                                    loading="eager"
                                     className="hidden h-auto dark:block w-[172] lg:w-[410] z-50"
                                 />
                             )}

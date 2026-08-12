@@ -53,9 +53,9 @@ export default function Modal({isOpen, onClose, children, variant = 'default', s
                             type="button"
                             onClick={onClose}
                             aria-label="Закрыть"
-                            className="absolute top-3 right-3 md:top-5 md:right-5 z-40 flex size-10 items-center rounded-full bg-black/20 hover:bg-black/40 justify-center text-foreground-fixed transition cursor-pointer"
+                            className="absolute top-3 right-3 md:top-5 md:right-5 z-40 flex size-[30] md:size-10 items-center rounded-full bg-black/20 hover:bg-black/40 justify-center text-foreground-fixed transition cursor-pointer"
                         >
-                            <Icon name={'cross'} className={'size-[60] text-foreground-fixed'}/>
+                            <Icon name={'cross'} className={'size-[30] md:size-[60] text-foreground-fixed'}/>
                         </button>
                     )}
                     {isSheet ? (

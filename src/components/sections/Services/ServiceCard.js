@@ -25,9 +25,9 @@ export default function ServiceCard({service}) {
             <Image
                 src={service.image}
                 alt={service.title}
-                width={356}
-                height={330}
-                className="absolute inset-0 h-full w-full object-cover transition group-hover:scale-105"
+                fill
+                sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 25vw"
+                className="object-cover transition group-hover:scale-105"
             />
             <div
                 className={`absolute transition inset-0 bg-[radial-gradient(76.76%_77.83%_at_70.8%_26.11%,rgba(0,0,0,0)_0%,#000_100%)] group-hover:bg-[radial-gradient(76.76%_77.83%_at_70.8%_26.11%,rgba(0,0,0,0)_0%,#be0000_100%)]`}

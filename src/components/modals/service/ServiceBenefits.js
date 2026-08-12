@@ -6,7 +6,7 @@ export default function ServiceBenefits({title, items}) {
             <h3 className="font-heading text-xl md:text-[28px] lg:text-[34px] leading-none text-foreground lg:max-w-[500]">
                 {title}
             </h3>
-            <div className="mt-8 md:mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-2">
+            <div className="mt-8 md:mt-10 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-2">
                 {items.map((item) => (
                     <div key={item.text} className="flex flex-col items-start text-left gap-3.5 lg:gap-5 bg-foreground-fixed p-5 rounded-[30]">
                         <ServiceGlyph src={item.icon} alt={item.text} />

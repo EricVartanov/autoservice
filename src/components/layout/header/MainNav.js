@@ -76,6 +76,7 @@ export default function MainNav({data, isHome, collapsed}) {
                         alt={data.logo.alt}
                         width={343}
                         height={122}
+                        loading="eager"
                         className="h-auto w-24 md:w-36"
                     />
                 </Link>
@@ -251,6 +252,7 @@ export default function MainNav({data, isHome, collapsed}) {
                         alt={data.logo.alt}
                         width={343}
                         height={122}
+                        loading="eager"
                         className="h-auto w-32 max-w-none"
                     />
                 </Link>

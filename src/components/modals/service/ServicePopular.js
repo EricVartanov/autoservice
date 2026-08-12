@@ -16,6 +16,8 @@ export default function ServicePopular({title, items}) {
                             src={item.image}
                             alt={item.title}
                             fill
+                            sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 25vw"
+                            loading="eager"
                             className="object-cover"
                         />
                         <div className="absolute inset-0 bg-[linear-gradient(320deg,#be0000_0%,rgba(0,0,0,0.4)_50%,transparent_100%)]" />
