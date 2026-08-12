@@ -3,6 +3,7 @@
 /* включаем класс-based dark mode (класс .dark на <html>) */
 @variant dark (&:where(.dark, .dark *));
 
+/* светлая тема — дефолтные значения */
 :root {
     --color-background: #ffffff;
     --color-background-secondary: #F4F4F4;
@@ -12,9 +13,29 @@
     --color-foreground-light-fixed: #ffffff99;
     --color-primary: #C60303;
     --color-primary-light: #FF0000;
-    --color-border: rgba(0, 0, 0, 0.2);
+    --color-btn-border: rgba(0, 0, 0, 0.2);
+    --color-brands-bg: #B5B5B5;
+    --color-transparent-btn-text: #FF0000;
+    --color-platforms-border: #f4f4f4;
+    --color-grey-white: rgba(0, 0, 0, 0.2);
+    --color-white-grey: #ffffff;
+    --color-btn-shadow: rgba(0, 0, 0, 0.3);
+
+
+
+    --shimmer-gradient: linear-gradient(
+            90deg,
+            #bcbaba 0%,
+            #efefef 20%,
+            #efefef 30%,
+            #ffffff 45%,
+            rgba(255,255,255, 0.5) 50%,
+            #ffffff 55%,
+            #efefef 70%,
+            #efefef 80%,
+            #bcbaba 100%
+    );
 }
-/* светлая тема — дефолтные значения */
 
 /* тёмная тема — переопределяем те же переменные */
 .dark {
@@ -24,7 +45,25 @@
     --color-foreground-light: #ffffff99;
     --color-primary: #C60303;
     --color-primary-light: #FF0000;
-    --color-border: rgba(0, 0, 0, 0.2);
+    --color-btn-border: rgba(255, 255, 255, 0.2);
+    --color-brands-bg: #000000;
+    --color-transparent-btn-text: #ffffff;
+    --color-platforms-border: #000000;
+    --color-grey-white: #ffffff;
+    --color-white-grey: #1a1a1a;
+    --color-btn-shadow: rgba(255, 255, 255, 0.3);
+
+
+    --shimmer-gradient: linear-gradient(
+            90deg,
+            #000000 0%,
+            #171515 20%,
+            #171515 40%,
+            #aeacac 50%,
+            #171515 60%,
+            #171515 80%,
+            #000000 100%
+    );
 }
 
 /* прокидываем переменные в Tailwind-утилиты (bg-background, text-primary и тд) */
@@ -37,7 +76,15 @@
     --color-foreground-light-fixed: var(--color-foreground-light-fixed);
     --color-primary: var(--color-primary);
     --color-primary-light: var(--color-primary-light);
-    --color-border: var(--color-border);
+    --color-btn-border: var(--color-btn-border);
+    --color-brands-bg: var(--color-brands-bg);
+    --color-transparent-btn-text: var(--color-transparent-btn-text);
+    --color-platforms-border: var(--color-platforms-border);
+    --color-grey-white: var(--color-grey-white);
+    --color-white-grey: var(--color-white-grey);
+    --color-btn-shadow: var(--color-btn-shadow);
+
+    --shimmer-gradient: var(--shimmer-gradient);
 
     --font-heading: var(--font-muller);
     --font-sans: var(--font-helvetica-neue);
@@ -49,10 +96,14 @@
     --breakpoint-xs: 30rem;   /* 480px */
     --breakpoint-sm: 40rem;   /* 640px */
     --breakpoint-md: 48rem;   /* 768px */
-    --breakpoint-lg: 64rem;   /* 1024px */
-    --breakpoint-xl: 80rem;   /* 1280px */
+    --breakpoint-lg: 80rem;   /* 1280px — desktop from 1280+; tablet below */
+    --breakpoint-xl: 96rem;   /* 1536px — near-full container */
 
     --max-width-container: 1560px;
+}
+
+html {
+    scroll-padding-top: 7.5rem; /* fixed header offset for section anchors */
 }
 
 body {
@@ -60,3 +111,42 @@ body {
     color: var(--color-foreground);
     font-family: var(--font-sans);
 }
+
+/** бренды карусель **/
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+    animation: marquee 30s linear infinite;
+}
+/** бренды карусель **/
+
+
+
+/** фон тайтлов **/
+.shimmer-text {
+    color: transparent;
+
+    background: var(--shimmer-gradient);
+
+    background-size: 200% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    animation: shimmer-wave 7s linear infinite;
+}
+
+
+@keyframes shimmer-wave {
+    from {
+        background-position: 100% 0;
+    }
+    to {
+        background-position: -100% 0;
+    }
+}
+
+
+/** фон тайтлов **/

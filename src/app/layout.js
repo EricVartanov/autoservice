@@ -3,6 +3,8 @@ import './globals.css';
 import Header from '@/components/layout/header/Header';
 import Footer from '@/components/layout/footer/Footer';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import CallModal from "@/components/modals/CallModal";
+import ServiceModal from "@/components/modals/ServiceModal";
 
 const fontVariables = [
     muller.variable,
@@ -21,11 +23,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="ru" className={fontVariables} suppressHydrationWarning>
-            <body>
+            <body className={'overflow-x-hidden'}>
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
                     <Header />
                         {children}
                     <Footer />
+                    <CallModal />
+                    <ServiceModal />
                 </ThemeProvider>
             </body>
         </html>

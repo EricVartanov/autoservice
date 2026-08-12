@@ -1,3 +1,3 @@
-export function Container({ children, ...props }) {
-    return <div className={'max-w-container mx-auto px-5'} {...props}>{children}</div>;
+export function Container({children, className = '', ...props}) {
+    return <div className={`px-[15] md:px-20 xl:max-w-container w-full mx-auto xl:px-5 ${className}`} {...props}>{children}</div>;
 }
