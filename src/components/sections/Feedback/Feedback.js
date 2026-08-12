@@ -85,7 +85,7 @@ export default function Feedback({data}) {
         }`;
 
     return (
-        <section className="relative bg-background-secondary pb-[150] pt-20 lg:py-[150]">
+        <section className="relative bg-background-secondary pb-[250] md:pb-[150] pt-20 lg:py-[150]">
             <Container className="relative z-50">
                 <div className="relative z-20 flex flex-col gap-5 lg:flex-row lg:justify-between">
                     <form
@@ -243,7 +243,7 @@ export default function Feedback({data}) {
             </Container>
             {tires?.path && (
                 <div
-                    className="pointer-events-none z-30 absolute right-0 bottom-[-5%] lg:bottom-[-13%] w-full max-w-[320] overflow-hidden lg:max-w-[580]"
+                    className="pointer-events-none z-30 absolute bottom-[-10] right-0 md:bottom-[-5%] lg:bottom-[-13%] w-full max-w-[320] overflow-hidden lg:max-w-[580]"
                 >
                     <Image
                         src={tires.path}

@@ -1132,3 +1132,172 @@ export const mockPage = {
 export function getMockSection(type) {
     return mockPage.sections.find((section) => section.type === type) ?? null;
 }
+
+export const NEWS_PAGE_SIZE = 2;
+
+export const mockOffers = [
+    {
+        id: 1,
+        badge: 'Акция',
+        title: 'Диагностика вашего автомобиля со скидкой 20% до 31.07.26*',
+        cta: {label: 'Оставить заявку'},
+        disclaimer:
+            '* Акция действует при записи через сайт. Скидка не суммируется с другими спецпредложениями. Подробности уточняйте у менеджера.',
+        until: '31.07.26',
+        image: '/mock/specialOffer/specialOffer.webp',
+    },
+    {
+        id: 2,
+        badge: 'Акция',
+        title: 'Замена масла и фильтров — скидка 15% до 30.09.26*',
+        cta: {label: 'Оставить заявку'},
+        disclaimer:
+            '* Акция действует при записи через сайт. Скидка не суммируется с другими спецпредложениями. Подробности уточняйте у менеджера.',
+        until: '30.09.26',
+        image: '/mock/commercial/commercial-bg.webp',
+    },
+    {
+        id: 3,
+        badge: 'Акция',
+        title: 'Компьютерная диагностика в подарок при любом ТО до 31.12.26*',
+        cta: {label: 'Оставить заявку'},
+        disclaimer:
+            '* Акция действует при записи через сайт. Скидка не суммируется с другими спецпредложениями. Подробности уточняйте у менеджера.',
+        until: '31.12.26',
+        image: '/mock/about/about-card-bg1.webp',
+    },
+    {
+        id: 4,
+        badge: 'Акция',
+        title: 'Заправка кондиционера со скидкой 10% до 15.08.26*',
+        cta: {label: 'Оставить заявку'},
+        disclaimer:
+            '* Акция действует при записи через сайт. Скидка не суммируется с другими спецпредложениями. Подробности уточняйте у менеджера.',
+        until: '15.08.26',
+        image: '/mock/contactForm/contact-form-bg.webp',
+    },
+];
+
+const NEWS_TEXT = [
+    'Мы продолжаем развивать сервис и повышать качество обслуживания. В этом материале рассказываем о важных изменениях, которые уже доступны клиентам обоих филиалов.',
+    'Команда Авторитет работает так, чтобы каждый визит был понятным и предсказуемым: от диагностики до выдачи автомобиля с рекомендациями.',
+    'Если у вас остались вопросы — оставьте заявку на сайте или свяжитесь с менеджером выбранного филиала.',
+];
+
+export const mockNews = [
+    {
+        id: 1,
+        date: '2026-06-12',
+        category: 'Коммерческий транспорт',
+        images: [
+            {src: '/mock/commercial/commercial-bg.webp', alt: 'Обслуживание коммерческого транспорта в автосервисе Авторитет'},
+        ],
+        paragraphs: NEWS_TEXT,
+    },
+    {
+        id: 2,
+        date: '2026-06-12',
+        category: 'Мероприятия',
+        images: [
+            {src: '/mock/services/engine2.png', alt: 'Мероприятие в автосервисе Авторитет'},
+            {src: '/mock/services/engine3.png', alt: 'Гости на мероприятии автосервиса Авторитет'},
+        ],
+        paragraphs: NEWS_TEXT,
+    },
+    {
+        id: 3,
+        date: '2026-03-18',
+        category: 'Услуги',
+        images: [
+            {src: '/mock/services/engine4.png', alt: 'Ремонт автомобиля в автосервисе Авторитет'},
+        ],
+        paragraphs: NEWS_TEXT,
+    },
+    {
+        id: 4,
+        date: '2026-01-22',
+        category: 'Акции',
+        images: [
+            {src: '/mock/services/engine1.png', alt: 'Акция на услуги автосервиса Авторитет'},
+            {src: '/mock/services/engine2.png', alt: 'Специальное предложение автосервиса Авторитет'},
+        ],
+        paragraphs: NEWS_TEXT,
+    },
+    {
+        id: 5,
+        date: '2025-11-05',
+        category: 'Команда',
+        images: [
+            {src: '/mock/services/engine3.png', alt: 'Команда мастеров автосервиса Авторитет'},
+        ],
+        paragraphs: NEWS_TEXT,
+    },
+    {
+        id: 6,
+        date: '2025-08-14',
+        category: 'Мероприятия',
+        images: [
+            {src: '/mock/services/engine4.png', alt: 'Корпоративное мероприятие Авторитет'},
+            {src: '/mock/services/engine1.png', alt: 'Участники мероприятия автосервиса'},
+        ],
+        paragraphs: NEWS_TEXT,
+    },
+    {
+        id: 7,
+        date: '2025-04-02',
+        category: 'Услуги',
+        images: [
+            {src: '/mock/services/engine2.png', alt: 'Диагностика автомобиля на подъёмнике'},
+        ],
+        paragraphs: NEWS_TEXT,
+    },
+    {
+        id: 8,
+        date: '2024-12-10',
+        category: 'Коммерческий транспорт',
+        images: [
+            {src: '/mock/services/engine3.png', alt: 'Ремонт лёгкого коммерческого транспорта'},
+            {src: '/mock/services/engine4.png', alt: 'Обслуживание фургона в сервисе Авторитет'},
+        ],
+        paragraphs: NEWS_TEXT,
+    },
+    {
+        id: 9,
+        date: '2024-07-21',
+        category: 'Акции',
+        images: [
+            {src: '/mock/services/engine1.png', alt: 'Сезонная акция автосервиса Авторитет'},
+        ],
+        paragraphs: NEWS_TEXT,
+    },
+    {
+        id: 10,
+        date: '2024-02-08',
+        category: 'Мероприятия',
+        images: [
+            {src: '/mock/services/engine2.png', alt: 'Открытый день в автосервисе Авторитет'},
+            {src: '/mock/services/engine3.png', alt: 'Демонстрация работ на мероприятии'},
+        ],
+        paragraphs: NEWS_TEXT,
+    },
+    {
+        id: 11,
+        date: '2023-10-30',
+        category: 'Услуги',
+        images: [
+            {src: '/mock/services/engine4.png', alt: 'Техническое обслуживание автомобиля'},
+        ],
+        paragraphs: NEWS_TEXT,
+    },
+    {
+        id: 12,
+        date: '2023-05-16',
+        category: 'Команда',
+        images: [
+            {src: '/mock/services/engine1.png', alt: 'Мастера автосервиса Авторитет за работой'},
+            {src: '/mock/services/engine2.png', alt: 'Команда технического центра Авторитет'},
+        ],
+        paragraphs: NEWS_TEXT,
+    },
+];
+

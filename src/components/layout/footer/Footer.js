@@ -1,13 +1,22 @@
+'use client';
+
 import Image from "next/image";
 import Link from "next/link";
+import {usePathname} from "next/navigation";
 import {Container} from "@/components/Container";
 import {mockFooter} from "@/lib/mock-data";
 
 export default function Footer({data = mockFooter}) {
     const {logo, logoDark, copyright, legal, branches, socials} = data;
+    const pathname = usePathname();
+    const isNews = pathname === '/news' || pathname.startsWith('/news/');
 
     return (
-        <footer className="relative z-10 bg-background-secondary pb-20">
+        <footer
+            className={`relative z-10 pb-20 ${
+                isNews ? 'bg-background' : 'bg-background-secondary'
+            }`}
+        >
             <Container>
                 <div className="flex justify-center">
                     {logo && (
