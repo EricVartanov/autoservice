@@ -1,5 +1,8 @@
 // components/ui/SectionTitle.jsx
+'use client';
+
 import ShimmerText from "@/components/ui/ShimmerText";
+import WaveTitle from "@/components/ui/WaveTitle";
 import Icon from "@/components/icons/Icon";
 
 export default function SectionTitle({
@@ -12,6 +15,7 @@ export default function SectionTitle({
                                          variant = 'center',
                                          titleColor = 'text-foreground',
                                          subtitleClass = '',
+                                         animate = true,
                                      }) {
     const variants = {
         center: 'text-center',
@@ -29,9 +33,15 @@ export default function SectionTitle({
             )}
 
             <div className={'relative'}>
-                <h2 className={`font-heading tracking-tight text-[25px] md:text-[40px] lg:text-[54px] ${titleColor} leading-none md:whitespace-pre-line`}>
-                    {title}
-                </h2>
+                {animate ? (
+                    <WaveTitle as="h2" breakClassName="hidden md:block" className={`font-heading tracking-tight text-[25px] md:text-[40px] lg:text-[54px] ${titleColor} leading-none md:whitespace-pre-line`}>
+                        {title}
+                    </WaveTitle>
+                ) : (
+                    <h2 className={`font-heading tracking-tight text-[25px] md:text-[40px] lg:text-[54px] ${titleColor} leading-none md:whitespace-pre-line`}>
+                        {title}
+                    </h2>
+                )}
 
                 {titleBack && (
                     <ShimmerText

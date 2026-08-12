@@ -2,6 +2,7 @@
 
 import {useMemo, useState} from 'react';
 import {Container} from '@/components/Container';
+import WaveTitle from '@/components/ui/WaveTitle';
 import {NEWS_PAGE_SIZE} from '@/lib/mock-data';
 import NewsCard from './NewsCard';
 import NewsPagination from './NewsPagination';
@@ -48,9 +49,9 @@ export default function NewsSection({items = []}) {
     return (
         <section id="news" className="scroll-mt-28 py-12 md:py-20 lg:pt-[120] pb-[80]">
             <Container>
-                <h1 className="text-center font-heading font-medium text-3xl tracking-tight md:text-5xl lg:text-[54px]">
+                <WaveTitle as="h1" className="text-center font-heading font-medium text-3xl tracking-tight md:text-5xl lg:text-[54px]">
                     Новости
-                </h1>
+                </WaveTitle>
 
                 {years.length > 0 && (
                     <div className="mt-8 flex flex-wrap items-center justify-center gap-2 md:mt-[30] md:gap-[30]">

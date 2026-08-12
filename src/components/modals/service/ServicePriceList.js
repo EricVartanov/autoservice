@@ -13,10 +13,10 @@ export default function ServicePriceList({title, items, subtitle}) {
                         key={item.title}
                         className="mb-2.5 flex gap-1 flex-row items-center justify-between px-9 py-3 md:py-[18] rounded-full bg-foreground-fixed"
                     >
-                        <span className="font-helvetica text-base md:text-lg lg:text-[22px] text-foreground">
+                        <span className="font-helvetica text-base md:text-lg lg:text-[22px] text-black">
                             {item.title}
                         </span>
-                        <span className="font-heading text-base md:text-lg lg:text-[22px] font-bold text-foreground shrink-0">
+                        <span className="font-heading text-base md:text-lg lg:text-[22px] font-bold text-black shrink-0">
                             {item.price}
                         </span>
                     </li>

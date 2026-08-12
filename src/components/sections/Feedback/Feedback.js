@@ -4,6 +4,7 @@ import {useState} from "react";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 import PhoneInput, {getCleanPhone} from "@/components/ui/PhoneInput";
+import WaveTitle from "@/components/ui/WaveTitle";
 import {Container} from "@/components/Container";
 
 const cardGradient =
@@ -96,9 +97,9 @@ export default function Feedback({data}) {
                         <p className="font-helvetica text-center lg:text-left text-base md:text-lg leading-tight text-foreground-light-fixed whitespace-break-spaces">
                             {intro}
                         </p>
-                        <h2 className="mt-7  text-center lg:text-left font-heading text-[22px] md:text-[34px] font-bold leading-none whitespace-break-spaces">
+                        <WaveTitle as="h2" className="mt-7  text-center lg:text-left font-heading text-[22px] md:text-[34px] font-bold leading-none whitespace-break-spaces">
                             {title}
-                        </h2>
+                        </WaveTitle>
 
                         <div className="mt-10 md:mt-12 flex flex-col gap-5 md:gap-2.5 md:flex-row lg:gap-7">
                             {form.fields.map((field) => {

@@ -258,8 +258,9 @@ export default function ServiceContactForm({data}) {
                 <div className="lg:max-w-[555] pb-0 lg:pb-[40]">
                     <SectionTitle
                         title={title}
-                        titleColor={'text-foreground-fixed'}
+                        titleColor={'text-foreground-fixed!'}
                         variant={isMobileOrTablet ? 'center' : 'left'}
+                        animate={false}
                     />
                 </div>
 

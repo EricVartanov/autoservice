@@ -320,7 +320,7 @@ export default function ContactForm({data}) {
                 <form
                     onSubmit={handleSubmit}
                     noValidate
-                    className="relative w-full rounded-[30] bg-black/60 p-5 pb-10 md:p-[30] lg:w-1/2 max-w-[715]"
+                    className="relative w-full rounded-[30] bg-black/60 p-5 pb-10 md:p-[30] lg:w-1/2 max-w-[715] mx-auto lg:mx-0"
                 >
                     <div className="flex flex-col">ч
                         <div className={'flex flex-wrap gap-5 md:gap-y-6 md:gap-2.5 lg:gap-y-6 lg:gap-x-3'}>
