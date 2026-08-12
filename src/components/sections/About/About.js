@@ -3,6 +3,7 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import Icon from "@/components/icons/Icon";
 import QualityCard from "@/components/sections/About/QualityCard";
 import Statistic from "@/components/sections/About/Statistic";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export default function About({data}) {
 
@@ -13,10 +14,15 @@ export default function About({data}) {
                 <Container>
                     <SectionTitle titleBack={titleBack} title={title} subtitle={subtitle} />
 
-                    <div className="relative mx-auto mt-[45] md:mt-[50] lg:mt-20 flex flex-col items-stretch gap-4 lg:gap-7 lg:flex-row lg:justify-center lg:items-center">
-                        {cards.map((card) => (
-                            <QualityCard key={card.title} card={card}/>
-                        ))}
+                    <div className="relative mx-auto mt-[45] md:mt-[50] lg:mt-20">
+                        <ScrollReveal
+                            stagger
+                            className="flex flex-col items-stretch gap-4 lg:gap-7 lg:flex-row lg:justify-center lg:items-center"
+                        >
+                            {cards.map((card) => (
+                                <QualityCard key={card.title} card={card}/>
+                            ))}
+                        </ScrollReveal>
 
                         {/* декоративные точки */}
                         <div className="absolute z-[-1] left-[-2%] top-[-7%] md:top-[10%] md:left-[-6%] h-[72] lg:top-[-12%] lg:left-[-2%]">
@@ -31,4 +37,3 @@ export default function About({data}) {
         </section>
     );
 }
-

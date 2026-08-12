@@ -3,6 +3,7 @@ import './globals.css';
 import Header from '@/components/layout/header/Header';
 import Footer from '@/components/layout/footer/Footer';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import LenisProvider from '@/components/LenisProvider';
 import CallModal from "@/components/modals/CallModal";
 import ServiceModal from "@/components/modals/ServiceModal";
 
@@ -25,11 +26,13 @@ export default function RootLayout({ children }) {
         <html lang="ru" className={fontVariables} suppressHydrationWarning>
             <body className={'overflow-x-hidden'}>
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-                    <Header />
+                    <LenisProvider>
+                        <Header />
                         {children}
-                    <Footer />
-                    <CallModal />
-                    <ServiceModal />
+                        <Footer />
+                        <CallModal />
+                        <ServiceModal />
+                    </LenisProvider>
                 </ThemeProvider>
             </body>
         </html>

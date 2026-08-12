@@ -11,6 +11,7 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import {Container} from "@/components/Container";
 import Link from "next/link";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 function validate({name, phoneDigits, carBrand}) {
     const errors = {};
@@ -175,7 +176,7 @@ export default function Commercial({data}) {
                    )}
                </div>
 
-                <div className="flex flex-wrap justify-center mt-12 lg:mt-4 lg:justify-start gap-12">
+                <ScrollReveal stagger className="flex flex-wrap justify-center mt-12 lg:mt-4 lg:justify-start gap-12">
                     {limitations.map((item, i) => (
                         <div key={i} className="flex flex-col items-center text-center gap-3.5 max-w-[250px] lg:items-start lg:text-left">
                             <span className="shrink-0 size-[50] rounded-full bg-primary flex items-center justify-center">
@@ -186,27 +187,29 @@ export default function Commercial({data}) {
                             </p>
                         </div>
                     ))}
-                </div>
+                </ScrollReveal>
 
-                <form
-                    onSubmit={handleSubmit}
-                    noValidate
-                    className="mt-8 lg:mt-10 px-[25] py-[30] rounded-[30] w-full mx-auto lg:mx-0 max-w-[450] lg:max-w-none bg-black/60 p-6 lg:p-[50]"
-                >
-                    <div className="flex flex-col lg:flex-row lg:items-end lg:gap-7">
-                        <div className={'flex flex-col gap-5 min-w-0 flex-1 lg:flex-row lg:items-end lg:gap-6'}>
-                            {form.fields.map(renderField)}
+                <ScrollReveal delay={0.15}>
+                    <form
+                        onSubmit={handleSubmit}
+                        noValidate
+                        className="mt-8 lg:mt-10 px-[25] py-[30] rounded-[30] w-full mx-auto lg:mx-0 max-w-[450] lg:max-w-none bg-black/60 p-6 lg:p-[50]"
+                    >
+                        <div className="flex flex-col lg:flex-row lg:items-end lg:gap-7">
+                            <div className={'flex flex-col gap-5 min-w-0 flex-1 lg:flex-row lg:items-end lg:gap-6'}>
+                                {form.fields.map(renderField)}
+                            </div>
+                            <Button type="submit" className="shrink-0 py-4 lg:ml-auto md:max-w-[213] mx-auto lg:mx-0 lg:max-w-none min-w-0 px-10 w-full mt-6 lg:mt-0 lg:w-auto lg:min-w-[200] xl:min-w-[260]">
+                                {form.submitLabel}
+                            </Button>
                         </div>
-                        <Button type="submit" className="shrink-0 py-4 lg:ml-auto md:max-w-[213] mx-auto lg:mx-0 lg:max-w-none min-w-0 px-10 w-full mt-6 lg:mt-0 lg:w-auto lg:min-w-[200] xl:min-w-[260]">
-                            {form.submitLabel}
-                        </Button>
-                    </div>
-                    {submitted && (
-                        <p className="absolute bottom-3 mt-4 text-base text-primary">
-                            Спасибо! Заявка отправлена, мы скоро свяжемся с Вами.
-                        </p>
-                    )}
-                </form>
+                        {submitted && (
+                            <p className="absolute bottom-3 mt-4 text-base text-primary">
+                                Спасибо! Заявка отправлена, мы скоро свяжемся с Вами.
+                            </p>
+                        )}
+                    </form>
+                </ScrollReveal>
             </Container>
         </section>
     );

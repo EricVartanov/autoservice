@@ -11,6 +11,7 @@ import Select from "@/components/ui/Select";
 import {Container} from "@/components/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 function validate({name, phoneDigits, carBrand, timing, branch, consent}) {
     const errors = {};
@@ -317,15 +318,16 @@ export default function ContactForm({data}) {
                     />
                 </div>
 
-                <form
-                    onSubmit={handleSubmit}
-                    noValidate
-                    className="relative w-full rounded-[30] bg-black/60 p-5 pb-10 md:p-[30] lg:w-1/2 max-w-[715] mx-auto lg:mx-0"
-                >
-                    <div className="flex flex-col">ч
-                        <div className={'flex flex-wrap gap-5 md:gap-y-6 md:gap-2.5 lg:gap-y-6 lg:gap-x-3'}>
-                            {form.fields.map(renderMainField)}
-                        </div>
+                <ScrollReveal className="relative w-full lg:w-1/2 max-w-[715] mx-auto lg:mx-0">
+                    <form
+                        onSubmit={handleSubmit}
+                        noValidate
+                        className="relative w-full rounded-[30] bg-black/60 p-5 pb-10 md:p-[30]"
+                    >
+                        <div className="flex flex-col">
+                            <div className={'flex flex-wrap gap-5 md:gap-y-6 md:gap-2.5 lg:gap-y-6 lg:gap-x-3'}>
+                                {form.fields.map(renderMainField)}
+                            </div>
 
                         <div className={'flex flex-col gap-6 mt-6'}>
                             {form.radioGroups?.map(renderRadioGroup)}
@@ -426,7 +428,8 @@ export default function ContactForm({data}) {
                             Спасибо! Заявка отправлена, мы скоро свяжемся с Вами.
                         </p>
                     )}
-                </form>
+                    </form>
+                </ScrollReveal>
             </Container>
         </section>
     );

@@ -9,6 +9,7 @@ import BlurredCircle from "@/components/ui/blurredCircle";
 import Icon from "@/components/icons/Icon";
 import FaqItem from "@/components/sections/Faq/FaqItem";
 import Image from "next/image";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const VISIBLE_COUNT = 7;
 
@@ -76,7 +77,7 @@ export default function Faq({data}) {
                         </div>
                     </div>
 
-                    <div>
+                    <ScrollReveal>
                         <div>
                             {primaryItems.map((item, index) => (
                                 <div key={item.id}>
@@ -111,7 +112,7 @@ export default function Faq({data}) {
                                 </Button>
                             </div>
                         )}
-                    </div>
+                    </ScrollReveal>
                 </div>
                 <div className="absolute z-[-1] w-[134] top-[80%] left-[-10%] lg:top-full lg:left-0 hidden md:block">
                     <Icon name="dots" className="text-primary-light w-[134]"/>

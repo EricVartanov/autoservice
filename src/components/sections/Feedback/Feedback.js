@@ -6,6 +6,7 @@ import Button from "@/components/ui/Button";
 import PhoneInput, {getCleanPhone} from "@/components/ui/PhoneInput";
 import WaveTitle from "@/components/ui/WaveTitle";
 import {Container} from "@/components/Container";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const cardGradient =
     "bg-[radial-gradient(circle_at_top_left,rgba(200,0,0,1)_0%,rgba(0,0,0,0.8)_50%,rgba(0,0,0,0.8)_100%)]";
@@ -88,7 +89,7 @@ export default function Feedback({data}) {
     return (
         <section className="relative bg-background-secondary pb-[250] md:pb-[150] pt-20 lg:py-[150]">
             <Container className="relative z-50">
-                <div className="relative z-20 flex flex-col gap-5 lg:flex-row lg:justify-between">
+                <ScrollReveal stagger className="relative z-20 flex flex-col gap-5 lg:flex-row lg:justify-between">
                     <form
                         onSubmit={handleSubmit}
                         noValidate
@@ -240,7 +241,7 @@ export default function Feedback({data}) {
                             />
                         </div>
                     </div>
-                </div>
+                </ScrollReveal>
             </Container>
             {tires?.path && (
                 <div

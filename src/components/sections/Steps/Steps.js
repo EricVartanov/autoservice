@@ -6,10 +6,11 @@ import Slider from "@/components/ui/Slider";
 import SectionTitle from "@/components/ui/SectionTitle";
 import {Container} from "@/components/Container";
 import Icon from "@/components/icons/Icon";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 function StepList({steps, className = ''}) {
     return (
-        <div className={className}>
+        <ScrollReveal stagger className={className}>
             {steps.map((step) => (
                 <div key={step.number} className={'md:max-w-[calc(50%-25px)] lg:max-w-[calc(50%-30px)]'}>
                     <div className={'relative inline-block'}>
@@ -29,7 +30,7 @@ function StepList({steps, className = ''}) {
                     </p>
                 </div>
             ))}
-        </div>
+        </ScrollReveal>
     );
 }
 

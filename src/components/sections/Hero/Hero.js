@@ -13,6 +13,7 @@ import ThemeToggle from "@/components/ui/ThemeToggle";
 import Slider from "@/components/ui/Slider";
 import WaveTitle from "@/components/ui/WaveTitle";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
+import {scrollToSection} from "@/lib/scrollToSection";
 
 export default function Hero({data}) {
     const {title, backgroundVideo, slides, stats, cta, phone, brands} = data
@@ -21,7 +22,7 @@ export default function Hero({data}) {
     const isMobile = useMediaQuery('(max-width: 767px)');
 
     const scrollToForm = () => {
-        document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
+        scrollToSection('contact-form');
     };
 
     return (
