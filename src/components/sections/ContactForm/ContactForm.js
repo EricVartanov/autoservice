@@ -8,6 +8,7 @@ import Icon from "@/components/icons/Icon";
 import Button from "@/components/ui/Button";
 import PhoneInput, {getCleanPhone} from "@/components/ui/PhoneInput";
 import Select from "@/components/ui/Select";
+import FieldError from "@/components/ui/FieldError";
 import {Container} from "@/components/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
@@ -196,11 +197,9 @@ export default function ContactForm({data}) {
                     {field.required && <span className="text-primary"> *</span>}
                 </label>
                 {control}
-                {errors[field.name] && (
-                    <p className="absolute left-0 top-full mt-1.5 whitespace-nowrap text-xs text-primary">
-                        {errors[field.name]}
-                    </p>
-                )}
+                <FieldError className="absolute left-0 top-full mt-1.5 whitespace-nowrap">
+                    {errors[field.name]}
+                </FieldError>
             </div>
         );
     };
@@ -248,11 +247,9 @@ export default function ContactForm({data}) {
                         );
                     })}
                 </div>
-                {hasError && (
-                    <p className="absolute left-0 top-full mt-1.5 whitespace-nowrap text-xs text-primary">
-                        {errors[group.name]}
-                    </p>
-                )}
+                <FieldError className="absolute left-0 top-full mt-1.5 whitespace-nowrap">
+                    {errors[group.name]}
+                </FieldError>
             </div>
         );
     };
@@ -290,11 +287,9 @@ export default function ContactForm({data}) {
                     {field.required && <span className="text-primary"> *</span>}
                 </label>
                 {control}
-                {errors[field.name] && (
-                    <p className="absolute left-0 top-full mt-1.5 whitespace-nowrap text-xs text-primary">
-                        {errors[field.name]}
-                    </p>
-                )}
+                <FieldError className="absolute left-0 top-full mt-1.5 whitespace-nowrap">
+                    {errors[field.name]}
+                </FieldError>
             </div>
         );
     };
@@ -424,9 +419,9 @@ export default function ContactForm({data}) {
                                 </span>
 
                                     </label>
-                                    {errors.consent && (
-                                        <p className="absolute bottom-[-20] left-0 text-xs text-primary">{errors.consent}</p>
-                                    )}
+                                    <FieldError className="absolute bottom-[-20] left-0">
+                                        {errors.consent}
+                                    </FieldError>
                                 </div>
 
 

@@ -7,6 +7,7 @@ import Icon from "@/components/icons/Icon";
 import Button from "@/components/ui/Button";
 import PhoneInput, {getCleanPhone} from "@/components/ui/PhoneInput";
 import WaveTitle from "@/components/ui/WaveTitle";
+import FieldError from "@/components/ui/FieldError";
 import {Container} from "@/components/Container";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
@@ -148,11 +149,9 @@ export default function Feedback({data}) {
                                                 className={fieldInputClass(hasError)}
                                             />
                                         )}
-                                        {hasError && (
-                                            <p className="absolute left-0 top-full mt-1.5 whitespace-nowrap text-xs text-primary">
-                                                {errors[field.name]}
-                                            </p>
-                                        )}
+                                        <FieldError className="absolute left-0 top-full mt-1.5 whitespace-nowrap">
+                                            {errors[field.name]}
+                                        </FieldError>
                                     </div>
                                 );
                             })}
@@ -202,11 +201,9 @@ export default function Feedback({data}) {
                                     );
                                 })}
                             </div>
-                            {errors.branch && (
-                                <p className="absolute left-0 top-full mt-1.5 whitespace-nowrap text-xs text-primary">
-                                    {errors.branch}
-                                </p>
-                            )}
+                            <FieldError className="absolute left-0 top-full mt-1.5 whitespace-nowrap">
+                                {errors.branch}
+                            </FieldError>
                         </div>
 
                         <div className="mt-6">
@@ -266,9 +263,9 @@ export default function Feedback({data}) {
                                         </Link>
                                     </span>
                                 </label>
-                                {errors.consent && (
-                                    <p className="absolute bottom-[-20] left-0 text-xs text-primary">{errors.consent}</p>
-                                )}
+                                <FieldError className="absolute bottom-[-20] left-0">
+                                    {errors.consent}
+                                </FieldError>
                             </div>
 
                             <Button type="submit" variant="primary" className="shrink-0 mx-auto md:mx-0">

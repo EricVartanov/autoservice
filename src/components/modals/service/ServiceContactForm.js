@@ -7,6 +7,7 @@ import Icon from "@/components/icons/Icon";
 import Button from "@/components/ui/Button";
 import PhoneInput, {getCleanPhone} from "@/components/ui/PhoneInput";
 import Select from "@/components/ui/Select";
+import FieldError from "@/components/ui/FieldError";
 import {Container} from "@/components/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
@@ -134,8 +135,10 @@ export default function ServiceContactForm({data}) {
     };
 
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border border-transparent bg-white/20 text-foreground-fixed px-5 py-4 md:py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed transition-colors ${
-            hasError ? "border-primary" : "focus:border-white focus:border-foreground-fixed"
+        `w-full rounded-full border bg-white/20 text-foreground-fixed px-5 py-4 md:py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed transition-colors ${
+            hasError
+                ? "border-foreground-fixed"
+                : "border-transparent focus:border-white focus:border-foreground-fixed"
         }`;
 
     const renderMainField = (field) => {
@@ -168,6 +171,7 @@ export default function ServiceContactForm({data}) {
                     onChange={handleCarBrandChange}
                     placeholder={field.placeholder}
                     error={!!errors.carBrand}
+                    errorClass="border-foreground-fixed"
                 />
             );
         }
@@ -182,11 +186,9 @@ export default function ServiceContactForm({data}) {
                     {field.required && <span className="text-primary"> *</span>}
                 </label>
                 {control}
-                {errors[field.name] && (
-                    <p className="absolute left-0 top-full mt-1.5 whitespace-nowrap text-xs text-primary">
-                        {errors[field.name]}
-                    </p>
-                )}
+                <FieldError className="absolute left-0 top-full mt-1.5 whitespace-nowrap" colorClass="text-foreground-fixed">
+                    {errors[field.name]}
+                </FieldError>
             </div>
         );
     };
@@ -213,7 +215,7 @@ export default function ServiceContactForm({data}) {
                                 <span
                                     className={`flex size-5 md:size-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
                                         hasError
-                                            ? "border-primary-light"
+                                            ? "border-foreground-fixed"
                                             : checked
                                                 ? "border-foreground-fixed"
                                                 : "border-white/40"
@@ -234,11 +236,9 @@ export default function ServiceContactForm({data}) {
                         );
                     })}
                 </div>
-                {hasError && (
-                    <p className="absolute left-0 top-full mt-1.5 whitespace-nowrap text-xs text-primary">
-                        {errors[group.name]}
-                    </p>
-                )}
+                <FieldError className="absolute left-0 top-full mt-1.5 whitespace-nowrap" colorClass="text-foreground-fixed">
+                    {errors[group.name]}
+                </FieldError>
             </div>
         );
     };
@@ -285,7 +285,7 @@ export default function ServiceContactForm({data}) {
                                 <span
                                     className={`mt-0.5 flex size-7 shrink-0 items-center justify-center rounded border transition-colors ${
                                         errors.consent
-                                            ? "border-primary-light"
+                                            ? "border-foreground-fixed"
                                             : consent
                                                 ? "border-foreground-fixed"
                                                 : "border-[#c4c4c4]"
@@ -312,9 +312,9 @@ export default function ServiceContactForm({data}) {
                                 </span>
 
                                 </label>
-                                {errors.consent && (
-                                    <p className="absolute bottom-[-20] left-0 text-xs text-primary">{errors.consent}</p>
-                                )}
+                                <FieldError className="absolute bottom-[-20] left-0" colorClass="text-foreground-fixed">
+                                    {errors.consent}
+                                </FieldError>
                             </div>
 
 

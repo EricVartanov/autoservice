@@ -3,10 +3,10 @@
 
 import {useState} from "react";
 import Image from "next/image";
-import Icon from "@/components/icons/Icon";
 import Button from "@/components/ui/Button";
 import PhoneInput, {getCleanPhone} from "@/components/ui/PhoneInput";
 import Select from "@/components/ui/Select";
+import FieldError from "@/components/ui/FieldError";
 import SectionTitle from "@/components/ui/SectionTitle";
 import {Container} from "@/components/Container";
 import Link from "next/link";
@@ -140,11 +140,9 @@ export default function Commercial({data}) {
                     {field.required && <span className="text-primary"> *</span>}
                 </label>
                 {control}
-                {errors[field.name] && (
-                    <p className="absolute left-0 top-full mt-1.5 text-xs text-primary whitespace-nowrap">
-                        {errors[field.name]}
-                    </p>
-                )}
+                <FieldError className="absolute left-0 top-full mt-1.5 whitespace-nowrap">
+                    {errors[field.name]}
+                </FieldError>
             </div>
         );
     };

@@ -4,6 +4,7 @@ import {useState} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Select from '@/components/ui/Select';
+import FieldError from '@/components/ui/FieldError';
 import Button from '@/components/ui/Button';
 import PhoneInput, {getCleanPhone} from '@/components/ui/PhoneInput';
 import Icon from '@/components/icons/Icon';
@@ -129,11 +130,9 @@ export default function ServiceHero({data}) {
                     {field.required && <span className="text-primary"> *</span>}
                 </label>
                 {control}
-                {errors[field.name] && (
-                    <p className="absolute left-0 top-full mt-1.5 whitespace-nowrap text-xs text-primary">
-                        {errors[field.name]}
-                    </p>
-                )}
+                <FieldError className="absolute left-0 top-full mt-1.5 whitespace-nowrap">
+                    {errors[field.name]}
+                </FieldError>
             </div>
         );
     };
@@ -209,9 +208,9 @@ export default function ServiceHero({data}) {
                                     </Link>
                                 </span>
                             </label>
-                            {errors.consent && (
-                                <p className="mt-1.5 text-xs text-primary">{errors.consent}</p>
-                            )}
+                            <FieldError className="mt-1.5">
+                                {errors.consent}
+                            </FieldError>
                         </div>
                     )}
 
