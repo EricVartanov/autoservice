@@ -135,7 +135,7 @@ export default function Commercial({data}) {
 
         return (
             <div key={field.name} className={'min-w-0 lg:max-w-[320px] w-full relative'}>
-                <label className="block text-sm lg:text-base font-helvetica font-bold text-foreground-fixed mb-2.5 lg:mb-3.5">
+                <label className="block text-center md:text-left text-sm lg:text-base font-helvetica font-bold text-foreground-fixed mb-2.5 lg:mb-3.5">
                     {field.label}
                     {field.required && <span className="text-primary"> *</span>}
                 </label>
@@ -176,11 +176,11 @@ export default function Commercial({data}) {
                    )}
                </div>
 
-                <ScrollReveal stagger className="flex flex-wrap justify-center mt-12 lg:mt-4 lg:justify-start gap-12">
+                <ScrollReveal stagger className="flex justify-center mt-[30] lg:mt-4 lg:justify-start gap-12">
                     {limitations.map((item, i) => (
                         <div key={i} className="flex flex-col items-center text-center gap-3.5 max-w-[250px] lg:items-start lg:text-left">
-                            <span className="shrink-0 size-[50] rounded-full bg-primary flex items-center justify-center">
-                                <Image src={item.image} width={40} height={40} className="text-white" alt={item.alt}/>
+                            <span className="shrink-0 size-[30] md:size-[50] rounded-full bg-primary flex items-center justify-center">
+                                <Image src={item.image} width={40} height={40} className="text-white size-[25] md:size-[40]" alt={item.alt}/>
                             </span>
                             <p className="text-sm lg:text-lg font-helvetica text-foreground-fixed leading-tight whitespace-pre-line">
                                 {item.text}

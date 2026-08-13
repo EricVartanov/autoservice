@@ -2,6 +2,8 @@
 
 import {useState} from "react";
 import Image from "next/image";
+import Link from "next/link";
+import Icon from "@/components/icons/Icon";
 import Button from "@/components/ui/Button";
 import PhoneInput, {getCleanPhone} from "@/components/ui/PhoneInput";
 import WaveTitle from "@/components/ui/WaveTitle";
@@ -18,7 +20,7 @@ const cardGradient2 =
 const cardGradient3 =
     "bg-[linear-gradient(316deg,rgba(255,0,0,1)_0%,rgba(0,0,0,1)_100%)]";
 
-function validate({name, phoneDigits, branch}) {
+function validate({name, phoneDigits, branch, consent}) {
     const errors = {};
 
     if (!name.trim()) {
@@ -35,6 +37,10 @@ function validate({name, phoneDigits, branch}) {
         errors.branch = "Выберите филиал";
     }
 
+    if (!consent) {
+        errors.consent = "Необходимо согласие";
+    }
+
     return errors;
 }
 
@@ -45,6 +51,7 @@ export default function Feedback({data}) {
     const [phoneDigits, setPhoneDigits] = useState("");
     const [branch, setBranch] = useState("");
     const [message, setMessage] = useState("");
+    const [consent, setConsent] = useState(false);
     const [errors, setErrors] = useState({});
 
     const clearError = (field) => {
@@ -59,7 +66,7 @@ export default function Feedback({data}) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const validationErrors = validate({name, phoneDigits, branch});
+        const validationErrors = validate({name, phoneDigits, branch, consent});
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length > 0) {
@@ -71,6 +78,7 @@ export default function Feedback({data}) {
             phone: getCleanPhone(phoneDigits),
             branch,
             message: message.trim(),
+            consent,
         };
         // сюда позже уйдёт fetch на WP-эндпоинт
         console.log(payload);
@@ -79,6 +87,7 @@ export default function Feedback({data}) {
         setPhoneDigits("");
         setBranch("");
         setMessage("");
+        setConsent(false);
     };
 
     const fieldInputClass = (hasError) =>
@@ -87,18 +96,18 @@ export default function Feedback({data}) {
         }`;
 
     return (
-        <section className="relative bg-background-secondary pb-[250] md:pb-[150] pt-20 lg:py-[150]">
+        <section className="relative bg-background-secondary pb-[35] md:pb-[150] pt-20 lg:py-[150]">
             <Container className="relative z-50">
                 <ScrollReveal stagger className="relative z-20 flex flex-col gap-5 lg:flex-row lg:justify-between">
                     <form
                         onSubmit={handleSubmit}
                         noValidate
-                        className={`w-full lg:w-[calc(50%-10px)] relative z-10 flex flex-col rounded-[30] py-8 px-5 md:py-12 md:px-10 text-foreground-fixed ${cardGradient}`}
+                        className={`w-full lg:w-[calc(50%-10px)] relative z-10 flex flex-col rounded-[30] py-[50] px-2.5 md:py-12 md:px-10 text-foreground-fixed ${cardGradient}`}
                     >
-                        <p className="font-helvetica text-center lg:text-left text-base md:text-lg leading-tight text-foreground-light-fixed whitespace-break-spaces">
+                        <p className="font-helvetica text-center lg:text-left text-sm md:text-lg leading-tight text-foreground-light-fixed whitespace-break-spaces">
                             {intro}
                         </p>
-                        <WaveTitle as="h2" className="mt-7  text-center lg:text-left font-heading text-[22px] md:text-[34px] font-bold leading-none whitespace-break-spaces">
+                        <WaveTitle as="h2" className="mt-5 text-center lg:text-left font-heading text-[25px] md:text-[34px] font-bold leading-none whitespace-break-spaces">
                             {title}
                         </WaveTitle>
 
@@ -111,7 +120,7 @@ export default function Feedback({data}) {
                                         key={field.name}
                                         className="relative w-full md:w-[calc(50%-5px)] lg:w-[calc(50%-14px)]"
                                     >
-                                        <label className="mb-2.5 block font-helvetica text-sm md:text-base font-bold">
+                                        <label className="mb-2.5 block text-center md:text-left font-helvetica text-sm md:text-base font-bold">
                                             {field.label}
                                             {field.required && (
                                                 <span className="text-primary"> *</span>
@@ -150,13 +159,13 @@ export default function Feedback({data}) {
                         </div>
 
                         <div className="relative mt-6">
-                            <p className="mb-4 font-helvetica text-sm md:text-base font-bold">
+                            <p className="mb-4 max-w-[80%] mx-auto md:mx-0 md:max-w-none font-helvetica text-center md:text-left text-sm md:text-base font-bold">
                                 {form.branch.label}
                                 {form.branch.required && (
                                     <span className="text-primary"> *</span>
                                 )}
                             </p>
-                            <div className="flex flex-wrap gap-x-5 gap-y-3">
+                            <div className="flex justify-center md:justify-start flex-wrap gap-x-5 gap-y-3">
                                 {form.branch.options.map((opt) => {
                                     const checked = branch === opt.value;
                                     return (
@@ -201,11 +210,11 @@ export default function Feedback({data}) {
                         </div>
 
                         <div className="mt-6">
-                            <label className="mb-2.5 block font-helvetica text-sm md:text-base font-bold">
+                            <label className="mb-2.5 block text-center md:text-left font-helvetica text-sm md:text-base font-bold">
                                 {form.message.label}
                             </label>
                             {form.message.hint && (
-                                <p className="mb-3.5 font-helvetica text-sm md:text-base text-foreground-light-fixed">
+                                <p className="mb-3.5 font-helvetica text-center md:text-left text-sm md:text-base text-foreground-light-fixed">
                                     {form.message.hint}
                                 </p>
                             )}
@@ -218,20 +227,63 @@ export default function Feedback({data}) {
                             />
                         </div>
 
-                        <div className="mt-5 flex justify-center lg:justify-end">
-                            <Button type="submit" variant="primary">
+                        <div className="mt-5 relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+                            <div className="relative pb-1">
+                                <label
+                                    className="flex cursor-pointer justify-center items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed"
+                                >
+                                    <span
+                                        className={`mt-0.5 flex size-7 shrink-0 items-center justify-center rounded border transition-colors ${
+                                            errors.consent
+                                                ? "border-primary"
+                                                : consent
+                                                    ? "border-primary bg-primary"
+                                                    : "border-[#c4c4c4]"
+                                        }`}
+                                    >
+                                        {consent && (
+                                            <Icon name="square" className="size-6"/>
+                                        )}
+                                    </span>
+                                    <input
+                                        type="checkbox"
+                                        checked={consent}
+                                        onChange={(e) => {
+                                            setConsent(e.target.checked);
+                                            clearError("consent");
+                                        }}
+                                        className="sr-only"
+                                    />
+                                    <span>
+                                        <span className="grid md:inline">
+                                            {form.consent.label}{" "}
+                                        </span>
+                                        <Link
+                                            href={form.consent.url}
+                                            className="pb-px border-b hover:text-primary"
+                                        >
+                                            {form.consent.linkText}
+                                        </Link>
+                                    </span>
+                                </label>
+                                {errors.consent && (
+                                    <p className="absolute bottom-[-20] left-0 text-xs text-primary">{errors.consent}</p>
+                                )}
+                            </div>
+
+                            <Button type="submit" variant="primary" className="shrink-0 mx-auto md:mx-0">
                                 {form.submitLabel}
                             </Button>
                         </div>
                     </form>
 
                     <div
-                        className={`w-full min-h-[340] md:max-w-2xl md:mx-auto lg:max-w-none lg:mx-0 lg:w-[calc(50%-10px)] md:min-h-[317] lg:min-h-auto lg:max-h-[544] relative z-10 flex flex-col overflow-hidden rounded-[30] py-12 px-6 lg:px-10 ${cardGradient3} lg:${cardGradient2}`}
+                        className={`w-full min-h-[230] md:max-w-2xl md:mx-auto lg:max-w-none lg:mx-0 lg:w-[calc(50%-10px)] md:min-h-[317] lg:min-h-auto lg:max-h-[544] relative z-10 flex flex-col overflow-hidden rounded-[30] py-5 px-3.5 md:py-12 md:px-6 lg:px-10 ${cardGradient3} lg:${cardGradient2}`}
                     >
                         <p className="z-10 font-heading leading-none text-lg md:text-[22px] whitespace-break-spaces text-foreground-fixed max-w-[230]">
                             {manager.title}
                         </p>
-                        <div className="absolute w-[200] md:w-[250] lg:w-[410] z-10 right-[10%] lg:right-auto lg:left-1/2 lg:-translate-x-1/2 bottom-0 flex flex-1 items-end justify-center">
+                        <div className="absolute w-[150] md:w-[250] lg:w-[410] z-10 right-0 md:right-[10%] lg:right-auto lg:left-1/2 lg:-translate-x-1/2 bottom-0 flex flex-1 items-end justify-center">
                             <Image
                                 src={manager.photo.path}
                                 alt={manager.photo.alt}
@@ -245,14 +297,14 @@ export default function Feedback({data}) {
             </Container>
             {tires?.path && (
                 <div
-                    className="pointer-events-none z-30 absolute bottom-[-10] right-0 md:bottom-[-5%] lg:bottom-[-13%] w-full max-w-[320] overflow-hidden lg:max-w-[580]"
+                    className="pointer-events-none mx-auto z-30 relative md:absolute md:bottom-[-10] md:right-0 md:bottom-[-5%] lg:bottom-[-13%] w-full max-w-[240] md:max-w-[320] md:overflow-hidden lg:max-w-[580]"
                 >
                     <Image
                         src={tires.path}
                         alt={tires.alt || ""}
                         width={750}
                         height={824}
-                        className="h-auto w-[140%] max-w-none -mr-[20%] lg:w-[125%] lg:-mr-[10%]"
+                        className="h-auto w-[250] md:w-[140%] max-w-none md:-mr-[20%] lg:w-[125%] lg:-mr-[10%]"
                     />
                 </div>
             )}

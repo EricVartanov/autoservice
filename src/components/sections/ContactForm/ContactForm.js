@@ -188,9 +188,10 @@ export default function ContactForm({data}) {
         return (
             <div
                 key={field.name}
-                className={`relative w-full md:w-[calc(50%-5px)] lg:w-[calc(50%-15px)] lg:min-w-none ${field.name === 'carBrand' ? 'lg:w-full': ''}`}
+                className={`relative w-full md:w-[calc(50%-5px)] lg:w-[calc(50%-15px)] lg:min-w-none ${field.name === 'carBrand' ? 'lg:w-full' : ''}`}
             >
-                <label className="mb-2.5 block font-helvetica text-sm md:text-base font-bold text-foreground-fixed">
+                <label
+                    className="mb-2.5 block text-center md:text-left font-helvetica text-sm md:text-base font-bold text-foreground-fixed">
                     {field.label}
                     {field.required && <span className="text-primary"> *</span>}
                 </label>
@@ -211,11 +212,11 @@ export default function ContactForm({data}) {
 
         return (
             <div key={group.name} className="relative">
-                <p className="mb-4 font-helvetica text-sm md:text-base font-bold text-foreground-fixed">
+                <p className="mb-4 font-helvetica text-center md:text-left text-sm md:text-base font-bold text-foreground-fixed">
                     {group.label}
                     {group.required && <span className="text-primary"> *</span>}
                 </p>
-                <div className="flex flex-col md:flex-row md:flex-wrap gap-x-5 gap-y-3">
+                <div className="flex items-center md:items-start flex-col md:flex-row md:flex-wrap gap-x-5 gap-y-3">
                     {group.options.map((opt) => {
                         const checked = value === opt.value;
                         return (
@@ -284,7 +285,7 @@ export default function ContactForm({data}) {
 
         return (
             <div key={field.name} className="relative w-full md:w-[calc(50%-15px)]">
-                <label className="mb-2.5 block font-helvetica text-sm md:text-base font-bold text-foreground-fixed">
+                <label className="mb-2.5 block font-helvetica text-center md:text-left text-sm md:text-base font-bold text-foreground-fixed">
                     {field.label}
                     {field.required && <span className="text-primary"> *</span>}
                 </label>
@@ -299,7 +300,7 @@ export default function ContactForm({data}) {
     };
 
     return (
-        <section className="relative py-[90] lg:py-[100]">
+        <section className="relative py-[50] lg:py-[100]">
             <div className="absolute inset-0 -z-10 overflow-hidden">
                 <Image
                     src={backgroundImage.path}
@@ -309,7 +310,8 @@ export default function ContactForm({data}) {
                 />
             </div>
 
-            <Container className="relative justify-between flex flex-col gap-[50] md:gap-[100] lg:gap-10 lg:flex-row lg:items-center lg:gap-16">
+            <Container
+                className="relative justify-between flex flex-col gap-[50] md:gap-[100] lg:gap-10 lg:flex-row lg:items-center lg:gap-16">
                 <div className="lg:max-w-[555] mt-auto pb-0 lg:pb-[40]">
                     <SectionTitle
                         title={title}
@@ -329,58 +331,67 @@ export default function ContactForm({data}) {
                                 {form.fields.map(renderMainField)}
                             </div>
 
-                        <div className={'flex flex-col gap-6 mt-6'}>
-                            {form.radioGroups?.map(renderRadioGroup)}
-                        </div>
+                            <div className={'flex flex-col gap-6 mt-6'}>
+                                {form.radioGroups?.map(renderRadioGroup)}
+                            </div>
 
-                        <div className={'mt-10 pb-6 border-b border-foreground-fixed/20'}>
-                            {form.extraSection && (
-                                <div>
-                                    <button
-                                        type="button"
-                                        onClick={() => setExtraOpen((v) => !v)}
-                                        className="flex w-full cursor-pointer items-center justify-between gap-4 text-left"
-                                        aria-expanded={extraOpen}
-                                    >
-                                    <span
-                                        className="font-heading leading-none font-bold text-sm md:text-base md:text-[22px] text-foreground-fixed">
-                                        {form.extraSection.title}
-                                    </span>
-                                        <Icon
-                                            name="arrow-down"
-                                            className={`size-7 shrink-0 text-foreground-fixed transition-transform duration-300 ${
-                                                extraOpen ? "rotate-180" : ""
-                                            }`}
-                                        />
-                                    </button>
+                            <div className={'mt-10 pb-3 md:pb-6 border-b border-foreground-fixed/20'}>
+                                {form.extraSection && (
+                                    <div>
+                                        <button
+                                            type="button"
+                                            onClick={() => setExtraOpen((v) => !v)}
+                                            className="flex flex-col md:flex-row w-full cursor-pointer items-center justify-between gap-3.5 md:gap-4 text-center md:text-left"
+                                            aria-expanded={extraOpen}
+                                        >
+                                            <span
+                                                className="font-heading leading-none font-bold text-sm md:text-base md:text-[22px] text-foreground-fixed">
+                                                {form.extraSection.title}
+                                            </span>
+                                            <span className={'flex items-center'}>
+                                            <span className={'text-primary text-xs md:hidden'}>
+                                               Развернуть
+                                           </span>
+                                            <span>
+                                            <Icon
+                                                name="arrow-down"
+                                                className={`size-7 shrink-0 text-primary transition-transform duration-300 ${
+                                                    extraOpen ? "rotate-180" : ""
+                                                }`}
+                                            />
+                                            </span>
+                                           </span>
+                                        </button>
 
-                                    <AnimatePresence initial={false}>
-                                        {extraOpen && (
-                                            <motion.div
-                                                key="extra-fields"
-                                                initial={{height: 0, opacity: 0}}
-                                                animate={{height: "auto", opacity: 1}}
-                                                exit={{height: 0, opacity: 0}}
-                                                transition={{
-                                                    height: {duration: 0.3, ease: "easeInOut"},
-                                                    opacity: {duration: 0.2, ease: "easeOut"},
-                                                }}
-                                                className="overflow-hidden"
-                                            >
-                                                <div className="mt-6 flex flex-col md:flex-row md:flex-wrap gap-2.5 lg:gap-y-6 lg:gap-x-7">
-                                                    {form.extraSection.fields.map(renderExtraField)}
-                                                </div>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-                                </div>
-                            )}
-                        </div>
+                                        <AnimatePresence initial={false}>
+                                            {extraOpen && (
+                                                <motion.div
+                                                    key="extra-fields"
+                                                    initial={{height: 0, opacity: 0}}
+                                                    animate={{height: "auto", opacity: 1}}
+                                                    exit={{height: 0, opacity: 0}}
+                                                    transition={{
+                                                        height: {duration: 0.3, ease: "easeInOut"},
+                                                        opacity: {duration: 0.2, ease: "easeOut"},
+                                                    }}
+                                                    className="overflow-hidden"
+                                                >
+                                                    <div
+                                                        className="mt-6 flex flex-col md:flex-row md:flex-wrap gap-2.5 lg:gap-y-6 lg:gap-x-7">
+                                                        {form.extraSection.fields.map(renderExtraField)}
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+                                )}
+                            </div>
 
-                        <div className="mt-6 relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-                            <div className={'relative pb-1'}>
-                                <label
-                                    className="flex cursor-pointer items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed">
+                            <div
+                                className="mt-6 relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+                                <div className={'relative pb-1'}>
+                                    <label
+                                        className="flex cursor-pointer justify-center items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed">
                                 <span
                                     className={`mt-0.5 flex size-7 shrink-0 items-center justify-center rounded border transition-colors ${
                                         errors.consent
@@ -391,46 +402,49 @@ export default function ContactForm({data}) {
                                     }`}
                                 >
                                     {consent && (
-                                        <Icon name={'square'} className={'size-6'} />
+                                        <Icon name={'square'} className={'size-6'}/>
                                     )}
                                 </span>
-                                    <input
-                                        type="checkbox"
-                                        checked={consent}
-                                        onChange={handleConsentChange}
-                                        className="sr-only"
-                                    />
-                                    <span>
-                                    {form.consent.label}{" "}
-                                        <Link
-                                            href={form.consent.url}
-                                            className="pb-px border-b hover:text-primary"
-                                        >
+                                        <input
+                                            type="checkbox"
+                                            checked={consent}
+                                            onChange={handleConsentChange}
+                                            className="sr-only"
+                                        />
+                                        <span>
+                                    <span className={'grid md:inline'}>
+                                        {form.consent.label}{" "}
+                                    </span>
+                                            <Link
+                                                href={form.consent.url}
+                                                className="pb-px border-b hover:text-primary"
+                                            >
                                         {form.consent.linkText}
                                     </Link>
                                 </span>
 
-                                </label>
-                                {errors.consent && (
-                                    <p className="absolute bottom-[-20] left-0 text-xs text-primary">{errors.consent}</p>
-                                )}
+                                    </label>
+                                    {errors.consent && (
+                                        <p className="absolute bottom-[-20] left-0 text-xs text-primary">{errors.consent}</p>
+                                    )}
+                                </div>
+
+
+                                <Button type="submit" className="shrink-0 mx-auto md:mx-0 w-[156] min-h-10 sm:w-auto  md:min-w-[180]">
+                                    {form.submitLabel}
+                                </Button>
                             </div>
-
-
-                            <Button type="submit" className="shrink-0 w-full sm:w-auto min-w-[180]">
-                                {form.submitLabel}
-                            </Button>
                         </div>
-                    </div>
 
-                    {submitted && (
-                        <p className="mt-4 text-base text-primary">
-                            Спасибо! Заявка отправлена, мы скоро свяжемся с Вами.
-                        </p>
-                    )}
+                        {submitted && (
+                            <p className="mt-4 text-base text-primary">
+                                Спасибо! Заявка отправлена, мы скоро свяжемся с Вами.
+                            </p>
+                        )}
                     </form>
                 </ScrollReveal>
             </Container>
         </section>
-    );
+    )
+        ;
 }

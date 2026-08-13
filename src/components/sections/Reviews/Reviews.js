@@ -57,20 +57,20 @@ export default function Reviews({data}) {
                                   titleBackPosition={isMobileOrTablet ? '' : 'left-full'}/>
 
                     {summary && (
-                        <div className="flex items-center gap-5 shrink-0">
+                        <div className="flex items-center gap-3.5 md:gap-5 shrink-0">
                             <div className="flex -space-x-3">
                                 {summary.platforms.map((platform) => (
                                     <span
                                         key={platform.id}
-                                        className="size-13.75 border-[3px] border-platforms-border overflow-hidden rounded-full bg-foreground-fixed flex items-center justify-center shadow-[-3px_4px_20px_0_rgba(0,0,0,0.25)]"
+                                        className="size-[10vw] md:size-13.75 border-[3px] border-platforms-border overflow-hidden rounded-full bg-foreground-fixed flex items-center justify-center shadow-[-3px_4px_20px_0_rgba(0,0,0,0.25)]"
                                     >
                                         <Image src={platform.logo} alt={platform.alt} width={55} height={55}/>
                                     </span>
                                 ))}
                             </div>
                             <div className="leading-none">
-                                <p className="text-[28px] md:text-[34px] font-bold text-transparent-btn-text font-heading">{summary.count}</p>
-                                <p className="text-base text-foreground font-helvetica">{summary.countLabel}</p>
+                                <p className="text-[22px] md:text-[34px] font-bold text-transparent-btn-text font-heading">{summary.count}</p>
+                                <p className="text-sm md:text-base text-foreground font-helvetica">{summary.countLabel}</p>
                             </div>
                         </div>
                     )}
@@ -78,13 +78,13 @@ export default function Reviews({data}) {
 
                 <ScrollReveal>
                     <div
-                        className="mt-10 lg:mt-[70] flex bg-white-grey flex-col flex-wrap justify-center rounded-3xl lg:rounded-full shadow-[0px_4px_20px_0_rgba(0,0,0,0.15)] md:flex-row md:items-center lg:justify-between gap-7 lg:gap-4 px-5 lg:px-10 py-7 lg:py-3.5">
+                        className="mt-10 lg:mt-[70] flex bg-white-grey flex-col flex-wrap justify-center rounded-3xl lg:rounded-full shadow-[0px_4px_20px_0_rgba(0,0,0,0.15)] md:flex-row md:items-center lg:justify-between gap-5 md:gap-7 lg:gap-4 pt-2.5 pb-5 px-6 md:px-5 lg:px-10 md:py-7 lg:py-3.5">
                         <div className="flex justify-center flex-wrap items-center gap-2">
                             {availableBranches.map((branch) => (
                                 <button
                                     key={branch.id}
                                     onClick={() => handleBranchChange(branch.id)}
-                                    className={`px-5 min-w-[190] lg:px-4 py-2 rounded-full text-base font-helvetica cursor-pointer ${
+                                    className={`px-5 min-w-[190] lg:px-4 py-2 rounded-full text-sm md:text-base font-helvetica cursor-pointer ${
                                         activeBranch === branch.id
                                             ? "bg-primary text-foreground-fixed"
                                             : "border-b-white/20 border-b"
@@ -95,12 +95,12 @@ export default function Reviews({data}) {
                             ))}
                         </div>
 
-                        <div className="flex flex-wrap justify-center items-center gap-7 lg:gap-6">
+                        <div className="flex md:flex-wrap justify-center items-center gap-7 lg:gap-6">
                             {platforms.map((platform) => (
                                 <button
                                     key={platform.id}
                                     onClick={() => handlePlatformChange(platform.id)}
-                                    className={`relative text-base font-helvetica cursor-pointer text-foreground`}
+                                    className={`relative text-sm md:text-base font-helvetica cursor-pointer text-foreground w-[33%] md:w-auto`}
                                 >
                                     {platform.label}
                                     <span
@@ -140,7 +140,7 @@ export default function Reviews({data}) {
                                             </span>
                                         </div>
                                         <span
-                                            className="flex items-center text-sm md:text-base bg-white/10 rounded-full px-2 md:px-2.5 py-1">
+                                            className="flex items-center text-sm md:text-base bg-white/10 rounded-full px-2.5 py-1">
                                             {review.rating}
                                             <Icon name="star-filled" className="size-5 md:size-6 text-[#FFAE00]"/>
                                         </span>

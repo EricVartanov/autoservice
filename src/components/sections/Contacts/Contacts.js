@@ -11,7 +11,7 @@ export default function Contacts({data, embedded = false}) {
     const [left, right] = branches;
 
     return (
-        <section className={`relative overflow-hidden ${embedded ? 'py-12 md:py-16 lg:pb-[150] lg:pt-20 px-0' : 'py-20 lg:py-[150]'}`}>
+        <section className={`relative overflow-hidden ${embedded ? 'py-12 md:py-16 lg:pb-[150] lg:pt-20 px-0' : 'py-10 md:py-20 lg:py-[150]'}`}>
             <Container className={`relative ${embedded ? '!px-5 md:!px-10' : ''}`}>
                 <ScrollReveal className="relative z-20 left-auto top-0 mb-10 md:mb-[50] flex justify-center lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:mb-0">
                     <a
@@ -25,7 +25,7 @@ export default function Contacts({data, embedded = false}) {
 
                 <ScrollReveal
                     stagger
-                    className="relative flex-col md:flex-row flex justify-between items-center md:items-start gap-10 md:gap-6 lg:gap-0"
+                    className="relative flex-col md:flex-row flex justify-between items-center md:items-start gap-[30] md:gap-6 lg:gap-0"
                 >
                     <div className="flex-1 lg:flex-none">
                         {left && <BranchCard branch={left} embedded={embedded}/>}
@@ -41,7 +41,7 @@ export default function Contacts({data, embedded = false}) {
                 />
                 <ScrollReveal
                     delay={0.15}
-                    className={`z-[-1] lg:z-10 opacity-50 lg:opacity-100 absolute left-1/2 top-1/2 lg:top-unset lg:bottom-0 -translate-1/2 lg:-translate-x-1/2 w-full max-w-[380] lg:max-w-[600] h-auto dark:invert ${embedded ? 'h-full' : ''} `}
+                    className={`z-[-1] hidden lg:block lg:z-10 opacity-50 lg:opacity-100 absolute left-1/2 top-1/2 lg:top-unset lg:bottom-0 -translate-1/2 lg:-translate-x-1/2 w-full lg:max-w-[600] h-auto dark:invert ${embedded ? 'h-full' : ''} `}
                 >
                     <Image
                         src={mapImage}
