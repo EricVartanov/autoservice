@@ -6,7 +6,6 @@ import Statistic from "@/components/sections/About/Statistic";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export default function About({data}) {
-
     const {titleBack, cards, title, subtitle, stats} = data
     return (
         <section className="overflow-hidden bg-background">

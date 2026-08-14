@@ -235,7 +235,7 @@ export default function MainNav({data, isHome, collapsed}) {
             </div>
 
             {/* Logo + menu: tablet + desktop (hidden on mobile) */}
-            <div className="hidden items-center md:flex lg:gap-6 xl:gap-7">
+            <div className={`hidden items-center md:flex ${collapsed || !isHome ? 'lg:gap-6 xl:gap-7 ' : ''}`}>
                 {/* Desktop collapsed logo */}
                 <Link
                     href="/"
