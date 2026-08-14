@@ -13,7 +13,7 @@ export default function Footer({data = mockFooter}) {
 
     return (
         <footer
-            className={`relative z-10 pb-20 ${
+            className={`relative z-10 pb-[30] md:pb-20 ${
                 isNews ? 'bg-background' : 'bg-background-secondary'
             }`}
         >
@@ -26,6 +26,7 @@ export default function Footer({data = mockFooter}) {
                                 alt={logo.alt}
                                 width={420}
                                 height={160}
+                                loading="eager"
                                 className="h-auto dark:hidden w-[172] lg:w-[410] z-50"
                             />
                             {logoDark && (
@@ -34,6 +35,7 @@ export default function Footer({data = mockFooter}) {
                                     alt={logoDark.alt}
                                     width={420}
                                     height={160}
+                                    loading="eager"
                                     className="hidden h-auto dark:block w-[172] lg:w-[410] z-50"
                                 />
                             )}
@@ -43,7 +45,7 @@ export default function Footer({data = mockFooter}) {
 
                 <hr className="mt-[30] border-0 border-t border-foreground/20 lg:mt-12" />
 
-                <div className="mt-5 lg:mt-6 flex flex-col items-center gap-6 text-center text-lg font-helvetica text-foreground lg:flex-row lg:items-stretch lg:justify-between lg:gap-0 lg:text-left">
+                <div className="mt-5 lg:mt-6 flex flex-col items-center gap-6 text-center text-sm md:text-lg font-helvetica text-foreground lg:flex-row lg:items-stretch lg:justify-between lg:gap-0 lg:text-left">
                     <p className="order-2 shrink-0 text-foreground-light lg:order-none">{copyright} {new Date().getFullYear()}</p>
 
                     <div className="order-1 flex flex-col gap-3 lg:order-none md:flex-row lg:justify-between lg:gap-8 xl:gap-[97]">
@@ -73,7 +75,7 @@ export default function Footer({data = mockFooter}) {
                                                 alt=""
                                                 width={30}
                                                 height={30}
-                                                className="size-7 shrink-0 dark:hidden"
+                                                className="size-5 md:size-7 shrink-0 dark:hidden"
                                             />
                                             {branch.logoDark && (
                                                 <Image
@@ -81,7 +83,7 @@ export default function Footer({data = mockFooter}) {
                                                     alt=""
                                                     width={30}
                                                     height={30}
-                                                    className="hidden size-7 shrink-0 dark:block"
+                                                    className="hidden size-5 md:size-7 shrink-0 dark:block"
                                                 />
                                             )}
                                         </>
@@ -105,7 +107,7 @@ export default function Footer({data = mockFooter}) {
                                     alt={social.alt || social.name}
                                     width={24}
                                     height={24}
-                                    className="size-6 dark:hidden"
+                                    className="size-[30] md:size-6 dark:hidden"
                                 />
                                 {social.logoDark && (
                                     <Image
@@ -113,7 +115,7 @@ export default function Footer({data = mockFooter}) {
                                         alt={social.alt || social.name}
                                         width={24}
                                         height={24}
-                                        className="hidden size-6 dark:block"
+                                        className="hidden size-[30] md:size-6 dark:block"
                                     />
                                 )}
                             </Link>

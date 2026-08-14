@@ -610,7 +610,7 @@ export const mockPage = {
         },
         {
             type: 'services',
-            title: 'Вы получаете полный спектр\nуслуг по диагностике, ремонту\nи обслуживанию автомобиля',
+            title: 'Вы получаете полный спектр\nуслуг по диагностике, ремонту \nи обслуживанию автомобиля',
             titleBack: 'наши услуги',
             mark: 'Услуги',
             services: [
@@ -731,7 +731,7 @@ export const mockPage = {
         {
             type: 'specialOffer',
             title: [
-                'Отремонтируем сегодня — ',
+                'Отремонтируем сегодня — \n',
                 'оплатите потом.'
             ],
             subtitle: 'Чтобы рассчитать условия кредита уточняйте информацию у менеджера',
@@ -964,7 +964,7 @@ export const mockPage = {
         {
             type: 'contact_form',
             id: 'contact-form',
-            title: 'Не откладывайте ремонт — чем раньше Вы решите вопрос, тем дешевле он Вам обойдётся!',
+            title: 'Не откладывайте ремонт — чем раньше Вы решите вопрос, \n тем дешевле он Вам обойдётся!',
             backgroundImage: {
                 path: '/mock/contactForm/contact-form-bg.webp',
                 alt: 'механики за работой',
@@ -1022,43 +1022,26 @@ export const mockPage = {
                     fields: [
                         {
                             name: 'vin',
-                            label: 'VIN-номер',
+                            label: 'VIN-номер автомобиля',
                             type: 'text',
                             placeholder: '17 символов',
                             required: false,
                         },
                         {
                             name: 'partName',
-                            label: 'Наименование запчасти',
-                            type: 'text',
-                            placeholder: 'начните вводить',
-                            required: false,
-                        },
-                        {
-                            name: 'year',
-                            label: 'Год выпуска',
+                            label: 'Какая деталь необходима',
                             type: 'select',
-                            placeholder: 'выберите',
+                            placeholder: 'выберите из списка',
                             required: false,
                             options: [
-                                '2018',
-                                '2019',
-                                '2020',
-                                '2021',
-                                '2022',
-                                '2023',
-                                '2024',
-                                '2025',
-                                '2026',
+                                'Колодки',
+                                'Суппорта',
+                                'Масло',
+                                'Фильтр',
+                                'Паттрубки',
+                                'Рычаг',
+                                'Прокладки',
                             ],
-                        },
-                        {
-                            name: 'engineType',
-                            label: 'Тип двигателя',
-                            type: 'select',
-                            placeholder: 'выберите',
-                            required: false,
-                            options: ['Бензин', 'Дизель', 'Гибрид', 'Электро'],
                         },
                     ],
                 },
@@ -1084,7 +1067,7 @@ export const mockPage = {
             id: 'feedback',
             intro:
                 'У Вас есть рекомендации по улучшению качества услуг? \nОстались нерешённые вопросы после обслуживания? \nИли Вы просто хотите поделиться своими впечатлениями?',
-            title: 'Будь то благодарность или конструктивная критика, пишите и мы свяжемся с вами',
+            title: 'Будь то благодарность или конструктивная критика, \nпишите и мы свяжемся с вами',
             manager: {
                 title: 'Менеджер по работе с клиентами – Мария',
                 photo: {path: '/mock/feedback/maria.webp', alt: 'Мария'},
@@ -1107,6 +1090,12 @@ export const mockPage = {
                         required: true,
                     },
                 ],
+                consent: {
+                    label: 'Согласен на обработку',
+                    linkText: 'персональных данных',
+                    url: '/privacy',
+                    required: true,
+                },
                 branch: {
                     name: 'branch',
                     label: 'В каком филиале Вы обслуживались',

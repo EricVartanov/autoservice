@@ -7,6 +7,7 @@ import {Container} from "@/components/Container";
 import Button from "@/components/ui/Button";
 import Icon from "@/components/icons/Icon";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const INITIAL_COUNT = 8;
 const LOAD_STEP = 4;
@@ -27,12 +28,14 @@ export default function Services({data}) {
                               variant={`${isMobileAndTablet ? 'center' : 'left'}`}/>
 
                 {/* сетка услуг */}
-                <div
-                    className="mt-10 grid grid-cols-1 gap-4 md:mt-[84] md:grid-cols-2 md:gap-5 lg:grid-cols-4 lg:gap-[30]">
+                <ScrollReveal
+                    stagger
+                    className="mt-10 grid grid-cols-1 gap-4 md:mt-[84] md:grid-cols-2 md:gap-5 lg:grid-cols-4 lg:gap-[30]"
+                >
                     {visibleServices.map((service) => (
                         <ServiceCard key={service.slug} service={service}/>
                     ))}
-                </div>
+                </ScrollReveal>
 
                 {/* показать еще */}
                 {hasMore && (

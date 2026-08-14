@@ -9,6 +9,8 @@ import BlurredCircle from "@/components/ui/blurredCircle";
 import Icon from "@/components/icons/Icon";
 import FaqItem from "@/components/sections/Faq/FaqItem";
 import Image from "next/image";
+import ScrollReveal from "@/components/ui/ScrollReveal";
+import {useMediaQuery} from "@/hooks/useMediaQuery";
 
 const VISIBLE_COUNT = 7;
 
@@ -48,6 +50,9 @@ export default function Faq({data}) {
         />
     );
 
+    const isMobile = useMediaQuery('(max-width: 767px)');
+
+
     return (
         <section className="py-20 md:py-[150] overflow-hidden">
             <Container className={'relative'}>
@@ -57,17 +62,17 @@ export default function Faq({data}) {
                         <SectionTitle
                             title={title}
                             mark={mark}
-                            variant="left"
+                            variant={isMobile ? 'center' : 'left'}
                         />
 
-                        <div className="mt-7 lg:mt-12 flex justify-center md:justify-start md:flex-wrap lg:flex-nowrap items-center gap-3 md:gap-7">
+                        <div className="mt-7 lg:mt-12 flex flex-col md:flex-row  justify-center md:justify-start md:flex-wrap lg:flex-nowrap items-center gap-3 md:gap-7">
                             {messengers?.map((messenger) => (
                                 <a
                                     key={messenger.name}
                                     href={messenger.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="rounded-full flex gap-2.5 w-full min-w-0 max-w-[253] lg:min-w-[253] lg:flex-none justify-center items-center bg-primary px-4 lg:px-7 py-3 text-base md:text-lg font-helvetica text-foreground-fixed transition hover:opacity-90"
+                                    className="rounded-full flex gap-2.5 w-full min-w-0 max-w-[253] lg:min-w-[253] lg:flex-none justify-center items-center bg-primary px-4 lg:px-7 py-3 text-sm md:text-lg font-helvetica text-foreground-fixed transition hover:opacity-90"
                                 >
                                     <Image src={messenger.logo} width={30} height={30} alt={messenger.alt} className={'size-[30] text-foreground-fixed'}/>
                                     {messenger.name}
@@ -76,7 +81,7 @@ export default function Faq({data}) {
                         </div>
                     </div>
 
-                    <div>
+                    <ScrollReveal>
                         <div>
                             {primaryItems.map((item, index) => (
                                 <div key={item.id}>
@@ -105,16 +110,16 @@ export default function Faq({data}) {
                                 <Button
                                     variant="transparent"
                                     onClick={handleShowAllToggle}
-                                    className="text-transparent-btn-text px-12 hover:bg-foreground-fixed hover:text-black"
+                                    className="text-transparent-btn-text min-h-10 px-12 hover:bg-foreground-fixed hover:text-black"
                                 >
                                     {showAll ? "Свернуть" : (cta?.label ?? "Смотреть все")}
                                 </Button>
                             </div>
                         )}
-                    </div>
+                    </ScrollReveal>
                 </div>
-                <div className="absolute z-[-1] w-[134] top-[80%] left-[-10%] lg:top-full lg:left-0 hidden md:block">
-                    <Icon name="dots" className="text-primary-light w-[134]"/>
+                <div className="absolute z-[-1] w-[70] md:w-[134] left-[-5%] bottom-[-5%] md:top-[80%] md:left-[-10%] lg:top-full lg:left-0 block">
+                    <Icon name="dots" className="text-primary-light w-[70] md:w-[134]"/>
                 </div>
             </Container>
         </section>
