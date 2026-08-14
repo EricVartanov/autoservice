@@ -24,13 +24,15 @@ export default function Services({data}) {
     return (
         <section className="relative pb-10 pt-20 md:py-[150] overflow-hidden">
             <Container className={'relative'}>
-                <SectionTitle titleBack={titleBack} title={title} mark={mark}
-                              variant={`${isMobileAndTablet ? 'center' : 'left'}`}/>
+                <div className={'mb-10 md:mb-[84]'}>
+                    <SectionTitle titleBack={titleBack} title={title} mark={mark}
+                                  variant={`${isMobileAndTablet ? 'center' : 'left'}`}/>
+                </div>
 
                 {/* сетка услуг */}
                 <ScrollReveal
                     stagger
-                    className="mt-10 grid grid-cols-1 gap-4 md:mt-[84] md:grid-cols-2 md:gap-5 lg:grid-cols-4 lg:gap-[30]"
+                    className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-4 lg:gap-[30]"
                 >
                     {visibleServices.map((service) => (
                         <ServiceCard key={service.slug} service={service}/>

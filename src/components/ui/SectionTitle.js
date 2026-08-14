@@ -32,7 +32,7 @@ export default function SectionTitle({
                 </p>
             )}
 
-            <div className={'relative'}>
+            <div className={'relative z-10'}>
                 {animate ? (
                     <WaveTitle as="h2" breakClassName="hidden md:block" className={`font-heading tracking-tight text-[25px] md:text-[40px] lg:text-[54px] ${titleColor} leading-none md:whitespace-pre-line`}>
                         {title}
