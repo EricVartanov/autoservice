@@ -20,7 +20,7 @@ const variants = {
 
 export default function HeroSlideContent({ slide, activeIndex, direction = 1 }) {
     return (
-        <div className="relative min-h-0 md:min-h-[300] w-full overflow-hidden">
+        <div className="relative min-h-0 md:min-h-[clamp(180px,26vh,300px)] w-full overflow-hidden">
             <AnimatePresence mode="wait" custom={direction}>
                 <motion.div
                     key={activeIndex}
@@ -31,8 +31,8 @@ export default function HeroSlideContent({ slide, activeIndex, direction = 1 }) 
                     exit="exit"
                     transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 >
-                   <div className={'flex flex-col items-start justify-between md:gap-6 gap-2.5'}>
-                       <h3 className="font-heading font-bold text-foreground-fixed leading-none text-lg md:text-[34px] w-[80%] md:w-full md:whitespace-pre-line">
+                   <div className={'flex flex-col items-start justify-between md:gap-[clamp(12px,2.4vh,24px)] gap-2.5'}>
+                       <h3 className="font-heading font-bold text-foreground-fixed leading-none text-lg md:text-[clamp(24px,3.4vh,34px)] w-[80%] md:w-full md:whitespace-pre-line">
                            {slide.title}
                        </h3>
                        <span className={'w-[50] block border-b-foreground-fixed border h-[1]'}></span>

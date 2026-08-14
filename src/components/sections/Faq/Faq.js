@@ -10,6 +10,7 @@ import Icon from "@/components/icons/Icon";
 import FaqItem from "@/components/sections/Faq/FaqItem";
 import Image from "next/image";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import Parallax from "@/components/ui/Parallax";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
 
 const VISIBLE_COUNT = 7;
@@ -118,9 +119,9 @@ export default function Faq({data}) {
                         )}
                     </ScrollReveal>
                 </div>
-                <div className="absolute z-[-1] w-[70] md:w-[134] left-[-5%] bottom-[-5%] md:top-[80%] md:left-[-10%] lg:top-full lg:left-0 block">
+                <Parallax className="absolute z-[-1] w-[70] md:w-[134] left-[-5%] bottom-[-5%] md:top-[80%] md:left-[-10%] lg:top-full lg:left-0 block">
                     <Icon name="dots" className="text-primary-light w-[70] md:w-[134]"/>
-                </div>
+                </Parallax>
             </Container>
         </section>
     );

@@ -92,7 +92,7 @@ export default function Feedback({data}) {
     };
 
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed transition-colors ${
+        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
             hasError ? "border-primary" : "border-white/20 focus:border-foreground-fixed"
         }`;
 
@@ -121,7 +121,7 @@ export default function Feedback({data}) {
                                         key={field.name}
                                         className="relative w-full md:w-[calc(50%-5px)] lg:w-[calc(50%-14px)]"
                                     >
-                                        <label className="mb-2.5 block text-center md:text-left font-helvetica text-sm md:text-base font-bold">
+                                        <label className="mb-2.5 block font-helvetica text-sm md:text-base font-bold">
                                             {field.label}
                                             {field.required && (
                                                 <span className="text-primary"> *</span>
@@ -158,13 +158,13 @@ export default function Feedback({data}) {
                         </div>
 
                         <div className="relative mt-6">
-                            <p className="mb-4 max-w-[80%] mx-auto md:mx-0 md:max-w-none font-helvetica text-center md:text-left text-sm md:text-base font-bold">
+                            <p className="mb-4 max-w-[80%] md:max-w-none font-helveticatext-sm md:text-base font-bold">
                                 {form.branch.label}
                                 {form.branch.required && (
                                     <span className="text-primary"> *</span>
                                 )}
                             </p>
-                            <div className="flex justify-center md:justify-start flex-wrap gap-x-5 gap-y-3">
+                            <div className="flex justify-start flex-wrap gap-x-5 gap-y-3">
                                 {form.branch.options.map((opt) => {
                                     const checked = branch === opt.value;
                                     return (
@@ -207,11 +207,11 @@ export default function Feedback({data}) {
                         </div>
 
                         <div className="mt-6">
-                            <label className="mb-2.5 block text-center md:text-left font-helvetica text-sm md:text-base font-bold">
+                            <label className="mb-2.5 block font-helvetica text-sm md:text-base font-bold">
                                 {form.message.label}
                             </label>
                             {form.message.hint && (
-                                <p className="mb-3.5 font-helvetica text-center md:text-left text-sm md:text-base text-foreground-light-fixed">
+                                <p className="mb-3.5 font-helvetica  text-sm md:text-base text-foreground-light-fixed">
                                     {form.message.hint}
                                 </p>
                             )}
@@ -220,17 +220,17 @@ export default function Feedback({data}) {
                                 onChange={(e) => setMessage(e.target.value)}
                                 placeholder={form.message.placeholder}
                                 rows={4}
-                                className="w-full resize-none rounded-[10] border border-white/20 bg-transparent px-5 py-3.5 font-helvetica text-sm md:text-base text-foreground-fixed outline-none placeholder:text-foreground-fixed focus:border-foreground-fixed"
+                                className="w-full resize-none rounded-[10] border border-white/20 bg-transparent px-5 py-3.5 font-helvetica text-sm md:text-base text-foreground-fixed outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent focus:border-foreground-fixed"
                             />
                         </div>
 
-                        <div className="mt-5 relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="mt-5 relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                             <div className="relative pb-1">
                                 <label
                                     className="flex cursor-pointer justify-center items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed"
                                 >
                                     <span
-                                        className={`mt-0.5 flex size-7 shrink-0 items-center justify-center rounded border transition-colors ${
+                                        className={`mt-0.5 p-1 flex size-7 shrink-0 items-center justify-center rounded border transition-colors ${
                                             errors.consent
                                                 ? "border-primary"
                                                 : consent
@@ -239,7 +239,7 @@ export default function Feedback({data}) {
                                         }`}
                                     >
                                         {consent && (
-                                            <Icon name="square" className="size-6"/>
+                                            <Icon name="square" className="size-5 md:size-6"/>
                                         )}
                                     </span>
                                     <input
@@ -268,7 +268,7 @@ export default function Feedback({data}) {
                                 </FieldError>
                             </div>
 
-                            <Button type="submit" variant="primary" className="shrink-0 mx-auto md:mx-0">
+                            <Button type="submit" variant="primary" className="shrink-0 w-full min-h-10 md:w-auto">
                                 {form.submitLabel}
                             </Button>
                         </div>

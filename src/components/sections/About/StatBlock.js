@@ -1,4 +1,5 @@
 import Image from "next/image";
+import CountUp from "@/components/ui/CountUp";
 
 export default function StatBlock({data}) {
 
@@ -9,7 +10,7 @@ export default function StatBlock({data}) {
             </div>
             <div className={'text-foreground-fixed'}>
                 <h5 className={'font-heading font-bold text-[22px] md:text-[40px] lg:text-[68px] leading-none'}>
-                    {data.value}
+                    <CountUp value={data.value} />
                 </h5>
                 <p className={'mt-2.5 leading-tight text-sm md:text-lg md:leading-none font-helvetica'}>
                     {data.text}

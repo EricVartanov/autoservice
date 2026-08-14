@@ -11,9 +11,9 @@ export default function ServicePriceList({title, items, subtitle}) {
                 {items.map((item) => (
                     <li
                         key={item.title}
-                        className="mb-2.5 flex flex-col justify-center gap-2 md:flex-row items-center md:justify-between px-2 py-3 md:py-[18] rounded-[15] md:rounded-full bg-foreground-fixed"
+                        className="mb-2.5 flex flex-col justify-center gap-2 md:flex-row items-center md:justify-between px-2 py-3 md:px-[30] md:py-[21] lg:px-[35] rounded-[15] md:rounded-full bg-foreground-fixed"
                     >
-                        <span className="font-helvetica leading-none text-base text-center md:text-left md:text-lg lg:text-[22px] text-black">
+                        <span className="font-helvetica leading-none font-medium text-base text-center md:text-left md:text-lg lg:text-[22px] text-black">
                             {item.title}
                         </span>
                         <span className="font-heading text-base md:text-lg lg:text-[22px] font-bold text-black shrink-0">

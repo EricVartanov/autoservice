@@ -1,8 +1,8 @@
 // components/sections/ReviewsSection.js
 "use client";
 
-import {useState, useMemo} from "react";
-import {motion, AnimatePresence} from "framer-motion";
+import {useState, useMemo, useRef} from "react";
+import {motion, AnimatePresence, useReducedMotion} from "framer-motion";
 import Image from "next/image";
 import Icon from "@/components/icons/Icon";
 import {mockBranches} from "@/lib/mock-data";
@@ -12,6 +12,7 @@ import Button from "@/components/ui/Button";
 import BlurredCircle from "@/components/ui/blurredCircle";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import {scrollToElement} from "@/lib/scrollToSection";
 
 const VISIBLE_COUNT = 4;
 
@@ -26,15 +27,30 @@ export default function Reviews({data}) {
     const [activePlatform, setActivePlatform] = useState(platforms[0]?.id);
     const [showAll, setShowAll] = useState(false);
     const isMobileOrTablet = useMediaQuery('(max-width: 1279px)');
+    const reduceMotion = useReducedMotion();
+    const gridRef = useRef(null);
+
+    const scrollToGrid = () => {
+        requestAnimationFrame(() => scrollToElement(gridRef.current));
+    };
 
     const handleBranchChange = (id) => {
+        if (showAll) scrollToGrid();
         setActiveBranch(id);
         setShowAll(false);
     };
 
     const handlePlatformChange = (id) => {
+        if (showAll) scrollToGrid();
         setActivePlatform(id);
         setShowAll(false);
+    };
+
+    const toggleShowAll = () => {
+        setShowAll((v) => {
+            if (v) scrollToGrid();
+            return !v;
+        });
     };
 
     const matched = useMemo(
@@ -111,60 +127,75 @@ export default function Reviews({data}) {
                         </div>
                     </div>
 
-                    <motion.div layout className="mt-2.5 lg:mt-12 grid grid-cols-1 lg:grid-cols-4 gap-2.5 lg:gap-4 xl:gap-7">
-                        <AnimatePresence>
-                            {visible.map((review) => (
-                                <motion.div
-                                    key={review.id}
-                                    layout
-                                    initial={{opacity: 0, y: 20}}
-                                    animate={{opacity: 1, y: 0}}
-                                    exit={{opacity: 0, y: -10}}
-                                    transition={{duration: 0.3}}
-                                    className="rounded-[30] min-h-44 lg:min-h-80 font-helvetica border border-primary text-foreground-fixed bg-[#111111] p-4 md:p-5"
-                                >
-                                    <div className="flex items-center gap-2.5 justify-between">
-                                        <div className="flex items-center gap-2.5">
-                                            <div className="relative shrink-0 size-10 rounded-full overflow-hidden ">
-                                                <Image
-                                                    src={review.avatar}
-                                                    alt={review.author}
-                                                    width={40}
-                                                    height={40}
-                                                    className="size-full object-cover"
-                                                />
+                    <div ref={gridRef} className="relative mt-2.5 lg:mt-12 min-h-44 lg:min-h-80">
+                        <div className="grid grid-cols-1 lg:grid-cols-4 gap-2.5 lg:gap-4 xl:gap-7">
+                            <AnimatePresence mode="popLayout" initial={false}>
+                                {visible.map((review, i) => (
+                                    <motion.div
+                                        key={review.id}
+                                        initial={reduceMotion ? {opacity: 0} : {x: '-100vw', opacity: 0}}
+                                        animate={
+                                            reduceMotion
+                                                ? {opacity: 1, transition: {duration: 0.2}}
+                                                : {
+                                                    x: 0,
+                                                    opacity: 1,
+                                                    transition: {duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: i * 0.06},
+                                                }
+                                        }
+                                        exit={
+                                            reduceMotion
+                                                ? {opacity: 0, transition: {duration: 0.15}}
+                                                : {
+                                                    x: '100vw',
+                                                    opacity: 0,
+                                                    transition: {duration: 0.35, ease: [0.4, 0, 1, 1]},
+                                                }
+                                        }
+                                        className="rounded-[30] min-h-44 lg:min-h-80 font-helvetica border border-primary text-foreground-fixed bg-[#111111] p-4 md:p-5"
+                                    >
+                                        <div className="flex items-center gap-2.5 justify-between">
+                                            <div className="flex items-center gap-2.5">
+                                                <div className="relative shrink-0 size-10 rounded-full overflow-hidden ">
+                                                    <Image
+                                                        src={review.avatar}
+                                                        alt={review.author}
+                                                        width={40}
+                                                        height={40}
+                                                        className="size-full object-cover"
+                                                    />
+                                                </div>
+                                                <span
+                                                    className="text-sm md:text-base font-medium leading-tight">
+                                                    {review.author}
+                                                </span>
                                             </div>
                                             <span
-                                                className="text-sm md:text-base font-medium leading-tight">
-                                                {review.author}
+                                                className="flex items-center text-sm md:text-base bg-white/10 rounded-full px-2.5 py-1">
+                                                {review.rating}
+                                                <Icon name="star-filled" className="size-5 md:size-6 text-[#FFAE00]"/>
                                             </span>
                                         </div>
-                                        <span
-                                            className="flex items-center text-sm md:text-base bg-white/10 rounded-full px-2.5 py-1">
-                                            {review.rating}
-                                            <Icon name="star-filled" className="size-5 md:size-6 text-[#FFAE00]"/>
-                                        </span>
-                                    </div>
-                                    <p className="mt-3 md:mt-5 text-sm md:text-base leading-tight md:leading-6 line-clamp-11">
-                                        {review.text}
-                                    </p>
-                                </motion.div>
-                            ))}
-                        </AnimatePresence>
-                    </motion.div>
+                                        <p className="mt-3 md:mt-5 text-sm md:text-base leading-tight md:leading-6 line-clamp-11">
+                                            {review.text}
+                                        </p>
+                                    </motion.div>
+                                ))}
+                            </AnimatePresence>
+                        </div>
+                        {matched.length === 0 && (
+                            <p className="absolute inset-0 flex items-center justify-center text-center text-foreground-light">
+                                Пока нет отзывов по этому фильтру
+                            </p>
+                        )}
+                    </div>
                 </ScrollReveal>
-
-                {matched.length === 0 && (
-                    <p className="text-center text-foreground-light py-12">
-                        Пока нет отзывов по этому фильтру
-                    </p>
-                )}
 
                 {hasMore && (
                     <div className="flex justify-center mt-12 lg:mt-10">
                         <Button
                             variant={'transparent'}
-                            onClick={() => setShowAll((v) => !v)}
+                            onClick={toggleShowAll}
                             className={'text-transparent-btn-text px-12 hover:bg-foreground-fixed hover:text-black'}
                         >
                             {showAll ? "Свернуть" : (cta?.label ?? "Смотреть все")}

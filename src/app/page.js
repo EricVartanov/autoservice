@@ -13,7 +13,6 @@ import Contacts from "@/components/sections/Contacts/Contacts";
 import Feedback from "@/components/sections/Feedback/Feedback";
 import SectionIndicator from '@/components/ui/SectionIndicator';
 import HashScroll from '@/components/HashScroll';
-import HeroCoverPin from '@/components/HeroCoverPin';
 
 const SECTION_MAP = {
     hero: Hero,
@@ -32,8 +31,8 @@ const SECTION_MAP = {
 
 /** Ordered section meta for scroll indicator (must match mockPage.sections order). */
 const LANDING_SECTIONS = [
-    { id: 'hero', theme: 'dark', className: 'relative z-0' },
-    { id: 'about', theme: 'light', className: 'relative z-10' },
+    { id: 'hero', theme: 'dark', className: 'relative' },
+    { id: 'about', theme: 'light', className: 'relative' },
     { id: 'services', theme: 'light' },
     { id: 'steps', theme: 'dark' },
     { id: 'team', theme: 'light' },
@@ -50,7 +49,6 @@ export default function Home() {
     return (
         <main>
             <HashScroll />
-            <HeroCoverPin />
             <SectionIndicator sections={LANDING_SECTIONS} />
             {mockPage.sections.map((section, i) => {
                 const Component = SECTION_MAP[section.type];

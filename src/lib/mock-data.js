@@ -80,7 +80,7 @@ const sharedQuickForm = {
             name: 'phone',
             label: 'Ваш номер телефона',
             type: 'tel',
-            placeholder: '+7 (098) 465 95 05',
+            placeholder: '+7(098)465-95-05',
             required: true,
         },
         {
@@ -884,7 +884,7 @@ export const mockPage = {
                         name: 'phone',
                         label: 'Ваш номер телефона',
                         type: 'tel',
-                        placeholder: '+7 (098) 465 95 05',
+                        placeholder: '+7(098)465-95-05',
                         required: true
                     },
                     {
@@ -982,7 +982,7 @@ export const mockPage = {
                         name: 'phone',
                         label: 'Ваш номер телефона',
                         type: 'tel',
-                        placeholder: '+7 (098) 465 95 05',
+                        placeholder: '+7(098)465-95-05',
                         required: true,
                     },
                     {

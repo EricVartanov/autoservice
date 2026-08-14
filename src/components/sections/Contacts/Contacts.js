@@ -36,8 +36,8 @@ export default function Contacts({data, embedded = false}) {
                     </div>
                 </ScrollReveal>
                 <BlurredCircle
-                    className={`left-1/2 bottom-0 -translate-x-1/2 opacity-30 ${embedded ? 'z-10' : ''}`}
-                    size={embedded ? '' : 'size-[620]'}
+                    className={`left-1/2  lg:bottom-0 -translate-x-1/2 opacity-30 ${embedded ? 'z-10 bottom-[-15%]' : 'bottom-0'}`}
+                    size={embedded ? '' : 'size-[420]'}
                 />
                 <ScrollReveal
                     delay={0.15}

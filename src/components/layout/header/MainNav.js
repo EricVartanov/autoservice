@@ -67,7 +67,7 @@ export default function MainNav({data, isHome, collapsed}) {
     };
 
     return (
-        <nav className="relative flex flex-col gap-5 xl:gap-4 pt-5 pb-4 md:pb-5 xl:pb-4 text-lg text-foreground-fixed lg:flex-row lg:items-center lg:justify-between lg:gap-0">
+        <nav className="relative flex flex-col gap-5 xl:gap-4 pt-5 md:pt-2 pb-4 md:pb-2 xl:pt-2 xl:pb-2 text-lg text-foreground-fixed lg:flex-row lg:items-center lg:justify-between lg:gap-0">
             {/* Logo + actions (< lg) */}
             <div className="flex items-center justify-between lg:hidden">
                 <Link href="/">
@@ -235,7 +235,7 @@ export default function MainNav({data, isHome, collapsed}) {
             </div>
 
             {/* Logo + menu: tablet + desktop (hidden on mobile) */}
-            <div className="hidden items-center md:flex lg:gap-6 xl:gap-7">
+            <div className={`hidden items-center md:flex ${collapsed || !isHome ? 'lg:gap-6 xl:gap-7 ' : ''}`}>
                 {/* Desktop collapsed logo */}
                 <Link
                     href="/"
@@ -257,7 +257,7 @@ export default function MainNav({data, isHome, collapsed}) {
                     />
                 </Link>
 
-                <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-foreground-fixed sm:gap-x-5 lg:gap-6 xl:gap-7 lg:text-lg">
+                <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-foreground-fixed sm:gap-x-5 lg:gap-6 xl:gap-7 lg:text-base xl:text-lg">
                     {data.menu.map((item) => (
                         <li key={item.link}>
                             <Link
@@ -273,7 +273,7 @@ export default function MainNav({data, isHome, collapsed}) {
             </div>
 
             {/* Desktop messengers + socials */}
-            <div className="hidden items-center justify-center gap-10 lg:flex">
+            <div className="hidden items-center justify-center lg:gap-5 xl:gap-10 lg:flex">
                 <div className="flex items-center gap-4">
                     {data.messengers.map((messenger) => (
                         <a
@@ -288,7 +288,7 @@ export default function MainNav({data, isHome, collapsed}) {
                                 height={60}
                                 className="size-[30px]"
                             />
-                            <span className="relative before:absolute before:bottom-[3] before:h-[1] before:w-full before:bg-foreground-fixed">
+                            <span className="relative before:absolute before:bottom-[3] before:h-[1] before:w-full before:bg-foreground-fixed lg:text-base xl:text-lg">
                                 {messenger.name}
                             </span>
                         </a>
