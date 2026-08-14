@@ -26,58 +26,53 @@ export default function Hero({data}) {
     };
 
     return (
-        <section className="relative flex flex-col justify-end overflow-hidden bg-black pt-22 md:pt-40 lg:pt-[290]">
-           <Container>
-               {/* фон */}
+        <section className="relative flex flex-col overflow-hidden bg-black">
+            <div className="relative flex min-h-dvh flex-col">
                <div className="absolute inset-0">
                    <Video video={backgroundVideo} className={"inset-0 w-full h-full object-cover"}/>
                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20"/>
                </div>
 
-               {/* Title;*/}
-               <WaveTitle as="h1" className="relative font-heading font-bold text-foreground-fixed text-[28px] md:text-[48px] lg:text-7xl leading-none whitespace-pre-line">
-                   {title}
-               </WaveTitle>
+               <Container className="relative z-10 flex min-h-0 flex-1 flex-col justify-between pt-22 md:pt-40 lg:pt-48">
+                   <WaveTitle as="h1" className="relative font-heading font-bold text-foreground-fixed text-[clamp(22px,3.4vh,28px)] md:text-[clamp(24px,4.2vh,44px)] lg:text-[clamp(28px,5vh,64px)] leading-none whitespace-pre-line">
+                       {title}
+                   </WaveTitle>
 
+                   <div className="relative z-10 min-h-0 gap-[clamp(28px,6vh,90px)] md:gap-[clamp(16px,4vh,65px)] lg:gap-unset flex flex-col-reverse items-start md:items-end lg:items-start justify-between mt-[clamp(12px,2vh,20px)] md:mt-[clamp(14px,2.4vh,28px)] lg:min-h-[230] lg:mt-0 lg:flex-row">
+                       <Slider
+                           count={slides.length}
+                           arrowsPlacement="stack"
+                           swipeable={isMobile}
+                           showArrows={!isMobile}
+                           className="w-full max-w-none lg:w-lg"
+                       >
+                           {({index, direction}) => (
+                               <HeroSlideContent
+                                   slide={slides[index]}
+                                   activeIndex={index}
+                                   direction={direction}
+                               />
+                           )}
+                       </Slider>
 
-               {/* нижний блок: слайдер + статистика (desktop) */}
-               <div className="relative z-10 gap-[90] md:gap-[65] lg:gap-unset flex flex-col-reverse items-start md:items-end lg:items-start justify-between mt-5 md:mt-7 lg:mt-[210] lg:flex-row">
-                   <Slider
-                       count={slides.length}
-                       arrowsPlacement="stack"
-                       swipeable={isMobile}
-                       showArrows={!isMobile}
-                       className="w-full max-w-none lg:w-lg"
-                   >
-                       {({index, direction}) => (
-                           <HeroSlideContent
-                               slide={slides[index]}
-                               activeIndex={index}
-                               direction={direction}
-                           />
-                       )}
-                   </Slider>
-
-                    <HeroStats stats={stats}/>
-               </div>
-
-               {/* кнопки действия */}
-               <div className="relative z-10 flex items-center gap-4 px-0 pb-5 md:pb-9 pt-4 md:pt-8 lg:pb-10 justify-center lg:px-8">
-                   <Button variant="primary" onClick={scrollToForm}>
-                       {cta.label}
-                   </Button>
-
-                   <Button variant="icon" onClick={() => openModal('call')}>
-                       <Icon name="phone-unfilled" className="w-6 h-6"/>
-                   </Button>
-
-                   <div className={'absolute z-10 -top-2 right-0 w-[70] h-[70] hidden lg:block'}>
-                       <ThemeToggle />
+                        <HeroStats stats={stats}/>
                    </div>
-               </div>
-           </Container>
 
-            {/* бегущая лента брендов / mobile grid */}
+                   <div className="relative z-10 flex shrink-0 items-center gap-4 px-0 pb-5 pt-4 md:pt-[clamp(12px,3vh,32px)] md:pb-[clamp(16px,3.7vh,40px)] justify-center lg:px-8">
+                          <Button variant="primary" onClick={scrollToForm}>
+                              {cta.label}
+                          </Button>
+
+                          <Button variant="icon" onClick={() => openModal('call')}>
+                              <Icon name="phone-unfilled" className="w-6 h-6"/>
+                          </Button>
+                       <div className={'absolute right-0 top-1/2 transform translate-y-[-50%] z-10 w-[70] h-[70] hidden lg:inline'}>
+                           <ThemeToggle />
+                       </div>
+                   </div>
+               </Container>
+            </div>
+
             <div className="relative z-10 py-[50] md:py-[60] bg-brands-bg">
                 <BrandsMarquee brands={brands}/>
             </div>

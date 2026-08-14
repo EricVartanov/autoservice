@@ -25,14 +25,14 @@ export default function SectionTitle({
 
     return (
         <div className={`${variants[variant]}`}>
-            {mark && (
-                <p className={`flex items-center gap-1.5 text-xs md:text-lg ${titleColor} font-sans mb-4 ${variant === 'center' ? 'justify-center' : ''}`}>
-                    <Icon name={'star'} className={'text-primary-light size-2 md:size-3'}/>
-                    {mark}
-                </p>
-            )}
-
             <div className={'relative z-10'}>
+                {mark && (
+                    <p className={`flex items-center gap-1.5 text-xs md:text-lg ${titleColor} font-sans mb-4 ${variant === 'center' ? 'justify-center' : ''}`}>
+                        <Icon name={'star'} className={'text-primary-light size-2 md:size-3'}/>
+                        {mark}
+                    </p>
+                )}
+
                 {animate ? (
                     <WaveTitle as="h2" breakClassName="hidden md:block" className={`font-heading tracking-tight text-[25px] md:text-[40px] lg:text-[54px] ${titleColor} leading-none md:whitespace-pre-line`}>
                         {title}

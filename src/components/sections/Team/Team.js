@@ -6,6 +6,7 @@ import Image from "next/image";
 import SectionTitle from "@/components/ui/SectionTitle";
 import {Container} from "@/components/Container";
 import Icon from "@/components/icons/Icon";
+import Parallax from "@/components/ui/Parallax";
 
 export default function Team({data}) {
     const {title, mark, titleBack, highlightHtml, subtitle, image} = data
@@ -31,9 +32,9 @@ export default function Team({data}) {
                     <div className="flex items-end justify-center rounded-[12] lg:rounded-[30] overflow-hidden">
                         <Image src={image.path} alt={image.alt} width={1527} height={479} loading="eager" className={'w-full h-auto'} />
                     </div>
-                    <div className="absolute z-[-1] md:w-[70] lg:w-[134] top-[-20%] lg:top-0 left-1/3 hidden md:block">
+                    <Parallax className="absolute z-[-1] md:w-[70] lg:w-[134] top-[-20%] lg:top-0 left-1/3 hidden md:block">
                         <Icon name={'dots'} className={'text-primary-light w-full'} />
-                    </div>
+                    </Parallax>
                 </motion.div>
             </Container>
         </section>

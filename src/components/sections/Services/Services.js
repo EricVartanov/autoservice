@@ -8,6 +8,7 @@ import Button from "@/components/ui/Button";
 import Icon from "@/components/icons/Icon";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import Parallax from "@/components/ui/Parallax";
 
 const INITIAL_COUNT = 8;
 const LOAD_STEP = 4;
@@ -51,9 +52,9 @@ export default function Services({data}) {
                         </Button>
                     </div>
                 )}
-                <div className="absolute z-[-1] w-[134] bottom-[5%] right-0 hidden md:block">
+                <Parallax className="absolute z-[-1] w-[134] bottom-[5%] right-0 hidden md:block">
                     <Icon name={'dots'} className={'text-primary-light w-[134]'}/>
-                </div>
+                </Parallax>
             </Container>
         </section>
     );
