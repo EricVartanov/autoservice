@@ -11,16 +11,14 @@ export function getLenis() {
 }
 
 /**
- * Smooth-scroll to a section by DOM id.
+ * Smooth-scroll to a DOM element.
  * Uses Lenis when available; falls back to native scrollIntoView.
- * @param {string} id - Element id without '#'
+ * @param {Element | null | undefined} el
  * @param {{ behavior?: ScrollBehavior }} [options]
  * @returns {boolean}
  */
-export function scrollToSection(id, {behavior = 'smooth'} = {}) {
-    if (typeof document === 'undefined' || !id) return false;
-    const el = document.getElementById(id);
-    if (!el) return false;
+export function scrollToElement(el, {behavior = 'smooth'} = {}) {
+    if (typeof document === 'undefined' || !el) return false;
 
     if (lenisInstance && behavior !== 'auto') {
         const padding = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
@@ -30,6 +28,18 @@ export function scrollToSection(id, {behavior = 'smooth'} = {}) {
 
     el.scrollIntoView({behavior, block: 'start'});
     return true;
+}
+
+/**
+ * Smooth-scroll to a section by DOM id.
+ * Uses Lenis when available; falls back to native scrollIntoView.
+ * @param {string} id - Element id without '#'
+ * @param {{ behavior?: ScrollBehavior }} [options]
+ * @returns {boolean}
+ */
+export function scrollToSection(id, {behavior = 'smooth'} = {}) {
+    if (typeof document === 'undefined' || !id) return false;
+    return scrollToElement(document.getElementById(id), {behavior});
 }
 
 /** Extract section id from href like `/#about` or `#about`. */
