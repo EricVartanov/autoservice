@@ -278,12 +278,12 @@ export default function ServiceContactForm({data}) {
                             {form.radioGroups?.map(renderRadioGroup)}
                         </div>
 
-                        <div className="mt-[50] relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="mt-[50] relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                             <div className={'relative pb-1'}>
                                 <label
-                                    className="flex cursor-pointer items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed">
+                                    className="flex cursor-pointer justify-center md:justify-start items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed">
                                 <span
-                                    className={`mt-0.5 flex size-7 shrink-0 items-center justify-center rounded border transition-colors ${
+                                    className={`mt-0.5 flex size-6 md:size-7 shrink-0 items-center justify-center rounded border transition-colors ${
                                         errors.consent
                                             ? "border-foreground-fixed"
                                             : consent
@@ -292,7 +292,7 @@ export default function ServiceContactForm({data}) {
                                     }`}
                                 >
                                     {consent && (
-                                        <Icon name={'square'} className={'size-6'} />
+                                        <Icon name={'square'} className={'size-5 md:size-6'} />
                                     )}
                                 </span>
                                     <input
@@ -301,7 +301,7 @@ export default function ServiceContactForm({data}) {
                                         onChange={handleConsentChange}
                                         className="sr-only"
                                     />
-                                    <span>
+                                    <span className={'inline-grid md:inline'}>
                                     {form.consent.label}{" "}
                                         <Link
                                             href={form.consent.url}
@@ -318,7 +318,7 @@ export default function ServiceContactForm({data}) {
                             </div>
 
 
-                            <Button type="submit" className="shrink-0 w-full sm:w-auto min-w-[180] bg-foreground-fixed! text-primary! hover:opacity-60">
+                            <Button type="submit" className="shrink-0 w-full md:w-auto min-w-[180] bg-foreground-fixed! text-primary! hover:opacity-60">
                                 {form.submitLabel}
                             </Button>
                         </div>

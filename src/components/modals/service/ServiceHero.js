@@ -168,7 +168,7 @@ export default function ServiceHero({data}) {
                         </div>
                         <Button
                             type="submit"
-                            className="w-full lg:w-auto shrink-0 bg-foreground-fixed! text-black! hover:bg-foreground-fixed/90! min-w-0 lg:min-w-[262]"
+                            className="w-full min-h-10 lg:w-auto shrink-0 bg-foreground-fixed! text-black! hover:bg-foreground-fixed/90! min-w-0 lg:min-w-[262]"
                         >
                             {quickForm.submitLabel}
                         </Button>
@@ -176,7 +176,7 @@ export default function ServiceHero({data}) {
 
                     {quickForm.consent && (
                         <div className="relative mt-4 max-w-md">
-                            <label className="flex cursor-pointer items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed">
+                            <label className="flex justify-center md:justify-start cursor-pointer items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed">
                                 <span
                                     className={`flex size-5 md:size-6 shrink-0 items-center justify-center rounded border transition-colors ${
                                         errors.consent
@@ -197,7 +197,7 @@ export default function ServiceHero({data}) {
                                     }}
                                     className="sr-only"
                                 />
-                                <span>
+                                <span className={'inline-grid md:inline'}>
                                     {quickForm.consent.label}{' '}
                                     <Link
                                         href={quickForm.consent.url}

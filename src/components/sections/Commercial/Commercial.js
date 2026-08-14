@@ -135,7 +135,7 @@ export default function Commercial({data}) {
 
         return (
             <div key={field.name} className={'min-w-0 lg:max-w-[320px] w-full relative'}>
-                <label className="block text-center md:text-left text-sm lg:text-base font-helvetica font-bold text-foreground-fixed mb-2.5 lg:mb-3.5">
+                <label className="block text-sm lg:text-base font-helvetica font-bold text-foreground-fixed mb-2.5 lg:mb-3.5">
                     {field.label}
                     {field.required && <span className="text-primary"> *</span>}
                 </label>

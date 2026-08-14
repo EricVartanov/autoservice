@@ -154,7 +154,7 @@ export default function PhoneInput({
         <input
             ref={inputRef}
             type="tel"
-            inputMode="numeric"
+            inputMode="tel"
             autoComplete="tel"
             value={display}
             onChange={handleChange}

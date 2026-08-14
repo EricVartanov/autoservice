@@ -192,7 +192,7 @@ export default function ContactForm({data}) {
                 className={`relative w-full md:w-[calc(50%-5px)] lg:w-[calc(50%-15px)] lg:min-w-none ${field.name === 'carBrand' ? 'lg:w-full' : ''}`}
             >
                 <label
-                    className="mb-2.5 block text-center md:text-left font-helvetica text-sm md:text-base font-bold text-foreground-fixed">
+                    className="mb-2.5 block font-helvetica text-sm md:text-base font-bold text-foreground-fixed">
                     {field.label}
                     {field.required && <span className="text-primary"> *</span>}
                 </label>
@@ -211,11 +211,11 @@ export default function ContactForm({data}) {
 
         return (
             <div key={group.name} className="relative">
-                <p className="mb-4 font-helvetica text-center md:text-left text-sm md:text-base font-bold text-foreground-fixed">
+                <p className="mb-4 font-helvetica text-sm md:text-base font-bold text-foreground-fixed">
                     {group.label}
                     {group.required && <span className="text-primary"> *</span>}
                 </p>
-                <div className="flex items-center md:items-start flex-col md:flex-row md:flex-wrap gap-x-5 gap-y-3">
+                <div className="flex items-start flex-col md:flex-row md:flex-wrap gap-x-5 gap-y-3">
                     {group.options.map((opt) => {
                         const checked = value === opt.value;
                         return (
@@ -282,7 +282,7 @@ export default function ContactForm({data}) {
 
         return (
             <div key={field.name} className="relative w-full md:w-[calc(50%-15px)]">
-                <label className="mb-2.5 block font-helvetica text-center md:text-left text-sm md:text-base font-bold text-foreground-fixed">
+                <label className="mb-2.5 block font-helvetica text-sm md:text-base font-bold text-foreground-fixed">
                     {field.label}
                     {field.required && <span className="text-primary"> *</span>}
                 </label>
@@ -345,7 +345,7 @@ export default function ContactForm({data}) {
                                             </span>
                                             <span className={'flex items-center'}>
                                             <span className={'text-primary text-xs md:hidden'}>
-                                               Развернуть
+                                                {extraOpen ? 'Свернуть' : 'Развернуть'}
                                            </span>
                                             <span>
                                             <Icon
@@ -383,12 +383,12 @@ export default function ContactForm({data}) {
                             </div>
 
                             <div
-                                className="mt-6 relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+                                className="mt-6 relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                                 <div className={'relative pb-1'}>
                                     <label
                                         className="flex cursor-pointer justify-center items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed">
                                 <span
-                                    className={`mt-0.5 flex size-7 shrink-0 items-center justify-center rounded border transition-colors ${
+                                    className={`mt-0.5 flex size-5 md:size-7 shrink-0 items-center justify-center rounded border transition-colors ${
                                         errors.consent
                                             ? "border-primary"
                                             : consent
@@ -397,7 +397,7 @@ export default function ContactForm({data}) {
                                     }`}
                                 >
                                     {consent && (
-                                        <Icon name={'square'} className={'size-6'}/>
+                                        <Icon name={'square'} className={'size-5 md:size-6'}/>
                                     )}
                                 </span>
                                         <input
@@ -425,7 +425,7 @@ export default function ContactForm({data}) {
                                 </div>
 
 
-                                <Button type="submit" className="shrink-0 mx-auto md:mx-0 w-[156] min-h-10 sm:w-auto  md:min-w-[180]">
+                                <Button type="submit" className="shrink-0 w-full md:w-auto min-h-10 md:min-w-[180]">
                                     {form.submitLabel}
                                 </Button>
                             </div>
