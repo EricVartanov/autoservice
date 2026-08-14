@@ -92,7 +92,7 @@ export default function Feedback({data}) {
     };
 
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed transition-colors ${
+        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
             hasError ? "border-primary" : "border-white/20 focus:border-foreground-fixed"
         }`;
 
@@ -220,7 +220,7 @@ export default function Feedback({data}) {
                                 onChange={(e) => setMessage(e.target.value)}
                                 placeholder={form.message.placeholder}
                                 rows={4}
-                                className="w-full resize-none rounded-[10] border border-white/20 bg-transparent px-5 py-3.5 font-helvetica text-sm md:text-base text-foreground-fixed outline-none placeholder:text-foreground-fixed focus:border-foreground-fixed"
+                                className="w-full resize-none rounded-[10] border border-white/20 bg-transparent px-5 py-3.5 font-helvetica text-sm md:text-base text-foreground-fixed outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent focus:border-foreground-fixed"
                             />
                         </div>
 
@@ -230,7 +230,7 @@ export default function Feedback({data}) {
                                     className="flex cursor-pointer justify-center items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed"
                                 >
                                     <span
-                                        className={`mt-0.5 flex size-7 shrink-0 items-center justify-center rounded border transition-colors ${
+                                        className={`mt-0.5 p-1 flex size-7 shrink-0 items-center justify-center rounded border transition-colors ${
                                             errors.consent
                                                 ? "border-primary"
                                                 : consent

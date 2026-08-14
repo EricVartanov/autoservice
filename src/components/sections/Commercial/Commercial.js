@@ -94,7 +94,7 @@ export default function Commercial({data}) {
     };
 
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-4 lg:py-3.5 font-helvetica text-sm lg:text-base outline-none placeholder:text-foreground-fixed transition-colors ${
+        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-4 lg:py-3.5 font-helvetica text-sm lg:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
             hasError ? "border-primary" : "border-white/20 focus:border-foreground-fixed"
         }`;
 

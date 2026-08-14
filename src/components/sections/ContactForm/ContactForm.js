@@ -147,7 +147,7 @@ export default function ContactForm({data}) {
     };
 
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-4 md:py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed transition-colors ${
+        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-4 md:py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
             hasError ? "border-primary" : "border-white/20 focus:border-foreground-fixed"
         }`;
 
@@ -295,13 +295,13 @@ export default function ContactForm({data}) {
     };
 
     return (
-        <section className="relative py-[50] lg:py-[100]">
-            <div className="absolute inset-0 -z-10 overflow-hidden">
+        <section className="relative isolate bg-background py-[50] lg:py-[100]">
+            <div className="absolute inset-x-0 top-0 -z-10 h-[220px] overflow-hidden md:h-1/2 lg:inset-0 lg:h-auto">
                 <Image
                     src={backgroundImage.path}
                     alt={backgroundImage.alt}
                     fill
-                    className="object-cover"
+                    className="object-cover object-top"
                 />
             </div>
 
@@ -388,7 +388,7 @@ export default function ContactForm({data}) {
                                     <label
                                         className="flex cursor-pointer justify-center items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed">
                                 <span
-                                    className={`mt-0.5 flex size-5 md:size-7 shrink-0 items-center justify-center rounded border transition-colors ${
+                                    className={`mt-0.5 p-1 flex size-5 md:size-7 shrink-0 items-center justify-center rounded border transition-colors ${
                                         errors.consent
                                             ? "border-primary"
                                             : consent

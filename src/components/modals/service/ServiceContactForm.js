@@ -135,7 +135,7 @@ export default function ServiceContactForm({data}) {
     };
 
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border bg-white/20 text-foreground-fixed px-5 py-4 md:py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed transition-colors ${
+        `w-full rounded-full border bg-white/20 text-foreground-fixed px-5 py-4 md:py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
             hasError
                 ? "border-foreground-fixed"
                 : "border-transparent focus:border-white focus:border-foreground-fixed"
@@ -283,7 +283,7 @@ export default function ServiceContactForm({data}) {
                                 <label
                                     className="flex cursor-pointer justify-center md:justify-start items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed">
                                 <span
-                                    className={`mt-0.5 flex size-6 md:size-7 shrink-0 items-center justify-center rounded border transition-colors ${
+                                    className={`mt-0.5 p-1 flex size-6 md:size-7 shrink-0 items-center justify-center rounded border transition-colors ${
                                         errors.consent
                                             ? "border-foreground-fixed"
                                             : consent
