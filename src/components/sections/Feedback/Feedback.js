@@ -92,7 +92,7 @@ export default function Feedback({data}) {
     };
 
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
+        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 h-[44] md:h-[54] py-2.5 md:py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
             hasError ? "border-primary" : "border-white/20 focus:border-foreground-fixed"
         }`;
 
@@ -220,7 +220,7 @@ export default function Feedback({data}) {
                                 onChange={(e) => setMessage(e.target.value)}
                                 placeholder={form.message.placeholder}
                                 rows={4}
-                                className="w-full resize-none rounded-[10] border border-white/20 bg-transparent px-5 py-3.5 font-helvetica text-sm md:text-base text-foreground-fixed outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent focus:border-foreground-fixed"
+                                className="w-full resize-none rounded-[10] border border-white/20 bg-transparent px-5 py-2.5 md:py-3.5 font-helvetica text-sm md:text-base text-foreground-fixed outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent focus:border-foreground-fixed"
                             />
                         </div>
 

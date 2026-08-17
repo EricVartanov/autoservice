@@ -35,8 +35,8 @@ export default function ScrollScaleIn({
                     force3D: true,
                     scrollTrigger: {
                         trigger: el,
-                        start: '10% bottom',
-                        end: 'top 30%',
+                        start: 'top 30%',
+                        end: 'bottom 80%',
                         scrub: true,
                         invalidateOnRefresh: true,
                     },

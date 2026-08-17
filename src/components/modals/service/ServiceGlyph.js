@@ -12,8 +12,8 @@ export default function ServiceGlyph({src, alt = '', variant = 'filled'}) {
 
     const shell =
         variant === 'outline'
-            ? 'flex size-10 md:size-12 shrink-0 items-center justify-center'
-            : 'flex size-12 md:size-[50] shrink-0 items-center justify-center rounded-full bg-primary-light';
+            ? 'flex size-[30] md:size-12 shrink-0 items-center justify-center'
+            : 'flex size-[30] md:size-[50] shrink-0 items-center justify-center rounded-full bg-primary-light';
 
     return (
         <span className={shell} role={label ? 'img' : undefined} aria-label={label || undefined}>
@@ -23,7 +23,7 @@ export default function ServiceGlyph({src, alt = '', variant = 'filled'}) {
                     alt={label}
                     width={30}
                     height={30}
-                    className="size-5 md:size-[30] object-contain"
+                    className="size-[25] md:size-[30] object-contain"
                 />
             ) : null}
         </span>

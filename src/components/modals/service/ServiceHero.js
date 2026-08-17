@@ -75,7 +75,7 @@ export default function ServiceHero({data}) {
     };
 
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-4 lg:py-3.5 font-helvetica text-sm lg:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
+        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-3 md:py-4 lg:py-3.5 font-helvetica text-sm lg:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
             hasError ? 'border-primary' : 'border-white/20 focus:border-foreground-fixed'
         }`;
 
@@ -148,71 +148,72 @@ export default function ServiceHero({data}) {
             />
             <div className="absolute inset-0 bg-[linear-gradient(335deg,#be0000_0%,rgba(0,0,0,0.4)_50%,transparent_100%)]" />
 
-            <div className="relative z-10 flex h-full flex-col justify-between gap-8 lg:gap-[50] px-5 py-10 md:px-10 md:py-12 md:pr-16 lg:px-20 lg:pt-20 lg:pb-[35]">
-                <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
-                    <div className="max-w-xl">
-                        <p className="font-helvetica text-base md:text-lg text-foreground-fixed">{mark}</p>
-                        <h2 className="mt-2 lg:mt-5 font-heading text-[34px] md:text-[48px] lg:text-[54px] leading-none text-foreground-fixed whitespace-pre-line">
+            <div className="relative z-10 flex h-full flex-col justify-between gap-[60] md:gap-[50] px-2.5 pb-[50] pt-10 md:px-10 md:py-12 md:pr-16 lg:px-20 lg:pt-20 lg:pb-[35]">
+                <div className="flex flex-col gap-5 lg:flex-row items-center text-center lg:text-left lg:justify-between lg:gap-16">
+                    <div className="w-full md:max-w-xl">
+                        <p className="font-helvetica text-sm md:text-lg text-foreground-fixed">{mark}</p>
+                        <h2 className="mt-2 lg:mt-5 wrap-break-word font-heading text-[25px] md:text-[48px] lg:text-[54px] leading-none text-foreground-fixed whitespace-pre-line">
                             {title}
                         </h2>
                     </div>
-                    <p className="max-w-2xl font-helvetica text-base md:text-lg leading-5 text-foreground-fixed/90 lg:text-right">
+                    <p className="max-w-2xl font-helvetica text-sm md:text-lg leading-5 text-foreground-fixed/90 lg:text-right">
                         {description}
                     </p>
                 </div>
 
                 <form onSubmit={handleSubmit} noValidate>
-                    <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:gap-[75]">
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5 flex-1 min-w-0">
+                    <div className="grid grid-cols-1 gap-[30] md:gap-4 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-x-[75] lg:gap-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[30] md:gap-4 lg:gap-5 min-w-0">
                             {quickForm.fields.map(renderField)}
                         </div>
+
+                        {quickForm.consent && (
+                            <div className="relative max-w-md lg:col-span-2">
+                                <label className="flex justify-center md:justify-start cursor-pointer items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed">
+                                    <span
+                                        className={`flex size-5 md:size-6 shrink-0 items-center justify-center rounded border transition-colors ${
+                                            errors.consent
+                                                ? 'border-primary'
+                                                : consent
+                                                  ? 'border-primary bg-primary'
+                                                  : 'border-white/40'
+                                        }`}
+                                    >
+                                        {consent && <Icon name="square" className="size-5 md:size-6" />}
+                                    </span>
+                                    <input
+                                        type="checkbox"
+                                        checked={consent}
+                                        onChange={(e) => {
+                                            setConsent(e.target.checked);
+                                            clearError('consent');
+                                        }}
+                                        className="sr-only"
+                                    />
+                                    <span className={'inline-grid md:inline'}>
+                                        {quickForm.consent.label}{' '}
+                                        <Link
+                                            href={quickForm.consent.url}
+                                            className="pb-px border-b border-foreground-fixed hover:text-primary"
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
+                                            {quickForm.consent.linkText}
+                                        </Link>
+                                    </span>
+                                </label>
+                                <FieldError className="mt-1.5">
+                                    {errors.consent}
+                                </FieldError>
+                            </div>
+                        )}
+
                         <Button
                             type="submit"
-                            className="w-full min-h-10 lg:w-auto shrink-0 bg-foreground-fixed! text-black! hover:bg-foreground-fixed/90! min-w-0 lg:min-w-[262]"
+                            className="w-full min-h-10 lg:w-auto shrink-0 bg-foreground-fixed! text-black! hover:bg-foreground-fixed/90! min-w-0 lg:min-w-[262] lg:col-start-2 lg:row-start-1"
                         >
                             {quickForm.submitLabel}
                         </Button>
                     </div>
-
-                    {quickForm.consent && (
-                        <div className="relative mt-4 max-w-md">
-                            <label className="flex justify-center md:justify-start cursor-pointer items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed">
-                                <span
-                                    className={`flex size-5 md:size-6 shrink-0 items-center justify-center rounded border transition-colors ${
-                                        errors.consent
-                                            ? 'border-primary'
-                                            : consent
-                                              ? 'border-primary bg-primary'
-                                              : 'border-white/40'
-                                    }`}
-                                >
-                                    {consent && <Icon name="square" className="size-5 md:size-6" />}
-                                </span>
-                                <input
-                                    type="checkbox"
-                                    checked={consent}
-                                    onChange={(e) => {
-                                        setConsent(e.target.checked);
-                                        clearError('consent');
-                                    }}
-                                    className="sr-only"
-                                />
-                                <span className={'inline-grid md:inline'}>
-                                    {quickForm.consent.label}{' '}
-                                    <Link
-                                        href={quickForm.consent.url}
-                                        className="pb-px border-b border-foreground-fixed hover:text-primary"
-                                        onClick={(e) => e.stopPropagation()}
-                                    >
-                                        {quickForm.consent.linkText}
-                                    </Link>
-                                </span>
-                            </label>
-                            <FieldError className="mt-1.5">
-                                {errors.consent}
-                            </FieldError>
-                        </div>
-                    )}
 
                     {submitted && (
                         <p className="mt-3 text-sm text-foreground-fixed">

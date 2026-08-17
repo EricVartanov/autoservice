@@ -2,11 +2,11 @@ import Image from 'next/image';
 
 export default function ServicePopular({title, items}) {
     return (
-        <section className="px-5 py-10 md:px-10 md:py-12 lg:px-10 lg:py-[80]">
-            <h3 className="font-heading text-xl md:text-[28px] lg:text-[34px] leading-none text-foreground">
+        <section className="px-2.5 py-20 md:px-10 md:py-12 lg:px-10 lg:py-[80]">
+            <h3 className="font-heading text-center md:text-left font-medium text-[25px] md:text-[28px] lg:text-[34px] leading-none text-foreground">
                 {title}
             </h3>
-            <div className="mt-8 md:mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-2">
+            <div className="mt-[30] md:mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-2">
                 {items.map((item) => (
                     <div
                         key={item.title}
@@ -25,7 +25,7 @@ export default function ServicePopular({title, items}) {
                             <h4 className="font-heading text-lg md:text-[22px] font-bold leading-none text-foreground-fixed">
                                 {item.title}
                             </h4>
-                            <p className="mt-4 text-base md:text-lg text-foreground-fixed">{item.price}</p>
+                            <p className="mt-2.5 md:mt-4 text-base md:text-lg text-foreground-fixed">{item.price}</p>
                         </div>
                     </div>
                 ))}
