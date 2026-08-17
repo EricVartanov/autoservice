@@ -34,7 +34,7 @@ export default function SectionTitle({
                 )}
 
                 {animate ? (
-                    <WaveTitle as="h2" breakClassName="hidden md:block" className={`font-heading tracking-tight text-[25px] md:text-[40px] lg:text-[54px] ${titleColor} leading-none md:whitespace-pre-line`}>
+                    <WaveTitle as="h2" breakClassName="hidden md:block" className={`font-heading tracking-tight text-[25px] md:text-[40px] lg:text-[54px] ${titleColor} md:whitespace-pre-line`}>
                         {title}
                     </WaveTitle>
                 ) : (

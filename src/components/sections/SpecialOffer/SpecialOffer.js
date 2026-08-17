@@ -35,10 +35,10 @@ export default function SpecialOffer({data}) {
                         )}
                     </ScrollReveal>
                     <div className={'mt-10 md:mt-[75] mx-auto lg:mx-0 max-w-[320] md:max-w-[70%] w-full z-10 text-foreground-fixed font-heading leading-none lg:max-w-lg'}>
-                        <WaveTitle as="h5" className="text-lg md:text-[30px] lg:text-[40px] md:max-w-1/2 font-bold leading-none">
+                        <WaveTitle as="h5" className="text-lg md:text-[30px] lg:text-[40px] md:max-w-1/2 font-bold">
                             {title[0]}
                         </WaveTitle>
-                        <WaveTitle as="h5" delay={0.15} className="text-right lg:text-left text-lg md:text-[30px] lg:text-[40px] font-bold max-w-none lg:ml-auto lg:max-w-2/3 leading-none">
+                        <WaveTitle as="h5" delay={0.15} className="text-right lg:text-left text-lg md:text-[30px] lg:text-[40px] font-bold max-w-none lg:ml-auto lg:max-w-2/3">
                             {title[1]}
                         </WaveTitle>
                         <ScrollReveal delay={0.2}>

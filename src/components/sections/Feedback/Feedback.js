@@ -108,7 +108,7 @@ export default function Feedback({data}) {
                         <p className="font-helvetica text-center lg:text-left text-sm md:text-lg leading-tight text-foreground-light-fixed whitespace-break-spaces">
                             {intro}
                         </p>
-                        <WaveTitle as="h2" className="mt-5 text-center lg:text-left font-heading text-[25px] md:text-[34px] font-bold leading-none whitespace-break-spaces">
+                        <WaveTitle as="h2" className="mt-5 text-center lg:text-left font-heading text-[25px] md:text-[34px] font-bold whitespace-break-spaces">
                             {title}
                         </WaveTitle>
 
