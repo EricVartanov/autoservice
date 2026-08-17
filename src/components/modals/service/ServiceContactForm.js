@@ -2,12 +2,12 @@
 
 import {useState} from "react";
 import Image from "next/image";
-import Link from "next/link";
 import Icon from "@/components/icons/Icon";
 import Button from "@/components/ui/Button";
 import PhoneInput, {getCleanPhone} from "@/components/ui/PhoneInput";
 import Select from "@/components/ui/Select";
 import FieldError from "@/components/ui/FieldError";
+import LegalLink from "@/components/ui/LegalLink";
 import {Container} from "@/components/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
@@ -294,12 +294,12 @@ export default function ServiceContactForm({data}) {
                                 />
                                 <span className={'inline'}>
                                     {form.consent.label}{" "}
-                                        <Link
-                                            href={form.consent.url}
+                                        <LegalLink
+                                            slug={form.consent.slug}
                                             className="pb-px border-b hover:opacity-60"
                                         >
                                         {form.consent.linkText}
-                                    </Link>
+                                    </LegalLink>
                                 </span>
 
                                 </label>

@@ -2,13 +2,13 @@
 
 import {useState} from "react";
 import Image from "next/image";
-import Link from "next/link";
 import {AnimatePresence, motion} from "framer-motion";
 import Icon from "@/components/icons/Icon";
 import Button from "@/components/ui/Button";
 import PhoneInput, {getCleanPhone} from "@/components/ui/PhoneInput";
 import Select from "@/components/ui/Select";
 import FieldError from "@/components/ui/FieldError";
+import LegalLink from "@/components/ui/LegalLink";
 import {Container} from "@/components/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
@@ -410,12 +410,12 @@ export default function ContactForm({data}) {
                                     <span className={'grid md:inline'}>
                                         {form.consent.label}{" "}
                                     </span>
-                                            <Link
-                                                href={form.consent.url}
+                                            <LegalLink
+                                                slug={form.consent.slug}
                                                 className="pb-px border-b hover:text-primary"
                                             >
                                         {form.consent.linkText}
-                                    </Link>
+                                    </LegalLink>
                                 </span>
 
                                     </label>

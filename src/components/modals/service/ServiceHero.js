@@ -2,12 +2,12 @@
 
 import {useState} from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import Select from '@/components/ui/Select';
 import FieldError from '@/components/ui/FieldError';
 import Button from '@/components/ui/Button';
 import PhoneInput, {getCleanPhone} from '@/components/ui/PhoneInput';
 import Icon from '@/components/icons/Icon';
+import LegalLink from '@/components/ui/LegalLink';
 
 function validate({name, phoneDigits, carBrand, consent}) {
     const errors = {};
@@ -192,13 +192,12 @@ export default function ServiceHero({data}) {
                                     />
                                     <span className={'inline-grid md:inline'}>
                                         {quickForm.consent.label}{' '}
-                                        <Link
-                                            href={quickForm.consent.url}
+                                        <LegalLink
+                                            slug={quickForm.consent.slug}
                                             className="pb-px border-b border-foreground-fixed hover:text-primary"
-                                            onClick={(e) => e.stopPropagation()}
                                         >
                                             {quickForm.consent.linkText}
-                                        </Link>
+                                        </LegalLink>
                                     </span>
                                 </label>
                                 <FieldError className="mt-1.5">

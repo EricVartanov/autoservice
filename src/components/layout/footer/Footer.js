@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 import {Container} from "@/components/Container";
+import LegalLink from "@/components/ui/LegalLink";
 import {mockFooter} from "@/lib/mock-data";
 
 export default function Footer({data = mockFooter}) {
@@ -50,13 +51,13 @@ export default function Footer({data = mockFooter}) {
 
                     <div className="order-1 flex flex-col gap-3 lg:order-none md:flex-row lg:justify-between lg:gap-8 xl:gap-[97]">
                         {legal?.map((item) => (
-                            <Link
+                            <LegalLink
                                 key={item.label}
-                                href={item.link}
+                                slug={item.slug}
                                 className="underline underline-offset-2 transition hover:text-foreground"
                             >
                                 {item.label}
-                            </Link>
+                            </LegalLink>
                         ))}
                     </div>
 

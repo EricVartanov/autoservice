@@ -22,8 +22,8 @@ export const mockFooter = {
     logoDark: {path: '/mock/footer-logo-light.png', alt: 'Авторитет'},
     copyright: 'Авторитет',
     legal: [
-        {label: 'Политика конфиденциальности', link: '#'},
-        {label: 'Согласие на обработку перс. данных', link: '#'},
+        {label: 'Политика конфиденциальности', slug: 'privacy'},
+        {label: 'Согласие на обработку перс. данных', slug: 'privacy'},
     ],
     branches: [
         {label: 'ф-л 2-я Дорожная', link: '#', logo: '/mock/max-logo-black.png', logoDark: '/mock/max-logo.png'},
@@ -95,7 +95,7 @@ const sharedQuickForm = {
     consent: {
         label: 'Согласен на обработку',
         linkText: 'персональных данных',
-        url: '/privacy',
+        slug: 'privacy',
         required: true,
     },
     submitLabel: 'Отправить',
@@ -1064,7 +1064,7 @@ export const mockPage = {
                 consent: {
                     label: 'Согласен на обработку',
                     linkText: 'персональных данных',
-                    url: '/privacy',
+                    slug: 'privacy',
                     required: true,
                 },
                 submitLabel: 'Отправить',
@@ -1109,7 +1109,7 @@ export const mockPage = {
                 consent: {
                     label: 'Согласен на обработку',
                     linkText: 'персональных данных',
-                    url: '/privacy',
+                    slug: 'privacy',
                     required: true,
                 },
                 branch: {

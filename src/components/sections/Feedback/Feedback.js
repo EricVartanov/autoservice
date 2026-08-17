@@ -2,12 +2,12 @@
 
 import {useState} from "react";
 import Image from "next/image";
-import Link from "next/link";
 import Icon from "@/components/icons/Icon";
 import Button from "@/components/ui/Button";
 import PhoneInput, {getCleanPhone} from "@/components/ui/PhoneInput";
 import WaveTitle from "@/components/ui/WaveTitle";
 import FieldError from "@/components/ui/FieldError";
+import LegalLink from "@/components/ui/LegalLink";
 import {Container} from "@/components/Container";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
@@ -255,12 +255,12 @@ export default function Feedback({data}) {
                                         <span className="grid md:inline">
                                             {form.consent.label}{" "}
                                         </span>
-                                        <Link
-                                            href={form.consent.url}
+                                        <LegalLink
+                                            slug={form.consent.slug}
                                             className="pb-px border-b hover:text-primary"
                                         >
                                             {form.consent.linkText}
-                                        </Link>
+                                        </LegalLink>
                                     </span>
                                 </label>
                                 <FieldError className="absolute bottom-[-20] left-0">
