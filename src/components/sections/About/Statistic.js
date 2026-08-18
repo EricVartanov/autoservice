@@ -4,7 +4,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export default function Statistic({data}) {
     return (
-        <section className={'py-[60] md:py-20 bg-primary'}>
+        <section className={'py-[60] md:py-[50] lg:py-20 bg-primary'}>
             <Container>
                 <ScrollReveal
                     stagger

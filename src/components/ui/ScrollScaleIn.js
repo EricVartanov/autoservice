@@ -24,7 +24,7 @@ export default function ScrollScaleIn({
 
         const mm = gsap.matchMedia();
 
-        mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+        mm.add('(min-width: 1280px) and (prefers-reduced-motion: no-preference)', () => {
             const tween = gsap.fromTo(
                 el,
                 {scale: from, borderRadius: radius},

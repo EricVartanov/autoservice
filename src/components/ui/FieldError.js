@@ -1,6 +1,6 @@
 import Icon from "@/components/icons/Icon";
 
-export default function FieldError({children, className = "", colorClass = "text-primary"}) {
+export default function FieldError({children, className = "", colorClass = "text-foreground-fixed"}) {
     if (!children) return null;
 
     return (

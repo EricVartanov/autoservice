@@ -33,12 +33,12 @@ export default function Hero({ data }) {
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20" />
                 </div>
 
-                <Container className="relative z-10 flex min-h-0 flex-1 flex-col justify-start lg:justify-center gap-8 lg:gap-20 xl:gap-32 pt-22 md:pt-40 lg:pt-35">
-                    <WaveTitle as="h1" className="relative font-heading font-bold text-foreground-fixed text-[clamp(22px,3.4vh,28px)] md:text-[clamp(24px,4.2vh,44px)] lg:text-[clamp(28px,6vh,72px)] whitespace-pre-line">
+                <Container className="relative z-10 flex min-h-0 flex-1 flex-col justify-start lg:justify-center gap-5 lg:gap-20 xl:gap-32 pb-14 md:pb-0 pt-22 md:pt-40 lg:pt-35">
+                    <WaveTitle as="h1" className="relative font-heading font-bold text-foreground-fixed text-[25px] md:text-[clamp(24px,4.2vh,44px)] lg:text-[clamp(28px,6vh,72px)] whitespace-pre-line">
                         {title}
                     </WaveTitle>
 
-                    <div className="relative z-10 min-h-0 gap-[clamp(28px,6vh,90px)] md:gap-[clamp(16px,4vh,65px)] lg:gap-unset flex flex-col-reverse items-start md:items-end lg:items-start justify-between mt-[clamp(12px,2vh,20px)] md:mt-[clamp(14px,2.4vh,28px)] lg:min-h-[230] lg:mt-0 lg:flex-row">
+                    <div className="relative z-10 min-h-0 gap-23 md:gap-[clamp(16px,4vh,65px)] lg:gap-unset flex flex-col-reverse items-start md:items-end lg:items-start justify-between md:mt-[clamp(14px,2.4vh,28px)] lg:min-h-[230] lg:mt-0 lg:flex-row">
                         <Slider
                             count={slides.length}
                             arrowsPlacement="stack"
@@ -58,7 +58,7 @@ export default function Hero({ data }) {
                         <HeroStats stats={stats} />
                     </div>
 
-                    <div className="lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:w-full lg:bottom-0 z-10 flex items-center gap-4 px-0 pb-5 pt-4 md:pt-[clamp(12px,3vh,32px)] md:pb-[clamp(16px,3.7vh,40px)] justify-center lg:px-8">
+                    <div className="md:relative lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:w-full lg:bottom-0 z-10 flex items-center gap-1 md:gap-4 md:pt-[clamp(12px,3vh,32px)] md:pb-[clamp(16px,3.7vh,40px)] justify-center">
                         <Button variant="primary" onClick={scrollToForm}>
                             {cta.label}
                         </Button>
@@ -66,14 +66,14 @@ export default function Hero({ data }) {
                         <Button variant="icon" onClick={() => openModal('call')}>
                             <Icon name="phone-unfilled" className="w-6 h-6" />
                         </Button>
-                        <div className={'absolute right-8 top-1/2 transform translate-y-[-50%] z-10 w-[70] h-[70] hidden lg:inline'}>
+                        <div className={'absolute bottom-4 right-4 md:right-0 lg:right-10 xl:right-20 xl:right-0 md:top-[clamp(0px,3vh,22px)] z-10 w-[50] h-[50] md:w-[70] md:h-[70]'}>
                             <ThemeToggle />
                         </div>
                     </div>
                 </Container>
             </div>
 
-            <div className="relative z-10 py-[50] md:py-[60] bg-brands-bg">
+            <div className="relative z-10 pt-[80] pb-[60] md:py-[50] lg:py-[60] bg-background-secondary">
                 <BrandsMarquee brands={brands} />
             </div>
         </section>

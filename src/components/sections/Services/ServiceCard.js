@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Button from "@/components/ui/Button";
+import {formatPrice} from "@/lib/formatPrice";
 import {useModalStore} from "../../../../public/store/useModalStore";
 
 export default function ServiceCard({service}) {
@@ -37,7 +38,7 @@ export default function ServiceCard({service}) {
                 <h3 className="text-foreground-fixed font-bold font-heading text-lg md:text-[22px] leading-none md:max-w-4/5 text-center whitespace-pre-line">
                     {service.title}
                 </h3>
-                <p className="mt-2.5 lg:mt-5 text-foreground-fixed text-sm md:text-lg">{service.price}</p>
+                <p className="mt-2.5 lg:mt-5 text-foreground-fixed text-sm md:text-lg">{formatPrice(service.price)}</p>
                 <Button
                     variant={'serviceCard'}
                     onClick={(e) => {

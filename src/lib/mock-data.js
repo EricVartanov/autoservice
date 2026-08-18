@@ -557,14 +557,14 @@ export const mockPage = {
             ],
             cta: {label: 'Оставить заявку', link: '#contacts'},
             brands: [
-                {name: 'Renault', logo: '/mock/brands/renault.png'},
-                {name: 'Citroen', logo: '/mock/brands/citroen.png'},
-                {name: 'Audi', logo: '/mock/brands/audi.png'},
-                {name: 'Ford', logo: '/mock/brands/ford.png'},
-                {name: 'Opel', logo: '/mock/brands/opel.png'},
-                {name: 'Chevrolet', logo: '/mock/brands/chevrolet.png'},
-                {name: 'Nissan', logo: '/mock/brands/nissan.png'},
-                {name: 'Volkswagen', logo: '/mock/brands/vw.png'},
+                {name: 'Renault', logo: '/mock/brands/renault.png', logoDark: '/mock/brands/renault-dark.png'},
+                {name: 'Citroen', logo: '/mock/brands/citroen.png', logoDark: '/mock/brands/citroen-dark.png'},
+                {name: 'Audi', logo: '/mock/brands/audi.png', logoDark: '/mock/brands/audi-dark.png'},
+                {name: 'Ford', logo: '/mock/brands/ford.png', logoDark: '/mock/brands/ford-dark.png'},
+                {name: 'Opel', logo: '/mock/brands/opel.png', logoDark: '/mock/brands/opel-dark.png'},
+                {name: 'Chevrolet', logo: '/mock/brands/chevrolet.png', logoDark: '/mock/brands/chevrolet-dark.png'},
+                {name: 'Nissan', logo: '/mock/brands/nissan.png', logoDark: '/mock/brands/nissan-dark.png'},
+                {name: 'Volkswagen', logo: '/mock/brands/vw.png', logoDark: '/mock/brands/vw-dark.png'},
             ],
         },
         {
@@ -742,7 +742,7 @@ export const mockPage = {
             titleBack: 'наша команда',
             highlightHtml: "Автосервис — это не стены и не оборудование, а, <span>прежде всего, люди</span>",
             subtitle: "Наши люди - это причина, по которой к нам с радостью хотят приехать снова. Каждый из нас в ответе за результат, поэтому мы работаем так, чтобы Вы уезжали без вопросов",
-            image: {path: '/mock/team/team.webp', alt: 'the best team'}
+            image: {path: '/mock/team/team1.webp', alt: 'the best team'}
         },
         {
             type: 'specialOffer',

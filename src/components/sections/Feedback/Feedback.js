@@ -227,7 +227,7 @@ export default function Feedback({data}) {
                         <div className="mt-5 relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                             <div className="relative pb-1">
                                 <label
-                                    className="flex cursor-pointer justify-center items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed"
+                                    className="flex cursor-pointer justify-start items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed"
                                 >
                                     <span
                                         className={`mt-0.5 p-1 flex size-7 shrink-0 items-center justify-center rounded border transition-colors ${
@@ -252,7 +252,7 @@ export default function Feedback({data}) {
                                         className="sr-only"
                                     />
                                     <span>
-                                        <span className="grid md:inline">
+                                        <span className="inline">
                                             {form.consent.label}{" "}
                                         </span>
                                         <LegalLink

@@ -151,6 +151,7 @@ export default function Commercial({data}) {
         <section className="relative py-[80] md:py-[90] lg:pt-[150] lg:pb-[60]">
             <div className="absolute inset-0 -z-10 overflow-hidden">
                 <Image src={backgroundImage.path} alt={backgroundImage.alt} fill className="object-cover"/>
+                <div className="absolute inset-0 bg-black/40" />
             </div>
 
             <Container className="relative flex flex-col justify-between">
@@ -167,7 +168,7 @@ export default function Commercial({data}) {
                    {cta && (
                        <Link
                            href={cta.link}
-                           className="inline-block mt-7 lg:mt-3 text-lg text-foreground-fixed underline underline-offset-4 hover:text-primary transition-colors"
+                           className="inline-block mt-7 lg:mt-3 text-sm md:text-lg text-foreground-fixed underline underline-offset-4 hover:text-primary transition-colors"
                        >
                            {cta.label}
                        </Link>
@@ -202,7 +203,7 @@ export default function Commercial({data}) {
                             </Button>
                         </div>
                         {submitted && (
-                            <p className="absolute bottom-3 mt-4 text-base text-primary">
+                            <p className="absolute bottom-3 mt-4 text-base text-foreground-fixed">
                                 Спасибо! Заявка отправлена, мы скоро свяжемся с Вами.
                             </p>
                         )}

@@ -7,6 +7,28 @@ import {usePathname} from 'next/navigation';
 import {mockBranches} from '@/lib/mock-data';
 import {getHashId, scrollToSection} from '@/lib/scrollToSection';
 
+function MenuToggleIcon({open}) {
+    return (
+        <span className="relative block size-5" aria-hidden>
+            <span
+                className={`absolute left-0 top-1 block h-px w-5 origin-center bg-current transition-transform duration-300 ${
+                    open ? 'translate-y-1.5 rotate-45' : ''
+                }`}
+            />
+            <span
+                className={`absolute left-0 top-2.5 block h-px w-5 bg-current transition-opacity duration-300 ${
+                    open ? 'opacity-0' : ''
+                }`}
+            />
+            <span
+                className={`absolute left-0 top-4 block h-px w-5 origin-center bg-current transition-transform duration-300 ${
+                    open ? '-translate-y-1.5 -rotate-45' : ''
+                }`}
+            />
+        </span>
+    );
+}
+
 export default function MainNav({data, isHome, collapsed}) {
     const pathname = usePathname();
     const [branchesOpen, setBranchesOpen] = useState(false);
@@ -108,11 +130,7 @@ export default function MainNav({data, isHome, collapsed}) {
                             className="inline-flex cursor-pointer items-center gap-2.5 rounded-full border border-foreground-fixed px-8 py-1.5 text-base text-foreground-fixed transition hover:bg-white/5"
                         >
                             Филиалы
-                            <span className="flex flex-col gap-1" aria-hidden>
-                                <span className="block h-px w-4 bg-foreground-fixed"/>
-                                <span className="block h-px w-4 bg-foreground-fixed"/>
-                                <span className="block h-px w-4 bg-foreground-fixed"/>
-                            </span>
+                            <MenuToggleIcon open={branchesOpen} />
                         </button>
 
                         {branchesOpen && (
@@ -164,11 +182,9 @@ export default function MainNav({data, isHome, collapsed}) {
                             onClick={() => setMenuOpen((v) => !v)}
                             aria-expanded={menuOpen}
                             aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
-                            className="flex cursor-pointer flex-col gap-1.5 p-1"
+                            className="flex cursor-pointer items-center justify-center p-1"
                         >
-                            <span className="block h-px w-5 bg-foreground-fixed"/>
-                            <span className="block h-px w-5 bg-foreground-fixed"/>
-                            <span className="block h-px w-5 bg-foreground-fixed"/>
+                            <MenuToggleIcon open={menuOpen} />
                         </button>
 
                         {menuOpen && (
@@ -273,7 +289,7 @@ export default function MainNav({data, isHome, collapsed}) {
             </div>
 
             {/* Desktop messengers + socials */}
-            <div className="hidden items-center justify-center lg:gap-5 xl:gap-10 lg:flex">
+            <div className="hidden items-center justify-center lg:gap-[90] lg:flex">
                 <div className="flex items-center gap-4">
                     {data.messengers.map((messenger) => (
                         <a

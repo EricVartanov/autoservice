@@ -29,7 +29,7 @@ export default function SectionIndicator({ sections }) {
 
     return (
         <motion.div
-            className="pointer-events-none fixed top-[30%] z-50 hidden flex-col items-center gap-2.5 lg:flex lg:right-[40] xl:right-[max(0px,calc((100vw-var(--max-width-container))/2-10px))]"
+            className="pointer-events-none fixed top-[30%] z-50 hidden flex-col items-center gap-2.5 lg:flex lg:right-[20] xl:right-[max(0px,calc((100vw-var(--max-width-container))/2-10px))]"
             animate={{ color }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             aria-hidden

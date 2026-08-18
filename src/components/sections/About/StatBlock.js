@@ -9,7 +9,7 @@ export default function StatBlock({data}) {
                 <Image src={data.image} alt={data.alt} width={60} height={60} className="size-6 md:size-10 lg:size-[60]"/>
             </div>
             <div className={'text-foreground-fixed'}>
-                <h5 className={'font-heading font-bold text-[22px] md:text-[40px] lg:text-[68px] leading-none'}>
+                <h5 className={'font-heading font-bold text-[22px] md:text-[40px] lg:text-[48px] xl:text-[68px] leading-none'}>
                     <CountUp value={data.value} />
                 </h5>
                 <p className={'mt-2.5 leading-tight text-sm md:text-lg md:leading-none font-helvetica'}>

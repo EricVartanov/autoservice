@@ -33,7 +33,7 @@ export default function Services({data}) {
                 {/* сетка услуг */}
                 <ScrollReveal
                     stagger
-                    className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-4 lg:gap-[30]"
+                    className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-x-2.5 md:gap-y-[15] lg:grid-cols-4 lg:gap-[30]"
                 >
                     {visibleServices.map((service) => (
                         <ServiceCard key={service.slug} service={service}/>
