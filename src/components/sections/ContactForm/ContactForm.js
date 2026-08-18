@@ -13,6 +13,7 @@ import {Container} from "@/components/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
 
 function validate({name, phoneDigits, carBrand, timing, branch, consent}) {
     const errors = {};
@@ -451,11 +452,10 @@ export default function ContactForm({data}) {
                             </div>
                         </div>
 
-                        {submitted && (
-                            <p className="mt-4 text-base text-primary">
-                                Спасибо! Заявка отправлена, мы скоро свяжемся с Вами.
-                            </p>
-                        )}
+                        <FormSuccessOverlay
+                            open={submitted}
+                            onClose={() => setSubmitted(false)}
+                        />
                     </form>
                 </ScrollReveal>
             </Container>

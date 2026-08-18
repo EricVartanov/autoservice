@@ -4,7 +4,7 @@ export default function ServiceTrust({data}) {
     const {image, imageAlt, title, text} = data;
 
     return (
-        <section className="relative overflow-hidden px-5 py-10 md:px-10 lg:py-[80] min-h-[240]">
+        <section className="relative overflow-hidden px-5 py-10 md:px-[30] lg:py-[80] min-h-[240]">
             <Image src={image} alt={imageAlt} fill className="object-cover" />
             <div className="relative z-10 flex flex-col lg:flex-row justify-between h-full gap-4">
                 <h3 className="font-heading text-center md:text-left font-medium text-[25px] md:text-[28px] lg:text-[34px] max-w-[470] md:font-bold leading-none text-foreground-fixed">

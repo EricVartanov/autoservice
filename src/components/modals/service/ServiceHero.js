@@ -8,6 +8,7 @@ import Button from '@/components/ui/Button';
 import PhoneInput, {getCleanPhone} from '@/components/ui/PhoneInput';
 import Icon from '@/components/icons/Icon';
 import LegalLink from '@/components/ui/LegalLink';
+import FormSuccessOverlay from '@/components/ui/FormSuccessOverlay';
 
 function validate({name, phoneDigits, carBrand, consent}) {
     const errors = {};
@@ -148,7 +149,7 @@ export default function ServiceHero({data}) {
             />
             <div className="absolute inset-0 bg-[linear-gradient(335deg,#be0000_0%,rgba(0,0,0,0.4)_50%,transparent_100%)]" />
 
-            <div className="relative z-10 flex h-full flex-col justify-between gap-[60] md:gap-[50] px-2.5 pb-[50] pt-10 md:px-10 md:py-12 md:pr-16 lg:px-20 lg:pt-20 lg:pb-[35]">
+            <div className="relative z-10 flex h-full flex-col justify-between gap-[60] md:gap-[50] px-2.5 pb-[50] pt-10 md:px-[30] md:py-12 md:pb-16 lg:px-20 lg:pt-20 lg:pb-[35]">
                 <div className="flex flex-col gap-5 lg:flex-row items-center text-center lg:text-left lg:justify-between lg:gap-16">
                     <div className="w-full md:max-w-xl">
                         <p className="font-helvetica text-sm md:text-lg text-foreground-fixed">{mark}</p>
@@ -156,14 +157,14 @@ export default function ServiceHero({data}) {
                             {title}
                         </h2>
                     </div>
-                    <p className="max-w-2xl font-helvetica text-sm md:text-lg leading-5 text-foreground-fixed/90 lg:text-right">
+                    <p className="max-w-2xl font-helvetica text-sm md:text-lg leading-5 text-foreground-fixed/90">
                         {description}
                     </p>
                 </div>
 
-                <form onSubmit={handleSubmit} noValidate>
-                    <div className="grid grid-cols-1 gap-[30] md:gap-4 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-x-[75] lg:gap-y-4">
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[30] md:gap-4 lg:gap-5 min-w-0">
+                <form onSubmit={handleSubmit} noValidate className="relative">
+                    <div className="grid grid-cols-1 gap-[30] md:gap-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-x-[75] lg:gap-y-10">
+                        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-[30] md:gap-8 lg:gap-5 min-w-0">
                             {quickForm.fields.map(renderField)}
                         </div>
 
@@ -200,7 +201,7 @@ export default function ServiceHero({data}) {
                                         </LegalLink>
                                     </span>
                                 </label>
-                                <FieldError className="mt-1.5">
+                                <FieldError className="absolute left-0 top-full mt-1.5 whitespace-nowrap">
                                     {errors.consent}
                                 </FieldError>
                             </div>
@@ -208,18 +209,16 @@ export default function ServiceHero({data}) {
 
                         <Button
                             type="submit"
-                            className="w-full min-h-10 lg:w-auto shrink-0 bg-foreground-fixed! text-black! hover:bg-foreground-fixed/90! min-w-0 lg:min-w-[262] lg:col-start-2 lg:row-start-1"
+                            className="w-full min-h-10 lg:w-auto shrink-0 bg-foreground-fixed! text-black! hover:bg-foreground-fixed/90! min-w-0 md:max-w-[262] mx-auto mt-5 lg:mt-0 lg:mx-0 lg:col-start-2 lg:row-start-1"
                         >
                             {quickForm.submitLabel}
                         </Button>
                     </div>
-
-                    {submitted && (
-                        <p className="mt-3 text-sm text-foreground-fixed">
-                            Заявка принята, мы свяжемся с вами.
-                        </p>
-                    )}
                 </form>
+                <FormSuccessOverlay
+                    open={submitted}
+                    onClose={() => setSubmitted(false)}
+                />
             </div>
         </div>
     );

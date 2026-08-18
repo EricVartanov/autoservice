@@ -12,6 +12,7 @@ import {Container} from "@/components/Container";
 import Link from "next/link";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
 
 function validate({name, phoneDigits, carBrand}) {
     const errors = {};
@@ -192,7 +193,7 @@ export default function Commercial({data}) {
                     <form
                         onSubmit={handleSubmit}
                         noValidate
-                        className="mt-8 lg:mt-10 px-[25] py-[30] rounded-[30] w-full mx-auto lg:mx-0 max-w-[450] lg:max-w-none bg-black/60 p-6 lg:p-[50]"
+                        className="relative mt-8 lg:mt-10 px-[25] py-[30] rounded-[30] w-full mx-auto lg:mx-0 max-w-[450] lg:max-w-none bg-black/60 p-6 lg:p-[50]"
                     >
                         <div className="flex flex-col lg:flex-row lg:items-end lg:gap-7">
                             <div className={'flex flex-col gap-5 min-w-0 flex-1 lg:flex-row lg:items-end lg:gap-6'}>
@@ -202,11 +203,10 @@ export default function Commercial({data}) {
                                 {form.submitLabel}
                             </Button>
                         </div>
-                        {submitted && (
-                            <p className="absolute bottom-3 mt-4 text-base text-foreground-fixed">
-                                Спасибо! Заявка отправлена, мы скоро свяжемся с Вами.
-                            </p>
-                        )}
+                        <FormSuccessOverlay
+                            open={submitted}
+                            onClose={() => setSubmitted(false)}
+                        />
                     </form>
                 </ScrollReveal>
             </Container>

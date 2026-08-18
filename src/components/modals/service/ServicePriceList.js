@@ -10,11 +10,11 @@ export default function ServicePriceList({title, items, subtitle}) {
     const hasMore = items.length > MOBILE_INITIAL_COUNT;
 
     return (
-        <section className="px-2.5 md:px-10">
-            <h3 className="font-heading font-medium text-[25px] md:text-[28px] lg:text-[34px] leading-none text-foreground">
+        <section className="px-2.5 md:px-[30] lg:px-10">
+            <h3 className="text-center md:text-left font-heading font-medium text-[25px] md:text-[28px] lg:text-[34px] leading-none text-foreground">
                 {title}
             </h3>
-            <p className={'mt-4 text-foreground-light text-sm md:text-lg leading-none'}>
+            <p className={'text-center md:text-left mt-4 text-foreground-light text-sm md:text-lg leading-none'}>
                 {subtitle}
             </p>
             <ul className="mt-[30] md:mt-8">

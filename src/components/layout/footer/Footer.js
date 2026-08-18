@@ -6,6 +6,8 @@ import {usePathname} from "next/navigation";
 import {Container} from "@/components/Container";
 import LegalLink from "@/components/ui/LegalLink";
 import {mockFooter} from "@/lib/mock-data";
+import Icon from "@/components/icons/Icon";
+import {scrollToTop} from "@/lib/scrollToSection";
 
 export default function Footer({data = mockFooter}) {
     const {logo, logoDark, copyright, legal, branches, socials} = data;
@@ -18,7 +20,17 @@ export default function Footer({data = mockFooter}) {
                 isNews ? 'bg-background' : 'bg-background-secondary'
             }`}
         >
-            <Container>
+            <Container className={'relative'}>
+                <div className="absolute right-5 md:right-20 lg:right-10 bottom-0 lg:top-1/2 lg:-translate-y-1/2 z-50">
+                    <button
+                        type="button"
+                        aria-label="Наверх"
+                        onClick={() => scrollToTop()}
+                        className="flex size-10 md:size-[40] lg:size-[54] cursor-pointer items-center justify-center rounded-full bg-primary text-foreground-fixed dark:bg-white dark:text-black"
+                    >
+                        <Icon name="arrow-down" className="size-6 md:size-8 rotate-180" />
+                    </button>
+                </div>
                 <div className="flex justify-center">
                     {logo && (
                         <>

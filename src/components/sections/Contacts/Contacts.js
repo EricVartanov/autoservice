@@ -12,11 +12,11 @@ export default function Contacts({data, embedded = false}) {
 
     return (
         <section className={`relative overflow-hidden ${embedded ? 'py-20 md:py-16 lg:pb-[150] lg:pt-20 px-0' : 'py-10 md:py-20 lg:py-[150]'}`}>
-            <Container className={`relative ${embedded ? '!px-2.5 md:!px-10' : ''}`}>
+            <Container className={`relative ${embedded ? '!px-2.5 md:!px-[30] lg:!px-10' : ''}`}>
                 <ScrollReveal className="relative z-20 left-auto top-0 mb-10 md:mb-[50] items-center flex justify-center lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:mb-0">
                     <a
                         href={`mailto:${email}`}
-                        className={`shadow-[0_0_20px_0_var(--color-btn-shadow)] cursor-pointer inline-flex items-center gap-2.5 rounded-full bg-background px-5 py-2.5 ${embedded ? 'text-sm font-bold items-end' : 'text-base '} text-foreground transition hover:opacity-80`}
+                        className={`shadow-[0_0_20px_0_var(--color-btn-shadow)] cursor-pointer inline-flex items-center gap-2.5 rounded-full bg-background px-5 py-2.5 font-bold  ${embedded ? 'text-sm items-end' : 'text-base'} text-foreground transition hover:opacity-80`}
                     >
                         <Icon name="mail" className="size-6 shrink-0 text-foreground"/>
                         <span>{email}</span>

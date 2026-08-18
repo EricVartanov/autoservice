@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function ServicePopular({title, items}) {
     return (
-        <section className="px-2.5 py-20 md:px-10 md:py-12 lg:px-10 lg:py-[80]">
+        <section className="px-2.5 py-20 md:px-[30] md:py-12 lg:px-10 lg:py-[80]">
             <h3 className="font-heading text-center md:text-left font-medium text-[25px] md:text-[28px] lg:text-[34px] leading-none text-foreground">
                 {title}
             </h3>

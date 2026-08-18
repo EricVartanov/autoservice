@@ -10,6 +10,7 @@ import FieldError from "@/components/ui/FieldError";
 import LegalLink from "@/components/ui/LegalLink";
 import {Container} from "@/components/Container";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
 
 const cardGradient =
     "bg-[radial-gradient(circle_at_top_left,rgba(200,0,0,1)_0%,rgba(0,0,0,0.8)_50%,rgba(0,0,0,0.8)_100%)]";
@@ -54,6 +55,7 @@ export default function Feedback({data}) {
     const [message, setMessage] = useState("");
     const [consent, setConsent] = useState(false);
     const [errors, setErrors] = useState({});
+    const [submitted, setSubmitted] = useState(false);
 
     const clearError = (field) => {
         setErrors((prev) => {
@@ -84,6 +86,7 @@ export default function Feedback({data}) {
         // сюда позже уйдёт fetch на WP-эндпоинт
         console.log(payload);
 
+        setSubmitted(true);
         setName("");
         setPhoneDigits("");
         setBranch("");
@@ -99,7 +102,7 @@ export default function Feedback({data}) {
     return (
         <section className="relative bg-background-secondary pb-[35] md:pb-[150] pt-20 lg:py-[150]">
             <Container className="relative z-50">
-                <ScrollReveal stagger className="relative z-20 flex flex-col gap-5 lg:flex-row lg:justify-between">
+                <ScrollReveal stagger className="relative z-20 flex flex-col gap gap-2.5 lg:gap-10 lg:flex-row lg:justify-between">
                     <form
                         onSubmit={handleSubmit}
                         noValidate
@@ -272,6 +275,10 @@ export default function Feedback({data}) {
                                 {form.submitLabel}
                             </Button>
                         </div>
+                        <FormSuccessOverlay
+                            open={submitted}
+                            onClose={() => setSubmitted(false)}
+                        />
                     </form>
 
                     <div
@@ -294,7 +301,7 @@ export default function Feedback({data}) {
             </Container>
             {tires?.path && (
                 <div
-                    className="pointer-events-none mx-auto z-30 relative md:absolute md:bottom-[-10] md:right-0 md:bottom-[-5%] lg:bottom-[-13%] w-full max-w-[240] md:max-w-[320] md:overflow-hidden lg:max-w-[580]"
+                    className="pointer-events-none mx-auto z-30 relative md:absolute md:right-0 md:bottom-[-5%] lg:bottom-[-8%] w-full max-w-[240] md:max-w-[320] md:overflow-hidden lg:max-w-[620]"
                 >
                     <Image
                         src={tires.path}

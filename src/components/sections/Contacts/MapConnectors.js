@@ -20,7 +20,7 @@ function ConnectorLine({side, marker}) {
 
     return (
         <svg
-            className="absolute h-auto w-[min(38vw,380px)] text-primary"
+            className="absolute h-auto lg:w-[min(38vw,25vw)] xl:w-[min(38vw,380px)] text-primary"
             style={{
                 left: `${marker.x}%`,
                 top: `${marker.y}%`,

@@ -11,6 +11,7 @@ import LegalLink from "@/components/ui/LegalLink";
 import {Container} from "@/components/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
+import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
 
 function validate({name, phoneDigits, carBrand, timing, branch, consent}) {
     const errors = {};
@@ -179,7 +180,7 @@ export default function ServiceContactForm({data}) {
         return (
             <div
                 key={field.name}
-                className={`relative w-full md:w-[calc(50%-5px)] lg:w-[calc(50%-15px)] ${field.name === 'carBrand' ? 'lg:w-full': ''}`}
+                className={`relative w-full md:w-full lg:w-[calc(50%-10px)] ${field.name === 'carBrand' ? 'lg:w-full': ''}`}
             >
                 <label className="mb-2.5 block font-helvetica text-sm md:text-base font-bold text-foreground-fixed">
                     {field.label}
@@ -244,8 +245,8 @@ export default function ServiceContactForm({data}) {
     };
 
     return (
-        <section className="relative bg-primary rounded-t-[30] py-[50] md:py-16 lg:py-[80]">
-            <Container className="relative justify-between flex flex-col gap-[30] md:gap-[100] lg:gap-10 lg:flex-row lg:gap-16 !px-5 md:!px-10 lg:!px-16 lg:items-start">
+        <section className="relative bg-[radial-gradient(circle_at_top_left,rgba(200,0,0,1)_0%,rgba(0,0,0,0.8)_50%,rgba(0,0,0,0.8)_100%)] rounded-t-[30] py-[50] md:py-16 lg:py-[80]">
+            <Container className="relative justify-between flex flex-col gap-[30] md:gap-[100] lg:gap-10 lg:flex-row lg:gap-16 !px-5 md:!px-[30] lg:!px-16 lg:items-start">
                 <div className="lg:max-w-[555] pb-0 lg:pb-[40]">
                     <SectionTitle
                         title={title}
@@ -258,10 +259,10 @@ export default function ServiceContactForm({data}) {
                 <form
                     onSubmit={handleSubmit}
                     noValidate
-                    className="relative w-full rounded-[30] lg:w-1/2 max-w-[715]"
+                    className="relative w-full rounded-[30] mx-auto lg:w-1/2 max-w-[715]"
                 >
                     <div className="flex flex-col">
-                        <div className={'flex flex-wrap gap-[30] md:gap-y-6 md:gap-2.5 lg:gap-y-6 lg:gap-x-3'}>
+                        <div className={'flex flex-col lg:flex-row lg:flex-wrap lg:justify-between gap-[30] md:gap-y-6 md:gap-2.5 lg:gap-y-6 lg:gap-x-3'}>
                             {form.fields.map(renderMainField)}
                         </div>
 
@@ -314,14 +315,12 @@ export default function ServiceContactForm({data}) {
                             </Button>
                         </div>
                     </div>
-
-                    {submitted && (
-                        <p className="mt-4 text-base text-primary">
-                            Спасибо! Заявка отправлена, мы скоро свяжемся с Вами.
-                        </p>
-                    )}
                 </form>
             </Container>
+            <FormSuccessOverlay
+                open={submitted}
+                onClose={() => setSubmitted(false)}
+            />
         </section>
     );
 }

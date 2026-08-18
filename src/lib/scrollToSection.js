@@ -42,6 +42,22 @@ export function scrollToSection(id, {behavior = 'smooth'} = {}) {
     return scrollToElement(document.getElementById(id), {behavior});
 }
 
+/**
+ * Smooth-scroll to the top of the page.
+ * Uses Lenis when available; falls back to native window.scrollTo.
+ * @param {{ behavior?: ScrollBehavior }} [options]
+ * @returns {boolean}
+ */
+export function scrollToTop({behavior = 'smooth'} = {}) {
+    if (typeof window === 'undefined') return false;
+    if (lenisInstance && behavior !== 'auto') {
+        lenisInstance.scrollTo(0);
+        return true;
+    }
+    window.scrollTo({top: 0, behavior});
+    return true;
+}
+
 /** Extract section id from href like `/#about` or `#about`. */
 export function getHashId(href) {
     if (!href || typeof href !== 'string') return null;
