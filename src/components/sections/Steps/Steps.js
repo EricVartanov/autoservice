@@ -22,7 +22,7 @@ function StepList({steps, className = ''}) {
                             className={'z-[-1] absolute top-1/2 left-1/2 transform -translate-1/2 text-primary w-9 h-5'}
                         />
                     </div>
-                    <h4 className={'font-sans text-sm md:text-lg text-foreground-fixed mt-2 md:mt-4'}>
+                    <h4 className={'font-sans font-medium text-sm md:text-lg text-foreground-fixed mt-2 md:mt-4'}>
                         {step.title}
                     </h4>
                     <p className={'font-sans text-sm text-foreground-light-fixed mt-1.5 md:mt-2.5'}>

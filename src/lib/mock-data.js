@@ -22,8 +22,8 @@ export const mockFooter = {
     logoDark: {path: '/mock/footer-logo-light.png', alt: 'Авторитет'},
     copyright: 'Авторитет',
     legal: [
-        {label: 'Политика конфиденциальности', link: '#'},
-        {label: 'Согласие на обработку перс. данных', link: '#'},
+        {label: 'Политика конфиденциальности', slug: 'privacy'},
+        {label: 'Согласие на обработку перс. данных', slug: 'privacy'},
     ],
     branches: [
         {label: 'ф-л 2-я Дорожная', link: '#', logo: '/mock/max-logo-black.png', logoDark: '/mock/max-logo.png'},
@@ -95,7 +95,7 @@ const sharedQuickForm = {
     consent: {
         label: 'Согласен на обработку',
         linkText: 'персональных данных',
-        url: '/privacy',
+        slug: 'privacy',
         required: true,
     },
     submitLabel: 'Отправить',
@@ -220,6 +220,22 @@ const SERVICE_DETAIL_SEED = [
             {title: 'Замена сайлентблоков', price: 'от 3 200 руб.', image: '/mock/services/engine4.png'},
         ],
         priceList: [
+            {title: 'Диагностика ходовой части', price: 'от 1 350 руб.'},
+            {title: 'Замена амортизатора', price: 'от 4 500 руб.'},
+            {title: 'Замена пружины', price: 'от 3 800 руб.'},
+            {title: 'Замена шаровой опоры', price: 'от 2 800 руб.'},
+            {title: 'Замена стойки стабилизатора', price: 'от 1 600 руб.'},
+            {title: 'Замена сайлентблока', price: 'от 3 200 руб.'},
+            {title: 'Замена ступичного подшипника', price: 'от 4 200 руб.'},
+            {title: 'Развал-схождение', price: 'от 2 500 руб.'},
+            {title: 'Диагностика ходовой части', price: 'от 1 350 руб.'},
+            {title: 'Замена амортизатора', price: 'от 4 500 руб.'},
+            {title: 'Замена пружины', price: 'от 3 800 руб.'},
+            {title: 'Замена шаровой опоры', price: 'от 2 800 руб.'},
+            {title: 'Замена стойки стабилизатора', price: 'от 1 600 руб.'},
+            {title: 'Замена сайлентблока', price: 'от 3 200 руб.'},
+            {title: 'Замена ступичного подшипника', price: 'от 4 200 руб.'},
+            {title: 'Развал-схождение', price: 'от 2 500 руб.'},
             {title: 'Диагностика ходовой части', price: 'от 1 350 руб.'},
             {title: 'Замена амортизатора', price: 'от 4 500 руб.'},
             {title: 'Замена пружины', price: 'от 3 800 руб.'},
@@ -541,14 +557,14 @@ export const mockPage = {
             ],
             cta: {label: 'Оставить заявку', link: '#contacts'},
             brands: [
-                {name: 'Renault', logo: '/mock/brands/renault.png'},
-                {name: 'Citroen', logo: '/mock/brands/citroen.png'},
-                {name: 'Audi', logo: '/mock/brands/audi.png'},
-                {name: 'Ford', logo: '/mock/brands/ford.png'},
-                {name: 'Opel', logo: '/mock/brands/opel.png'},
-                {name: 'Chevrolet', logo: '/mock/brands/chevrolet.png'},
-                {name: 'Nissan', logo: '/mock/brands/nissan.png'},
-                {name: 'Volkswagen', logo: '/mock/brands/vw.png'},
+                {name: 'Renault', logo: '/mock/brands/renault.png', logoDark: '/mock/brands/renault-dark.png'},
+                {name: 'Citroen', logo: '/mock/brands/citroen.png', logoDark: '/mock/brands/citroen-dark.png'},
+                {name: 'Audi', logo: '/mock/brands/audi.png', logoDark: '/mock/brands/audi-dark.png'},
+                {name: 'Ford', logo: '/mock/brands/ford.png', logoDark: '/mock/brands/ford-dark.png'},
+                {name: 'Opel', logo: '/mock/brands/opel.png', logoDark: '/mock/brands/opel-dark.png'},
+                {name: 'Chevrolet', logo: '/mock/brands/chevrolet.png', logoDark: '/mock/brands/chevrolet-dark.png'},
+                {name: 'Nissan', logo: '/mock/brands/nissan.png', logoDark: '/mock/brands/nissan-dark.png'},
+                {name: 'Volkswagen', logo: '/mock/brands/vw.png', logoDark: '/mock/brands/vw-dark.png'},
             ],
         },
         {
@@ -726,7 +742,7 @@ export const mockPage = {
             titleBack: 'наша команда',
             highlightHtml: "Автосервис — это не стены и не оборудование, а, <span>прежде всего, люди</span>",
             subtitle: "Наши люди - это причина, по которой к нам с радостью хотят приехать снова. Каждый из нас в ответе за результат, поэтому мы работаем так, чтобы Вы уезжали без вопросов",
-            image: {path: '/mock/team/team.webp', alt: 'the best team'}
+            image: {path: '/mock/team/team1.webp', alt: 'the best team'}
         },
         {
             type: 'specialOffer',
@@ -1048,7 +1064,7 @@ export const mockPage = {
                 consent: {
                     label: 'Согласен на обработку',
                     linkText: 'персональных данных',
-                    url: '/privacy',
+                    slug: 'privacy',
                     required: true,
                 },
                 submitLabel: 'Отправить',
@@ -1093,7 +1109,7 @@ export const mockPage = {
                 consent: {
                     label: 'Согласен на обработку',
                     linkText: 'персональных данных',
-                    url: '/privacy',
+                    slug: 'privacy',
                     required: true,
                 },
                 branch: {

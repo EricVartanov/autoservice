@@ -11,12 +11,12 @@ export default function Contacts({data, embedded = false}) {
     const [left, right] = branches;
 
     return (
-        <section className={`relative overflow-hidden ${embedded ? 'py-12 md:py-16 lg:pb-[150] lg:pt-20 px-0' : 'py-10 md:py-20 lg:py-[150]'}`}>
-            <Container className={`relative ${embedded ? '!px-5 md:!px-10' : ''}`}>
-                <ScrollReveal className="relative z-20 left-auto top-0 mb-10 md:mb-[50] flex justify-center lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:mb-0">
+        <section className={`relative overflow-hidden ${embedded ? 'py-20 md:py-16 lg:pb-[150] lg:pt-20 px-0' : 'py-10 md:py-20 lg:py-[150]'}`}>
+            <Container className={`relative ${embedded ? '!px-2.5 md:!px-[30] lg:!px-10' : ''}`}>
+                <ScrollReveal className="relative z-20 left-auto top-0 mb-10 md:mb-[50] items-center flex justify-center lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:mb-0">
                     <a
                         href={`mailto:${email}`}
-                        className="shadow-[0_0_20px_0_var(--color-btn-shadow)] cursor-pointer inline-flex items-center gap-2.5 rounded-full bg-background px-5 py-2.5 text-base text-foreground transition hover:opacity-80"
+                        className={`shadow-[0_0_20px_0_var(--color-btn-shadow)] cursor-pointer inline-flex items-center gap-2.5 rounded-full bg-background px-5 py-2.5 font-bold  ${embedded ? 'text-sm items-end' : 'text-base'} text-foreground transition hover:opacity-80`}
                     >
                         <Icon name="mail" className="size-6 shrink-0 text-foreground"/>
                         <span>{email}</span>
@@ -35,10 +35,12 @@ export default function Contacts({data, embedded = false}) {
                         {right && <BranchCard branch={right} embedded={embedded}/>}
                     </div>
                 </ScrollReveal>
-                <BlurredCircle
-                    className={`left-1/2  lg:bottom-0 -translate-x-1/2 opacity-30 ${embedded ? 'z-10 bottom-[-15%]' : 'bottom-0'}`}
-                    size={embedded ? '' : 'size-[420]'}
-                />
+                {!embedded &&
+                    <BlurredCircle
+                        className={`left-1/2  lg:bottom-0 -translate-x-1/2 opacity-30 ${embedded ? 'z-10 bottom-[-15%]' : 'bottom-0'}`}
+                        size={embedded ? '' : 'size-[420]'}
+                    />
+                }
                 <ScrollReveal
                     delay={0.15}
                     className={`z-[-1] hidden lg:block lg:z-10 opacity-50 lg:opacity-100 absolute left-1/2 top-1/2 lg:top-unset lg:bottom-0 -translate-1/2 lg:-translate-x-1/2 w-full lg:max-w-[600] h-auto dark:invert ${embedded ? 'h-full' : ''} `}

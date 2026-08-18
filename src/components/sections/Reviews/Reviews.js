@@ -116,7 +116,7 @@ export default function Reviews({data}) {
                                 <button
                                     key={platform.id}
                                     onClick={() => handlePlatformChange(platform.id)}
-                                    className={`relative text-sm md:text-base font-helvetica cursor-pointer text-foreground w-[33%] md:w-auto`}
+                                    className={`relative text-sm md:text-base font-helvetica cursor-pointer text-foreground w-[33%] max-w-[80] md:w-auto md:max-w-none`}
                                 >
                                     {platform.label}
                                     <span

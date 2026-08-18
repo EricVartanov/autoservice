@@ -2,14 +2,15 @@
 
 import {useState} from "react";
 import Image from "next/image";
-import Link from "next/link";
 import Icon from "@/components/icons/Icon";
 import Button from "@/components/ui/Button";
 import PhoneInput, {getCleanPhone} from "@/components/ui/PhoneInput";
 import WaveTitle from "@/components/ui/WaveTitle";
 import FieldError from "@/components/ui/FieldError";
+import LegalLink from "@/components/ui/LegalLink";
 import {Container} from "@/components/Container";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
 
 const cardGradient =
     "bg-[radial-gradient(circle_at_top_left,rgba(200,0,0,1)_0%,rgba(0,0,0,0.8)_50%,rgba(0,0,0,0.8)_100%)]";
@@ -54,6 +55,7 @@ export default function Feedback({data}) {
     const [message, setMessage] = useState("");
     const [consent, setConsent] = useState(false);
     const [errors, setErrors] = useState({});
+    const [submitted, setSubmitted] = useState(false);
 
     const clearError = (field) => {
         setErrors((prev) => {
@@ -84,6 +86,7 @@ export default function Feedback({data}) {
         // сюда позже уйдёт fetch на WP-эндпоинт
         console.log(payload);
 
+        setSubmitted(true);
         setName("");
         setPhoneDigits("");
         setBranch("");
@@ -92,14 +95,14 @@ export default function Feedback({data}) {
     };
 
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
+        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 h-[44] md:h-[54] py-2.5 md:py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
             hasError ? "border-primary" : "border-white/20 focus:border-foreground-fixed"
         }`;
 
     return (
         <section className="relative bg-background-secondary pb-[35] md:pb-[150] pt-20 lg:py-[150]">
             <Container className="relative z-50">
-                <ScrollReveal stagger className="relative z-20 flex flex-col gap-5 lg:flex-row lg:justify-between">
+                <ScrollReveal stagger className="relative z-20 flex flex-col gap gap-2.5 lg:gap-10 lg:flex-row lg:justify-between">
                     <form
                         onSubmit={handleSubmit}
                         noValidate
@@ -108,7 +111,7 @@ export default function Feedback({data}) {
                         <p className="font-helvetica text-center lg:text-left text-sm md:text-lg leading-tight text-foreground-light-fixed whitespace-break-spaces">
                             {intro}
                         </p>
-                        <WaveTitle as="h2" className="mt-5 text-center lg:text-left font-heading text-[25px] md:text-[34px] font-bold leading-none whitespace-break-spaces">
+                        <WaveTitle as="h2" className="mt-5 text-center lg:text-left font-heading text-[25px] md:text-[34px] font-bold whitespace-break-spaces">
                             {title}
                         </WaveTitle>
 
@@ -220,14 +223,14 @@ export default function Feedback({data}) {
                                 onChange={(e) => setMessage(e.target.value)}
                                 placeholder={form.message.placeholder}
                                 rows={4}
-                                className="w-full resize-none rounded-[10] border border-white/20 bg-transparent px-5 py-3.5 font-helvetica text-sm md:text-base text-foreground-fixed outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent focus:border-foreground-fixed"
+                                className="w-full resize-none rounded-[10] border border-white/20 bg-transparent px-5 py-2.5 md:py-3.5 font-helvetica text-sm md:text-base text-foreground-fixed outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent focus:border-foreground-fixed"
                             />
                         </div>
 
                         <div className="mt-5 relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                             <div className="relative pb-1">
                                 <label
-                                    className="flex cursor-pointer justify-center items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed"
+                                    className="flex cursor-pointer justify-start items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed"
                                 >
                                     <span
                                         className={`mt-0.5 p-1 flex size-7 shrink-0 items-center justify-center rounded border transition-colors ${
@@ -252,15 +255,15 @@ export default function Feedback({data}) {
                                         className="sr-only"
                                     />
                                     <span>
-                                        <span className="grid md:inline">
+                                        <span className="inline">
                                             {form.consent.label}{" "}
                                         </span>
-                                        <Link
-                                            href={form.consent.url}
+                                        <LegalLink
+                                            slug={form.consent.slug}
                                             className="pb-px border-b hover:text-primary"
                                         >
                                             {form.consent.linkText}
-                                        </Link>
+                                        </LegalLink>
                                     </span>
                                 </label>
                                 <FieldError className="absolute bottom-[-20] left-0">
@@ -272,6 +275,10 @@ export default function Feedback({data}) {
                                 {form.submitLabel}
                             </Button>
                         </div>
+                        <FormSuccessOverlay
+                            open={submitted}
+                            onClose={() => setSubmitted(false)}
+                        />
                     </form>
 
                     <div
@@ -294,7 +301,7 @@ export default function Feedback({data}) {
             </Container>
             {tires?.path && (
                 <div
-                    className="pointer-events-none mx-auto z-30 relative md:absolute md:bottom-[-10] md:right-0 md:bottom-[-5%] lg:bottom-[-13%] w-full max-w-[240] md:max-w-[320] md:overflow-hidden lg:max-w-[580]"
+                    className="pointer-events-none mx-auto z-30 relative md:absolute md:right-0 md:bottom-[-5%] lg:bottom-[-8%] w-full max-w-[240] md:max-w-[320] md:overflow-hidden lg:max-w-[620]"
                 >
                     <Image
                         src={tires.path}

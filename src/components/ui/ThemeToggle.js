@@ -25,18 +25,18 @@ export default function ThemeToggle() {
             type="button"
             onClick={toggleTheme}
             aria-label="Переключить тему"
-            className={`w-full h-full flex justify-center items-center cursor-pointer rounded-full p-2 transition-colors ${
+            className={`w-full h-full flex justify-center items-center cursor-pointer rounded-full transition-colors ${
                 isDark ? 'bg-black/20' : 'bg-white/20'
             }`}
         >
-            <span className={`w-[54] h-[54] flex justify-center items-center rounded-full ${
+            <span className={`size-10 md:w-[54] md:h-[54] flex justify-center items-center rounded-full ${
                 isDark
                     ? 'bg-primary text-foreground-fixed'
                     : 'bg-foreground-fixed text-primary'
             }`}>
                 <Icon
                     name={isDark ? 'moon' : 'sun'}
-                    className={`w-10 h-10 transition-colors`}
+                    className={`w-6 h-6 md:w-10 md:h-10 transition-colors`}
                 />
             </span>
         </button>

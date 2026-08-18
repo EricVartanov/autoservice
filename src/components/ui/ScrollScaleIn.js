@@ -24,7 +24,7 @@ export default function ScrollScaleIn({
 
         const mm = gsap.matchMedia();
 
-        mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+        mm.add('(min-width: 1280px) and (prefers-reduced-motion: no-preference)', () => {
             const tween = gsap.fromTo(
                 el,
                 {scale: from, borderRadius: radius},
@@ -35,8 +35,8 @@ export default function ScrollScaleIn({
                     force3D: true,
                     scrollTrigger: {
                         trigger: el,
-                        start: '10% bottom',
-                        end: 'top 30%',
+                        start: 'top 30%',
+                        end: 'bottom 80%',
                         scrub: true,
                         invalidateOnRefresh: true,
                     },

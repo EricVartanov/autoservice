@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 import LenisProvider from '@/components/LenisProvider';
 import CallModal from "@/components/modals/CallModal";
 import ServiceModal from "@/components/modals/ServiceModal";
+import LegalModal from "@/components/modals/LegalModal";
 
 const fontVariables = [
     muller.variable,
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
                         <Footer />
                         <CallModal />
                         <ServiceModal />
+                        <LegalModal />
                     </LenisProvider>
                 </ThemeProvider>
             </body>

@@ -2,17 +2,18 @@
 
 import {useState} from "react";
 import Image from "next/image";
-import Link from "next/link";
 import {AnimatePresence, motion} from "framer-motion";
 import Icon from "@/components/icons/Icon";
 import Button from "@/components/ui/Button";
 import PhoneInput, {getCleanPhone} from "@/components/ui/PhoneInput";
 import Select from "@/components/ui/Select";
 import FieldError from "@/components/ui/FieldError";
+import LegalLink from "@/components/ui/LegalLink";
 import {Container} from "@/components/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
 
 function validate({name, phoneDigits, carBrand, timing, branch, consent}) {
     const errors = {};
@@ -147,7 +148,7 @@ export default function ContactForm({data}) {
     };
 
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-4 md:py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
+        `w-full rounded-full border bg-transparent text-foreground-fixed h-[44] md:h-[54] px-5 py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
             hasError ? "border-primary" : "border-white/20 focus:border-foreground-fixed"
         }`;
 
@@ -296,7 +297,7 @@ export default function ContactForm({data}) {
 
     return (
         <section className="relative isolate bg-background py-[50] lg:py-[100]">
-            <div className="absolute inset-x-0 top-0 -z-10 h-[220px] overflow-hidden md:h-1/2 lg:inset-0 lg:h-auto">
+            <div className="absolute inset-x-0 top-0 -z-10 overflow-hidden h-[84vw] lg:inset-0 lg:h-auto">
                 <Image
                     src={backgroundImage.path}
                     alt={backgroundImage.alt}
@@ -336,25 +337,25 @@ export default function ContactForm({data}) {
                                         <button
                                             type="button"
                                             onClick={() => setExtraOpen((v) => !v)}
-                                            className="flex flex-col md:flex-row w-full cursor-pointer items-center justify-between gap-3.5 md:gap-4 text-center md:text-left"
+                                            className="flex flex-col md:flex-row w-full cursor-pointer items-center justify-between text-center md:text-left"
                                             aria-expanded={extraOpen}
                                         >
-                                            <span
-                                                className="font-heading leading-none font-bold text-sm md:text-base md:text-[22px] text-foreground-fixed">
+                                            <div
+                                                className="font-heading text-center md:text-left leading-none font-bold text-base md:text-[22px] text-foreground-fixed">
                                                 {form.extraSection.title}
-                                            </span>
-                                            <span className={'flex items-center'}>
-                                            <span className={'text-primary text-xs md:hidden'}>
-                                                {extraOpen ? 'Свернуть' : 'Развернуть'}
-                                           </span>
-                                            <span>
-                                            <Icon
-                                                name="arrow-down"
-                                                className={`size-7 shrink-0 text-primary transition-transform duration-300 ${
-                                                    extraOpen ? "rotate-180" : ""
-                                                }`}
-                                            />
-                                            </span>
+                                            </div>
+                                            <span className={'hidden md:block items-center'}>
+                                                <span className={'text-primary text-xs md:hidden'}>
+                                                    {extraOpen ? 'Свернуть' : 'Развернуть'}
+                                                </span>
+                                                <span>
+                                                    <Icon
+                                                        name="arrow-down"
+                                                        className={`size-7 shrink-0 text-primary transition-transform duration-300 ${
+                                                            extraOpen ? "rotate-180" : ""
+                                                        }`}
+                                                    />
+                                                </span>
                                            </span>
                                         </button>
 
@@ -372,12 +373,32 @@ export default function ContactForm({data}) {
                                                     className="overflow-hidden"
                                                 >
                                                     <div
-                                                        className="mt-6 flex flex-col md:flex-row md:flex-wrap gap-2.5 lg:gap-y-6 lg:gap-x-7">
+                                                        className="mt-6 flex flex-col md:flex-row md:flex-wrap gap-[30] md:gap-2.5 lg:gap-y-6 lg:gap-x-7">
                                                         {form.extraSection.fields.map(renderExtraField)}
                                                     </div>
                                                 </motion.div>
                                             )}
                                         </AnimatePresence>
+                                        <button
+                                            type="button"
+                                            onClick={() => setExtraOpen((v) => !v)}
+                                            className="flex md:hidden mt-5 flex-col md:flex-row w-full cursor-pointer items-center justify-between text-center md:text-left"
+                                            aria-expanded={extraOpen}
+                                        >
+                                            <span className={'flex items-center'}>
+                                                <span className={'text-primary text-xs md:hidden'}>
+                                                    {extraOpen ? 'Свернуть' : 'Развернуть'}
+                                                </span>
+                                                <span>
+                                                    <Icon
+                                                        name="arrow-down"
+                                                        className={`size-7 shrink-0 text-primary transition-transform duration-300 ${
+                                                            extraOpen ? "rotate-180" : ""
+                                                        }`}
+                                                    />
+                                                </span>
+                                           </span>
+                                        </button>
                                     </div>
                                 )}
                             </div>
@@ -386,7 +407,7 @@ export default function ContactForm({data}) {
                                 className="mt-6 relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                                 <div className={'relative pb-1'}>
                                     <label
-                                        className="flex cursor-pointer justify-center items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed">
+                                        className="flex cursor-pointer justify-start items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed">
                                 <span
                                     className={`mt-0.5 p-1 flex size-5 md:size-7 shrink-0 items-center justify-center rounded border transition-colors ${
                                         errors.consent
@@ -407,15 +428,15 @@ export default function ContactForm({data}) {
                                             className="sr-only"
                                         />
                                         <span>
-                                    <span className={'grid md:inline'}>
+                                    <span className={'inline'}>
                                         {form.consent.label}{" "}
                                     </span>
-                                            <Link
-                                                href={form.consent.url}
+                                            <LegalLink
+                                                slug={form.consent.slug}
                                                 className="pb-px border-b hover:text-primary"
                                             >
                                         {form.consent.linkText}
-                                    </Link>
+                                    </LegalLink>
                                 </span>
 
                                     </label>
@@ -431,11 +452,10 @@ export default function ContactForm({data}) {
                             </div>
                         </div>
 
-                        {submitted && (
-                            <p className="mt-4 text-base text-primary">
-                                Спасибо! Заявка отправлена, мы скоро свяжемся с Вами.
-                            </p>
-                        )}
+                        <FormSuccessOverlay
+                            open={submitted}
+                            onClose={() => setSubmitted(false)}
+                        />
                     </form>
                 </ScrollReveal>
             </Container>

@@ -12,6 +12,7 @@ import {Container} from "@/components/Container";
 import Link from "next/link";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
 
 function validate({name, phoneDigits, carBrand}) {
     const errors = {};
@@ -94,7 +95,7 @@ export default function Commercial({data}) {
     };
 
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-4 lg:py-3.5 font-helvetica text-sm lg:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
+        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-3 md:py-3.5 h-[44] md:h-[54] font-helvetica text-sm lg:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
             hasError ? "border-primary" : "border-white/20 focus:border-foreground-fixed"
         }`;
 
@@ -151,6 +152,7 @@ export default function Commercial({data}) {
         <section className="relative py-[80] md:py-[90] lg:pt-[150] lg:pb-[60]">
             <div className="absolute inset-0 -z-10 overflow-hidden">
                 <Image src={backgroundImage.path} alt={backgroundImage.alt} fill className="object-cover"/>
+                <div className="absolute inset-0 bg-black/40" />
             </div>
 
             <Container className="relative flex flex-col justify-between">
@@ -167,7 +169,7 @@ export default function Commercial({data}) {
                    {cta && (
                        <Link
                            href={cta.link}
-                           className="inline-block mt-7 lg:mt-3 text-lg text-foreground-fixed underline underline-offset-4 hover:text-primary transition-colors"
+                           className="inline-block mt-7 lg:mt-3 text-sm md:text-lg text-foreground-fixed underline underline-offset-4 hover:text-primary transition-colors"
                        >
                            {cta.label}
                        </Link>
@@ -191,7 +193,7 @@ export default function Commercial({data}) {
                     <form
                         onSubmit={handleSubmit}
                         noValidate
-                        className="mt-8 lg:mt-10 px-[25] py-[30] rounded-[30] w-full mx-auto lg:mx-0 max-w-[450] lg:max-w-none bg-black/60 p-6 lg:p-[50]"
+                        className="relative mt-8 lg:mt-10 px-[25] py-[30] rounded-[30] w-full mx-auto lg:mx-0 max-w-[450] lg:max-w-none bg-black/60 p-6 lg:p-[50]"
                     >
                         <div className="flex flex-col lg:flex-row lg:items-end lg:gap-7">
                             <div className={'flex flex-col gap-5 min-w-0 flex-1 lg:flex-row lg:items-end lg:gap-6'}>
@@ -201,11 +203,10 @@ export default function Commercial({data}) {
                                 {form.submitLabel}
                             </Button>
                         </div>
-                        {submitted && (
-                            <p className="absolute bottom-3 mt-4 text-base text-primary">
-                                Спасибо! Заявка отправлена, мы скоро свяжемся с Вами.
-                            </p>
-                        )}
+                        <FormSuccessOverlay
+                            open={submitted}
+                            onClose={() => setSubmitted(false)}
+                        />
                     </form>
                 </ScrollReveal>
             </Container>

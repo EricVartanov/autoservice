@@ -27,14 +27,14 @@ export default function SectionTitle({
         <div className={`${variants[variant]}`}>
             <div className={'relative z-10'}>
                 {mark && (
-                    <p className={`flex items-center gap-1.5 text-xs md:text-lg ${titleColor} font-sans mb-4 ${variant === 'center' ? 'justify-center' : ''}`}>
+                    <p className={`flex items-center gap-1.5 font-medium text-xs md:text-lg ${titleColor} font-sans mb-4 ${variant === 'center' ? 'justify-center' : ''}`}>
                         <Icon name={'star'} className={'text-primary-light size-2 md:size-3'}/>
                         {mark}
                     </p>
                 )}
 
                 {animate ? (
-                    <WaveTitle as="h2" breakClassName="hidden md:block" className={`font-heading tracking-tight text-[25px] md:text-[40px] lg:text-[54px] ${titleColor} leading-none md:whitespace-pre-line`}>
+                    <WaveTitle as="h2" breakClassName="hidden md:block" className={`font-heading tracking-tight text-[25px] md:text-[40px] lg:text-[54px] ${titleColor} md:whitespace-pre-line`}>
                         {title}
                     </WaveTitle>
                 ) : (
@@ -44,12 +44,14 @@ export default function SectionTitle({
                 )}
 
                 {titleBack && (
-                    <ShimmerText
-                        as="h3"
-                        className={`absolute left-1/2 -translate-x-1/2 z-[-1] bottom-0 whitespace-nowrap text-[42px] md:text-[64px] lg:text-[120px] leading-none font-bold font-heading tracking-tight ${titleBackPosition}`}
-                    >
-                        {titleBack}
-                    </ShimmerText>
+                    <div className="pointer-events-none absolute bottom-[-20] md:bottom-[-25] lg:bottom-0 left-1/2 z-[-1] flex w-screen -translate-x-1/2 justify-center overflow-x-clip lg:left-0 lg:right-0 lg:block lg:w-auto lg:translate-x-0 lg:overflow-visible">
+                        <ShimmerText
+                            as="h3"
+                            className={`py-2.5 md:pb-3 lg:py-[2.5] whitespace-nowrap text-[58px] md:text-[120px] lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2 lg:text-[120px] leading-[0.8] font-bold font-heading tracking-tight ${titleBackPosition}`}
+                        >
+                            {titleBack}
+                        </ShimmerText>
+                    </div>
                 )}
             </div>
 
@@ -59,7 +61,7 @@ export default function SectionTitle({
                        dangerouslySetInnerHTML={{__html: highlightHtml}}>
                     </p>
                     {subtitle && (
-                        <p className="lg:ml-auto text-center lg:text-left  mt-2.5 max-w-xl text-sm md:text-lg text-foreground leading-tight md:leading-6 whitespace-pre-line">
+                        <p className="lg:ml-auto text-center lg:text-left mt-2.5 max-w-[515] text-sm md:text-lg lg:text-[22px] text-foreground leading-tight md:leading-6 whitespace-pre-line">
                             {subtitle}
                         </p>
                     )}

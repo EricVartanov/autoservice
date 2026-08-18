@@ -67,10 +67,10 @@ export default function Select({
 
     const triggerClass =
         variant === "pill"
-            ? `w-full flex items-center text-foreground-fixed justify-between rounded-full border bg-transparent px-5 py-3.5 text-sm md:text-base outline-none transition-colors cursor-pointer ${
+            ? `w-full flex items-center text-foreground-fixed justify-between rounded-full border bg-transparent px-5 h-[44] md:h-[54] py-2.5 md:py-3.5 text-sm md:text-base outline-none transition-colors cursor-pointer ${
                   error ? errorClass : "border-white/20 focus:border-foreground-fixed"
               }`
-            : `w-full flex items-center text-foreground-fixed justify-between rounded-full border bg-white/20 px-5 py-3.5 text-sm md:text-base outline-none transition-colors cursor-pointer ${
+            : `w-full flex items-center text-foreground-fixed justify-between rounded-full border bg-white/20 px-5 h-[44] md:h-[54] py-2.5 md:py-3.5 text-sm md:text-base outline-none transition-colors cursor-pointer ${
                 error ? errorClass : "border-transparent focus:border-white/20 focus:border-foreground-fixed"
             }`
 

@@ -2,15 +2,16 @@
 
 import {useState} from "react";
 import Image from "next/image";
-import Link from "next/link";
 import Icon from "@/components/icons/Icon";
 import Button from "@/components/ui/Button";
 import PhoneInput, {getCleanPhone} from "@/components/ui/PhoneInput";
 import Select from "@/components/ui/Select";
 import FieldError from "@/components/ui/FieldError";
+import LegalLink from "@/components/ui/LegalLink";
 import {Container} from "@/components/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
+import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
 
 function validate({name, phoneDigits, carBrand, timing, branch, consent}) {
     const errors = {};
@@ -135,7 +136,7 @@ export default function ServiceContactForm({data}) {
     };
 
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border bg-white/20 text-foreground-fixed px-5 py-4 md:py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
+        `w-full rounded-full border bg-white/20 text-foreground-fixed h-[44] md:h-[54] px-5 py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
             hasError
                 ? "border-foreground-fixed"
                 : "border-transparent focus:border-white focus:border-foreground-fixed"
@@ -179,7 +180,7 @@ export default function ServiceContactForm({data}) {
         return (
             <div
                 key={field.name}
-                className={`relative w-full md:w-[calc(50%-5px)] lg:w-[calc(50%-15px)] ${field.name === 'carBrand' ? 'lg:w-full': ''}`}
+                className={`relative w-full md:w-full lg:w-[calc(50%-10px)] ${field.name === 'carBrand' ? 'lg:w-full': ''}`}
             >
                 <label className="mb-2.5 block font-helvetica text-sm md:text-base font-bold text-foreground-fixed">
                     {field.label}
@@ -210,7 +211,7 @@ export default function ServiceContactForm({data}) {
                         return (
                             <label
                                 key={opt.value}
-                                className="flex cursor-pointer items-center gap-1.5 font-helvetica text-sm md:text-base text-foreground-fixed"
+                                className="flex md:flex-row flex-row-reverse justify-between md:justify-start cursor-pointer items-center gap-1.5 font-helvetica text-sm md:text-base text-foreground-fixed"
                             >
                                 <span
                                     className={`flex size-5 md:size-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
@@ -244,17 +245,8 @@ export default function ServiceContactForm({data}) {
     };
 
     return (
-        <section className="relative bg-primary rounded-t-[30] py-12 md:py-16 lg:py-[80]">
-            <div className="absolute inset-0 -z-10 overflow-hidden">
-                <Image
-                    src={backgroundImage.path}
-                    alt={backgroundImage.alt}
-                    fill
-                    className="object-cover"
-                />
-            </div>
-
-            <Container className="relative justify-between flex flex-col gap-[50] md:gap-[100] lg:gap-10 lg:flex-row lg:gap-16 !px-5 md:!px-10 lg:!px-16 lg:items-start">
+        <section className="relative bg-[radial-gradient(circle_at_top_left,rgba(200,0,0,1)_0%,rgba(0,0,0,0.8)_50%,rgba(0,0,0,0.8)_100%)] rounded-t-[30] py-[50] md:py-16 lg:py-[80]">
+            <Container className="relative justify-between flex flex-col gap-[30] md:gap-[100] lg:gap-10 lg:flex-row lg:gap-16 !px-5 md:!px-[30] lg:!px-16 lg:items-start">
                 <div className="lg:max-w-[555] pb-0 lg:pb-[40]">
                     <SectionTitle
                         title={title}
@@ -267,21 +259,21 @@ export default function ServiceContactForm({data}) {
                 <form
                     onSubmit={handleSubmit}
                     noValidate
-                    className="relative w-full rounded-[30] lg:w-1/2 max-w-[715]"
+                    className="relative w-full rounded-[30] mx-auto lg:w-1/2 max-w-[715]"
                 >
                     <div className="flex flex-col">
-                        <div className={'flex flex-wrap gap-5 md:gap-y-6 md:gap-2.5 lg:gap-y-6 lg:gap-x-3'}>
+                        <div className={'flex flex-col lg:flex-row lg:flex-wrap lg:justify-between gap-[30] md:gap-y-6 md:gap-2.5 lg:gap-y-6 lg:gap-x-3'}>
                             {form.fields.map(renderMainField)}
                         </div>
 
-                        <div className={'flex flex-col gap-6 mt-6'}>
+                        <div className={'flex flex-col gap-[30] md:gap-6 mt-[30] md:mt-6'}>
                             {form.radioGroups?.map(renderRadioGroup)}
                         </div>
 
-                        <div className="mt-[50] relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+                        <div className="mt-[30] md:mt-[50] relative flex flex-col gap-[30] md:gap-6 md:flex-row md:items-center md:justify-between">
                             <div className={'relative pb-1'}>
                                 <label
-                                    className="flex cursor-pointer justify-center md:justify-start items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed">
+                                    className="flex flex-row-reverse justify-between md:flex-row cursor-pointer md:justify-start items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed">
                                 <span
                                     className={`mt-0.5 p-1 flex size-6 md:size-7 shrink-0 items-center justify-center rounded border transition-colors ${
                                         errors.consent
@@ -295,20 +287,20 @@ export default function ServiceContactForm({data}) {
                                         <Icon name={'square'} className={'size-5 md:size-6'} />
                                     )}
                                 </span>
-                                    <input
-                                        type="checkbox"
-                                        checked={consent}
-                                        onChange={handleConsentChange}
-                                        className="sr-only"
-                                    />
-                                    <span className={'inline-grid md:inline'}>
+                                <input
+                                    type="checkbox"
+                                    checked={consent}
+                                    onChange={handleConsentChange}
+                                    className="sr-only"
+                                />
+                                <span className={'inline'}>
                                     {form.consent.label}{" "}
-                                        <Link
-                                            href={form.consent.url}
+                                        <LegalLink
+                                            slug={form.consent.slug}
                                             className="pb-px border-b hover:opacity-60"
                                         >
                                         {form.consent.linkText}
-                                    </Link>
+                                    </LegalLink>
                                 </span>
 
                                 </label>
@@ -323,14 +315,12 @@ export default function ServiceContactForm({data}) {
                             </Button>
                         </div>
                     </div>
-
-                    {submitted && (
-                        <p className="mt-4 text-base text-primary">
-                            Спасибо! Заявка отправлена, мы скоро свяжемся с Вами.
-                        </p>
-                    )}
                 </form>
             </Container>
+            <FormSuccessOverlay
+                open={submitted}
+                onClose={() => setSubmitted(false)}
+            />
         </section>
     );
 }
