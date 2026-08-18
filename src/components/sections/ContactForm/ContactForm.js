@@ -1,21 +1,21 @@
 "use client";
 
-import {useState} from "react";
+import { useState } from "react";
 import Image from "next/image";
-import {AnimatePresence, motion} from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Icon from "@/components/icons/Icon";
 import Button from "@/components/ui/Button";
-import PhoneInput, {getCleanPhone} from "@/components/ui/PhoneInput";
+import PhoneInput, { getCleanPhone } from "@/components/ui/PhoneInput";
 import Select from "@/components/ui/Select";
 import FieldError from "@/components/ui/FieldError";
 import LegalLink from "@/components/ui/LegalLink";
-import {Container} from "@/components/Container";
+import { Container } from "@/components/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
-import {useMediaQuery} from "@/hooks/useMediaQuery";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
 
-function validate({name, phoneDigits, carBrand, timing, branch, consent}) {
+function validate({ name, phoneDigits, carBrand, timing, branch, consent }) {
     const errors = {};
 
     if (!name.trim()) {
@@ -47,8 +47,8 @@ function validate({name, phoneDigits, carBrand, timing, branch, consent}) {
     return errors;
 }
 
-export default function ContactForm({data}) {
-    const {title, backgroundImage, form} = data;
+export default function ContactForm({ data }) {
+    const { title, backgroundImage, form } = data;
 
     const [name, setName] = useState("");
     const [phoneDigits, setPhoneDigits] = useState("");
@@ -67,7 +67,7 @@ export default function ContactForm({data}) {
     const clearError = (field) => {
         setErrors((prev) => {
             if (!prev[field]) return prev;
-            const next = {...prev};
+            const next = { ...prev };
             delete next[field];
             return next;
         });
@@ -104,7 +104,7 @@ export default function ContactForm({data}) {
     };
 
     const handleExtraChange = (fieldName, value) => {
-        setExtraValues((prev) => ({...prev, [fieldName]: value}));
+        setExtraValues((prev) => ({ ...prev, [fieldName]: value }));
     };
 
     const handleSubmit = (e) => {
@@ -148,8 +148,7 @@ export default function ContactForm({data}) {
     };
 
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border bg-transparent text-foreground-fixed h-[44] md:h-[54] px-5 py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
-            hasError ? "border-primary" : "border-white/20 focus:border-foreground-fixed"
+        `w-full rounded-full border bg-transparent text-foreground-fixed h-[44] md:h-[54] px-5 py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${hasError ? "border-primary" : "border-white/20 focus:border-foreground-fixed"
         }`;
 
     const renderMainField = (field) => {
@@ -225,15 +224,14 @@ export default function ContactForm({data}) {
                                 className="flex cursor-pointer items-center gap-1.5 font-helvetica text-sm md:text-base text-foreground-fixed"
                             >
                                 <span
-                                    className={`flex size-5 md:size-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
-                                        hasError
+                                    className={`flex size-5 md:size-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${hasError
                                             ? "border-primary"
                                             : checked
                                                 ? "border-primary"
                                                 : "border-white/40"
-                                    }`}
+                                        }`}
                                 >
-                                    {checked && <span className="size-2.5 md:size-3.5 rounded-full bg-primary"/>}
+                                    {checked && <span className="size-2.5 md:size-3.5 rounded-full bg-primary" />}
                                 </span>
                                 <input
                                     type="radio"
@@ -351,24 +349,23 @@ export default function ContactForm({data}) {
                                                 <span>
                                                     <Icon
                                                         name="arrow-down"
-                                                        className={`size-7 shrink-0 text-primary transition-transform duration-300 ${
-                                                            extraOpen ? "rotate-180" : ""
-                                                        }`}
+                                                        className={`size-7 shrink-0 text-primary transition-transform duration-300 ${extraOpen ? "rotate-180" : ""
+                                                            }`}
                                                     />
                                                 </span>
-                                           </span>
+                                            </span>
                                         </button>
 
                                         <AnimatePresence initial={false}>
                                             {extraOpen && (
                                                 <motion.div
                                                     key="extra-fields"
-                                                    initial={{height: 0, opacity: 0}}
-                                                    animate={{height: "auto", opacity: 1}}
-                                                    exit={{height: 0, opacity: 0}}
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: "auto", opacity: 1 }}
+                                                    exit={{ height: 0, opacity: 0 }}
                                                     transition={{
-                                                        height: {duration: 0.3, ease: "easeInOut"},
-                                                        opacity: {duration: 0.2, ease: "easeOut"},
+                                                        height: { duration: 0.3, ease: "easeInOut" },
+                                                        opacity: { duration: 0.2, ease: "easeOut" },
                                                     }}
                                                     className="overflow-hidden"
                                                 >
@@ -392,12 +389,11 @@ export default function ContactForm({data}) {
                                                 <span>
                                                     <Icon
                                                         name="arrow-down"
-                                                        className={`size-7 shrink-0 text-primary transition-transform duration-300 ${
-                                                            extraOpen ? "rotate-180" : ""
-                                                        }`}
+                                                        className={`size-7 shrink-0 text-primary transition-transform duration-300 ${extraOpen ? "rotate-180" : ""
+                                                            }`}
                                                     />
                                                 </span>
-                                           </span>
+                                            </span>
                                         </button>
                                     </div>
                                 )}
@@ -408,19 +404,18 @@ export default function ContactForm({data}) {
                                 <div className={'relative pb-1'}>
                                     <label
                                         className="flex cursor-pointer justify-start items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed">
-                                <span
-                                    className={`mt-0.5 p-1 flex size-5 md:size-7 shrink-0 items-center justify-center rounded border transition-colors ${
-                                        errors.consent
-                                            ? "border-primary"
-                                            : consent
-                                                ? "border-primary bg-primary"
-                                                : "border-[#c4c4c4]"
-                                    }`}
-                                >
-                                    {consent && (
-                                        <Icon name={'square'} className={'size-5 md:size-6'}/>
-                                    )}
-                                </span>
+                                        <span
+                                            className={`mt-0.5 p-1 flex size-5 md:size-7 shrink-0 items-center justify-center rounded border transition-colors ${errors.consent
+                                                    ? "border-primary"
+                                                    : consent
+                                                        ? "border-primary bg-primary"
+                                                        : "border-[#c4c4c4]"
+                                                }`}
+                                        >
+                                            {consent && (
+                                                <Icon name={'square'} className={'size-5 md:size-6'} />
+                                            )}
+                                        </span>
                                         <input
                                             type="checkbox"
                                             checked={consent}
@@ -428,16 +423,16 @@ export default function ContactForm({data}) {
                                             className="sr-only"
                                         />
                                         <span>
-                                    <span className={'inline'}>
-                                        {form.consent.label}{" "}
-                                    </span>
+                                            <span className={'inline'}>
+                                                {form.consent.label}{" "}
+                                            </span>
                                             <LegalLink
                                                 slug={form.consent.slug}
                                                 className="pb-px border-b hover:text-primary"
                                             >
-                                        {form.consent.linkText}
-                                    </LegalLink>
-                                </span>
+                                                {form.consent.linkText}
+                                            </LegalLink>
+                                        </span>
 
                                     </label>
                                     <FieldError className="absolute bottom-[-20] left-0">
