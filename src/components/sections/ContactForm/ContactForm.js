@@ -225,10 +225,10 @@ export default function ContactForm({ data }) {
                             >
                                 <span
                                     className={`flex size-5 md:size-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${hasError
+                                        ? "border-primary"
+                                        : checked
                                             ? "border-primary"
-                                            : checked
-                                                ? "border-primary"
-                                                : "border-white/40"
+                                            : "border-white/40"
                                         }`}
                                 >
                                     {checked && <span className="size-2.5 md:size-3.5 rounded-full bg-primary" />}
@@ -295,7 +295,7 @@ export default function ContactForm({ data }) {
 
     return (
         <section className="relative isolate bg-background py-[50] lg:py-[100]">
-            <div className="absolute inset-x-0 top-0 -z-10 overflow-hidden h-[84vw] lg:inset-0 lg:h-auto">
+            <div className="absolute inset-x-0 top-0 -z-10 overflow-hidden h-[85vw] lg:inset-0 lg:h-auto">
                 <Image
                     src={backgroundImage.path}
                     alt={backgroundImage.alt}
@@ -406,10 +406,10 @@ export default function ContactForm({ data }) {
                                         className="flex cursor-pointer justify-start items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed">
                                         <span
                                             className={`mt-0.5 p-1 flex size-5 md:size-7 shrink-0 items-center justify-center rounded border transition-colors ${errors.consent
-                                                    ? "border-primary"
-                                                    : consent
-                                                        ? "border-primary bg-primary"
-                                                        : "border-[#c4c4c4]"
+                                                ? "border-primary"
+                                                : consent
+                                                    ? "border-primary bg-primary"
+                                                    : "border-[#c4c4c4]"
                                                 }`}
                                         >
                                             {consent && (
