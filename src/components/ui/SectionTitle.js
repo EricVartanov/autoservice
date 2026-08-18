@@ -47,7 +47,7 @@ export default function SectionTitle({
                     <div className="pointer-events-none absolute bottom-[-20] md:bottom-[-25] lg:bottom-0 left-1/2 z-[-1] flex w-screen -translate-x-1/2 justify-center overflow-x-clip lg:left-0 lg:right-0 lg:block lg:w-auto lg:translate-x-0 lg:overflow-visible">
                         <ShimmerText
                             as="h3"
-                            className={`py-2.5 md:pb-3 lg:pb-[1.4rem] whitespace-nowrap text-[58px] md:text-[120px] lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2 lg:text-[120px] leading-[0.8] font-bold font-heading tracking-tight ${titleBackPosition}`}
+                            className={`py-2.5 md:pb-3 lg:pb-[1.5rem] whitespace-nowrap text-[58px] md:text-[120px] lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2 lg:text-[120px] leading-[0.8] font-bold font-heading tracking-tight ${titleBackPosition}`}
                         >
                             {titleBack}
                         </ShimmerText>
