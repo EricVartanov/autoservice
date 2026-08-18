@@ -5,6 +5,7 @@ import {Container} from "@/components/Container";
 import Button from "@/components/ui/Button";
 import WaveTitle from "@/components/ui/WaveTitle";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import {mediaAlt, mediaUrl} from "@/lib/media";
 
 export default function SpecialOffer({data}) {
     const {image, highlightHtml, highlightMark, title, subtitle} = data
@@ -14,7 +15,7 @@ export default function SpecialOffer({data}) {
             <Container>
                 {/* фон */}
                 <div className="absolute inset-0">
-                    <Image src={image.path} alt={image.alt} fill sizes="100vw" priority
+                    <Image src={mediaUrl(image)} alt={mediaAlt(image)} fill sizes="100vw" priority
                            className={"object-cover"}/>
                     <div className="absolute inset-0 bg-black/40" />
                 </div>

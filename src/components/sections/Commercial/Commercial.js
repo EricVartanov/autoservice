@@ -13,6 +13,7 @@ import Link from "next/link";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
+import {mediaAlt, mediaUrl} from "@/lib/media";
 
 function validate({name, phoneDigits, carBrand}) {
     const errors = {};
@@ -151,7 +152,7 @@ export default function Commercial({data}) {
     return (
         <section className="relative py-[80] md:py-[90] lg:pt-[150] lg:pb-[60]">
             <div className="absolute inset-0 -z-10 overflow-hidden">
-                <Image src={backgroundImage.path} alt={backgroundImage.alt} fill className="object-cover"/>
+                <Image src={mediaUrl(backgroundImage)} alt={mediaAlt(backgroundImage)} fill className="object-cover"/>
                 <div className="absolute inset-0 bg-black/40" />
             </div>
 
@@ -180,7 +181,7 @@ export default function Commercial({data}) {
                     {limitations.map((item, i) => (
                         <div key={i} className="flex flex-col items-center text-center gap-3.5 max-w-[250px] lg:items-start lg:text-left">
                             <span className="shrink-0 size-[30] md:size-[50] rounded-full bg-primary flex items-center justify-center">
-                                <Image src={item.image} width={40} height={40} className="text-white size-[25] md:size-[40]" alt={item.alt}/>
+                                <Image src={mediaUrl(item.image)} width={40} height={40} className="text-white size-[25] md:size-[40]" alt={mediaAlt(item.image, item.alt)}/>
                             </span>
                             <p className="text-sm lg:text-lg font-helvetica text-foreground-fixed leading-tight whitespace-pre-line">
                                 {item.text}

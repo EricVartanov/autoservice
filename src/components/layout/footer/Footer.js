@@ -5,12 +5,13 @@ import Link from "next/link";
 import {usePathname} from "next/navigation";
 import {Container} from "@/components/Container";
 import LegalLink from "@/components/ui/LegalLink";
-import {mockFooter} from "@/lib/mock-data";
+import {mockFooter, mockBranches} from "@/lib/mock-data";
 import Icon from "@/components/icons/Icon";
 import {scrollToTop} from "@/lib/scrollToSection";
+import {mediaAlt, mediaUrl} from "@/lib/media";
 
 export default function Footer({data = mockFooter}) {
-    const {logo, logoDark, copyright, legal, branches, socials} = data;
+    const {logo, logoDark, copyright, legal, socials} = data;
     const pathname = usePathname();
     const isNews = pathname === '/news' || pathname.startsWith('/news/');
 
@@ -35,8 +36,8 @@ export default function Footer({data = mockFooter}) {
                     {logo && (
                         <>
                             <Image
-                                src={logo.path}
-                                alt={logo.alt}
+                                src={mediaUrl(logo)}
+                                alt={mediaAlt(logo)}
                                 width={420}
                                 height={160}
                                 loading="eager"
@@ -44,8 +45,8 @@ export default function Footer({data = mockFooter}) {
                             />
                             {logoDark && (
                                 <Image
-                                    src={logoDark.path}
-                                    alt={logoDark.alt}
+                                    src={mediaUrl(logoDark)}
+                                    alt={mediaAlt(logoDark)}
                                     width={420}
                                     height={160}
                                     loading="eager"
@@ -75,24 +76,24 @@ export default function Footer({data = mockFooter}) {
 
                     <div className="order-3 flex flex-wrap items-center justify-center gap-6 lg:order-none lg:justify-between lg:gap-8 xl:gap-[130]">
                         <div className={'flex flex-wrap items-center justify-center gap-2.5 lg:flex-nowrap lg:justify-start'}>
-                            {branches?.map((branch) => (
+                            {mockBranches.map((branch) => (
                                 <Link
-                                    key={branch.label}
-                                    href={branch.link}
+                                    key={branch.id}
+                                    href={branch.messenger.url}
                                     className="flex items-center gap-2 transition hover:text-foreground"
                                 >
-                                    {branch.logo && (
+                                    {branch.footerLogo && (
                                         <>
                                             <Image
-                                                src={branch.logo}
+                                                src={mediaUrl(branch.footerLogo)}
                                                 alt=""
                                                 width={30}
                                                 height={30}
                                                 className="size-5 md:size-7 shrink-0 dark:hidden"
                                             />
-                                            {branch.logoDark && (
+                                            {branch.footerLogoDark && (
                                                 <Image
-                                                    src={branch.logoDark}
+                                                    src={mediaUrl(branch.footerLogoDark)}
                                                     alt=""
                                                     width={30}
                                                     height={30}
@@ -101,7 +102,7 @@ export default function Footer({data = mockFooter}) {
                                             )}
                                         </>
                                     )}
-                                    <span className="underline underline-offset-2 lg:no-underline">{branch.label}</span>
+                                    <span className="underline underline-offset-2 lg:no-underline">{branch.shortName}</span>
                                 </Link>
                             ))}
                         </div>
@@ -116,16 +117,16 @@ export default function Footer({data = mockFooter}) {
                                 aria-label={social.alt || social.name}
                             >
                                 <Image
-                                    src={social.logo}
-                                    alt={social.alt || social.name}
+                                    src={mediaUrl(social.logo)}
+                                    alt={mediaAlt(social.logo, social.alt || social.name)}
                                     width={24}
                                     height={24}
                                     className="size-[30] md:size-6 dark:hidden"
                                 />
                                 {social.logoDark && (
                                     <Image
-                                        src={social.logoDark}
-                                        alt={social.alt || social.name}
+                                        src={mediaUrl(social.logoDark)}
+                                        alt={mediaAlt(social.logoDark, social.alt || social.name)}
                                         width={24}
                                         height={24}
                                         className="hidden size-[30] md:size-6 dark:block"

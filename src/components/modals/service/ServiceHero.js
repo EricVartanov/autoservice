@@ -9,6 +9,7 @@ import PhoneInput, {getCleanPhone} from '@/components/ui/PhoneInput';
 import Icon from '@/components/icons/Icon';
 import LegalLink from '@/components/ui/LegalLink';
 import FormSuccessOverlay from '@/components/ui/FormSuccessOverlay';
+import {mediaUrl} from '@/lib/media';
 
 function validate({name, phoneDigits, carBrand, consent}) {
     const errors = {};
@@ -141,7 +142,7 @@ export default function ServiceHero({data}) {
     return (
         <div className="relative overflow-hidden rounded-[20] md:rounded-[30]">
             <Image
-                src={heroImage}
+                src={mediaUrl(heroImage)}
                 alt={title}
                 fill
                 priority

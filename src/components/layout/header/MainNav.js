@@ -6,6 +6,7 @@ import Image from 'next/image';
 import {usePathname} from 'next/navigation';
 import {mockBranches} from '@/lib/mock-data';
 import {getHashId, scrollToSection} from '@/lib/scrollToSection';
+import {mediaAlt, mediaUrl} from '@/lib/media';
 
 function MenuToggleIcon({open}) {
     return (
@@ -94,8 +95,8 @@ export default function MainNav({data, isHome, collapsed}) {
             <div className="flex items-center justify-between lg:hidden">
                 <Link href="/">
                     <Image
-                        src={data.logo.path}
-                        alt={data.logo.alt}
+                        src={mediaUrl(data.logo)}
+                        alt={mediaAlt(data.logo)}
                         width={343}
                         height={122}
                         loading="eager"
@@ -112,8 +113,8 @@ export default function MainNav({data, isHome, collapsed}) {
                             aria-label={social.alt || social.name}
                         >
                             <Image
-                                src={social.logo}
-                                alt={social.alt}
+                                src={mediaUrl(social.logo)}
+                                alt={mediaAlt(social.logo, social.alt)}
                                 width={60}
                                 height={60}
                                 className="size-[30px]"
@@ -151,22 +152,22 @@ export default function MainNav({data, isHome, collapsed}) {
                                             </span>
                                         </a>
                                     ))}
-                                    {data.messengers.map((messenger) => (
+                                    {mockBranches.map((branch) => (
                                         <a
-                                            key={messenger.name}
-                                            href={messenger.url}
+                                            key={`msg-${branch.id}`}
+                                            href={branch.messenger.url}
                                             className="flex items-center gap-2.5 rounded-xl border border-white/10 px-3 py-2.5 transition hover:bg-white/5"
                                             onClick={() => setBranchesOpen(false)}
                                         >
                                             <Image
-                                                src={messenger.logo}
-                                                alt={messenger.alt}
+                                                src={mediaUrl(branch.messenger.logo)}
+                                                alt={mediaAlt(branch.messenger.logo, branch.messenger.alt)}
                                                 width={60}
                                                 height={60}
                                                 className="size-[24px]"
                                             />
                                             <span className="text-sm text-foreground-fixed">
-                                                {messenger.name}
+                                                {branch.shortName}
                                             </span>
                                         </a>
                                     ))}
@@ -223,22 +224,22 @@ export default function MainNav({data, isHome, collapsed}) {
                                                 </span>
                                             </a>
                                         ))}
-                                        {data.messengers.map((messenger) => (
+                                        {mockBranches.map((branch) => (
                                             <a
-                                                key={messenger.name}
-                                                href={messenger.url}
+                                                key={`msg-${branch.id}`}
+                                                href={branch.messenger.url}
                                                 className="flex items-center gap-2.5 rounded-xl border border-white/10 px-3 py-2.5 transition hover:bg-white/5"
                                                 onClick={closeMenu}
                                             >
                                                 <Image
-                                                    src={messenger.logo}
-                                                    alt={messenger.alt}
+                                                    src={mediaUrl(branch.messenger.logo)}
+                                                    alt={mediaAlt(branch.messenger.logo, branch.messenger.alt)}
                                                     width={60}
                                                     height={60}
                                                     className="size-[24px]"
                                                 />
                                                 <span className="text-sm text-foreground-fixed">
-                                                    {messenger.name}
+                                                    {branch.shortName}
                                                 </span>
                                             </a>
                                         ))}
@@ -264,8 +265,8 @@ export default function MainNav({data, isHome, collapsed}) {
                     aria-hidden={!(collapsed || !isHome)}
                 >
                     <Image
-                        src={data.logo.path}
-                        alt={data.logo.alt}
+                        src={mediaUrl(data.logo)}
+                        alt={mediaAlt(data.logo)}
                         width={343}
                         height={122}
                         loading="eager"
@@ -291,21 +292,21 @@ export default function MainNav({data, isHome, collapsed}) {
             {/* Desktop messengers + socials */}
             <div className="hidden items-center justify-center lg:gap-[90] lg:flex">
                 <div className="flex items-center gap-4">
-                    {data.messengers.map((messenger) => (
+                    {mockBranches.map((branch) => (
                         <a
-                            key={messenger.name}
-                            href={messenger.url}
+                            key={branch.id}
+                            href={branch.messenger.url}
                             className="flex items-center gap-2.5 transition hover:opacity-60"
                         >
                             <Image
-                                src={messenger.logo}
-                                alt={messenger.alt}
+                                src={mediaUrl(branch.messenger.logo)}
+                                alt={mediaAlt(branch.messenger.logo, branch.messenger.alt)}
                                 width={60}
                                 height={60}
                                 className="size-[30px]"
                             />
                             <span className="relative before:absolute before:bottom-[3] before:h-[1] before:w-full before:bg-foreground-fixed lg:text-base xl:text-lg">
-                                {messenger.name}
+                                {branch.shortName}
                             </span>
                         </a>
                     ))}
@@ -319,8 +320,8 @@ export default function MainNav({data, isHome, collapsed}) {
                             className="transition hover:opacity-60"
                         >
                             <Image
-                                src={social.logo}
-                                alt={social.alt}
+                                src={mediaUrl(social.logo)}
+                                alt={mediaAlt(social.logo, social.alt)}
                                 width={60}
                                 height={60}
                                 className="size-[30px]"

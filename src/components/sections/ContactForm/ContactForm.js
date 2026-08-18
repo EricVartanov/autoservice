@@ -14,6 +14,7 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
+import {mediaAlt, mediaUrl} from "@/lib/media";
 
 function validate({name, phoneDigits, carBrand, timing, branch, consent}) {
     const errors = {};
@@ -299,8 +300,8 @@ export default function ContactForm({data}) {
         <section className="relative isolate bg-background py-[50] lg:py-[100]">
             <div className="absolute inset-x-0 top-0 -z-10 overflow-hidden h-[84vw] lg:inset-0 lg:h-auto">
                 <Image
-                    src={backgroundImage.path}
-                    alt={backgroundImage.alt}
+                    src={mediaUrl(backgroundImage)}
+                    alt={mediaAlt(backgroundImage)}
                     fill
                     className="object-cover object-top"
                 />
