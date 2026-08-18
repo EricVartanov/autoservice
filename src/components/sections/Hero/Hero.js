@@ -73,7 +73,7 @@ export default function Hero({ data }) {
                 </Container>
             </div>
 
-            <div className="relative z-10 pt-[80] pb-[60] md:py-[50] lg:py-[60] bg-background-secondary">
+            <div className="relative z-10 py-[60] md:py-[50] lg:py-[60] bg-background-secondary">
                 <BrandsMarquee brands={brands} />
             </div>
         </section>
