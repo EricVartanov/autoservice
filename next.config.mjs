@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    output: 'export', //SSR выключен, удали чтоб вкл
+  /* config options here */
 };
 
 export default nextConfig;
