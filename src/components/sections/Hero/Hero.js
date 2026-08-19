@@ -44,7 +44,7 @@ export default function Hero({ data }) {
                             arrowsPlacement="stack"
                             swipeable={isMobile}
                             showArrows={!isMobile}
-                            className="w-full max-w-none lg:w-lg"
+                            className="w-[calc(100%+30px)] md:w-full -mx-3.75 px-3.75 md:px-0 md:mx-0 max-w-none lg:w-lg"
                         >
                             {({ index, direction }) => (
                                 <HeroSlideContent
@@ -73,7 +73,7 @@ export default function Hero({ data }) {
                 </Container>
             </div>
 
-            <div className="relative z-10 pt-[80] pb-[60] md:py-[50] lg:py-[60] bg-background-secondary">
+            <div className="relative z-10 py-[60] md:py-[50] lg:py-[60] bg-background-secondary">
                 <BrandsMarquee brands={brands} />
             </div>
         </section>

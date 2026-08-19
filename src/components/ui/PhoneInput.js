@@ -1,12 +1,11 @@
 // components/ui/PhoneInput.js
 "use client";
 
-import {useLayoutEffect, useRef, useState} from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
-const MASK = "+7(___)___-__-__";
-const SLOTS = [3, 4, 5, 7, 8, 9, 11, 12, 14, 15];
+const MASK = "+7 (___) ___-__-__";
+const SLOTS = [4, 5, 6, 9, 10, 11, 13, 14, 16, 17];
 const PREFIX_END = SLOTS[0];
-
 export function extractPhoneDigits(raw) {
     let digits = raw.replace(/\D/g, "");
     // код страны снимаем только если он реально в строке (+7/маска) или номер 11 цифр
@@ -50,7 +49,7 @@ export default function PhoneInput({
     value,
     onChange,
     className = "",
-    placeholder = "+7(098)465-95-05",
+    placeholder = "+7(999)999-99-99",
     onFocus,
     onBlur,
     ...props

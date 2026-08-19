@@ -67,7 +67,7 @@ export default function WaveTitle({
     }, [enabled, delay]);
 
     return (
-        <Tag ref={ref} className={`${className} leading-[1.2] font-medium`} {...rest}>
+        <Tag ref={ref} className={`${className} leading-none font-medium`} {...rest}>
             {withLineBreaks(children, breakClassName)}
         </Tag>
     );

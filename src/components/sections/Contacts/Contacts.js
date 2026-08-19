@@ -17,7 +17,7 @@ export default function Contacts({data, embedded = false}) {
                 <ScrollReveal className="relative z-20 left-auto top-0 mb-10 md:mb-[50] items-center flex justify-center lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:mb-0">
                     <a
                         href={`mailto:${email}`}
-                        className={`shadow-[0_0_20px_0_var(--color-btn-shadow)] cursor-pointer inline-flex items-center gap-2.5 rounded-full bg-background px-5 py-2.5 font-bold  ${embedded ? 'text-sm items-end' : 'text-base'} text-foreground transition hover:opacity-80`}
+                        className={`shadow-[0_0_20px_0_var(--color-btn-shadow)] cursor-pointer inline-flex items-center gap-2.5 rounded-full bg-background px-5 py-2.5 font-bold text-sm   ${embedded ? 'items-end' : ''} text-foreground transition hover:opacity-80`}
                     >
                         <Icon name="mail" className="size-6 shrink-0 text-foreground"/>
                         <span>{email}</span>
