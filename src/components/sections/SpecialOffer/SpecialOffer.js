@@ -5,16 +5,17 @@ import {Container} from "@/components/Container";
 import Button from "@/components/ui/Button";
 import WaveTitle from "@/components/ui/WaveTitle";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import {mediaAlt, mediaUrl} from "@/lib/media";
 
 export default function SpecialOffer({data}) {
-    const {image, highlightHtml, highlightMark, title, subtitle} = data
+    const {image, highlightHtml, highlightMark, title, subtitle, cta} = data
 
     return (
         <section className={'relative py-[60] md:py-[90] lg:py-[185]'}>
             <Container>
                 {/* фон */}
                 <div className="absolute inset-0">
-                    <Image src={image.path} alt={image.alt} fill sizes="100vw" priority
+                    <Image src={mediaUrl(image)} alt={mediaAlt(image)} fill sizes="100vw" priority
                            className={"object-cover"}/>
                     <div className="absolute inset-0 bg-black/40" />
                 </div>
@@ -48,7 +49,7 @@ export default function SpecialOffer({data}) {
                             </p>
                             <div className={'mt-10 md:mt-[60] lg:mt-10 text-center lg:text-left'}>
                                 <Button variant={'primary'}>
-                                    Подробнее
+                                    {cta?.label}
                                 </Button>
                             </div>
                         </ScrollReveal>

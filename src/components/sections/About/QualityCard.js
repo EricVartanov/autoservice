@@ -1,4 +1,5 @@
 import Image from "next/image";
+import {mediaAlt, mediaUrl} from "@/lib/media";
 
 export default function QualityCard({card}) {
     if (card.variant === "third") {
@@ -22,8 +23,8 @@ export default function QualityCard({card}) {
         return (
             <div className="relative px-5 py-6 md:p-10 border border-primary rounded-[30] overflow-hidden min-h-[300px] md:min-h-[360px] lg:min-h-[488px] flex flex-col justify-between">
                 <Image
-                    src={card.image}
-                    alt={card.title}
+                    src={mediaUrl(card.image)}
+                    alt={mediaAlt(card.image, card.title)}
                     width={1080}
                     height={601}
                     loading="eager"
@@ -51,8 +52,8 @@ export default function QualityCard({card}) {
     return (
         <div className="relative px-5 py-6 md:p-10 rounded-[30] overflow-hidden min-h-[300px] md:min-h-[360px] lg:min-h-[488px] flex flex-col justify-between">
             <Image
-                src={card.image}
-                alt={card.title}
+                src={mediaUrl(card.image)}
+                alt={mediaAlt(card.image, card.title)}
                 width={1080}
                 height={601}
                 loading="eager"

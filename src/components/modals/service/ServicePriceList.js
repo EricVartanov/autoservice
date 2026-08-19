@@ -2,6 +2,7 @@
 
 import {useState} from 'react';
 import Button from '@/components/ui/Button';
+import {site} from '@/lib/mock-data';
 
 const MOBILE_INITIAL_COUNT = 10;
 
@@ -41,7 +42,7 @@ export default function ServicePriceList({title, items, subtitle}) {
                         onClick={() => setExpanded(true)}
                         className="text-transparent-btn-text px-8 hover:bg-foreground-fixed hover:text-black"
                     >
-                        Показать еще
+                        {site.serviceModal.showMore}
                     </Button>
                 </div>
             )}

@@ -5,12 +5,13 @@ import {useState, useRef, useEffect, useCallback} from "react";
 import {createPortal} from "react-dom";
 import {motion, AnimatePresence} from "framer-motion";
 import Icon from "@/components/icons/Icon";
+import {site} from "@/lib/mock-data";
 
 export default function Select({
     options,
     value,
     onChange,
-    placeholder = "Выберите",
+    placeholder = site.labels.selectPlaceholder,
     className = "",
     error = false,
     errorClass = "border-primary",

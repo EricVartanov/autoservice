@@ -12,6 +12,8 @@ import Image from "next/image";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import Parallax from "@/components/ui/Parallax";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
+import {mediaAlt, mediaUrl} from "@/lib/media";
+import {site} from "@/lib/mock-data";
 
 const VISIBLE_COUNT = 7;
 
@@ -75,7 +77,7 @@ export default function Faq({data}) {
                                     rel="noopener noreferrer"
                                     className="rounded-full flex gap-2.5 w-full min-w-0 max-w-[253] lg:min-w-[253] lg:flex-none justify-center items-center bg-primary px-4 lg:px-7 py-3 text-sm md:text-lg font-helvetica text-foreground-fixed transition hover:opacity-90"
                                 >
-                                    <Image src={messenger.logo} width={30} height={30} alt={messenger.alt} className={'size-[30] text-foreground-fixed'}/>
+                                    <Image src={mediaUrl(messenger.logo)} width={30} height={30} alt={mediaAlt(messenger.logo, messenger.alt)} className={'size-[30] text-foreground-fixed'}/>
                                     {messenger.name}
                                 </a>
                             ))}
@@ -113,7 +115,7 @@ export default function Faq({data}) {
                                     onClick={handleShowAllToggle}
                                     className="text-transparent-btn-text min-h-10 px-12 hover:bg-foreground-fixed hover:text-black"
                                 >
-                                    {showAll ? "Свернуть" : (cta?.label ?? "Смотреть все")}
+                                    {showAll ? site.labels.collapse : (cta?.label ?? site.labels.showMore)}
                                 </Button>
                             </div>
                         )}

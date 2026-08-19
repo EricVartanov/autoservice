@@ -13,6 +13,8 @@ import BlurredCircle from "@/components/ui/blurredCircle";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import {scrollToElement} from "@/lib/scrollToSection";
+import {mediaAlt, mediaUrl} from "@/lib/media";
+import {site} from "@/lib/mock-data";
 
 const VISIBLE_COUNT = 4;
 
@@ -80,7 +82,7 @@ export default function Reviews({data}) {
                                         key={platform.id}
                                         className="size-[10vw] md:size-13.75 border-[3px] border-platforms-border overflow-hidden rounded-full bg-foreground-fixed flex items-center justify-center shadow-[-3px_4px_20px_0_rgba(0,0,0,0.25)]"
                                     >
-                                        <Image src={platform.logo} alt={platform.alt} width={55} height={55}/>
+                                        <Image src={mediaUrl(platform.logo)} alt={mediaAlt(platform.logo, platform.alt)} width={55} height={55}/>
                                     </span>
                                 ))}
                             </div>
@@ -158,7 +160,7 @@ export default function Reviews({data}) {
                                             <div className="flex items-center gap-2.5">
                                                 <div className="relative shrink-0 size-10 rounded-full overflow-hidden ">
                                                     <Image
-                                                        src={review.avatar}
+                                                        src={mediaUrl(review.avatar)}
                                                         alt={review.author}
                                                         width={40}
                                                         height={40}
@@ -198,7 +200,7 @@ export default function Reviews({data}) {
                             onClick={toggleShowAll}
                             className={'text-transparent-btn-text px-12 hover:bg-foreground-fixed hover:text-black'}
                         >
-                            {showAll ? "Свернуть" : (cta?.label ?? "Смотреть все")}
+                            {showAll ? site.labels.collapse : (cta?.label ?? site.labels.showMore)}
                         </Button>
                     </div>
                 )}

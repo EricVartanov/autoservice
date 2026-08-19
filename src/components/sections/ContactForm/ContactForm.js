@@ -14,38 +14,9 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
-
-function validate({ name, phoneDigits, carBrand, timing, branch, consent }) {
-    const errors = {};
-
-    if (!name.trim()) {
-        errors.name = "Введите имя";
-    } else if (name.trim().length < 2) {
-        errors.name = "Слишком короткое имя";
-    }
-
-    if (phoneDigits.length < 10) {
-        errors.phone = "Введите номер полностью";
-    }
-
-    if (!carBrand) {
-        errors.carBrand = "Выберите марку авто";
-    }
-
-    if (!timing) {
-        errors.timing = "Выберите срок обслуживания";
-    }
-
-    if (!branch) {
-        errors.branch = "Выберите филиал";
-    }
-
-    if (!consent) {
-        errors.consent = "Необходимо согласие";
-    }
-
-    return errors;
-}
+import {mediaAlt, mediaUrl} from "@/lib/media";
+import {collectFormErrors} from "@/lib/formValidation";
+import {site} from "@/lib/mock-data";
 
 export default function ContactForm({ data }) {
     const { title, backgroundImage, form } = data;
@@ -110,7 +81,7 @@ export default function ContactForm({ data }) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const validationErrors = validate({
+        const validationErrors = collectFormErrors(form.errors, {
             name,
             phoneDigits,
             carBrand,
@@ -297,8 +268,8 @@ export default function ContactForm({ data }) {
         <section className="relative isolate bg-background py-[50] lg:py-[100]">
             <div className="absolute inset-x-0 top-0 -z-10 overflow-hidden h-[84vw] lg:inset-0 lg:h-auto">
                 <Image
-                    src={backgroundImage.path}
-                    alt={backgroundImage.alt}
+                    src={mediaUrl(backgroundImage)}
+                    alt={mediaAlt(backgroundImage)}
                     fill
                     className="object-cover object-top"
                 />
@@ -344,7 +315,7 @@ export default function ContactForm({ data }) {
                                             </div>
                                             <span className={'hidden md:block items-center'}>
                                                 <span className={'text-primary text-xs md:hidden'}>
-                                                    {extraOpen ? 'Свернуть' : 'Развернуть'}
+                                                    {extraOpen ? site.labels.collapse : site.labels.expand}
                                                 </span>
                                                 <span>
                                                     <Icon
@@ -384,7 +355,7 @@ export default function ContactForm({ data }) {
                                         >
                                             <span className={'flex items-center'}>
                                                 <span className={'text-foreground-fixed dark:text-primary text-xs md:hidden'}>
-                                                    {extraOpen ? 'Свернуть' : 'Развернуть'}
+                                                    {extraOpen ? site.labels.collapse : site.labels.expand}
                                                 </span>
                                                 <span>
                                                     <Icon
@@ -450,6 +421,7 @@ export default function ContactForm({ data }) {
                         <FormSuccessOverlay
                             open={submitted}
                             onClose={() => setSubmitted(false)}
+                            message={form.successMessage}
                         />
                     </form>
                 </ScrollReveal>

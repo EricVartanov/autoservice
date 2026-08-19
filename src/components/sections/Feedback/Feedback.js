@@ -11,6 +11,8 @@ import LegalLink from "@/components/ui/LegalLink";
 import {Container} from "@/components/Container";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
+import {mediaAlt, mediaUrl} from "@/lib/media";
+import {collectFormErrors} from "@/lib/formValidation";
 
 const cardGradient =
     "bg-[radial-gradient(circle_at_top_left,rgba(200,0,0,1)_0%,rgba(0,0,0,0.8)_50%,rgba(0,0,0,0.8)_100%)]";
@@ -18,33 +20,8 @@ const cardGradient =
 const cardGradient2 =
     "bg-[radial-gradient(circle_at_bottom_center,rgba(200,0,0,1)_0%,rgba(150,0,0,1)_40%,rgba(0,0,0,0.8)_75%,rgba(0,0,0,0.8)_100%)]";
 
-
 const cardGradient3 =
     "bg-[linear-gradient(316deg,rgba(255,0,0,1)_0%,rgba(0,0,0,1)_100%)]";
-
-function validate({name, phoneDigits, branch, consent}) {
-    const errors = {};
-
-    if (!name.trim()) {
-        errors.name = "Введите имя";
-    } else if (name.trim().length < 2) {
-        errors.name = "Слишком короткое имя";
-    }
-
-    if (phoneDigits.length < 10) {
-        errors.phone = "Введите номер полностью";
-    }
-
-    if (!branch) {
-        errors.branch = "Выберите филиал";
-    }
-
-    if (!consent) {
-        errors.consent = "Необходимо согласие";
-    }
-
-    return errors;
-}
 
 export default function Feedback({data}) {
     const {intro, title, manager, tires, form} = data;
@@ -69,7 +46,7 @@ export default function Feedback({data}) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const validationErrors = validate({name, phoneDigits, branch, consent});
+        const validationErrors = collectFormErrors(form.errors, {name, phoneDigits, branch, consent});
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length > 0) {
@@ -278,6 +255,7 @@ export default function Feedback({data}) {
                         <FormSuccessOverlay
                             open={submitted}
                             onClose={() => setSubmitted(false)}
+                            message={form.successMessage}
                         />
                     </form>
 
@@ -289,8 +267,8 @@ export default function Feedback({data}) {
                         </p>
                         <div className="absolute w-[150] md:w-[250] lg:w-[410] z-10 right-0 md:right-[10%] lg:right-auto lg:left-1/2 lg:-translate-x-1/2 bottom-0 flex flex-1 items-end justify-center">
                             <Image
-                                src={manager.photo.path}
-                                alt={manager.photo.alt}
+                                src={mediaUrl(manager.photo)}
+                                alt={mediaAlt(manager.photo)}
                                 width={410}
                                 height={517}
                                 className="relative max-w-[410] z-10 h-auto w-full"
@@ -299,13 +277,13 @@ export default function Feedback({data}) {
                     </div>
                 </ScrollReveal>
             </Container>
-            {tires?.path && (
+            {mediaUrl(tires) && (
                 <div
                     className="pointer-events-none mx-auto z-30 relative md:absolute md:right-0 md:bottom-[-5%] lg:bottom-[-8%] w-full max-w-[240] md:max-w-[320] md:overflow-hidden lg:max-w-[620]"
                 >
                     <Image
-                        src={tires.path}
-                        alt={tires.alt || ""}
+                        src={mediaUrl(tires)}
+                        alt={mediaAlt(tires)}
                         width={750}
                         height={824}
                         className="h-auto w-[250] md:w-[140%] max-w-none md:-mr-[20%] lg:w-[125%] lg:-mr-[10%]"

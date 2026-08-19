@@ -3,6 +3,7 @@
 import {useState, useEffect, useCallback} from 'react';
 import {motion} from 'framer-motion';
 import Icon from '@/components/icons/Icon';
+import {site} from '@/lib/mock-data';
 
 const arrowBtnClass =
     'w-9 h-9 text-foreground-fixed hover:opacity-60 cursor-pointer';
@@ -91,14 +92,14 @@ export default function Slider({
                     <button
                         onClick={prev}
                         className={arrowBtnClass}
-                        aria-label="Предыдущий слайд"
+                        aria-label={site.labels.prevSlide}
                     >
                         <Icon name="arrow-left" className="w-8 h-8" />
                     </button>
                     <button
                         onClick={next}
                         className={arrowBtnClass}
-                        aria-label="Следующий слайд"
+                        aria-label={site.labels.nextSlide}
                     >
                         <Icon name="arrow-right" className="w-8 h-8" />
                     </button>
@@ -116,7 +117,7 @@ export default function Slider({
                                 ? 'hidden lg:block'
                                 : ''
                         } ${arrowBtnClass}`}
-                        aria-label="Предыдущий слайд"
+                        aria-label={site.labels.prevSlide}
                     >
                         <Icon name="arrow-left" className="w-8 h-8" />
                     </button>
@@ -127,7 +128,7 @@ export default function Slider({
                                 ? 'hidden lg:block'
                                 : ''
                         } ${arrowBtnClass}`}
-                        aria-label="Следующий слайд"
+                        aria-label={site.labels.nextSlide}
                     >
                         <Icon name="arrow-right" className="w-8 h-8" />
                     </button>
@@ -145,14 +146,14 @@ export default function Slider({
                     <button
                         onClick={prev}
                         className={arrowBtnClass}
-                        aria-label="Предыдущий слайд"
+                        aria-label={site.labels.prevSlide}
                     >
                         <Icon name="arrow-left" className="w-8 h-8" />
                     </button>
                     <button
                         onClick={next}
                         className={arrowBtnClass}
-                        aria-label="Следующий слайд"
+                        aria-label={site.labels.nextSlide}
                     >
                         <Icon name="arrow-right" className="w-8 h-8" />
                     </button>

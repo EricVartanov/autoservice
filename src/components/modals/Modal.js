@@ -6,6 +6,7 @@ import Icon from '@/components/icons/Icon';
 import {getLenis} from '@/lib/scrollToSection';
 import {InModalProvider} from '@/components/modals/InModalContext';
 import {useModalStore} from '../../../public/store/useModalStore';
+import {site} from '@/lib/mock-data';
 
 const PANEL = {
     default:
@@ -68,7 +69,7 @@ export default function Modal({isOpen, onClose, children, variant = 'default', s
                     <button
                         type="button"
                         onClick={onClose}
-                        aria-label="Закрыть"
+                        aria-label={site.labels.closeMenu}
                         className="absolute right-2.5 top-2.5 md:top-5 lg:top-10 md:right-10 lg:right-5 z-40 flex size-[40] md:size-[60] items-center justify-center text-foreground-fixed transition cursor-pointer"
                     >
                         <Icon name={'cross'} className={'size-[40] md:size-[60] text-foreground-fixed'}/>

@@ -1,14 +1,9 @@
 import Image from 'next/image';
-
-function resolveIcon(src) {
-    if (!src) return {url: '', alt: ''};
-    if (typeof src === 'string') return {url: src, alt: ''};
-    return {url: src.path ?? src.src ?? '', alt: src.alt ?? ''};
-}
+import {mediaAlt, mediaUrl} from '@/lib/media';
 
 export default function ServiceGlyph({src, alt = '', variant = 'filled'}) {
-    const resolved = resolveIcon(src);
-    const label = resolved.alt || alt;
+    const url = mediaUrl(src);
+    const label = mediaAlt(src, alt);
 
     const shell =
         variant === 'outline'
@@ -17,9 +12,9 @@ export default function ServiceGlyph({src, alt = '', variant = 'filled'}) {
 
     return (
         <span className={shell} role={label ? 'img' : undefined} aria-label={label || undefined}>
-            {resolved.url ? (
+            {url ? (
                 <Image
-                    src={resolved.url}
+                    src={url}
                     alt={label}
                     width={30}
                     height={30}

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import {mediaAlt, mediaUrl} from '@/lib/media';
 
 function formatDate(iso) {
     const [y, m, d] = iso.split('-');
@@ -6,7 +7,7 @@ function formatDate(iso) {
 }
 
 export default function NewsCard({item}) {
-    const photos = (item.images ?? []).slice(0, 2);
+    const photos = (item.gallery ?? item.images ?? []).slice(0, 2);
     const isPair = photos.length >= 2;
 
     return (
@@ -18,6 +19,12 @@ export default function NewsCard({item}) {
                     <time dateTime={item.date}>{formatDate(item.date)}</time>
                     {item.category && <span>{item.category}</span>}
                 </div>
+
+                {item.title && (
+                    <h2 className="font-heading text-xl font-medium leading-tight text-foreground md:text-3xl lg:text-[34px] lg:leading-none">
+                        {item.title}
+                    </h2>
+                )}
 
                 {photos.length > 0 && (
                     <div
@@ -31,8 +38,8 @@ export default function NewsCard({item}) {
                             className="relative aspect-video overflow-hidden rounded-2xl bg-background-secondary"
                         >
                             <Image
-                                src={photo.src}
-                                alt={photo.alt}
+                                src={mediaUrl(photo)}
+                                alt={mediaAlt(photo)}
                                 fill
                                 className="object-cover"
                                 sizes={
