@@ -383,13 +383,13 @@ export default function ContactForm({ data }) {
                                             aria-expanded={extraOpen}
                                         >
                                             <span className={'flex items-center'}>
-                                                <span className={'text-primary text-xs md:hidden'}>
+                                                <span className={'text-foreground-fixed dark:text-primary text-xs md:hidden'}>
                                                     {extraOpen ? 'Свернуть' : 'Развернуть'}
                                                 </span>
                                                 <span>
                                                     <Icon
                                                         name="arrow-down"
-                                                        className={`size-7 shrink-0 text-primary transition-transform duration-300 ${extraOpen ? "rotate-180" : ""
+                                                        className={`size-7 shrink-0 text-foreground-fixed dark:text-primary transition-transform duration-300 ${extraOpen ? "rotate-180" : ""
                                                             }`}
                                                     />
                                                 </span>
