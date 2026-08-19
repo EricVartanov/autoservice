@@ -44,7 +44,7 @@ export default function Hero({ data }) {
                             arrowsPlacement="stack"
                             swipeable={isMobile}
                             showArrows={!isMobile}
-                            className="w-full max-w-none lg:w-lg"
+                            className="w-[calc(100%+30px)] md:w-full -mx-3.75 px-3.75 md:px-0 md:mx-0 max-w-none lg:w-lg"
                         >
                             {({ index, direction }) => (
                                 <HeroSlideContent
