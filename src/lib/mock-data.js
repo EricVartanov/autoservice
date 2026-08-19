@@ -80,7 +80,7 @@ const sharedQuickForm = {
             name: 'phone',
             label: 'Ваш номер телефона',
             type: 'tel',
-            placeholder: '+7(999)999-99-99',
+            placeholder: '+7 (999) 999-99-99',
             required: true,
         },
         {
@@ -900,7 +900,7 @@ export const mockPage = {
                         name: 'phone',
                         label: 'Ваш номер телефона',
                         type: 'tel',
-                        placeholder: '+7(999)999-99-99',
+                        placeholder: '+7 (999) 999-99-99',
                         required: true
                     },
                     {
@@ -998,7 +998,7 @@ export const mockPage = {
                         name: 'phone',
                         label: 'Ваш номер телефона',
                         type: 'tel',
-                        placeholder: '+7(999)999-99-99',
+                        placeholder: '+7 (999) 999-99-99',
                         required: true,
                     },
                     {
@@ -1102,7 +1102,7 @@ export const mockPage = {
                         name: 'phone',
                         label: 'Ваш номер телефона',
                         type: 'tel',
-                        placeholder: '+7(999)999-99-99',
+                        placeholder: '+7 (999) 999-99-99',
                         required: true,
                     },
                 ],
