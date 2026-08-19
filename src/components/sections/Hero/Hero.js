@@ -33,7 +33,7 @@ export default function Hero({ data }) {
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20" />
                 </div>
 
-                <Container className="relative z-10 flex min-h-0 flex-1 flex-col justify-start lg:justify-center gap-5 lg:gap-20 xl:gap-32 pb-14 md:pb-0 pt-22 md:pt-40 lg:pt-35">
+                <Container className="relative z-10 flex min-h-0 flex-1 flex-col justify-start lg:justify-center gap-5 lg:gap-20 xl:gap-32 pb-14 md:pb-0 pt-30 md:pt-40 lg:pt-35">
                     <WaveTitle as="h1" className="relative font-heading font-bold text-foreground-fixed text-[25px] md:text-[clamp(24px,4.2vh,44px)] lg:text-[clamp(28px,6vh,72px)] whitespace-pre-line">
                         {title}
                     </WaveTitle>
