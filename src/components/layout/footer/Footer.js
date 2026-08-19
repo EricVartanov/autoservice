@@ -2,26 +2,26 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import {usePathname} from "next/navigation";
-import {Container} from "@/components/Container";
+import { usePathname } from "next/navigation";
+import { Container } from "@/components/Container";
 import LegalLink from "@/components/ui/LegalLink";
-import {mockFooter} from "@/lib/mock-data";
+import { mockFooter } from "@/lib/mock-data";
 import Icon from "@/components/icons/Icon";
-import {scrollToTop} from "@/lib/scrollToSection";
+import { scrollToTop } from "@/lib/scrollToSection";
 
-export default function Footer({data = mockFooter}) {
-    const {logo, logoDark, copyright, legal, branches, socials} = data;
+export default function Footer({ data = mockFooter }) {
+    const { logo, logoDark, copyright, legal, branches, socials } = data;
     const pathname = usePathname();
     const isNews = pathname === '/news' || pathname.startsWith('/news/');
 
     return (
         <footer
-            className={`relative z-10 pb-[30] md:pb-20 ${
-                isNews ? 'bg-background' : 'bg-background-secondary'
-            }`}
+            className={`relative z-10 pb-[30] md:pb-20 ${isNews ? 'bg-background' : 'bg-background-secondary'
+                }`}
         >
             <Container className={'relative'}>
-                <div className="absolute right-5 md:right-20 lg:right-10 bottom-0 lg:top-1/2 lg:-translate-y-1/2 z-50">
+                <div className="absolute right-5 md:right-20 lg:right-10  bottom-0
+    [@media(min-width:365px)]:bottom-12.5 md:bottom-0 lg:top-1/2 lg:-translate-y-1/2 z-50">
                     <button
                         type="button"
                         aria-label="Наверх"
