@@ -10,30 +10,7 @@ import Icon from '@/components/icons/Icon';
 import LegalLink from '@/components/ui/LegalLink';
 import FormSuccessOverlay from '@/components/ui/FormSuccessOverlay';
 import {mediaUrl} from '@/lib/media';
-
-function validate({name, phoneDigits, carBrand, consent}) {
-    const errors = {};
-
-    if (!name.trim()) {
-        errors.name = 'Введите имя';
-    } else if (name.trim().length < 2) {
-        errors.name = 'Слишком короткое имя';
-    }
-
-    if (phoneDigits.length < 10) {
-        errors.phone = 'Введите номер полностью';
-    }
-
-    if (!carBrand) {
-        errors.carBrand = 'Выберите марку авто';
-    }
-
-    if (!consent) {
-        errors.consent = 'Необходимо согласие';
-    }
-
-    return errors;
-}
+import {collectFormErrors} from '@/lib/formValidation';
 
 export default function ServiceHero({data}) {
     const {mark, title, description, heroImage, quickForm} = data;
@@ -57,7 +34,7 @@ export default function ServiceHero({data}) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const validationErrors = validate({name, phoneDigits, carBrand, consent});
+        const validationErrors = collectFormErrors(quickForm.errors, {name, phoneDigits, carBrand, consent});
         setErrors(validationErrors);
         if (Object.keys(validationErrors).length > 0) return;
 
@@ -219,6 +196,7 @@ export default function ServiceHero({data}) {
                 <FormSuccessOverlay
                     open={submitted}
                     onClose={() => setSubmitted(false)}
+                    message={quickForm.successMessage}
                 />
             </div>
         </div>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import {usePathname} from "next/navigation";
 import {Container} from "@/components/Container";
 import LegalLink from "@/components/ui/LegalLink";
-import {mockFooter, mockBranches} from "@/lib/mock-data";
+import {mockFooter, mockBranches, site} from "@/lib/mock-data";
 import Icon from "@/components/icons/Icon";
 import {scrollToTop} from "@/lib/scrollToSection";
 import {mediaAlt, mediaUrl} from "@/lib/media";
@@ -25,7 +25,7 @@ export default function Footer({data = mockFooter}) {
                 <div className="absolute right-5 md:right-20 lg:right-10 bottom-0 lg:top-1/2 lg:-translate-y-1/2 z-50">
                     <button
                         type="button"
-                        aria-label="Наверх"
+                        aria-label={site.labels.backToTop}
                         onClick={() => scrollToTop()}
                         className="flex size-10 md:size-[40] lg:size-[54] cursor-pointer items-center justify-center rounded-full bg-primary text-foreground-fixed dark:bg-white dark:text-black"
                     >

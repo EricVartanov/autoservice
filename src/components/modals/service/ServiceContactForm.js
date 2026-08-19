@@ -12,38 +12,7 @@ import {Container} from "@/components/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
-
-function validate({name, phoneDigits, carBrand, timing, branch, consent}) {
-    const errors = {};
-
-    if (!name.trim()) {
-        errors.name = "Введите имя";
-    } else if (name.trim().length < 2) {
-        errors.name = "Слишком короткое имя";
-    }
-
-    if (phoneDigits.length < 10) {
-        errors.phone = "Введите номер полностью";
-    }
-
-    if (!carBrand) {
-        errors.carBrand = "Выберите марку авто";
-    }
-
-    if (!timing) {
-        errors.timing = "Выберите срок обслуживания";
-    }
-
-    if (!branch) {
-        errors.branch = "Выберите филиал";
-    }
-
-    if (!consent) {
-        errors.consent = "Необходимо согласие";
-    }
-
-    return errors;
-}
+import {collectFormErrors} from "@/lib/formValidation";
 
 export default function ServiceContactForm({data}) {
     const {title, backgroundImage, form} = data;
@@ -101,7 +70,7 @@ export default function ServiceContactForm({data}) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const validationErrors = validate({
+        const validationErrors = collectFormErrors(form.errors, {
             name,
             phoneDigits,
             carBrand,
@@ -320,6 +289,7 @@ export default function ServiceContactForm({data}) {
             <FormSuccessOverlay
                 open={submitted}
                 onClose={() => setSubmitted(false)}
+                message={form.successMessage}
             />
         </section>
     );

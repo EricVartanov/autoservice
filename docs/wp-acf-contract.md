@@ -1,199 +1,250 @@
 # Контракт контента: Next.js ↔ WP + ACF
 
-Живой JS-канон лежит в `src/content/`. Этот документ — спецификация полей WordPress 1:1 к нему. Подключение WPGraphQL/REST и mapper `mapWpPage` — отдельный шаг.
+Живой JS-канон: `src/content/`. Всё, что видит пользователь (заголовки, формы, кнопки, ошибки, SEO, aria-подписи), приходит из WP. Код знает только технические ключи.
 
-Канон картинки на фронте: `{ url, alt }`. ACF Image отдаёт объект media; mapper кладёт `url` + `alt`. Хелпер `mediaUrl()` / `mediaAlt()` в `src/lib/media.js` принимает и legacy `{ path }`, `{ src }`, и строку.
+Канон картинки: `{ url, alt }`. Хелпер `mediaUrl()` / `mediaAlt()` в `src/lib/media.js`.
+
+Mapper `mapWpPage` / WPGraphQL — отдельный шаг. Он собирает именованные ACF-группы в уже существующий JS-shape (`form.fields[]`, `section.type`, …).
+
+---
+
+## Что в WP, что в коде
+
+**В WP (Options / CPT / Flexible Content)** — весь копирайт: seo, меню, лейблы UI, согласие, тексты ошибок и успеха, лейблы/плейсхолдеры форм, заголовки модалки услуги, секции главной, записи услуг/новостей/акций/филиалов/legal.
+
+**В коде (не редактируется)** — ключи контракта:
+
+- `fields[].name` и `type` как enum (`name`, `phone`, `carBrand`, `vin`, `partName`)
+- `radio.value` (`today`, `week`, `month`, `other`; филиал = `branch.slug`)
+- `section.type`, `LANDING_SECTIONS` (id / theme / className)
+- логика валидации (`src/lib/formValidation.js`)
+
+Не делать в ACF repeater полей со свободным текстовым `name` — редактор сломает `phone`. Формы — **именованные группы**. Mapper собирает `form.fields[]` для текущих компонентов.
 
 ---
 
 ## Options page `site`
 
-Группа полей сайта (ACF Options). Соответствует `src/content/site.js`.
+Соответствует `src/content/site.js` → объект `site`.
 
-| ACF field | Type | JS |
-|---|---|---|
-| `logo` | Image | `mockHeader.logo` |
-| `logo_dark` | Image | не в хедере; футер: `mockFooter.logoDark` |
-| `footer_logo` | Image | `mockFooter.logo` |
-| `copyright` | Text | `mockFooter.copyright` |
-| `menu` | Repeater | `mockHeader.menu[]` |
-| `menu.label` | Text | |
-| `menu.link` | URL / Text | `/#about`, `/news` |
-| `socials` | Repeater | `mockHeader.socials[]` / `mockFooter.socials[]` |
-| `socials.name` | Text | `vk` |
-| `socials.url` | URL | |
-| `socials.logo` | Image | светлая / цветная |
-| `socials.logo_dark` | Image | для футера |
-| `legal` | Repeater (relationship на legal-страницы) | `mockFooter.legal[]` `{ label, slug }` |
+### SEO
 
-Мессенджеры и филиалы в Options **не дублировать** — они живут в CPT `branch`.
+| ACF | JS |
+|---|---|
+| `seo_title` | `site.seo.title` |
+| `seo_description` | `site.seo.description` |
+
+### Header / footer
+
+| ACF | JS |
+|---|---|
+| `logo` | `site.header.logo` |
+| `menu` repeater (`label`, `link`) | `site.header.menu[]` |
+| `socials` repeater (`name`, `url`, `logo`, `logo_dark`) | header + footer socials |
+| `footer_logo` / `footer_logo_dark` | `site.footer.logo` / `logoDark` |
+| `copyright` | `site.footer.copyright` |
+| `legal` relationship на legal-страницы | `site.footer.legal[]` `{ label, slug }` |
+
+Мессенджеры и филиалы здесь **не дублировать** — CPT `branch`.
+
+### Labels (все UI-подписи)
+
+`site.labels` — одна группа:
+
+| key | пример |
+|---|---|
+| `branches` | Филиалы |
+| `open_menu` / `close_menu` | Открыть / Закрыть меню |
+| `back_to_top` | Наверх |
+| `show_more` | Показать еще |
+| `collapse` / `expand` | Свернуть / Развернуть |
+| `more_details` | Подробнее |
+| `legal_updated` | Дата последнего обновления |
+| `theme_toggle` | Переключить тему |
+| `prev_slide` / `next_slide` | слайдер |
+| `news_pagination` / `prev_page` / `next_page` | пагинация новостей |
+| `select_placeholder` | Выберите |
+
+### Call modal / consent / формы (общие)
+
+| ACF | JS |
+|---|---|
+| `call_modal_title` | `site.callModal.title` |
+| `consent` group (`label`, `link_text`, relationship legal) | `site.consent` |
+| `form_success_message` | `site.formSuccess.message` |
+| `form_errors` group | `site.formErrors` (`nameRequired`, `nameShort`, `phone`, `carBrand`, `timing`, `branch`, `consent`) |
+
+Consent и ошибки **один раз** в Options. Формы только ссылаются на них (в моках: `forms.*.consent` / `errors` / `successMessage`).
+
+### `service_modal`
+
+Обвязка модалки услуги — не поля каждой записи CPT:
+
+| ACF | JS |
+|---|---|
+| `mark` | `site.serviceModal.mark` |
+| `benefits_title` | `benefitsTitle` |
+| `symptoms_title` | `symptomsTitle` |
+| `popular_title` | `popularTitle` |
+| `price_list_title` | `priceListTitle` |
+| `price_list_subtitle` | `priceListSubTitle` |
+| `card_cta` | кнопка на карточке услуги |
+| `show_more` | прайс в модалке |
+| связь с `forms.quick` | `forms.quick` |
+
+`toServiceDetail()` только мёржит Options + запись CPT.
+
+### Forms (именованные группы)
+
+`src/content/forms.js` → `forms.quick | commercial | contact | feedback`.
+
+Каждая группа:
+
+- поля с **фиксированными ключами**: `name_label`, `name_placeholder`, `name_required`, то же для `phone`, `car_brand` (options ← brands)
+- `submit_label`
+- **не** repeater со свободным `name`
+
+Дополнительно:
+
+| форма | поля |
+|---|---|
+| `contact` | `timing_label` + repeater **подписей** с фиксированными value (`today/week/month/other`); `branch_label` (+ option «не имеет значения»); `extra_title`; `vin_*`; `part_name_*` + repeater строк запчастей |
+| `feedback` | `branch_label`; `message_label`, `message_hint`, `message_placeholder` |
+| `quick` / `commercial` | только name / phone / carBrand / submit |
+
+Опции марок и филиалов — relationship / из CPT, не ручной дубль списка.
+
+На фронте mapper собирает привычный `fields[]` / `radioGroups[]`. Компоненты уже едят этот shape.
 
 ---
 
 ## CPT `branch`
 
-Соответствует `src/content/branches.js` → `mockBranches`.
+`src/content/branches.js`
 
-| ACF field | Type | JS |
-|---|---|---|
-| (WP title) | | `name` («Филиал 1») |
-| `slug` | native | `dorozhnaya`, `maya` |
-| `title` | Text | улица: «2-я Дорожная» |
-| `short_name` | Text | `ф-л 2-я Дорожная` |
-| `form_label` | Text | подпись в радио форм |
-| `work_hours` | Text | |
-| `address` | Textarea | допускает `\n` |
-| `phone` | Text | |
-| `panorama_url` | URL | |
-| `map_url` | URL | |
-| `marker_x` / `marker_y` | Number | пины на карте |
-| `messenger_url` | URL | Max / мессенджер филиала |
-| `messenger_logo` | Image | |
-| `footer_logo` | Image | |
-| `footer_logo_dark` | Image | |
+| ACF | JS |
+|---|---|
+| WP title | `name` |
+| slug | `dorozhnaya`, `maya` |
+| `title`, `short_name`, `form_label` | |
+| `work_hours`, `address`, `phone` | |
+| `panorama_url`, `map_url`, `marker_x/y` | |
+| `messenger_url`, `messenger_logo` | |
+| `footer_logo`, `footer_logo_dark` | |
 
-Фронт собирает messengers шапки/FAQ из `branch.messenger`. Формы берут `slug` + `formLabel`.
+Шапка / FAQ messengers и футер-ссылки собираются из филиалов. Радио форм — `slug` + `form_label`.
 
 ---
 
 ## CPT `service`
 
-Одна запись = карточка на главной **и** деталка модалки. `src/content/services.js`.
+Только уникальный контент записи. Обвязка — Options `service_modal`.
 
-| ACF field | Type | JS |
-|---|---|---|
-| title / slug | native | `title`, `slug` |
-| `price` | Text | «от 1100 руб.» |
-| `image` | Image | карточка секции |
-| `hero_image` | Image | фон модалки |
-| `description` | Textarea | |
-| `benefits` | Repeater | `{ icon, text }` |
-| `benefits.icon` | Select (набор иконок) или Image | |
-| `benefits.text` | Text | |
-| `symptoms` | Repeater | как benefits |
-| `trust` | Group | |
-| `trust.image` | Image | |
-| `trust.title` | Text | |
-| `trust.text` | Textarea | |
-| `popular` | Repeater | `{ title, price, image }` |
-| `price_list` | Repeater | `{ title, price }` |
+| ACF | JS |
+|---|---|
+| title / slug | |
+| `price` | |
+| `image` | карточка |
+| `hero_image` | фон модалки |
+| `description` | |
+| `benefits` / `symptoms` repeater `{ icon, text }` | icon = select набора или Image |
+| `trust` group (image, title, text) | |
+| `popular` repeater (title, price, image) | |
+| `price_list` repeater (title, price) | |
 
-Секция главной `services.services` — relationship на этот CPT, на фронте режется до `{ slug, title, price, image }`.
-
-Тексты обвязки модалки (`mark`, `benefitsTitle`, `quickForm`) — константы фронта, не поля ACF.
+Секция главной: relationship на `service`, на фронте карточка `{ slug, title, price, image }`.
 
 ---
 
 ## CPT `news` + taxonomy `news_category`
 
-`src/content/news.js`.
-
 | WP / ACF | JS |
 |---|---|
-| title, slug, date | `title`, `slug`, `date` (ISO) |
-| taxonomy `news_category` | `category` (строка в моках) |
-| `gallery` | Image gallery → `gallery[]` `{ url, alt }` |
-| content (WYSIWYG / Gutenberg) | на фронте пока `paragraphs[]`; mapper позже режет HTML на абзацы |
+| title, slug, date | |
+| taxonomy | `category` |
+| `gallery` | `gallery[]` `{ url, alt }` |
+| content WYSIWYG | на фронте `paragraphs[]`; mapper режет HTML |
+
+### Страница «Новости» (page ACF)
+
+`src/content/news.js` → `newsPage`:
+
+| ACF | JS |
+|---|---|
+| `title` | H1 |
+| `empty` | шаблон с `{year}` |
+| `seo_title` / `seo_description` | |
+| `page_size` | |
 
 ---
 
 ## CPT `offer`
 
-`src/content/offers.js`.
-
-| ACF field | Type | JS |
-|---|---|---|
-| title / slug | native | |
-| `badge` | Text | «Акция» |
-| `until` | Date | ISO `YYYY-MM-DD`; UI форматирует в `dd.mm.yy` |
-| `image` | Image | |
-| `disclaimer` | Textarea | |
-| `cta_label` | Text | |
+| ACF | JS |
+|---|---|
+| title / slug | |
+| `badge` | |
+| `until` | Date ISO; UI → `dd.mm.yy` |
+| `image` | |
+| `disclaimer` | |
+| `cta_label` | |
 
 ---
 
 ## Страницы `legal`
 
-Не CPT, обычные Pages (или CPT `legal` с 2 записями).
-
-| slug | JS |
-|---|---|
-| `privacy` | Политика конфиденциальности |
-| `personal-data` | Согласие на обработку перс. данных |
-
-Поля: `title`, `updated_at` (Date), `html` (WYSIWYG). Футер ссылается relationship / slug.
+Pages (или CPT) со slug `privacy`, `personal-data`. Поля: title, `updated_at`, WYSIWYG. Футер — relationship.
 
 ---
 
 ## Главная: Flexible Content `sections`
 
-Layouts 1:1 к `section.type` в `src/app/page.js` / `src/content/home.js`.
+Layouts 1:1 к `type` в `src/content/home.js` / `src/app/page.js`.
 
-В layout — только тексты блока, CTA, декора. Списки сущностей — relationship, не вложенный дубль.
+В layout — тексты блока. Списки сущностей — relationship, не вложенный дубль.
 
-| layout (`type`) | Поля layout | Relationship / источник |
+| layout | Поля layout | Источник списков |
 |---|---|---|
-| `hero` | `title`, `background_video`, `slides[]` (title, text), `stats[]`, `cta` | `brands` → Options repeater или taxonomy; сейчас `src/content/brands.js` |
-| `about` | `title`, `title_back`, `subtitle`, 3 named groups карточек, `stats[]` | карточки не CPT; `variant` не свободный ввод — три group: first / second / third |
-| `services` | `title`, `title_back`, `mark` | relationship `service` |
-| `steps` | `title`, `mark`, `steps[]` (title, text), `images[]` | `number` (`01`) считает фронт из индекса, в ACF не хранить |
-| `team` | `mark`, `title`, `title_back`, `highlight_html`, `subtitle`, `image` | |
-| `specialOffer` | `title` (2 строки или textarea), `subtitle`, `highlight_html`, `highlight_mark`, `image` | |
-| `reviews` | `mark`, `title`, `title_back`, `summary`, `platforms[]` (фильтр), `cta` | `items` — CPT `review` **или** внешние виджеты (см. ниже) |
-| `commercial` | `mark`, `title`, `subtitle`, `cta`, `background_image`, `limitations[]` | опции марки авто — из brands |
-| `faq` | `mark`, `title`, `cta`, `items[]` (question, answer) | messengers ← CPT `branch` |
-| `contact_form` | `title`, `background_image`, копирайт согласия | схема полей формы **не** в ACF; `branch` options ← CPT `branch`; `carBrand` options ← brands |
-| `contacts` | `email`, `map_image` | `branches` ← все записи CPT `branch` |
-| `feedback` | `intro`, `title`, `manager` (title, photo), `tires` | то же про форму |
+| `hero` | title, video, slides[], stats[], cta | brands — Options repeater / taxonomy |
+| `about` | title, title_back, subtitle, 3 named groups карточек, stats[] | `variant` не свободный ввод — три group |
+| `services` | title, title_back, mark | relationship `service` |
+| `steps` | title, mark, steps[] (title, text), images[] | номер шага считает фронт |
+| `team` | mark, title, title_back, highlight_html, subtitle, image | |
+| `specialOffer` | title, subtitle, highlight_html, highlight_mark, image, **cta.label** | |
+| `reviews` | mark, title, title_back, summary, platforms[], cta | items — CPT `review` или виджеты |
+| `commercial` | mark, title, subtitle, cta, background, limitations[] | `forms.commercial` |
+| `faq` | mark, title, cta, items[] | messengers ← `branch` |
+| `contact_form` | title, background | `forms.contact` |
+| `contacts` | email, map_image | все `branch` |
+| `feedback` | intro, title, manager, tires | `forms.feedback` |
 
-`LANDING_SECTIONS` (id, theme, className) в `src/app/page.js` — только фронт, в CMS не класть.
-
----
-
-## Формы
-
-Схема (`name`, `type`, `required`, структура radio/extra) остаётся в `src/content/forms.js`.
-
-Из CMS допустимо:
-
-- подписи, плейсхолдеры, `submit_label`, текст согласия (`label`, `link_text`, slug legal);
-- опции селектов, которые являются сущностями: марки (`brands`), филиалы (`branch.slug` + `form_label`), список запчастей (опциональный repeater Options).
-
-Не класть в ACF repeater «поле формы» с произвольным `name` — редактор сломает `phone` / `carBrand`.
+`LANDING_SECTIONS` (id, theme, className) — только фронт.
 
 ---
 
-## Отзывы: два пути
+## Отзывы
 
-В моках `reviews.items[]` — shape CPT:
+Shape CPT: `{ id, branchId, platform, author, avatar, rating, text }`.
 
-```
-{ id, branchId, platform, author, avatar, rating, text }
-```
+1. CPT `review` + relationship на филиал + select площадки; summary в layout секции.
+2. Внешние виджеты — в ACF только summary и ссылки.
 
-`branchId` → CPT `branch`. `platform` ∈ `yandex` | `2gis` | `google`.
-
-На проде выбрать одно:
-
-1. **CPT `review`** — ручная модерация, поля как в моках, relationship на филиал, select площадки. Summary (счётчик, логотипы) остаётся в layout секции.
-2. **Внешние виджеты** Яндекс / 2ГИС / Google — в ACF только `summary` и ссылки на виджеты; `items` с фронта не рендерить из WP.
-
-Не смешивать ручной ввод и API в одном repeater на главной.
+Не смешивать в одном repeater.
 
 ---
 
 ## Что не класть в ACF
 
-- Схема полей форм (`fields[].name/type/required`)
-- `LANDING_SECTIONS` (id, theme, className)
-- Номера шагов (`01` … `05`) — индекс repeater
-- Свободный `variant` about-карточек (только три фиксированных group)
-- Дубли title/price/image услуги в секции главной
-- Дубли филиалов в header / footer / FAQ / формах
-- HTML-обёртки ради акцента, если позже вынесут `highlight_html` в два поля — сейчас поле WYSIWYG/Text с `<span>` допустимо как в моках
+- свободный `fields[].name` (конструктор форм)
+- `LANDING_SECTIONS` (id / theme / className)
+- номера шагов (`01`)
+- `variant` about как произвольный текст (три фиксированных group)
+- дубли title/price/image услуги в секции главной
+- дубли филиалов в header / footer / FAQ / формах
+- дубли consent / form_errors на каждой форме — только Options
 
 ---
 
-## Mapper (следующий шаг, не в этом репозитории)
+## Mapper (следующий шаг)
 
-`mapWpPage(acf) → { sections: [...] }` приводит ответ WP к текущему JS-shape секций. Компоненты не должны знать про `acf.flexible_content[].acf_fc_layout`. Картинки нормализовать в `{ url, alt }` до компонентов.
+`mapWpPage(acf) → { sections, site, forms, … }` приводит ответ WP к JS-shape. Компоненты не знают `acf_fc_layout`. Картинки → `{ url, alt }` до UI.

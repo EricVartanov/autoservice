@@ -2,14 +2,14 @@
 
 import {useEffect, useRef} from "react";
 import {AnimatePresence, motion, useReducedMotion} from "framer-motion";
+import {site} from '@/lib/mock-data';
 
-const DEFAULT_MESSAGE = "Спасибо! Заявка отправлена, мы скоро свяжемся с Вами.";
 const DEFAULT_DURATION = 4500;
 
 export default function FormSuccessOverlay({
     open,
     onClose,
-    message = DEFAULT_MESSAGE,
+    message = site.formSuccess.message,
     duration = DEFAULT_DURATION,
 }) {
     const reduceMotion = useReducedMotion();

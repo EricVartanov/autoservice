@@ -1,4 +1,6 @@
 export {
+    site,
+    forms,
     mockHeader,
     mockFooter,
     mockBranches,
@@ -6,6 +8,7 @@ export {
     getServiceDetail,
     mockPage,
     getMockSection,
+    newsPage,
     NEWS_PAGE_SIZE,
     mockOffers,
     mockNews,

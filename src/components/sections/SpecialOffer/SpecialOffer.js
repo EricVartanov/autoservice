@@ -8,7 +8,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import {mediaAlt, mediaUrl} from "@/lib/media";
 
 export default function SpecialOffer({data}) {
-    const {image, highlightHtml, highlightMark, title, subtitle} = data
+    const {image, highlightHtml, highlightMark, title, subtitle, cta} = data
 
     return (
         <section className={'relative py-[60] md:py-[90] lg:py-[185]'}>
@@ -49,7 +49,7 @@ export default function SpecialOffer({data}) {
                             </p>
                             <div className={'mt-10 md:mt-[60] lg:mt-10 text-center lg:text-left'}>
                                 <Button variant={'primary'}>
-                                    Подробнее
+                                    {cta?.label}
                                 </Button>
                             </div>
                         </ScrollReveal>

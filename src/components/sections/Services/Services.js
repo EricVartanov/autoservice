@@ -9,6 +9,7 @@ import Icon from "@/components/icons/Icon";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import Parallax from "@/components/ui/Parallax";
+import {site} from "@/lib/mock-data";
 
 const INITIAL_COUNT = 8;
 const LOAD_STEP = 4;
@@ -48,7 +49,7 @@ export default function Services({data}) {
                             onClick={() => setVisibleCount((c) => c + LOAD_STEP)}
                             className={'text-transparent-btn-text px-8 md:px-12 hover:bg-foreground-fixed hover:text-black'}
                         >
-                            Показать еще
+                            {site.labels.showMore}
                         </Button>
                     </div>
                 )}

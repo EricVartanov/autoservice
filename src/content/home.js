@@ -2,7 +2,7 @@ import {img} from '@/lib/media';
 import {mockBranches, branchMessengers} from '@/content/branches';
 import {brands} from '@/content/brands';
 import {services, toServiceCard} from '@/content/services';
-import {commercialForm, contactForm, feedbackForm} from '@/content/forms';
+import {forms} from '@/content/forms';
 
 export const mockPage = {
     sections: [
@@ -153,6 +153,7 @@ export const mockPage = {
             subtitle: 'Чтобы рассчитать условия кредита уточняйте информацию у менеджера',
             highlightHtml: 'Поломка <span> не должна менять</span> ваши планы',
             highlightMark: 'Специальное предложение',
+            cta: {label: 'Подробнее'},
             image: img('/mock/specialOffer/specialOffer.webp', 'special Offer'),
         },
         {
@@ -279,7 +280,7 @@ export const mockPage = {
                 {image: img('/mock/commercial/truck.webp', 'truck'), text: 'Не обслуживаем\nкрупнотоннажные грузовики'},
                 {image: img('/mock/commercial/semi-truck.webp', 'semi truck'), text: 'Не обслуживаем автомобили\nвыше 3 метров'},
             ],
-            form: commercialForm(),
+            form: forms.commercial,
         },
         {
             type: 'faq',
@@ -345,7 +346,7 @@ export const mockPage = {
             id: 'contact-form',
             title: 'Не откладывайте ремонт — чем раньше Вы решите вопрос, \n тем дешевле он Вам обойдётся!',
             backgroundImage: img('/mock/contactForm/contact-form-bg.webp', 'механики за работой'),
-            form: contactForm(),
+            form: forms.contact,
         },
         {
             type: 'contacts',
@@ -365,7 +366,7 @@ export const mockPage = {
                 photo: img('/mock/feedback/maria.webp', 'Мария'),
             },
             tires: img('/mock/feedback/tires.webp', ''),
-            form: feedbackForm(),
+            form: forms.feedback,
         },
     ],
 };

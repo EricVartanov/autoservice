@@ -13,6 +13,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import Parallax from "@/components/ui/Parallax";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
 import {mediaAlt, mediaUrl} from "@/lib/media";
+import {site} from "@/lib/mock-data";
 
 const VISIBLE_COUNT = 7;
 
@@ -114,7 +115,7 @@ export default function Faq({data}) {
                                     onClick={handleShowAllToggle}
                                     className="text-transparent-btn-text min-h-10 px-12 hover:bg-foreground-fixed hover:text-black"
                                 >
-                                    {showAll ? "Свернуть" : (cta?.label ?? "Смотреть все")}
+                                    {showAll ? site.labels.collapse : (cta?.label ?? site.labels.showMore)}
                                 </Button>
                             </div>
                         )}

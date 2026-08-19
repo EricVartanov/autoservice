@@ -1,6 +1,14 @@
 import {img} from '@/lib/media';
 
-export const NEWS_PAGE_SIZE = 2;
+export const newsPage = {
+    title: 'Новости',
+    empty: 'Новостей за {year} пока нет.',
+    seoTitle: 'Новости — Авторитет',
+    seoDescription: 'Новости автосервиса Авторитет',
+    pageSize: 2,
+};
+
+export const NEWS_PAGE_SIZE = newsPage.pageSize;
 
 const NEWS_TEXT = [
     'Мы продолжаем развивать сервис и повышать качество обслуживания. В этом материале рассказываем о важных изменениях, которые уже доступны клиентам обоих филиалов.',

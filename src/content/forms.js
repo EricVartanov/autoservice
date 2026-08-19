@@ -1,67 +1,96 @@
 import {brandSelectOptions} from '@/content/brands';
 import {branchFormOptions} from '@/content/branches';
+import {site} from '@/content/site';
 
-export const DEFAULT_CONSENT = {
-    label: 'Согласен на обработку',
-    linkText: 'персональных данных',
-    slug: 'privacy',
-    required: true,
-};
-
-export function nameField(overrides = {}) {
+function withShared(form) {
     return {
-        name: 'name',
-        label: 'Как к Вам обращаться?',
-        type: 'text',
-        placeholder: 'начните вводить',
-        required: true,
-        ...overrides,
+        ...form,
+        consent: site.consent,
+        errors: site.formErrors,
+        successMessage: site.formSuccess.message,
     };
 }
 
-export function phoneField(overrides = {}) {
-    return {
-        name: 'phone',
-        label: 'Ваш номер телефона',
-        type: 'tel',
-        placeholder: '+7(098)465-95-05',
-        required: true,
-        ...overrides,
-    };
-}
-
-export function carBrandField(overrides = {}) {
-    return {
-        name: 'carBrand',
-        label: 'Марка Вашего авто',
-        type: 'select',
-        placeholder: 'выберите из списка',
-        required: true,
-        options: brandSelectOptions(),
-        ...overrides,
-    };
-}
-
-export const sharedQuickForm = {
-    fields: [
-        nameField(),
-        phoneField(),
-        carBrandField({label: 'Марка вашего авто'}),
-    ],
-    consent: DEFAULT_CONSENT,
-    submitLabel: 'Отправить',
-};
-
-export function commercialForm() {
-    return {
-        fields: [nameField(), phoneField(), carBrandField()],
+export const forms = {
+    quick: withShared({
+        fields: [
+            {
+                name: 'name',
+                label: 'Как к Вам обращаться?',
+                type: 'text',
+                placeholder: 'начните вводить',
+                required: true,
+            },
+            {
+                name: 'phone',
+                label: 'Ваш номер телефона',
+                type: 'tel',
+                placeholder: '+7(098)465-95-05',
+                required: true,
+            },
+            {
+                name: 'carBrand',
+                label: 'Марка вашего авто',
+                type: 'select',
+                placeholder: 'выберите из списка',
+                required: true,
+                options: brandSelectOptions(),
+            },
+        ],
         submitLabel: 'Отправить',
-    };
-}
-
-export function contactForm() {
-    return {
-        fields: [nameField(), phoneField(), carBrandField()],
+    }),
+    commercial: withShared({
+        fields: [
+            {
+                name: 'name',
+                label: 'Как к Вам обращаться?',
+                type: 'text',
+                placeholder: 'начните вводить',
+                required: true,
+            },
+            {
+                name: 'phone',
+                label: 'Ваш номер телефона',
+                type: 'tel',
+                placeholder: '+7(098)465-95-05',
+                required: true,
+            },
+            {
+                name: 'carBrand',
+                label: 'Марка Вашего авто',
+                type: 'select',
+                placeholder: 'выберите из списка',
+                required: true,
+                options: brandSelectOptions(),
+            },
+        ],
+        submitLabel: 'Отправить',
+    }),
+    contact: withShared({
+        fields: [
+            {
+                name: 'name',
+                label: 'Как к Вам обращаться?',
+                type: 'text',
+                placeholder: 'начните вводить',
+                required: true,
+            },
+            {
+                name: 'phone',
+                label: 'Ваш номер телефона',
+                type: 'tel',
+                placeholder: '+7(098)465-95-05',
+                required: true,
+            },
+            {
+                name: 'carBrand',
+                label: 'Марка Вашего авто',
+                type: 'select',
+                placeholder: 'выберите из списка',
+                required: true,
+                options: brandSelectOptions(),
+            },
+        ],
         radioGroups: [
             {
                 name: 'timing',
@@ -109,18 +138,25 @@ export function contactForm() {
                 },
             ],
         },
-        consent: DEFAULT_CONSENT,
         submitLabel: 'Отправить',
-    };
-}
-
-export function feedbackForm() {
-    return {
+    }),
+    feedback: withShared({
         fields: [
-            nameField(),
-            phoneField({placeholder: 'начните вводить'}),
+            {
+                name: 'name',
+                label: 'Как к Вам обращаться?',
+                type: 'text',
+                placeholder: 'начните вводить',
+                required: true,
+            },
+            {
+                name: 'phone',
+                label: 'Ваш номер телефона',
+                type: 'tel',
+                placeholder: 'начните вводить',
+                required: true,
+            },
         ],
-        consent: DEFAULT_CONSENT,
         branch: {
             name: 'branch',
             label: 'В каком филиале Вы обслуживались',
@@ -135,5 +171,5 @@ export function feedbackForm() {
             required: false,
         },
         submitLabel: 'Отправить',
-    };
-}
+    }),
+};

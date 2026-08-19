@@ -14,6 +14,7 @@ import {useMediaQuery} from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import {scrollToElement} from "@/lib/scrollToSection";
 import {mediaAlt, mediaUrl} from "@/lib/media";
+import {site} from "@/lib/mock-data";
 
 const VISIBLE_COUNT = 4;
 
@@ -199,7 +200,7 @@ export default function Reviews({data}) {
                             onClick={toggleShowAll}
                             className={'text-transparent-btn-text px-12 hover:bg-foreground-fixed hover:text-black'}
                         >
-                            {showAll ? "Свернуть" : (cta?.label ?? "Смотреть все")}
+                            {showAll ? site.labels.collapse : (cta?.label ?? site.labels.showMore)}
                         </Button>
                     </div>
                 )}

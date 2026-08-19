@@ -12,6 +12,7 @@ import {Container} from "@/components/Container";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
 import {mediaAlt, mediaUrl} from "@/lib/media";
+import {collectFormErrors} from "@/lib/formValidation";
 
 const cardGradient =
     "bg-[radial-gradient(circle_at_top_left,rgba(200,0,0,1)_0%,rgba(0,0,0,0.8)_50%,rgba(0,0,0,0.8)_100%)]";
@@ -19,33 +20,8 @@ const cardGradient =
 const cardGradient2 =
     "bg-[radial-gradient(circle_at_bottom_center,rgba(200,0,0,1)_0%,rgba(150,0,0,1)_40%,rgba(0,0,0,0.8)_75%,rgba(0,0,0,0.8)_100%)]";
 
-
 const cardGradient3 =
     "bg-[linear-gradient(316deg,rgba(255,0,0,1)_0%,rgba(0,0,0,1)_100%)]";
-
-function validate({name, phoneDigits, branch, consent}) {
-    const errors = {};
-
-    if (!name.trim()) {
-        errors.name = "Введите имя";
-    } else if (name.trim().length < 2) {
-        errors.name = "Слишком короткое имя";
-    }
-
-    if (phoneDigits.length < 10) {
-        errors.phone = "Введите номер полностью";
-    }
-
-    if (!branch) {
-        errors.branch = "Выберите филиал";
-    }
-
-    if (!consent) {
-        errors.consent = "Необходимо согласие";
-    }
-
-    return errors;
-}
 
 export default function Feedback({data}) {
     const {intro, title, manager, tires, form} = data;
@@ -70,7 +46,7 @@ export default function Feedback({data}) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const validationErrors = validate({name, phoneDigits, branch, consent});
+        const validationErrors = collectFormErrors(form.errors, {name, phoneDigits, branch, consent});
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length > 0) {
@@ -279,6 +255,7 @@ export default function Feedback({data}) {
                         <FormSuccessOverlay
                             open={submitted}
                             onClose={() => setSubmitted(false)}
+                            message={form.successMessage}
                         />
                     </form>
 

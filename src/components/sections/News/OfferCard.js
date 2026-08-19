@@ -10,7 +10,7 @@ function formatUntil(iso) {
 }
 
 export default function OfferCard({offer, active = true, onCta}) {
-    const {badge = 'Акция', title, cta, disclaimer, until, image} = offer;
+    const {badge, title, cta, disclaimer, until, image} = offer;
     const untilLabel = formatUntil(until);
     const imageUrl = mediaUrl(image);
 
@@ -43,7 +43,7 @@ export default function OfferCard({offer, active = true, onCta}) {
                             onClick={onCta}
                             className="mt-5 inline-flex cursor-pointer items-center justify-center rounded-full bg-primary px-8 py-3 text-xs leading-none font-bold text-foreground-fixed transition hover:bg-primary-light md:mt-7 md:min-h-[54] md:min-w-[213] md:px-10 md:py-3.5 md:text-base"
                         >
-                            {cta?.label ?? 'Оставить заявку'}
+                            {cta?.label}
                         </button>
                     </div>
 

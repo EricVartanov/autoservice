@@ -14,26 +14,7 @@ import {useMediaQuery} from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
 import {mediaAlt, mediaUrl} from "@/lib/media";
-
-function validate({name, phoneDigits, carBrand}) {
-    const errors = {};
-
-    if (!name.trim()) {
-        errors.name = "Введите имя";
-    } else if (name.trim().length < 2) {
-        errors.name = "Слишком короткое имя";
-    }
-
-    if (phoneDigits.length < 10) {
-        errors.phone = "Введите номер полностью";
-    }
-
-    if (!carBrand) {
-        errors.carBrand = "Выберите марку авто";
-    }
-
-    return errors;
-}
+import {collectFormErrors} from "@/lib/formValidation";
 
 export default function Commercial({data}) {
     const {mark, title, subtitle, cta, backgroundImage, limitations, form} = data;
@@ -74,7 +55,7 @@ export default function Commercial({data}) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const validationErrors = validate({name, phoneDigits, carBrand});
+        const validationErrors = collectFormErrors(form.errors, {name, phoneDigits, carBrand});
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length > 0) {
@@ -207,6 +188,7 @@ export default function Commercial({data}) {
                         <FormSuccessOverlay
                             open={submitted}
                             onClose={() => setSubmitted(false)}
+                            message={form.successMessage}
                         />
                     </form>
                 </ScrollReveal>

@@ -4,7 +4,7 @@ import {useEffect, useRef, useState} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {usePathname} from 'next/navigation';
-import {mockBranches} from '@/lib/mock-data';
+import {mockBranches, site} from '@/lib/mock-data';
 import {getHashId, scrollToSection} from '@/lib/scrollToSection';
 import {mediaAlt, mediaUrl} from '@/lib/media';
 
@@ -130,7 +130,7 @@ export default function MainNav({data, isHome, collapsed}) {
                             aria-expanded={branchesOpen}
                             className="inline-flex cursor-pointer items-center gap-2.5 rounded-full border border-foreground-fixed px-8 py-1.5 text-base text-foreground-fixed transition hover:bg-white/5"
                         >
-                            Филиалы
+                            {site.labels.branches}
                             <MenuToggleIcon open={branchesOpen} />
                         </button>
 
@@ -182,7 +182,7 @@ export default function MainNav({data, isHome, collapsed}) {
                             type="button"
                             onClick={() => setMenuOpen((v) => !v)}
                             aria-expanded={menuOpen}
-                            aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
+                            aria-label={menuOpen ? site.labels.closeMenu : site.labels.openMenu}
                             className="flex cursor-pointer items-center justify-center p-1"
                         >
                             <MenuToggleIcon open={menuOpen} />
@@ -206,7 +206,7 @@ export default function MainNav({data, isHome, collapsed}) {
 
                                 <div className="mt-4 border-t border-white/15 pt-4">
                                     <p className="mb-2 text-xs uppercase tracking-wide text-white/50">
-                                        Филиалы
+                                        {site.labels.branches}
                                     </p>
                                     <div className="flex flex-col gap-2">
                                         {mockBranches.map((branch) => (

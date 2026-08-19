@@ -4,6 +4,7 @@ import Image from "next/image";
 import Button from "@/components/ui/Button";
 import {formatPrice} from "@/lib/formatPrice";
 import {useModalStore} from "../../../../public/store/useModalStore";
+import {site} from "@/lib/mock-data";
 import {mediaUrl} from "@/lib/media";
 
 export default function ServiceCard({service}) {
@@ -48,7 +49,7 @@ export default function ServiceCard({service}) {
                     }}
                     className={'mt-5 md:mt-[30] lg:mt-12 bg-primary transition text-foreground-fixed group-hover:bg-foreground-fixed group-hover:text-primary'}
                 >
-                    Подробнее
+                    {site.serviceModal.cardCta}
                 </Button>
             </div>
         </div>

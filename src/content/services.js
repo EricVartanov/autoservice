@@ -1,5 +1,6 @@
 import {img} from '@/lib/media';
-import {sharedQuickForm} from '@/content/forms';
+import {forms} from '@/content/forms';
+import {site} from '@/content/site';
 
 const SERVICE_ICONS = {
     engine: img('/mock/services/icons/engine.png', 'Двигатель'),
@@ -398,24 +399,27 @@ export function toServiceCard(service) {
 }
 
 export function toServiceDetail(service) {
+    const modal = site.serviceModal;
     return {
         slug: service.slug,
-        mark: 'Услуги',
+        mark: modal.mark,
         title: service.title,
         description: service.description,
         heroImage: service.heroImage,
-        quickForm: sharedQuickForm,
-        benefitsTitle: 'Что дает своевременный уход и ремонт',
+        quickForm: forms.quick,
+        benefitsTitle: modal.benefitsTitle,
         benefits: service.benefits,
-        symptomsTitle: 'Признаки неисправностей:',
+        symptomsTitle: modal.symptomsTitle,
         symptoms: service.symptoms,
         trust: service.trust,
-        popularTitle: 'Популярные услуги',
+        popularTitle: modal.popularTitle,
         popular: service.popular,
-        priceListTitle: 'Все услуги*',
-        priceListSubTitle: '* Обращаем Ваше внимание, что здесь представлен не исчерпывающий перечень услуг. Если Вы не обнаружили интересующую Вас работу, просим связаться с нами по телефону или оставить заявку. Вероятно, мы сумеем Вам помочь.',
+        priceListTitle: modal.priceListTitle,
+        priceListSubTitle: modal.priceListSubTitle,
         priceList: service.priceList,
         startingPrice: service.price,
+        cardCta: modal.cardCta,
+        showMore: modal.showMore,
     };
 }
 
