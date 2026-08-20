@@ -5,9 +5,11 @@ import {Container} from "@/components/Container";
 import Button from "@/components/ui/Button";
 import WaveTitle from "@/components/ui/WaveTitle";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import {useModalStore} from "../../../../public/store/useModalStore";
 
 export default function SpecialOffer({data}) {
     const {image, highlightHtml, highlightMark, title, subtitle} = data
+    const openModal = useModalStore((s) => s.openModal);
 
     return (
         <section className={'relative py-[60] md:py-[90] lg:py-[185]'}>
@@ -47,7 +49,7 @@ export default function SpecialOffer({data}) {
                                 {subtitle}
                             </p>
                             <div className={'mt-10 md:mt-[60] lg:mt-10 text-center lg:text-left'}>
-                                <Button variant={'primary'}>
+                                <Button variant={'primary'} onClick={() => openModal('specialOffer', data)}>
                                     Подробнее
                                 </Button>
                             </div>

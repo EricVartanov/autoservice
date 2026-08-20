@@ -47,7 +47,7 @@ export const mockBranches = [
         workHours: 'Ежедневно с 9:00 до 20:00',
         address: 'г. Краснодар, \nул. 2-я Дорожная, д. 39',
         phone: '+7 (861) 207-07-71',
-        panoramaUrl: '#',
+        panoramaUrl: 'https://yandex.ru/map-widget/v1/?ll=39.021325%2C45.070558&z=10&l=stv&panorama%5Bpoint%5D=39.021467%2C45.070555&panorama%5Bdirection%5D=42.416318%2C7.161085&panorama%5Bspan%5D=117.625646%2C60.000000',
         mapUrl: '#',
         // lower pin on map (left card connector)
         marker: {x: 52, y: 60},
@@ -60,7 +60,7 @@ export const mockBranches = [
         workHours: 'Ежедневно с 9:00 до 20:00',
         address: 'г. Краснодар, \nул. 1-го Мая, д. 316',
         phone: '+7 (861) 207-17-74',
-        panoramaUrl: '#',
+        panoramaUrl: 'https://yandex.ru/map-widget/v1/?ll=38.997736%2C45.133651&z=10&l=stv&panorama%5Bpoint%5D=38.997132%2C45.133730&panorama%5Bdirection%5D=292.765806%2C-9.262492&panorama%5Bspan%5D=117.625646%2C60.000000',
         mapUrl: '#',
         // upper pin on map (right card connector)
         marker: {x: 53, y: 40},
@@ -753,7 +753,8 @@ export const mockPage = {
             subtitle: 'Чтобы рассчитать условия кредита уточняйте информацию у менеджера',
             highlightHtml: "Поломка <span> не должна менять</span> ваши планы",
             highlightMark: 'Специальное предложение',
-            image: {path: '/mock/specialOffer/specialOffer.webp', alt: 'special Offer'}
+            image: {path: '/mock/specialOffer/specialOffer.webp', alt: 'special Offer'},
+            detailsHtml: '<p>Не откладывайте заботу об автомобиле на потом! Ведь, решив вопрос сегодня, Вы можете предотвратить более серьёзные неисправности в будущем и избежать больших расходов на их устранении ☝️</p><p>Наш Автосервис предоставляет удобную возможность воспользоваться услугами в кредит. Мы сотрудничаем с ведущими банками страны: Сбербанком и Т-банком — всё просто и удобно. Оформление заявки займёт всего несколько минут.</p><p>Не позволяйте текущей ситуации перерасти в более серьёзную проблему. Ездите сейчас — платите потом! Все подробности по телефону.</p>',
         },
         {
             type: 'reviews',
@@ -774,9 +775,30 @@ export const mockPage = {
                 {id: 2, label: 'Филиал на 1-го Мая'},
             ],
             platforms: [
-                {id: 'yandex', label: 'Отзывы Яндекс'},
-                {id: '2gis', label: 'Отзывы 2GIS'},
-                {id: 'google', label: 'Отзывы Google'},
+                {
+                    id: 'yandex',
+                    label: 'Отзывы Яндекс',
+                    links: [
+                        {branchId: 1, url: 'https://yandex.ru/maps/org/avtoritet_2_ya_dorozhnaya'},
+                        {branchId: 2, url: 'https://yandex.ru/maps/org/avtoritet_1_go_maya'},
+                    ],
+                },
+                {
+                    id: '2gis',
+                    label: 'Отзывы 2GIS',
+                    links: [
+                        {branchId: 1, url: 'https://2gis.ru/krasnodar/firm/avtoritet_2_ya_dorozhnaya'},
+                        {branchId: 2, url: 'https://2gis.ru/krasnodar/firm/avtoritet_1_go_maya'},
+                    ],
+                },
+                {
+                    id: 'google',
+                    label: 'Отзывы Google',
+                    links: [
+                        {branchId: 1, url: 'https://maps.google.com/?cid=avtoritet_2_ya_dorozhnaya'},
+                        {branchId: 2, url: 'https://maps.google.com/?cid=avtoritet_1_go_maya'},
+                    ],
+                },
             ],
             items: [
                 {
@@ -870,14 +892,15 @@ export const mockPage = {
                     text: 'Всем кто ищет сто для своего авто, всем в Авторитет. Здесь вы получите качественное обслуживание, менеджеры грамотно проконсультируют и ответят на все вопросы.',
                 },
             ],
-            cta: {label: 'Смотреть все', link: '/reviews'},
+            cta: {label: 'Смотреть все'},
         },
         {
             type: 'commercial',
             mark: 'Коммерческий транспорт',
             title: 'Обслуживание\nи ремонт коммерческого\nтранспорта',
             subtitle: 'Наш Автосервис также выполняет профессиональный ремонт\nи обслуживание коммерческого транспорта.',
-            cta: {label: 'Подробнее', link: '/commercial'},
+            cta: {label: 'Подробнее'},
+            detailsHtml: '<p>Наш Автосервис также выполняет профессиональный ремонт и обслуживание коммерческого транспорта.</p><p>Для Вашего автопарка доступен полный спектр услуг. Имеются только два ограничения:</p><p>— мы не обслуживаем крупнотоннажные грузовики,<br>— не принимаем автомобили выше 3 метров.</p><p>Мы понимаем, насколько важна бесперебойная работа коммерческого транспорта, поэтому обеспечиваем оперативность, точность и стабильное качество. Вы получаете предсказуемый результат, на который можно опираться ежедневно.</p>',
             backgroundImage: {path: '/mock/commercial/commercial-bg.webp', alt: 'commercial service'},
             limitations: [
                 {image: '/mock/commercial/truck.webp', alt: 'truck', text: 'Не обслуживаем\nкрупнотоннажные грузовики'},
@@ -1038,9 +1061,9 @@ export const mockPage = {
                     fields: [
                         {
                             name: 'vin',
-                            label: 'VIN-номер автомобиля',
-                            type: 'text',
-                            placeholder: '17 символов',
+                            label: 'VIN-номер или № кузова автомобиля',
+                            type: 'vin',
+                            placeholder: 'начните вводить',
                             required: false,
                         },
                         {
@@ -1049,6 +1072,7 @@ export const mockPage = {
                             type: 'select',
                             placeholder: 'выберите из списка',
                             required: false,
+                            allowCustom: true,
                             options: [
                                 'Колодки',
                                 'Суппорта',

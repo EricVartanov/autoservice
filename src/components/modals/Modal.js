@@ -14,13 +14,18 @@ const PANEL = {
         'relative flex flex-col bg-transparent text-foreground w-full md:w-[calc(100%-48px)] lg:w-full max-w-[1560] max-h-full rounded-[20] md:rounded-[30] p-0 mx-0 shadow-2xl overflow-hidden',
     legal:
         'relative flex flex-col bg-white text-black rounded-[20px] md:rounded-[30px] max-w-[800px] w-full mx-0 max-h-full overflow-hidden shadow-2xl',
+    panorama:
+        'relative flex h-[70vh] md:h-[80vh] w-full max-w-[1560] flex-col overflow-hidden rounded-[20] bg-neutral-900 p-0 shadow-2xl md:w-[calc(100%-48px)] md:rounded-[30] lg:w-full',
 };
 
 export default function Modal({isOpen, onClose, children, variant = 'default', showClose = false}) {
     const legalSlug = useModalStore((s) => s.legalSlug);
+    const panoramaUrl = useModalStore((s) => s.panoramaUrl);
     const activeModal = useModalStore((s) => s.activeModal);
     const isLegal = variant === 'legal';
-    const skipScrollLock = isLegal && !!activeModal;
+    const isPanorama = variant === 'panorama';
+    const isStackedOverlay = isLegal || isPanorama;
+    const skipScrollLock = isStackedOverlay && !!activeModal;
 
     useEffect(() => {
         if (!isOpen) return undefined;
@@ -28,6 +33,7 @@ export default function Modal({isOpen, onClose, children, variant = 'default', s
         const onEsc = (e) => {
             if (e.key !== 'Escape') return;
             if (legalSlug && !isLegal) return;
+            if (panoramaUrl && !isPanorama && !isLegal) return;
             onClose();
         };
         document.addEventListener('keydown', onEsc);
@@ -45,18 +51,18 @@ export default function Modal({isOpen, onClose, children, variant = 'default', s
                 getLenis()?.start();
             }
         };
-    }, [isOpen, onClose, legalSlug, isLegal, skipScrollLock]);
+    }, [isOpen, onClose, legalSlug, isLegal, skipScrollLock, panoramaUrl, isPanorama]);
 
     if (typeof window === 'undefined' || !isOpen) return null;
 
     const isSheet = variant === 'sheet';
-    const isInsetSheet = isSheet || isLegal;
+    const isInsetSheet = isSheet || isLegal || isPanorama;
 
     return createPortal(
         <InModalProvider value={true}>
             <div
                 className={`fixed inset-0 flex justify-center bg-black/70 ${
-                    isLegal ? 'z-[120]' : 'z-[110]'
+                    isStackedOverlay ? 'z-[120]' : 'z-[110]'
                 } ${
                     isInsetSheet
                         ? 'items-start px-3 pb-3 pt-[70px] md:px-6 md:pb-6 md:pt-[110px]'

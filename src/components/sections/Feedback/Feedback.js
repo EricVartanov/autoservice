@@ -100,7 +100,7 @@ export default function Feedback({data}) {
         }`;
 
     return (
-        <section className="relative bg-background-secondary pb-[35] md:pb-[150] pt-20 lg:py-[150]">
+        <section className="relative bg-background-secondary pb-[35] md:pb-[250] pt-20 lg:py-[150]">
             <Container className="relative z-50">
                 <ScrollReveal stagger className="relative z-20 flex flex-col gap gap-2.5 lg:gap-10 lg:flex-row lg:justify-between">
                     <form
@@ -301,7 +301,7 @@ export default function Feedback({data}) {
             </Container>
             {tires?.path && (
                 <div
-                    className="pointer-events-none mx-auto z-30 relative md:absolute md:right-0 md:bottom-[-5%] lg:bottom-[-8%] w-full max-w-[240] md:max-w-[320] md:overflow-hidden lg:max-w-[620]"
+                    className="pointer-events-none mx-auto z-30 relative md:absolute md:right-0 md:bottom-[-5%] lg:bottom-[-8%] w-full max-w-[240] md:max-w-[300] md:overflow-hidden lg:max-w-[500]"
                 >
                     <Image
                         src={tires.path}

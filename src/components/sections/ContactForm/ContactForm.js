@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Icon from "@/components/icons/Icon";
 import Button from "@/components/ui/Button";
 import PhoneInput, { getCleanPhone } from "@/components/ui/PhoneInput";
+import VinInput from "@/components/ui/VinInput";
 import Select from "@/components/ui/Select";
 import FieldError from "@/components/ui/FieldError";
 import LegalLink from "@/components/ui/LegalLink";
@@ -14,6 +15,25 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
+
+const CUSTOM_PART_VALUE = "__custom__";
+const CUSTOM_PART_OPTION = { value: CUSTOM_PART_VALUE, label: "Указать своё" };
+
+function normalizeExtra(extraValues, extraFields) {
+    const extra = { ...extraValues };
+
+    for (const field of extraFields ?? []) {
+        if (!field.allowCustom) continue;
+
+        const customKey = `${field.name}Custom`;
+        if (extra[field.name] === CUSTOM_PART_VALUE) {
+            extra[field.name] = (extra[customKey] ?? "").trim();
+        }
+        delete extra[customKey];
+    }
+
+    return extra;
+}
 
 function validate({ name, phoneDigits, carBrand, timing, branch, consent }) {
     const errors = {};
@@ -131,7 +151,7 @@ export default function ContactForm({ data }) {
             timing,
             branch,
             consent,
-            extra: extraValues,
+            extra: normalizeExtra(extraValues, form.extraSection?.fields),
         };
         // сюда позже уйдёт fetch на WP-эндпоинт
         console.log(payload);
@@ -257,7 +277,16 @@ export default function ContactForm({ data }) {
         const value = extraValues[field.name] ?? "";
 
         let control = null;
-        if (field.type === "text") {
+        if (field.type === "vin") {
+            control = (
+                <VinInput
+                    value={value}
+                    onChange={(val) => handleExtraChange(field.name, val)}
+                    placeholder={field.placeholder}
+                    className={fieldInputClass(false)}
+                />
+            );
+        } else if (field.type === "text") {
             control = (
                 <input
                     type="text"
@@ -268,9 +297,13 @@ export default function ContactForm({ data }) {
                 />
             );
         } else if (field.type === "select") {
+            const options = field.allowCustom
+                ? [...(field.options ?? []), CUSTOM_PART_OPTION]
+                : (field.options ?? []);
+
             control = (
                 <Select
-                    options={field.options ?? []}
+                    options={options}
                     value={value}
                     onChange={(val) => handleExtraChange(field.name, val)}
                     placeholder={field.placeholder}
@@ -280,7 +313,7 @@ export default function ContactForm({ data }) {
         }
 
         return (
-            <div key={field.name} className="relative w-full md:w-[calc(50%-15px)]">
+            <div key={field.name} className="relative w-full xl:w-[calc(50%-15px)]">
                 <label className="mb-2.5 block font-helvetica text-sm md:text-base font-bold text-foreground-fixed">
                     {field.label}
                     {field.required && <span className="text-primary"> *</span>}
@@ -369,9 +402,26 @@ export default function ContactForm({ data }) {
                                                     }}
                                                     className="overflow-hidden"
                                                 >
-                                                    <div
-                                                        className="mt-6 flex flex-col md:flex-row md:flex-wrap gap-[30] md:gap-2.5 lg:gap-y-6 lg:gap-x-7">
-                                                        {form.extraSection.fields.map(renderExtraField)}
+                                                    <div className="mt-6 flex flex-col gap-[30] md:gap-6">
+                                                        <div
+                                                            className="flex flex-col md:flex-row md:flex-wrap gap-[30] lg:flex-col xl:flex-row md:gap-2.5 lg:gap-y-6 lg:gap-x-7">
+                                                            {form.extraSection.fields.map(renderExtraField)}
+                                                        </div>
+                                                        {form.extraSection.fields.map((field) => {
+                                                            if (!field.allowCustom) return null;
+                                                            if (extraValues[field.name] !== CUSTOM_PART_VALUE) return null;
+                                                            const customKey = `${field.name}Custom`;
+                                                            return (
+                                                                <textarea
+                                                                    key={customKey}
+                                                                    value={extraValues[customKey] ?? ""}
+                                                                    onChange={(e) => handleExtraChange(customKey, e.target.value)}
+                                                                    placeholder="начните вводить"
+                                                                    rows={4}
+                                                                    className="w-full resize-none rounded-[10] border border-white/20 bg-transparent px-5 py-2.5 md:py-3.5 font-helvetica text-sm md:text-base text-foreground-fixed outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent focus:border-foreground-fixed"
+                                                                />
+                                                            );
+                                                        })}
                                                     </div>
                                                 </motion.div>
                                             )}

@@ -1,7 +1,7 @@
 // components/sections/ReviewsSection.js
 "use client";
 
-import {useState, useMemo, useRef} from "react";
+import {useState, useMemo} from "react";
 import {motion, AnimatePresence, useReducedMotion} from "framer-motion";
 import Image from "next/image";
 import Icon from "@/components/icons/Icon";
@@ -12,7 +12,6 @@ import Button from "@/components/ui/Button";
 import BlurredCircle from "@/components/ui/blurredCircle";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import {scrollToElement} from "@/lib/scrollToSection";
 
 const VISIBLE_COUNT = 4;
 
@@ -25,33 +24,8 @@ export default function Reviews({data}) {
 
     const [activeBranch, setActiveBranch] = useState(availableBranches[0]?.id);
     const [activePlatform, setActivePlatform] = useState(platforms[0]?.id);
-    const [showAll, setShowAll] = useState(false);
     const isMobileOrTablet = useMediaQuery('(max-width: 1279px)');
     const reduceMotion = useReducedMotion();
-    const gridRef = useRef(null);
-
-    const scrollToGrid = () => {
-        requestAnimationFrame(() => scrollToElement(gridRef.current));
-    };
-
-    const handleBranchChange = (id) => {
-        if (showAll) scrollToGrid();
-        setActiveBranch(id);
-        setShowAll(false);
-    };
-
-    const handlePlatformChange = (id) => {
-        if (showAll) scrollToGrid();
-        setActivePlatform(id);
-        setShowAll(false);
-    };
-
-    const toggleShowAll = () => {
-        setShowAll((v) => {
-            if (v) scrollToGrid();
-            return !v;
-        });
-    };
 
     const matched = useMemo(
         () =>
@@ -61,8 +35,11 @@ export default function Reviews({data}) {
         [items, activeBranch, activePlatform]
     );
 
-    const visible = showAll ? matched : matched.slice(0, VISIBLE_COUNT);
-    const hasMore = matched.length > VISIBLE_COUNT;
+    const visible = matched.slice(0, VISIBLE_COUNT);
+    const activeUrl = platforms
+        .find((p) => p.id === activePlatform)
+        ?.links?.find((l) => l.branchId === activeBranch)
+        ?.url;
 
     return (
         <section className="relative py-14 md:py-[150] overflow-hidden">
@@ -99,7 +76,7 @@ export default function Reviews({data}) {
                             {availableBranches.map((branch) => (
                                 <button
                                     key={branch.id}
-                                    onClick={() => handleBranchChange(branch.id)}
+                                    onClick={() => setActiveBranch(branch.id)}
                                     className={`px-5 min-w-[190] lg:px-4 py-2 rounded-full text-sm md:text-base font-helvetica cursor-pointer ${
                                         activeBranch === branch.id
                                             ? "bg-primary text-foreground-fixed"
@@ -115,7 +92,7 @@ export default function Reviews({data}) {
                             {platforms.map((platform) => (
                                 <button
                                     key={platform.id}
-                                    onClick={() => handlePlatformChange(platform.id)}
+                                    onClick={() => setActivePlatform(platform.id)}
                                     className={`relative text-sm md:text-base font-helvetica cursor-pointer text-foreground w-[33%] max-w-[80] md:w-auto md:max-w-none`}
                                 >
                                     {platform.label}
@@ -127,7 +104,7 @@ export default function Reviews({data}) {
                         </div>
                     </div>
 
-                    <div ref={gridRef} className="relative mt-2.5 lg:mt-12 min-h-44 lg:min-h-80">
+                    <div className="relative mt-2.5 lg:mt-12 min-h-44 lg:min-h-80">
                         <div className="grid grid-cols-1 lg:grid-cols-4 gap-2.5 lg:gap-4 xl:gap-7">
                             <AnimatePresence mode="popLayout" initial={false}>
                                 {visible.map((review, i) => (
@@ -191,17 +168,16 @@ export default function Reviews({data}) {
                     </div>
                 </ScrollReveal>
 
-                {hasMore && (
-                    <div className="flex justify-center mt-12 lg:mt-10">
-                        <Button
-                            variant={'transparent'}
-                            onClick={toggleShowAll}
-                            className={'text-transparent-btn-text px-12 hover:bg-foreground-fixed hover:text-black'}
-                        >
-                            {showAll ? "Свернуть" : (cta?.label ?? "Смотреть все")}
-                        </Button>
-                    </div>
-                )}
+                <div className="flex justify-center mt-12 lg:mt-10">
+                    <Button
+                        variant={'transparent'}
+                        href={activeUrl}
+                        target="_blank"
+                        className={'text-transparent-btn-text px-12 hover:bg-foreground-fixed hover:text-black'}
+                    >
+                        {cta?.label ?? "Смотреть все"}
+                    </Button>
+                </div>
             </Container>
         </section>
     );

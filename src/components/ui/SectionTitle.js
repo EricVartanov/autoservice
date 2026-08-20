@@ -56,12 +56,12 @@ export default function SectionTitle({
             </div>
 
             {highlightHtml ? (
-                <div className="mt-4 md:mt-9 text-left flex flex-col items-center lg:items-baseline lg:justify-between gap-2.5">
+                <div className="mt-4 md:mt-9 text-left flex flex-col items-center lg:grid lg:grid-cols-2 lg:items-baseline gap-2.5">
                     <p className="max-w-md text-center lg:text-left text-lg md:text-[22px] lg:text-[34px] font-bold font-heading leading-none [&_span]:text-primary"
                         dangerouslySetInnerHTML={{ __html: highlightHtml }}>
                     </p>
                     {subtitle && (
-                        <p className="lg:ml-auto text-center lg:text-left mt-2.5 max-w-[515] text-sm md:text-lg lg:text-[22px] text-foreground leading-tight md:leading-6 whitespace-pre-line">
+                        <p className="lg:col-start-2 lg:row-start-2 text-center lg:text-left mt-2.5 max-w-[515] text-sm md:text-lg lg:text-[22px] text-foreground leading-tight md:leading-6 whitespace-pre-line">
                             {subtitle}
                         </p>
                     )}

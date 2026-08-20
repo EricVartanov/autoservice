@@ -9,10 +9,10 @@ import Select from "@/components/ui/Select";
 import FieldError from "@/components/ui/FieldError";
 import SectionTitle from "@/components/ui/SectionTitle";
 import {Container} from "@/components/Container";
-import Link from "next/link";
 import {useMediaQuery} from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
+import {useModalStore} from "../../../../public/store/useModalStore";
 
 function validate({name, phoneDigits, carBrand}) {
     const errors = {};
@@ -36,6 +36,7 @@ function validate({name, phoneDigits, carBrand}) {
 
 export default function Commercial({data}) {
     const {mark, title, subtitle, cta, backgroundImage, limitations, form} = data;
+    const openModal = useModalStore((s) => s.openModal);
 
     const [name, setName] = useState("");
     const [phoneDigits, setPhoneDigits] = useState("");
@@ -167,12 +168,13 @@ export default function Commercial({data}) {
                    />
 
                    {cta && (
-                       <Link
-                           href={cta.link}
-                           className="inline-block mt-7 lg:mt-3 text-sm md:text-lg text-foreground-fixed underline underline-offset-4 hover:text-primary transition-colors"
+                       <button
+                           type="button"
+                           onClick={() => openModal('commercial', data)}
+                           className="inline-block mt-7 lg:mt-3 text-sm md:text-lg text-foreground-fixed underline underline-offset-4 hover:text-primary transition-colors cursor-pointer"
                        >
                            {cta.label}
-                       </Link>
+                       </button>
                    )}
                </div>
 
@@ -206,6 +208,7 @@ export default function Commercial({data}) {
                         <FormSuccessOverlay
                             open={submitted}
                             onClose={() => setSubmitted(false)}
+                            cardClassName="py-4 md:py-6"
                         />
                     </form>
                 </ScrollReveal>

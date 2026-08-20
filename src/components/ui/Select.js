@@ -25,10 +25,21 @@ export default function Select({
         const el = triggerRef.current;
         if (!el) return;
         const rect = el.getBoundingClientRect();
-        setCoords({
+        const next = {
             top: rect.bottom + 8,
             left: rect.left,
             width: rect.width,
+        };
+        setCoords((prev) => {
+            if (
+                prev &&
+                prev.top === next.top &&
+                prev.left === next.left &&
+                prev.width === next.width
+            ) {
+                return prev;
+            }
+            return next;
         });
     }, []);
 
@@ -37,14 +48,19 @@ export default function Select({
 
         updatePosition();
 
-        const onScrollOrResize = () => updatePosition();
-        window.addEventListener("resize", onScrollOrResize);
+        const onScroll = (e) => {
+            if (listRef.current && (e.target === listRef.current || listRef.current.contains(e.target))) {
+                return;
+            }
+            updatePosition();
+        };
+        window.addEventListener("resize", updatePosition);
         // capture: catch scroll inside modal overflow containers
-        window.addEventListener("scroll", onScrollOrResize, true);
+        window.addEventListener("scroll", onScroll, true);
 
         return () => {
-            window.removeEventListener("resize", onScrollOrResize);
-            window.removeEventListener("scroll", onScrollOrResize, true);
+            window.removeEventListener("resize", updatePosition);
+            window.removeEventListener("scroll", onScroll, true);
         };
     }, [open, updatePosition]);
 
@@ -79,8 +95,7 @@ export default function Select({
         createPortal(
             <AnimatePresence>
                 {open && coords && (
-                    <motion.ul
-                        ref={listRef}
+                    <motion.div
                         initial={{opacity: 0, y: -8, scale: 0.98}}
                         animate={{opacity: 1, y: 0, scale: 1}}
                         exit={{opacity: 0, y: -8, scale: 0.98}}
@@ -91,32 +106,39 @@ export default function Select({
                             left: coords.left,
                             width: coords.width,
                         }}
-                        className={`z-[120] rounded-xl border border-white/10 ${variant === "pill" ? 'bg-black/90 ' : 'bg-white/90'} shadow-[0_8px_30px_rgba(0,0,0,0.4)] overflow-hidden py-1 max-h-60 overflow-y-auto`}
+                        className={`z-[120] rounded-xl border border-white/10 ${variant === "pill" ? 'bg-black/90 ' : 'bg-white/90'} shadow-[0_8px_30px_rgba(0,0,0,0.4)] overflow-hidden`}
+                        data-lenis-prevent
                     >
-                        {options.map((opt) => {
-                            const val = opt.value ?? opt;
-                            const label = opt.label ?? opt;
-                            const isActive = val === value;
-                            return (
-                                <li key={val}>
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            onChange(val);
-                                            setOpen(false);
-                                        }}
-                                        className={`w-full text-left px-4 py-2.5 text-sm transition-colors cursor-pointer ${
-                                            isActive
-                                                ? variant === "pill" ? "text-primary bg-primary/10" : 'text-black'
-                                                : variant === "pill" ? "text-foreground-fixed hover:bg-white/50 hover:text-foreground-light-fixed" : 'text-black hover:bg-black/50 hover:text-foreground-light-fixed'
-                                        }`}
-                                    >
-                                        {label}
-                                    </button>
-                                </li>
-                            );
-                        })}
-                    </motion.ul>
+                        <ul
+                            ref={listRef}
+                            className="max-h-60 overflow-y-auto overscroll-contain py-1"
+                            data-lenis-prevent
+                        >
+                            {options.map((opt) => {
+                                const val = opt.value ?? opt;
+                                const label = opt.label ?? opt;
+                                const isActive = val === value;
+                                return (
+                                    <li key={val}>
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                onChange(val);
+                                                setOpen(false);
+                                            }}
+                                            className={`w-full text-left px-4 py-2.5 text-sm transition-colors cursor-pointer ${
+                                                isActive
+                                                    ? variant === "pill" ? "text-primary bg-primary/10" : 'text-black'
+                                                    : variant === "pill" ? "text-foreground-fixed hover:bg-white/50 hover:text-foreground-light-fixed" : 'text-black hover:bg-black/50 hover:text-foreground-light-fixed'
+                                            }`}
+                                        >
+                                            {label}
+                                        </button>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </motion.div>
                 )}
             </AnimatePresence>,
             document.body
