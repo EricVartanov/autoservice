@@ -2,6 +2,7 @@
 
 import Modal from '@/components/modals/Modal';
 import {getLegalDoc} from '@/lib/mock-legal';
+import {site} from '@/lib/mock-data';
 import {useModalStore} from '../../../public/store/useModalStore';
 
 function formatRuDate(iso) {
@@ -25,7 +26,7 @@ export default function LegalModal() {
                     </h1>
                     {doc.updatedAt && (
                         <p className="mt-2 font-helvetica text-sm text-neutral-500 md:text-base">
-                            Дата последнего обновления: {formatRuDate(doc.updatedAt)}
+                            {site.labels.legalUpdated}: {formatRuDate(doc.updatedAt)}
                         </p>
                     )}
                     <div

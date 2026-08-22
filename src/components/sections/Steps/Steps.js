@@ -7,6 +7,7 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import {Container} from "@/components/Container";
 import Icon from "@/components/icons/Icon";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import {mediaUrl} from "@/lib/media";
 
 function StepList({steps, className = ''}) {
     return (
@@ -79,7 +80,7 @@ export default function Steps({data}) {
                                 <motion.div
                                     key={index}
                                     className="absolute inset-0 bg-cover bg-center"
-                                    style={{backgroundImage: `url(${images[index].image})`}}
+                                    style={{backgroundImage: `url(${mediaUrl(images[index].image)})`}}
                                     initial={{opacity: 0}}
                                     animate={{opacity: 1}}
                                     exit={{opacity: 0}}

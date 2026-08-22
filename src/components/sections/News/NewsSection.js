@@ -3,7 +3,7 @@
 import {useMemo, useState} from 'react';
 import {Container} from '@/components/Container';
 import WaveTitle from '@/components/ui/WaveTitle';
-import {NEWS_PAGE_SIZE} from '@/lib/mock-data';
+import {NEWS_PAGE_SIZE, newsPage} from '@/lib/mock-data';
 import NewsCard from './NewsCard';
 import NewsPagination from './NewsPagination';
 
@@ -50,7 +50,7 @@ export default function NewsSection({items = []}) {
         <section id="news" className="scroll-mt-28 py-12 md:py-20 lg:pt-[120] pb-[80]">
             <Container>
                 <WaveTitle as="h1" className="text-center font-heading font-medium text-3xl tracking-tight md:text-5xl lg:text-[54px]">
-                    Новости
+                    {newsPage.title}
                 </WaveTitle>
 
                 {years.length > 0 && (
@@ -75,7 +75,7 @@ export default function NewsSection({items = []}) {
                 <div className="mt-8 flex flex-col gap-12 md:mt-[35] md:gap-10">
                     {visible.length === 0 ? (
                         <p className="text-center text-foreground-light">
-                            Новостей за {year} пока нет.
+                            {newsPage.empty.replace('{year}', String(year))}
                         </p>
                     ) : (
                         visible.map((item) => <NewsCard key={item.id} item={item} />)

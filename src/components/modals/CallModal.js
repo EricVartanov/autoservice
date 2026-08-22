@@ -1,7 +1,7 @@
 // components/modals/CallModal.jsx
 'use client';
 import Modal from './Modal';
-import {mockBranches} from "@/lib/mock-data";
+import {mockBranches, site} from "@/lib/mock-data";
 import {useModalStore} from "../../../public/store/useModalStore";
 
 export default function CallModal() {
@@ -9,7 +9,7 @@ export default function CallModal() {
 
     return (
         <Modal isOpen={activeModal === 'call'} onClose={closeModal}>
-            <h3 className="text-white text-lg font-semibold mb-4">Выберите филиал</h3>
+            <h3 className="text-white text-lg font-semibold mb-4">{site.callModal.title}</h3>
             <div className="flex flex-col gap-3">
                 {mockBranches.map((b) => (
 

@@ -5,6 +5,7 @@ import BranchCard from "@/components/sections/Contacts/BranchCard";
 import MapConnectors from "@/components/sections/Contacts/MapConnectors";
 import Image from "next/image";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import {mediaAlt, mediaUrl} from "@/lib/media";
 
 export default function Contacts({data, embedded = false}) {
     const {email, mapImage, mapAlt, branches = []} = data;
@@ -46,8 +47,8 @@ export default function Contacts({data, embedded = false}) {
                     className={`z-[-1] hidden lg:block lg:z-10 opacity-50 lg:opacity-100 absolute left-1/2 top-1/2 lg:top-unset lg:bottom-0 -translate-1/2 lg:-translate-x-1/2 w-full lg:max-w-[600] h-auto dark:invert ${embedded ? 'h-full' : ''} `}
                 >
                     <Image
-                        src={mapImage}
-                        alt={mapAlt}
+                        src={mediaUrl(mapImage)}
+                        alt={mediaAlt(mapImage, mapAlt)}
                         width={602}
                         height={561}
                     />

@@ -3,7 +3,7 @@ import Image from 'next/image';
 function resolveIcon(src) {
     if (!src) return {url: '', alt: ''};
     if (typeof src === 'string') return {url: src, alt: ''};
-    return {url: src.path ?? src.src ?? '', alt: src.alt ?? ''};
+    return {url: src.url ?? src.path ?? src.src ?? '', alt: src.alt ?? ''};
 }
 
 export default function ServiceGlyph({src, alt = '', variant = 'filled'}) {

@@ -9,30 +9,8 @@ import PhoneInput, {getCleanPhone} from '@/components/ui/PhoneInput';
 import Icon from '@/components/icons/Icon';
 import LegalLink from '@/components/ui/LegalLink';
 import FormSuccessOverlay from '@/components/ui/FormSuccessOverlay';
-
-function validate({name, phoneDigits, carBrand, consent}) {
-    const errors = {};
-
-    if (!name.trim()) {
-        errors.name = 'Введите имя';
-    } else if (name.trim().length < 2) {
-        errors.name = 'Слишком короткое имя';
-    }
-
-    if (phoneDigits.length < 10) {
-        errors.phone = 'Введите номер полностью';
-    }
-
-    if (!carBrand) {
-        errors.carBrand = 'Выберите марку авто';
-    }
-
-    if (!consent) {
-        errors.consent = 'Необходимо согласие';
-    }
-
-    return errors;
-}
+import {mediaAlt, mediaUrl} from '@/lib/media';
+import {collectFormErrors} from '@/lib/formValidation';
 
 export default function ServiceHero({data}) {
     const {mark, title, description, heroImage, quickForm} = data;
@@ -56,7 +34,7 @@ export default function ServiceHero({data}) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const validationErrors = validate({name, phoneDigits, carBrand, consent});
+        const validationErrors = collectFormErrors(quickForm.errors, {name, phoneDigits, carBrand, consent});
         setErrors(validationErrors);
         if (Object.keys(validationErrors).length > 0) return;
 
@@ -141,8 +119,8 @@ export default function ServiceHero({data}) {
     return (
         <div className="relative overflow-hidden rounded-[20] md:rounded-[30]">
             <Image
-                src={heroImage}
-                alt={title}
+                src={mediaUrl(heroImage)}
+                alt={mediaAlt(heroImage, title)}
                 fill
                 priority
                 className="object-cover"
@@ -218,6 +196,7 @@ export default function ServiceHero({data}) {
                 <FormSuccessOverlay
                     open={submitted}
                     onClose={() => setSubmitted(false)}
+                    message={quickForm.successMessage}
                 />
             </div>
         </div>

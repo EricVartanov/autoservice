@@ -1,15 +1,26 @@
 import Image from 'next/image';
+import {mediaUrl} from '@/lib/media';
+
+function formatUntil(iso) {
+    if (!iso || typeof iso !== 'string') return '';
+    const parts = iso.split('-');
+    if (parts.length !== 3) return iso;
+    const [y, m, d] = parts;
+    return `${d}.${m}.${y.slice(-2)}`;
+}
 
 export default function OfferCard({offer, active = true, onCta}) {
     const {badge = 'Акция', title, cta, disclaimer, until, image} = offer;
+    const untilLabel = formatUntil(until);
+    const imageUrl = mediaUrl(image);
 
     return (
         <article
             className={`relative flex h-full min-h-[240] overflow-hidden rounded-3xl transition-opacity duration-300 md:min-h-[320]`}
         >
-            {image && (
+            {imageUrl && (
                 <Image
-                    src={image}
+                    src={imageUrl}
                     alt=""
                     fill
                     className="object-cover"
@@ -48,7 +59,7 @@ export default function OfferCard({offer, active = true, onCta}) {
                         className="whitespace-nowrap uppercase tracking-[0.18em] text-foreground-fixed text-base md:text-lg"
                         style={{writingMode: 'vertical-rl', transform: 'rotate(180deg)'}}
                     >
-                        {badge} до {until}
+                        {badge} до {untilLabel}
                     </span>
                 </aside>
             </div>

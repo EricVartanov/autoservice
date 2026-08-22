@@ -6,9 +6,10 @@ import Button from "@/components/ui/Button";
 import WaveTitle from "@/components/ui/WaveTitle";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import {useModalStore} from "../../../../public/store/useModalStore";
+import {mediaAlt, mediaUrl} from "@/lib/media";
 
 export default function SpecialOffer({data}) {
-    const {image, highlightHtml, highlightMark, title, subtitle} = data
+    const {image, highlightHtml, highlightMark, title, subtitle, cta} = data
     const openModal = useModalStore((s) => s.openModal);
 
     return (
@@ -16,7 +17,7 @@ export default function SpecialOffer({data}) {
             <Container>
                 {/* фон */}
                 <div className="absolute inset-0">
-                    <Image src={image.path} alt={image.alt} fill sizes="100vw" priority
+                    <Image src={mediaUrl(image)} alt={mediaAlt(image)} fill sizes="100vw" priority
                            className={"object-cover"}/>
                     <div className="absolute inset-0 bg-black/40" />
                 </div>
@@ -50,7 +51,7 @@ export default function SpecialOffer({data}) {
                             </p>
                             <div className={'mt-10 md:mt-[60] lg:mt-10 text-center lg:text-left'}>
                                 <Button variant={'primary'} onClick={() => openModal('specialOffer', data)}>
-                                    Подробнее
+                                    {cta?.label ?? 'Подробнее'}
                                 </Button>
                             </div>
                         </ScrollReveal>

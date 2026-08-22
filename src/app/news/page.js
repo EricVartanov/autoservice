@@ -1,10 +1,10 @@
-import {mockOffers, mockNews} from '@/lib/mock-data';
+import {mockOffers, mockNews, newsPage} from '@/lib/mock-data';
 import OffersSwiper from '@/components/sections/News/OffersSwiper';
 import NewsSection from '@/components/sections/News/NewsSection';
 
 export const metadata = {
-    title: 'Новости — Авторитет',
-    description: 'Новости автосервиса Авторитет',
+    title: newsPage.seoTitle,
+    description: newsPage.seoDescription,
 };
 
 export default function NewsPage() {

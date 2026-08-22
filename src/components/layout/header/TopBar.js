@@ -2,6 +2,7 @@ import Icon from "@/components/icons/Icon";
 import Link from "next/link";
 import Image from "next/image";
 import {mockBranches} from "@/lib/mock-data";
+import {mediaAlt, mediaUrl} from "@/lib/media";
 
 export default function TopBar({logo}) {
 
@@ -30,7 +31,7 @@ export default function TopBar({logo}) {
             )}
 
             <Link className={'absolute left-1/2 transform -translate-x-1/2 top-[15]'} href="/">
-                <Image src={logo.path} alt={logo.alt} loading='eager' width={343} height={122} className="h-auto w-24 md:w-36 xl:w-[172px]"/>
+                <Image src={mediaUrl(logo)} alt={mediaAlt(logo)} loading='eager' width={343} height={122} className="h-auto w-24 md:w-36 xl:w-[172px]"/>
             </Link>
 
             {rightBranch && (

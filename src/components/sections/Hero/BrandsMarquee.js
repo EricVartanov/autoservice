@@ -1,10 +1,11 @@
 import Image from "next/image";
+import {mediaAlt, mediaUrl} from "@/lib/media";
 
 function BrandLogo({ brand, className }) {
     return (
         <>
             <Image
-                src={brand.logo}
+                src={mediaUrl(brand.logo)}
                 alt={brand.name}
                 width={185}
                 height={85}
@@ -12,7 +13,7 @@ function BrandLogo({ brand, className }) {
             />
             {brand.logoDark && (
                 <Image
-                    src={brand.logoDark}
+                    src={mediaUrl(brand.logoDark)}
                     alt=""
                     width={185}
                     height={85}

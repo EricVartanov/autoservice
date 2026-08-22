@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import {mediaAlt, mediaUrl} from '@/lib/media';
 
 export default function ServicePopular({title, items}) {
     return (
@@ -13,8 +14,8 @@ export default function ServicePopular({title, items}) {
                         className="relative overflow-hidden rounded-[30] min-h-[200] flex flex-col justify-center p-6"
                     >
                         <Image
-                            src={item.image}
-                            alt={item.title}
+                            src={mediaUrl(item.image)}
+                            alt={mediaAlt(item.image, item.title)}
                             fill
                             sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 25vw"
                             loading="eager"
