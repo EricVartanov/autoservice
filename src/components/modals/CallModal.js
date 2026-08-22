@@ -8,7 +8,7 @@ export default function CallModal() {
     const {activeModal, closeModal} = useModalStore();
 
     return (
-        <Modal isOpen={activeModal === 'call'} onClose={closeModal}>
+        <Modal isOpen={activeModal === 'call'} onClose={closeModal} showClose>
             <h3 className="text-white text-lg font-semibold mb-4">{site.callModal.title}</h3>
             <div className="flex flex-col gap-3">
                 {mockBranches.map((b) => (

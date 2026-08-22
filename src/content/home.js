@@ -176,24 +176,24 @@ export const mockPage = {
                     id: 'yandex',
                     label: 'Отзывы Яндекс',
                     links: [
-                        {branchId: 1, url: 'https://yandex.ru/maps/org/avtoritet_2_ya_dorozhnaya'},
-                        {branchId: 2, url: 'https://yandex.ru/maps/org/avtoritet_1_go_maya'},
+                        {branchId: 1, url: 'https://yandex.ru/maps/org/avtoritet_1_go_maya'},
+                        {branchId: 2, url: 'https://yandex.ru/maps/org/avtoritet_2_ya_dorozhnaya'},
                     ],
                 },
                 {
                     id: '2gis',
                     label: 'Отзывы 2GIS',
                     links: [
-                        {branchId: 1, url: 'https://2gis.ru/krasnodar/firm/avtoritet_2_ya_dorozhnaya'},
-                        {branchId: 2, url: 'https://2gis.ru/krasnodar/firm/avtoritet_1_go_maya'},
+                        {branchId: 1, url: 'https://2gis.ru/krasnodar/firm/avtoritet_1_go_maya'},
+                        {branchId: 2, url: 'https://2gis.ru/krasnodar/firm/avtoritet_2_ya_dorozhnaya'},
                     ],
                 },
                 {
                     id: 'google',
                     label: 'Отзывы Google',
                     links: [
-                        {branchId: 1, url: 'https://maps.google.com/?cid=avtoritet_2_ya_dorozhnaya'},
-                        {branchId: 2, url: 'https://maps.google.com/?cid=avtoritet_1_go_maya'},
+                        {branchId: 1, url: 'https://maps.google.com/?cid=avtoritet_1_go_maya'},
+                        {branchId: 2, url: 'https://maps.google.com/?cid=avtoritet_2_ya_dorozhnaya'},
                     ],
                 },
             ],
@@ -375,7 +375,8 @@ export const mockPage = {
             type: 'contacts',
             id: 'contacts',
             email: 'Avtoritet-servis23@yandex.ru',
-            mapImage: img('/mock/contacts/map.svg', 'Карта Краснодарского края'),
+            mapImage: img('/mock/contacts/map.webp', 'Карта Краснодарского края'),
+            mapImageDark: img('/mock/contacts/map-dark.webp', 'Карта Краснодарского края'),
             branches: mockBranches,
         },
         {

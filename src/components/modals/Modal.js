@@ -7,18 +7,32 @@ import {getLenis} from '@/lib/scrollToSection';
 import {InModalProvider} from '@/components/modals/InModalContext';
 import {useModalStore} from '../../../public/store/useModalStore';
 
-const PANEL = {
-    default:
-        'bg-neutral-900 rounded-2xl p-6 max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto overscroll-contain',
-    sheet:
-        'relative flex flex-col bg-transparent text-foreground w-full md:w-[calc(100%-48px)] lg:w-full max-w-[1560] max-h-full rounded-[20] md:rounded-[30] p-0 mx-0 shadow-2xl overflow-hidden',
-    legal:
-        'relative flex flex-col bg-white text-black rounded-[20px] md:rounded-[30px] max-w-[800px] w-full mx-0 max-h-full overflow-hidden shadow-2xl',
-    panorama:
-        'relative flex h-[70vh] md:h-[80vh] w-full max-w-[1560] flex-col overflow-hidden rounded-[20] bg-neutral-900 p-0 shadow-2xl md:w-[calc(100%-48px)] md:rounded-[30] lg:w-full',
+const WRAPPER = {
+    default: 'relative w-full max-w-md mx-4',
+    sheet: 'relative w-full md:w-[calc(100%-48px)] lg:w-full max-w-[1560] max-h-full',
+    legal: 'relative w-full max-w-[800px] max-h-full',
+    panorama: 'relative h-[70vh] w-full max-w-[1560] md:h-[80vh] md:w-[calc(100%-48px)] lg:w-full',
 };
 
-export default function Modal({isOpen, onClose, children, variant = 'default', showClose = false}) {
+const PANEL = {
+    default:
+        'bg-neutral-900 rounded-2xl p-6 w-full max-h-[90vh] overflow-y-auto overscroll-contain',
+    sheet:
+        'relative flex flex-col bg-transparent text-foreground w-full max-h-full rounded-[20] md:rounded-[30] p-0 mx-0 shadow-2xl overflow-hidden',
+    legal:
+        'relative flex flex-col bg-white text-black rounded-[20px] md:rounded-[30px] w-full max-h-full overflow-hidden shadow-2xl',
+    panorama:
+        'relative flex h-full w-full flex-col overflow-hidden rounded-[20] bg-neutral-900 p-0 shadow-2xl md:rounded-[30]',
+};
+
+export default function Modal({
+    isOpen,
+    onClose,
+    children,
+    variant = 'default',
+    showClose = false,
+    centered = false,
+}) {
     const legalSlug = useModalStore((s) => s.legalSlug);
     const panoramaUrl = useModalStore((s) => s.panoramaUrl);
     const activeModal = useModalStore((s) => s.activeModal);
@@ -56,45 +70,51 @@ export default function Modal({isOpen, onClose, children, variant = 'default', s
     if (typeof window === 'undefined' || !isOpen) return null;
 
     const isSheet = variant === 'sheet';
-    const isInsetSheet = isSheet || isLegal || isPanorama;
+    const isInsetSheet = (isSheet || isLegal || isPanorama) && !centered;
+    const closePad = showClose ? ' py-[45px] md:py-[85px]' : '';
+    const overlayAlign = isInsetSheet
+        ? 'items-start px-3 pb-3 pt-[70px] md:px-6 md:pb-6 md:pt-[110px]'
+        : centered
+            ? `items-center px-3 md:px-6${closePad}`
+            : `items-center${closePad}`;
 
     return createPortal(
         <InModalProvider value={true}>
             <div
                 className={`fixed inset-0 flex justify-center bg-black/70 ${
                     isStackedOverlay ? 'z-[120]' : 'z-[110]'
-                } ${
-                    isInsetSheet
-                        ? 'items-start px-3 pb-3 pt-[70px] md:px-6 md:pb-6 md:pt-[110px]'
-                        : 'items-center'
-                }`}
+                } ${overlayAlign}`}
                 onClick={onClose}
             >
-                {showClose && (
-                    <button
-                        type="button"
-                        onClick={onClose}
-                        aria-label="Закрыть"
-                        className="absolute right-2.5 top-2.5 md:top-5 lg:top-10 md:right-10 lg:right-5 z-40 flex size-[40] md:size-[60] items-center justify-center text-foreground-fixed transition cursor-pointer"
-                    >
-                        <Icon name={'cross'} className={'size-[40] md:size-[60] text-foreground-fixed'}/>
-                    </button>
-                )}
                 <div
                     onClick={(e) => e.stopPropagation()}
-                    className={PANEL[variant] ?? PANEL.default}
-                    data-lenis-prevent={!isSheet ? true : undefined}
+                    className={WRAPPER[variant] ?? WRAPPER.default}
                 >
-                    {isSheet ? (
-                        <div
-                            className="min-h-0 flex-1 overflow-y-auto overscroll-contain"
-                            data-lenis-prevent
+                    {showClose && (
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            aria-label="Закрыть"
+                            className="absolute right-0 bottom-full z-40 mb-[5px] flex size-[40] cursor-pointer items-center justify-center text-foreground-fixed transition md:mb-[25px] md:size-[60] lg:right-[15px]"
                         >
-                            {children}
-                        </div>
-                    ) : (
-                        children
+                            <Icon name={'cross'} className={'size-[40] md:size-[60] text-foreground-fixed'}/>
+                        </button>
                     )}
+                    <div
+                        className={PANEL[variant] ?? PANEL.default}
+                        data-lenis-prevent={!isSheet ? true : undefined}
+                    >
+                        {isSheet ? (
+                            <div
+                                className="min-h-0 flex-1 overflow-y-auto overscroll-contain"
+                                data-lenis-prevent
+                            >
+                                {children}
+                            </div>
+                        ) : (
+                            children
+                        )}
+                    </div>
                 </div>
             </div>
         </InModalProvider>,

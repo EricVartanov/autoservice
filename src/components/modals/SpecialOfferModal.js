@@ -9,7 +9,7 @@ export default function SpecialOfferModal() {
     const {detailsHtml} = modalPayload ?? {};
 
     return (
-        <Modal isOpen={isOpen} onClose={closeModal} variant="sheet" showClose>
+        <Modal isOpen={isOpen} onClose={closeModal} variant="sheet" centered showClose>
             {modalPayload && (
                 <div className="rounded-[20] bg-background text-foreground md:rounded-[30]">
                     {detailsHtml && (

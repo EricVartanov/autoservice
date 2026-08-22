@@ -8,12 +8,12 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import {mediaAlt, mediaUrl} from "@/lib/media";
 
 export default function Contacts({data, embedded = false}) {
-    const {email, mapImage, mapAlt, branches = []} = data;
+    const {email, mapImage, mapImageDark, mapAlt, branches = []} = data;
     const [left, right] = branches;
 
     return (
         <section className={`relative overflow-hidden ${embedded ? 'py-20 md:py-16 lg:pb-[150] lg:pt-20 px-0' : 'py-10 md:py-20 lg:py-[150]'}`}>
-            <Container className={`relative ${embedded ? '!px-2.5 md:!px-[30] lg:!px-10' : ''}`}>
+            <Container className={`relative ${embedded ? '!px-2.5 md:!px-[30] lg:!px-10 z-0' : ''}`}>
                 <ScrollReveal className="relative z-20 left-auto top-0 mb-10 md:mb-[50] items-center flex justify-center lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:mb-0">
                     <a
                         href={`mailto:${email}`}
@@ -36,24 +36,28 @@ export default function Contacts({data, embedded = false}) {
                         {right && <BranchCard branch={right} embedded={embedded}/>}
                     </div>
                 </ScrollReveal>
-                {!embedded &&
-                    <BlurredCircle
-                        className={`left-1/2  lg:bottom-0 -translate-x-1/2 opacity-30 ${embedded ? 'z-10 bottom-[-15%]' : 'bottom-0'}`}
-                        size={embedded ? '' : 'size-[420]'}
-                    />
-                }
                 <ScrollReveal
                     delay={0.15}
-                    className={`z-[-1] hidden lg:block lg:z-10 opacity-50 lg:opacity-100 absolute left-1/2 top-1/2 lg:top-unset lg:bottom-0 -translate-1/2 lg:-translate-x-1/2 w-full lg:max-w-[600] h-auto dark:invert ${embedded ? 'h-full' : ''} `}
+                    className={`z-[-1] hidden lg:block opacity-50 lg:opacity-100 absolute left-1/2 top-1/2 lg:top-unset lg:top-[calc(50%+100px)] -translate-1/2 lg:-translate-x-1/2 w-full lg:max-w-[941] h-auto ${embedded ? 'h-full' : ''} `}
                 >
                     <Image
                         src={mediaUrl(mapImage)}
                         alt={mediaAlt(mapImage, mapAlt)}
-                        width={602}
-                        height={561}
+                        width={941}
+                        height={627}
+                        className="dark:hidden"
                     />
+                    {mapImageDark && (
+                        <Image
+                            src={mediaUrl(mapImageDark)}
+                            alt={mediaAlt(mapImageDark, mapAlt)}
+                            width={941}
+                            height={627}
+                            className="hidden dark:block"
+                        />
+                    )}
                 </ScrollReveal>
-                <MapConnectors branches={branches}/>
+                <MapConnectors branches={branches} embedded={embedded}/>
             </Container>
         </section>
     );

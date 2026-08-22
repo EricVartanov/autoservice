@@ -169,16 +169,18 @@ export default function Reviews({data}) {
                     </div>
                 </ScrollReveal>
 
-                <div className="flex justify-center mt-12 lg:mt-10">
-                    <Button
-                        variant={'transparent'}
-                        href={activeUrl}
-                        target="_blank"
-                        className={'text-transparent-btn-text px-12 hover:bg-foreground-fixed hover:text-black'}
-                    >
-                        {cta?.label ?? "Смотреть все"}
-                    </Button>
-                </div>
+                {matched.length > 0 && (
+                    <div className="flex justify-center mt-12 lg:mt-10">
+                        <Button
+                            variant={'transparent'}
+                            href={activeUrl}
+                            target="_blank"
+                            className={'text-transparent-btn-text px-12 hover:bg-foreground-fixed hover:text-black'}
+                        >
+                            {cta?.label ?? "Смотреть все"}
+                        </Button>
+                    </div>
+                )}
             </Container>
         </section>
     );
