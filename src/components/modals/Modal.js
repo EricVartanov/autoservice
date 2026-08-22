@@ -9,8 +9,9 @@ import {useModalStore} from '../../../public/store/useModalStore';
 
 const WRAPPER = {
     default: 'relative w-full max-w-md mx-4',
-    sheet: 'relative w-full md:w-[calc(100%-48px)] lg:w-full max-w-[1560] max-h-full',
-    legal: 'relative w-full max-w-[800px] max-h-full',
+    sheet: 'relative flex h-full min-h-0 w-full max-w-[1560] flex-col md:w-[calc(100%-48px)] lg:w-full',
+    card: 'relative flex max-h-full min-h-0 w-full max-w-[1560] flex-col md:w-[calc(100%-48px)] lg:w-full',
+    legal: 'relative flex h-full min-h-0 w-full max-w-[800px] flex-col',
     panorama: 'relative h-[70vh] w-full max-w-[1560] md:h-[80vh] md:w-[calc(100%-48px)] lg:w-full',
 };
 
@@ -18,9 +19,11 @@ const PANEL = {
     default:
         'bg-neutral-900 rounded-2xl p-6 w-full max-h-[90vh] overflow-y-auto overscroll-contain',
     sheet:
-        'relative flex flex-col bg-transparent text-foreground w-full max-h-full rounded-[20] md:rounded-[30] p-0 mx-0 shadow-2xl overflow-hidden',
+        'relative flex min-h-0 flex-1 flex-col bg-transparent text-foreground w-full rounded-[20] md:rounded-[30] p-0 mx-0 shadow-2xl overflow-hidden',
+    card:
+        'relative flex min-h-0 w-full flex-col overflow-hidden rounded-[20] bg-background text-foreground shadow-2xl max-h-[calc(100dvh-90px)] md:max-h-[calc(100dvh-190px)] md:rounded-[30]',
     legal:
-        'relative flex flex-col bg-white text-black rounded-[20px] md:rounded-[30px] w-full max-h-full overflow-hidden shadow-2xl',
+        'relative flex min-h-0 flex-1 flex-col bg-white text-black rounded-[20px] md:rounded-[30px] w-full overflow-hidden shadow-2xl',
     panorama:
         'relative flex h-full w-full flex-col overflow-hidden rounded-[20] bg-neutral-900 p-0 shadow-2xl md:rounded-[30]',
 };
@@ -31,7 +34,6 @@ export default function Modal({
     children,
     variant = 'default',
     showClose = false,
-    centered = false,
 }) {
     const legalSlug = useModalStore((s) => s.legalSlug);
     const panoramaUrl = useModalStore((s) => s.panoramaUrl);
@@ -70,11 +72,12 @@ export default function Modal({
     if (typeof window === 'undefined' || !isOpen) return null;
 
     const isSheet = variant === 'sheet';
-    const isInsetSheet = (isSheet || isLegal || isPanorama) && !centered;
+    const isCard = variant === 'card';
+    const isInsetSheet = isSheet || isLegal || isPanorama;
     const closePad = showClose ? ' py-[45px] md:py-[85px]' : '';
     const overlayAlign = isInsetSheet
         ? 'items-start px-3 pb-3 pt-[70px] md:px-6 md:pb-6 md:pt-[110px]'
-        : centered
+        : isCard
             ? `items-center px-3 md:px-6${closePad}`
             : `items-center${closePad}`;
 
@@ -104,7 +107,7 @@ export default function Modal({
                         className={PANEL[variant] ?? PANEL.default}
                         data-lenis-prevent={!isSheet ? true : undefined}
                     >
-                        {isSheet ? (
+                        {isSheet || isCard ? (
                             <div
                                 className="min-h-0 flex-1 overflow-y-auto overscroll-contain"
                                 data-lenis-prevent

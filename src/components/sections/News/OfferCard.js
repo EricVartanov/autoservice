@@ -30,12 +30,13 @@ export default function OfferCard({offer, active = true, onCta}) {
             )}
 
             <div className="relative z-10 flex min-h-[inherit] w-full">
-                <div className="flex min-w-0 flex-1 flex-col justify-between gap-6 px-5 py-6 md:gap-8 md:px-10 md:py-9 lg:gap-[84] lg:px-[60] lg:pt-[40] lg:pb-[30]">
+                <div
+                    className="flex min-w-0 flex-1 flex-col justify-between gap-6 px-5 py-6 md:gap-8 md:px-10 md:py-9 lg:gap-[84] lg:px-[60] lg:pt-[40] lg:pb-[30]">
                     <div>
                         <p className="mb-3 font-helvetica text-base text-foreground-fixed md:mb-5 md:text-lg">
                             {badge}
                         </p>
-                        <h2 className="font-heading text-xl font-medium max-w-2xl leading-tight text-foreground-fixed md:text-3xl lg:text-[34px] lg:leading-none whitespace-break-spaces">
+                        <h2 className="max-w-2xl font-heading text-xl leading-tight font-medium whitespace-break-spaces text-foreground-fixed md:text-3xl lg:text-[34px] lg:leading-none">
                             {title}
                         </h2>
                         <button
@@ -54,9 +55,9 @@ export default function OfferCard({offer, active = true, onCta}) {
                     )}
                 </div>
 
-                <aside className="flex w-10 shrink-0 items-start py-5 justify-center bg-black/40 md:w-10 lg:w-[42]">
+                <aside className="flex w-5 shrink-0 items-start justify-center bg-black/40 py-5 md:w-10 lg:w-[42]">
                     <span
-                        className="whitespace-nowrap uppercase tracking-[0.18em] text-foreground-fixed text-base md:text-lg"
+                        className="text-xs md:text-base tracking-normal whitespace-nowrap text-foreground-fixed uppercase lg:text-lg lg:tracking-[0.18em]"
                         style={{writingMode: 'vertical-rl', transform: 'rotate(180deg)'}}
                     >
                         {badge} до {untilLabel}

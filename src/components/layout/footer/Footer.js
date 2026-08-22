@@ -17,7 +17,7 @@ export default function Footer({ data = mockFooter }) {
 
     return (
         <footer
-            className={`relative z-10 pb-[30] md:pb-20 ${isNews ? 'bg-background' : 'bg-background-secondary'
+            className={`relative z-10 pb-[80] md:pb-[120] ${isNews ? 'bg-background' : 'bg-background-secondary'
                 }`}
         >
             <Container className={'relative'}>

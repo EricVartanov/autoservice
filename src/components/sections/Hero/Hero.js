@@ -1,29 +1,23 @@
 // src/components/sections/hero/Hero.js
 'use client';
 
-import Icon from '@/components/icons/Icon';
+import { useRef } from 'react';
 import HeroSlideContent from './HeroSlideContent';
 import HeroStats from './HeroStats';
+import HeroCtaButtons from './HeroCtaButtons';
+import StickyCtaBar from './StickyCtaBar';
 import BrandsMarquee from './BrandsMarquee';
 import { Video } from "@/components/ui/Video";
 import { Container } from "@/components/Container";
-import { useModalStore } from "../../../../public/store/useModalStore";
-import Button from "@/components/ui/Button";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import Slider from "@/components/ui/Slider";
 import WaveTitle from "@/components/ui/WaveTitle";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { scrollToSection } from "@/lib/scrollToSection";
 
 export default function Hero({ data }) {
-    const { title, backgroundVideo, slides, stats, cta, phone, brands } = data
-
-    const openModal = useModalStore((s) => s.openModal);
+    const { title, backgroundVideo, slides, stats, cta, brands } = data
+    const ctaRef = useRef(null);
     const isMobile = useMediaQuery('(max-width: 767px)');
-
-    const scrollToForm = () => {
-        scrollToSection('contact-form');
-    };
 
     return (
         <section className="relative flex flex-col overflow-hidden bg-black">
@@ -59,17 +53,12 @@ export default function Hero({ data }) {
                     </div>
 
                     <div className="md:relative lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:w-full lg:bottom-0 z-10 flex items-center gap-1 md:gap-4 md:pt-[clamp(12px,3vh,32px)] md:pb-[clamp(16px,3.7vh,40px)] justify-center">
-                        <Button variant="primary" onClick={scrollToForm}>
-                            {cta.label}
-                        </Button>
-
-                        <Button variant="icon" onClick={() => openModal('call')}>
-                            <Icon name="phone-unfilled" className="w-6 h-6" />
-                        </Button>
+                        <HeroCtaButtons ref={ctaRef} label={cta.label} />
                         <div className={'absolute bottom-4 right-4 md:right-0 lg:right-10 xl:right-20 xl:right-0 md:top-[clamp(0px,3vh,22px)] z-10 w-[50] h-[50] md:w-[70] md:h-[70]'}>
                             <ThemeToggle />
                         </div>
                     </div>
+                    <StickyCtaBar sentinelRef={ctaRef} label={cta.label} />
                 </Container>
             </div>
 
