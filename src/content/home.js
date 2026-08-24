@@ -377,6 +377,7 @@ export const mockPage = {
             email: 'Avtoritet-servis23@yandex.ru',
             mapImage: img('/mock/contacts/map.webp', 'Карта Краснодарского края'),
             mapImageDark: img('/mock/contacts/map-dark.webp', 'Карта Краснодарского края'),
+            mapImageModal: img('/mock/contacts/map-modal.webp', 'Карта Краснодарского края'),
             branches: mockBranches,
         },
         {

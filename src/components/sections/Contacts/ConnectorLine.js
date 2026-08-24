@@ -1,17 +1,21 @@
 export default function ConnectorLine({side, marker, embedded = false}) {
     const LEFT = {
-        path: 'M1 0V27C1 32.5228 5.47715 37 11 37H537C542.523 37 547 32.5228 547 27V1.52055',
-        viewBox: '0 0 548 38',
+        path: embedded
+            ? 'M1 0V37.9172C1 43.4723 5.52754 47.9627 11.0824 47.9169L537.082 43.5817C542.573 43.5365 547 39.0728 547 33.5821V23.02055'
+            : 'M1 0V27C1 32.5228 5.47715 37 11 37H537C542.523 37 547 32.5228 547 27V1.52055',
+        viewBox: embedded ? '0 0 548 49' : '0 0 548 38',
         /** Anchor = right end of path (marker) */
         anchorX: 547 / 548,
-        anchorY: 1.52055 / 38,
+        anchorY: embedded ? 23.02055 / 49 : 1.52055 / 38,
     };
 
     const RIGHT = {
-        path: embedded ? 'M1 0V26C1 31.5228 5.47715 36 11 36H604C607.866 36 611 39.134 611 43' : 'M1 0V26C1 31.5228 5.47715 36 11 36H601C606.523 36 611 40.4772 611 46V66',
-        viewBox: '0 0 612 66',
+        path: embedded
+            ? 'M1 0V9.5C1 15.0228 5.47715 19.5 11 19.5H598C603.523 19.5 608 23.9772 608 29.5V44'
+            : 'M1 0V26C1 31.5228 5.47715 36 11 36H601C606.523 36 611 40.4772 611 46V66',
+        viewBox: embedded ? '0 0 609 30' : '0 0 612 66',
         /** Anchor = left end of path (marker) */
-        anchorX: 1 / 612,
+        anchorX: embedded ? 1 / 609 : 1 / 612,
         anchorY: 0,
     };
 

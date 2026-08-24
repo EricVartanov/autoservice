@@ -49,7 +49,7 @@ export default function PhoneInput({
     value,
     onChange,
     className = "",
-    placeholder = "+7(999)999-99-99",
+    placeholder = "+7 (999) 999-99-99",
     onFocus,
     onBlur,
     ...props
