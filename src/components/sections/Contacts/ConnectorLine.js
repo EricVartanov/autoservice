@@ -1,12 +1,12 @@
 export default function ConnectorLine({side, marker, embedded = false}) {
     const LEFT = {
         path: embedded
-            ? 'M1 0V37.9172C1 43.4723 5.52754 47.9627 11.0824 47.9169L537.082 43.5817C542.573 43.5365 547 39.0728 547 33.5821V23.02055'
+            ? 'M1 0V32.9172C1 38.4723 5.52754 42.9627 11.0824 42.9169L537.082 38.5817C542.573 38.5365 547 34.0728 547 28.5821V18.02055'
             : 'M1 0V27C1 32.5228 5.47715 37 11 37H537C542.523 37 547 32.5228 547 27V1.52055',
-        viewBox: embedded ? '0 0 548 49' : '0 0 548 38',
+        viewBox: embedded ? '0 0 548 44' : '0 0 548 38',
         /** Anchor = right end of path (marker) */
         anchorX: 547 / 548,
-        anchorY: embedded ? 23.02055 / 49 : 1.52055 / 38,
+        anchorY: embedded ? 18.02055 / 44 : 1.52055 / 38,
     };
 
     const RIGHT = {
