@@ -4,7 +4,7 @@ import Button from "@/components/ui/Button";
 import Icon from "@/components/icons/Icon";
 import {useModalStore} from "../../../../public/store/useModalStore";
 
-export default function BranchCard({branch, embedded = false}) {
+export default function BranchCard({branch, embedded = false, side}) {
     const phoneHref = `tel:${branch.phone.replace(/\D/g, '')}`;
     const openPanorama = useModalStore((s) => s.openPanorama);
 
@@ -22,7 +22,10 @@ export default function BranchCard({branch, embedded = false}) {
 
             <div className={`mt-2.5 md:mt-5 ${embedded ? 'lg:mt-[60]' : 'lg:mt-[140]'}`}>
                 <p className="text-sm md:text-lg text-foreground-light">{branch.workHours}</p>
-                <h3 className="mt-6 md:mt-10 lg:mt-7 font-heading text-[24px] md:text-[40px] lg:text-[54px] font-medium leading-none tracking-tight text-foreground">
+                <h3
+                    data-branch-title={side}
+                    className="mt-6 md:mt-10 lg:mt-7 font-heading text-[24px] md:text-[40px] lg:text-[54px] font-medium leading-none tracking-tight text-foreground"
+                >
                     {branch.title}
                 </h3>
                 <a
@@ -37,7 +40,7 @@ export default function BranchCard({branch, embedded = false}) {
                 <Button
                     type="button"
                     variant="transparent"
-                    className="w-full min-h-10 px-3 text-transparent-btn-text min-w-[200]! md:min-w-[276]! hover:bg-primary hover:text-foreground-fixed lg:px-5 lg:text-base"
+                    className={`w-full ${embedded ? 'bg-background-secondary' : 'bg-background'} min-h-10 px-3 text-transparent-btn-text min-w-[200]! md:min-w-[276]! hover:bg-primary hover:text-foreground-fixed lg:px-5 lg:text-base`}
                     onClick={() => openPanorama(branch.panoramaUrl)}
                 >
                     Смотреть панораму

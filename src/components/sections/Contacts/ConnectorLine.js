@@ -1,4 +1,4 @@
-export default function ConnectorLine({side, marker, embedded = false}) {
+export default function ConnectorLine({side, marker, embedded = false, width = 0}) {
     const LEFT = {
         path: embedded
             ? 'M1 0V32.9172C1 38.4723 5.52754 42.9627 11.0824 42.9169L537.082 38.5817C542.573 38.5365 547 34.0728 547 28.5821V18.02055'
@@ -24,10 +24,11 @@ export default function ConnectorLine({side, marker, embedded = false}) {
 
     return (
         <svg
-            className="absolute h-auto lg:w-[min(50vw,40vw)] xl:w-[min(50vw,700px)] text-primary"
+            className="absolute h-auto text-primary"
             style={{
                 left: `${marker.x}%`,
                 top: `${marker.y}%`,
+                width: `${width}px`,
                 transform: `translate(-${cfg.anchorX * 100}%, -${cfg.anchorY * 100}%)`,
             }}
             viewBox={cfg.viewBox}

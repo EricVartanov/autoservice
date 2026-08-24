@@ -30,11 +30,11 @@ export default function Contacts({data, embedded = false}) {
                     className="relative flex-col md:flex-row flex justify-between items-center md:items-start gap-[30] md:gap-6 lg:gap-0"
                 >
                     <div className="flex-1 lg:flex-none">
-                        {left && <BranchCard branch={left} embedded={embedded}/>}
+                        {left && <BranchCard branch={left} embedded={embedded} side="left"/>}
                     </div>
 
                     <div className="flex-1 lg:flex-none">
-                        {right && <BranchCard branch={right} embedded={embedded}/>}
+                        {right && <BranchCard branch={right} embedded={embedded} side="right"/>}
                     </div>
                 </ScrollReveal>
                 <ScrollReveal
