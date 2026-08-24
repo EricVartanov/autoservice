@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { mockHeader } from '@/lib/mock-data';
 import TopBar from './TopBar';
 import MainNav from './MainNav';
@@ -11,6 +11,7 @@ export default function Header() {
     const pathname = usePathname();
     const isHome = pathname === '/';
     const [isScrolled, setIsScrolled] = useState(false);
+    const headerRef = useRef(null);
 
     useEffect(() => {
         if (!isHome) return; // на внутренних страницах хедер всегда в "компактном" состоянии
@@ -21,11 +22,32 @@ export default function Header() {
         return () => window.removeEventListener('scroll', onScroll);
     }, [isHome]);
 
+    useEffect(() => {
+        const nav = headerRef.current?.querySelector('nav');
+        if (!nav) return;
+
+        const setOffset = () => {
+            document.documentElement.style.setProperty(
+                '--header-offset',
+                `${nav.getBoundingClientRect().height}px`,
+            );
+        };
+
+        const observer = new ResizeObserver(setOffset);
+        observer.observe(nav);
+        setOffset();
+
+        return () => {
+            observer.disconnect();
+            document.documentElement.style.removeProperty('--header-offset');
+        };
+    }, []);
+
     // на главной — схлопывается после скролла, на внутренних — сразу схлопнут
     const collapsed = isHome ? isScrolled : true;
 
     return (
-        <header className={`fixed top-0 left-0 w-full z-100 transition-colors duration-300 backdrop-blur-sm text-foreground-fixed ${
+        <header ref={headerRef} className={`fixed top-0 left-0 w-full z-100 transition-colors duration-300 backdrop-blur-sm text-foreground-fixed ${
             collapsed || !isHome ? 'bg-black' : 'bg-black/40'
         }`}>
             <Container className="hidden lg:block">

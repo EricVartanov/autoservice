@@ -103,7 +103,7 @@
 }
 
 html {
-    scroll-padding-top: 7.5rem; /* fixed header offset for section anchors */
+    scroll-padding-top: var(--header-offset, 4rem);
 }
 
 body {

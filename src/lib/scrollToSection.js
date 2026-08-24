@@ -21,8 +21,7 @@ export function scrollToElement(el, {behavior = 'smooth'} = {}) {
     if (typeof document === 'undefined' || !el) return false;
 
     if (lenisInstance && behavior !== 'auto') {
-        const padding = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
-        lenisInstance.scrollTo(el, {offset: -padding});
+        lenisInstance.scrollTo(el);
         return true;
     }
 

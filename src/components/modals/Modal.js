@@ -98,9 +98,9 @@ export default function Modal({
                             type="button"
                             onClick={onClose}
                             aria-label="Закрыть"
-                            className="absolute right-0 bottom-full z-40 mb-[5px] flex size-[40] cursor-pointer items-center justify-center text-foreground-fixed transition md:mb-[25px] md:size-[60] lg:right-[15px]"
+                            className="absolute right-[-10px] bottom-full z-40 mb-[5px] flex size-[40] cursor-pointer items-center justify-center text-foreground-fixed transition md:mb-[25px] md:size-[60]"
                         >
-                            <Icon name={'cross'} className={'size-[40] md:size-[60] text-foreground-fixed'}/>
+                            <Icon name={'cross'} className={'size-[16] md:size-[25] text-foreground-fixed'}/>
                         </button>
                     )}
                     <div
