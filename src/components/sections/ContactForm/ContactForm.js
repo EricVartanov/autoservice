@@ -298,7 +298,7 @@ export default function ContactForm({ data }) {
 
     return (
         <section className="relative isolate bg-background py-[50] lg:py-[100]">
-            <div className="absolute inset-x-0 top-0 -z-10 overflow-hidden h-[84vw] lg:inset-0 lg:h-auto">
+            <div className="absolute inset-x-0 top-0 -z-10 overflow-hidden h-[84vw] md:max-h-[950] lg:max-h-none lg:inset-0 lg:h-auto">
                 <Image
                     src={mediaUrl(backgroundImage)}
                     alt={mediaAlt(backgroundImage)}
