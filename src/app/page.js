@@ -52,6 +52,7 @@ export default function Home() {
             <SectionIndicator sections={LANDING_SECTIONS} />
             {mockPage.sections.map((section, i) => {
                 const Component = SECTION_MAP[section.type];
+                console.log(section);
                 if (!Component) return null;
                 const meta = LANDING_SECTIONS[i];
                 return (

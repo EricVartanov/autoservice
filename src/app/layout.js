@@ -9,7 +9,8 @@ import ServiceModal from "@/components/modals/ServiceModal";
 import SpecialOfferModal from "@/components/modals/SpecialOfferModal";
 import LegalModal from "@/components/modals/LegalModal";
 import PanoramaModal from "@/components/modals/PanoramaModal";
-import {site} from '@/lib/mock-data';
+import AboutVideoModal from "@/components/modals/AboutVideoModal";
+import { site } from '@/lib/mock-data';
 
 const fontVariables = [
     muller.variable,
@@ -39,6 +40,7 @@ export default function RootLayout({ children }) {
                         <SpecialOfferModal />
                         <LegalModal />
                         <PanoramaModal />
+                        <AboutVideoModal />
                     </LenisProvider>
                 </ThemeProvider>
             </body>

@@ -4,6 +4,7 @@
 import ShimmerText from "@/components/ui/ShimmerText";
 import WaveTitle from "@/components/ui/WaveTitle";
 import Icon from "@/components/icons/Icon";
+import { useModalStore } from "../../../public/store/useModalStore";
 
 export default function SectionTitle({
     title = '',
@@ -15,16 +16,23 @@ export default function SectionTitle({
     variant = 'center',
     titleColor = 'text-foreground',
     subtitleClass = '',
+    videoWrapper = '',
     animate = true,
 }) {
+    const openModal = useModalStore((s) => s.openModal);
+
+    const openVideoModal = () => {
+        if (!videoWrapper?.videos) return;
+        openModal("aboutVideo", { videos: videoWrapper.videos });
+    };
+
     const variants = {
         center: 'text-center',
         left: 'text-left',
-
     };
 
     return (
-        <div className={`${variants[variant]}`}>
+        <div className={`${variants[variant]} ${videoWrapper ? 'relative' : ''}`}>
             <div className={'relative z-10'}>
                 {mark && (
                     <p className={`flex items-center gap-1.5 font-medium text-xs md:text-lg ${titleColor} font-sans mb-4 ${variant === 'center' ? 'justify-center' : ''}`}>
@@ -72,6 +80,30 @@ export default function SectionTitle({
                         {subtitle}
                     </p>
                 )
+            )}
+            {videoWrapper && (
+                <div className="lg:absolute lg:right-0 mt-12.5 lg:mt-0 lg:-bottom-3.5 flex justify-center">
+                    <button
+                        onClick={openVideoModal}
+                        className='cursor-pointer flex items-center gap-5 lg:gap-7 text-sm md:text-lg font-medium  transition-colors'
+                    >
+                        {videoWrapper.textBtn}
+                        <span className="w-10 h-10 lg:w-14 lg:h-14 rounded-full md:w-14 md:h-14 bg-primary relative animate-pulse-ring flex items-center justify-center
+                          before:content-[''] before:absolute before:inset-0 before:rounded-full
+          before:bg-primary before:scale-100 before:animate-pulse-ring before:z-[-1]
+                        ">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="white"
+                                className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7"
+                            >
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+
+                        </span>
+                    </button>
+                </div>
             )}
         </div>
     )

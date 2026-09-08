@@ -1,8 +1,8 @@
-import {img} from '@/lib/media';
-import {mockBranches, branchMessengers} from '@/content/branches';
-import {brands} from '@/content/brands';
-import {services, toServiceCard} from '@/content/services';
-import {forms} from '@/content/forms';
+import { img } from '@/lib/media';
+import { mockBranches, branchMessengers } from '@/content/branches';
+import { brands } from '@/content/brands';
+import { services, toServiceCard } from '@/content/services';
+import { forms } from '@/content/forms';
 
 export const mockPage = {
     sections: [
@@ -25,10 +25,10 @@ export const mockPage = {
                 },
             ],
             stats: [
-                {value: '900+', label: 'Довольных клиентов'},
-                {value: '10', label: 'Лет на рынке'},
+                { value: '900+', label: 'Довольных клиентов' },
+                { value: '10', label: 'Лет на рынке' },
             ],
-            cta: {label: 'Оставить заявку', link: '#contacts'},
+            cta: { label: 'Оставить заявку', link: '#contacts' },
             brands,
         },
         {
@@ -58,6 +58,14 @@ export const mockPage = {
                     variant: 'third',
                 },
             ],
+            videoWrapper: {
+                textBtn: 'Смотреть видео о нас',
+                videos: [
+                    { label: "Видео о нас", url: "/mock/hero-video_long.mp4" },
+                    { label: "Видео 2", url: "/mock/hero-video_old.mp4" },
+                    { label: "Видео про нас", url: "/mock/hero-video_long.mp4" }
+                ]
+            },
             stats: [
                 {
                     id: 1,
@@ -124,15 +132,15 @@ export const mockPage = {
                 },
             ],
             images: [
-                {id: 1, image: img('/mock/steps/slide1.webp', 'mechanic')},
-                {id: 2, image: img('/mock/steps/slide2.webp', 'mechanic')},
-                {id: 3, image: img('/mock/steps/slide3.webp', 'mechanic')},
-                {id: 4, image: img('/mock/steps/slide4.webp', 'mechanic')},
-                {id: 5, image: img('/mock/steps/slide5.webp', 'mechanic')},
-                {id: 6, image: img('/mock/steps/slide6.webp', 'mechanic')},
-                {id: 7, image: img('/mock/steps/slide7.webp', 'mechanic')},
-                {id: 8, image: img('/mock/steps/slide8.webp', 'mechanic')},
-                {id: 9, image: img('/mock/steps/slide9.webp', 'mechanic')},
+                { id: 1, image: img('/mock/steps/slide1.webp', 'mechanic') },
+                { id: 2, image: img('/mock/steps/slide2.webp', 'mechanic') },
+                { id: 3, image: img('/mock/steps/slide3.webp', 'mechanic') },
+                { id: 4, image: img('/mock/steps/slide4.webp', 'mechanic') },
+                { id: 5, image: img('/mock/steps/slide5.webp', 'mechanic') },
+                { id: 6, image: img('/mock/steps/slide6.webp', 'mechanic') },
+                { id: 7, image: img('/mock/steps/slide7.webp', 'mechanic') },
+                { id: 8, image: img('/mock/steps/slide8.webp', 'mechanic') },
+                { id: 9, image: img('/mock/steps/slide9.webp', 'mechanic') },
             ],
         },
         {
@@ -153,7 +161,7 @@ export const mockPage = {
             subtitle: 'Чтобы рассчитать условия кредита уточняйте информацию у менеджера',
             highlightHtml: 'Поломка <span> не должна менять</span> ваши планы',
             highlightMark: 'Специальное предложение',
-            cta: {label: 'Подробнее'},
+            cta: { label: 'Подробнее' },
             image: img('/mock/specialOffer/specialOffer.webp', 'special Offer'),
             detailsHtml: '<p>Не откладывайте заботу об автомобиле на потом! Ведь, решив вопрос сегодня, Вы можете предотвратить более серьёзные неисправности в будущем и избежать больших расходов на их устранении ☝️</p><p>Наш Автосервис предоставляет удобную возможность воспользоваться услугами в кредит. Мы сотрудничаем с ведущими банками страны: Сбербанком и Т-банком — всё просто и удобно. Оформление заявки займёт всего несколько минут.</p><p>Не позволяйте текущей ситуации перерасти в более серьёзную проблему. Ездите сейчас — платите потом! Все подробности по телефону.</p>',
         },
@@ -166,9 +174,9 @@ export const mockPage = {
                 count: '900+',
                 countLabel: 'отзывов на 3-х площадках',
                 platforms: [
-                    {id: 'google', logo: img('/mock/reviews/google.webp', 'google')},
-                    {id: 'yandex', logo: img('/mock/reviews/yandex.webp', 'yandex')},
-                    {id: '2gis', logo: img('/mock/reviews/2gis.webp', '2gis')},
+                    { id: 'google', logo: img('/mock/reviews/google.webp', 'google') },
+                    { id: 'yandex', logo: img('/mock/reviews/yandex.webp', 'yandex') },
+                    { id: '2gis', logo: img('/mock/reviews/2gis.webp', '2gis') },
                 ],
             },
             platforms: [
@@ -176,24 +184,24 @@ export const mockPage = {
                     id: 'yandex',
                     label: 'Отзывы Яндекс',
                     links: [
-                        {branchId: 1, url: 'https://yandex.ru/maps/org/avtoritet_1_go_maya'},
-                        {branchId: 2, url: 'https://yandex.ru/maps/org/avtoritet_2_ya_dorozhnaya'},
+                        { branchId: 1, url: 'https://yandex.ru/maps/org/avtoritet_1_go_maya' },
+                        { branchId: 2, url: 'https://yandex.ru/maps/org/avtoritet_2_ya_dorozhnaya' },
                     ],
                 },
                 {
                     id: '2gis',
                     label: 'Отзывы 2GIS',
                     links: [
-                        {branchId: 1, url: 'https://2gis.ru/krasnodar/firm/avtoritet_1_go_maya'},
-                        {branchId: 2, url: 'https://2gis.ru/krasnodar/firm/avtoritet_2_ya_dorozhnaya'},
+                        { branchId: 1, url: 'https://2gis.ru/krasnodar/firm/avtoritet_1_go_maya' },
+                        { branchId: 2, url: 'https://2gis.ru/krasnodar/firm/avtoritet_2_ya_dorozhnaya' },
                     ],
                 },
                 {
                     id: 'google',
                     label: 'Отзывы Google',
                     links: [
-                        {branchId: 1, url: 'https://maps.google.com/?cid=avtoritet_1_go_maya'},
-                        {branchId: 2, url: 'https://maps.google.com/?cid=avtoritet_2_ya_dorozhnaya'},
+                        { branchId: 1, url: 'https://maps.google.com/?cid=avtoritet_1_go_maya' },
+                        { branchId: 2, url: 'https://maps.google.com/?cid=avtoritet_2_ya_dorozhnaya' },
                     ],
                 },
             ],
@@ -289,19 +297,19 @@ export const mockPage = {
                     text: 'Всем кто ищет сто для своего авто, всем в Авторитет. Здесь вы получите качественное обслуживание, менеджеры грамотно проконсультируют и ответят на все вопросы.',
                 },
             ],
-            cta: {label: 'Смотреть все'},
+            cta: { label: 'Смотреть все' },
         },
         {
             type: 'commercial',
             mark: 'Коммерческий транспорт',
             title: 'Обслуживание\nи ремонт коммерческого\nтранспорта',
             subtitle: 'Наш Автосервис также выполняет профессиональный ремонт\nи обслуживание коммерческого транспорта.',
-            cta: {label: 'Подробнее'},
+            cta: { label: 'Подробнее' },
             detailsHtml: '<p>Наш Автосервис также выполняет профессиональный ремонт и обслуживание коммерческого транспорта.</p><p>Для Вашего автопарка доступен полный спектр услуг. Имеются только два ограничения:</p><p>— мы не обслуживаем крупнотоннажные грузовики,<br>— не принимаем автомобили выше 3 метров.</p><p>Мы понимаем, насколько важна бесперебойная работа коммерческого транспорта, поэтому обеспечиваем оперативность, точность и стабильное качество. Вы получаете предсказуемый результат, на который можно опираться ежедневно.</p>',
             backgroundImage: img('/mock/commercial/commercial-bg.webp', 'commercial service'),
             limitations: [
-                {image: img('/mock/commercial/truck.webp', 'truck'), text: 'Не обслуживаем\nкрупнотоннажные грузовики'},
-                {image: img('/mock/commercial/semi-truck.webp', 'semi truck'), text: 'Не обслуживаем автомобили\nвыше 3 метров'},
+                { image: img('/mock/commercial/truck.webp', 'truck'), text: 'Не обслуживаем\nкрупнотоннажные грузовики' },
+                { image: img('/mock/commercial/semi-truck.webp', 'semi truck'), text: 'Не обслуживаем автомобили\nвыше 3 метров' },
             ],
             form: forms.commercial,
         },
@@ -309,7 +317,7 @@ export const mockPage = {
             type: 'faq',
             mark: 'F&Q',
             title: 'Мы собрали список\nсамых частых вопросов',
-            cta: {label: 'Смотреть все'},
+            cta: { label: 'Смотреть все' },
             messengers: branchMessengers(),
             items: [
                 {

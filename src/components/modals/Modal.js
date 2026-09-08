@@ -1,11 +1,11 @@
 'use client';
 
-import {useEffect} from 'react';
-import {createPortal} from 'react-dom';
+import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Icon from '@/components/icons/Icon';
-import {getLenis} from '@/lib/scrollToSection';
-import {InModalProvider} from '@/components/modals/InModalContext';
-import {useModalStore} from '../../../public/store/useModalStore';
+import { getLenis } from '@/lib/scrollToSection';
+import { InModalProvider } from '@/components/modals/InModalContext';
+import { useModalStore } from '../../../public/store/useModalStore';
 
 const WRAPPER = {
     default: 'relative w-full max-w-md mx-4',
@@ -13,6 +13,7 @@ const WRAPPER = {
     card: 'relative flex max-h-full min-h-0 w-full max-w-[1560] flex-col md:w-[calc(100%-48px)] lg:w-full',
     legal: 'relative flex h-full min-h-0 w-full max-w-[800px] flex-col',
     panorama: 'relative h-[70vh] w-full max-w-[1560] md:h-[80vh] md:w-[calc(100%-48px)] lg:w-full',
+    video: 'relative flex lg:h-full min-h-0 w-full max-w-[1560] flex-col md:w-[calc(100%-48px)] lg:w-full',
 };
 
 const PANEL = {
@@ -26,6 +27,8 @@ const PANEL = {
         'relative flex min-h-0 flex-1 flex-col bg-white text-black rounded-[20px] md:rounded-[30px] w-full overflow-hidden shadow-2xl',
     panorama:
         'relative flex h-full w-full flex-col overflow-hidden rounded-[20] bg-neutral-900 p-0 shadow-2xl md:rounded-[30]',
+    video:
+        'relative flex min-h-0 flex-1 flex-col bg-background text-foreground w-full rounded-[20] md:rounded-[30] p-0 mx-0 shadow-2xl overflow-hidden',
 };
 
 export default function Modal({
@@ -40,8 +43,10 @@ export default function Modal({
     const activeModal = useModalStore((s) => s.activeModal);
     const isLegal = variant === 'legal';
     const isPanorama = variant === 'panorama';
+    // const isVideo = variant === 'video';
     const isStackedOverlay = isLegal || isPanorama;
     const skipScrollLock = isStackedOverlay && !!activeModal;
+    console.log(activeModal)
 
     useEffect(() => {
         if (!isOpen) return undefined;
@@ -73,20 +78,22 @@ export default function Modal({
 
     const isSheet = variant === 'sheet';
     const isCard = variant === 'card';
+    const isVideo = variant === 'video';
     const isInsetSheet = isSheet || isLegal || isPanorama;
     const closePad = showClose ? ' py-[45px] md:py-[85px]' : '';
     const overlayAlign = isInsetSheet
         ? 'items-start px-3 pb-3 pt-[70px] md:px-6 md:pb-6 md:pt-[110px]'
         : isCard
             ? `items-center px-3 md:px-6${closePad}`
-            : `items-center${closePad}`;
+            : isVideo
+                ? `items-center px-3 pb-3 pt-[70px] md:px-6 md:pb-6 md:pt-[110px]${closePad}`
+                : `items-center${closePad}`;
 
     return createPortal(
         <InModalProvider value={true}>
             <div
-                className={`fixed inset-0 flex justify-center bg-black/70 ${
-                    isStackedOverlay ? 'z-[120]' : 'z-[110]'
-                } ${overlayAlign}`}
+                className={`fixed inset-0 flex justify-center bg-black/70 ${isStackedOverlay ? 'z-[120]' : 'z-[110]'
+                    } ${overlayAlign}`}
                 onClick={onClose}
             >
                 <div
@@ -100,7 +107,7 @@ export default function Modal({
                             aria-label="Закрыть"
                             className="absolute right-[-10px] bottom-full z-40 mb-[5px] flex size-[40] cursor-pointer items-center justify-center text-foreground-fixed transition md:mb-[25px] md:size-[60]"
                         >
-                            <Icon name={'cross'} className={'size-[16] md:size-[25] text-foreground-fixed'}/>
+                            <Icon name={'cross'} className={'size-[16] md:size-[25] text-foreground-fixed'} />
                         </button>
                     )}
                     <div
@@ -109,7 +116,7 @@ export default function Modal({
                     >
                         {isSheet || isCard ? (
                             <div
-                                className="min-h-0 flex-1 overflow-y-auto overscroll-contain"
+                                className='min-h-0 flex-1 overflow-y-auto overscroll-contain'
                                 data-lenis-prevent
                             >
                                 {children}
