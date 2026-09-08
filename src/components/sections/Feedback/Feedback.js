@@ -1,17 +1,17 @@
 "use client";
 
-import {useState} from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Icon from "@/components/icons/Icon";
 import Button from "@/components/ui/Button";
-import PhoneInput, {getCleanPhone} from "@/components/ui/PhoneInput";
+import PhoneInput, { getCleanPhone } from "@/components/ui/PhoneInput";
 import WaveTitle from "@/components/ui/WaveTitle";
 import FieldError from "@/components/ui/FieldError";
 import LegalLink from "@/components/ui/LegalLink";
-import {Container} from "@/components/Container";
+import { Container } from "@/components/Container";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
-import {mediaAlt, mediaUrl} from "@/lib/media";
+import { mediaAlt, mediaUrl } from "@/lib/media";
 
 const cardGradient =
     "bg-[radial-gradient(circle_at_top_left,rgba(200,0,0,1)_0%,rgba(0,0,0,0.8)_50%,rgba(0,0,0,0.8)_100%)]";
@@ -23,7 +23,7 @@ const cardGradient2 =
 const cardGradient3 =
     "bg-[linear-gradient(316deg,rgba(255,0,0,1)_0%,rgba(0,0,0,1)_100%)]";
 
-function validate({name, phoneDigits, branch, consent}) {
+function validate({ name, phoneDigits, branch, consent }) {
     const errors = {};
 
     if (!name.trim()) {
@@ -47,8 +47,8 @@ function validate({name, phoneDigits, branch, consent}) {
     return errors;
 }
 
-export default function Feedback({data}) {
-    const {intro, title, manager, tires, form} = data;
+export default function Feedback({ data }) {
+    const { intro, title, manager, tires, form } = data;
 
     const [name, setName] = useState("");
     const [phoneDigits, setPhoneDigits] = useState("");
@@ -61,7 +61,7 @@ export default function Feedback({data}) {
     const clearError = (field) => {
         setErrors((prev) => {
             if (!prev[field]) return prev;
-            const next = {...prev};
+            const next = { ...prev };
             delete next[field];
             return next;
         });
@@ -70,7 +70,7 @@ export default function Feedback({data}) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const validationErrors = validate({name, phoneDigits, branch, consent});
+        const validationErrors = validate({ name, phoneDigits, branch, consent });
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length > 0) {
@@ -85,7 +85,7 @@ export default function Feedback({data}) {
             consent,
         };
         // сюда позже уйдёт fetch на WP-эндпоинт
-        console.log(payload);
+        // console.log(payload);
 
         setSubmitted(true);
         setName("");
@@ -96,8 +96,7 @@ export default function Feedback({data}) {
     };
 
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 h-[44] md:h-[54] py-2.5 md:py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
-            hasError ? "border-primary" : "border-white/20 focus:border-foreground-fixed"
+        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 h-[44] md:h-[54] py-2.5 md:py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${hasError ? "border-primary" : "border-white/20 focus:border-foreground-fixed"
         }`;
 
     return (
@@ -177,13 +176,12 @@ export default function Feedback({data}) {
                                             className="flex cursor-pointer items-center gap-1.5 font-helvetica text-sm md:text-base"
                                         >
                                             <span
-                                                className={`flex size-5 md:size-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
-                                                    errors.branch
+                                                className={`flex size-5 md:size-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${errors.branch
                                                         ? "border-primary"
                                                         : checked
-                                                          ? "border-primary"
-                                                          : "border-white/40"
-                                                }`}
+                                                            ? "border-primary"
+                                                            : "border-white/40"
+                                                    }`}
                                             >
                                                 {checked && (
                                                     <span className="size-2.5 md:size-3.5 rounded-full bg-primary" />
@@ -234,16 +232,15 @@ export default function Feedback({data}) {
                                     className="flex cursor-pointer justify-start items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed"
                                 >
                                     <span
-                                        className={`mt-0.5 p-1 flex size-7 shrink-0 items-center justify-center rounded border transition-colors ${
-                                            errors.consent
+                                        className={`mt-0.5 p-1 flex size-7 shrink-0 items-center justify-center rounded border transition-colors ${errors.consent
                                                 ? "border-primary"
                                                 : consent
                                                     ? "border-primary bg-primary"
                                                     : "border-[#c4c4c4]"
-                                        }`}
+                                            }`}
                                     >
                                         {consent && (
-                                            <Icon name="square" className="size-5 md:size-6"/>
+                                            <Icon name="square" className="size-5 md:size-6" />
                                         )}
                                     </span>
                                     <input

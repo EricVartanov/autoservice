@@ -38,13 +38,13 @@ export default function ServiceHero({ data }) {
         setErrors(validationErrors);
         if (Object.keys(validationErrors).length > 0) return;
 
-        console.log({
-            service: title,
-            name: name.trim(),
-            phone: getCleanPhone(phoneDigits),
-            carBrand,
-            consent,
-        });
+        // console.log({
+        //     service: title,
+        //     name: name.trim(),
+        //     phone: getCleanPhone(phoneDigits),
+        //     carBrand,
+        //     consent,
+        // });
 
         setSubmitted(true);
         setName('');

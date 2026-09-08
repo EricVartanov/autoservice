@@ -1,19 +1,19 @@
 "use client";
 
-import {useState} from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Icon from "@/components/icons/Icon";
 import Button from "@/components/ui/Button";
-import PhoneInput, {getCleanPhone} from "@/components/ui/PhoneInput";
+import PhoneInput, { getCleanPhone } from "@/components/ui/PhoneInput";
 import Select from "@/components/ui/Select";
 import FieldError from "@/components/ui/FieldError";
 import LegalLink from "@/components/ui/LegalLink";
-import {Container} from "@/components/Container";
+import { Container } from "@/components/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
-import {useMediaQuery} from "@/hooks/useMediaQuery";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
 
-function validate({name, phoneDigits, carBrand, timing, branch, consent}) {
+function validate({ name, phoneDigits, carBrand, timing, branch, consent }) {
     const errors = {};
 
     if (!name.trim()) {
@@ -45,8 +45,8 @@ function validate({name, phoneDigits, carBrand, timing, branch, consent}) {
     return errors;
 }
 
-export default function ServiceContactForm({data}) {
-    const {title, backgroundImage, form} = data;
+export default function ServiceContactForm({ data }) {
+    const { title, backgroundImage, form } = data;
 
     const [name, setName] = useState("");
     const [phoneDigits, setPhoneDigits] = useState("");
@@ -62,7 +62,7 @@ export default function ServiceContactForm({data}) {
     const clearError = (field) => {
         setErrors((prev) => {
             if (!prev[field]) return prev;
-            const next = {...prev};
+            const next = { ...prev };
             delete next[field];
             return next;
         });
@@ -124,7 +124,7 @@ export default function ServiceContactForm({data}) {
             consent,
         };
         // сюда позже уйдёт fetch на WP-эндпоинт
-        console.log(payload);
+        // console.log(payload);
 
         setSubmitted(true);
         setName("");
@@ -136,10 +136,9 @@ export default function ServiceContactForm({data}) {
     };
 
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border bg-white/20 text-foreground-fixed h-[44] md:h-[54] px-5 py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
-            hasError
-                ? "border-foreground-fixed"
-                : "border-transparent focus:border-white focus:border-foreground-fixed"
+        `w-full rounded-full border bg-white/20 text-foreground-fixed h-[44] md:h-[54] px-5 py-3.5 font-helvetica text-sm md:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${hasError
+            ? "border-foreground-fixed"
+            : "border-transparent focus:border-white focus:border-foreground-fixed"
         }`;
 
     const renderMainField = (field) => {
@@ -180,7 +179,7 @@ export default function ServiceContactForm({data}) {
         return (
             <div
                 key={field.name}
-                className={`relative w-full md:w-full lg:w-[calc(50%-10px)] ${field.name === 'carBrand' ? 'lg:w-full': ''}`}
+                className={`relative w-full md:w-full lg:w-[calc(50%-10px)] ${field.name === 'carBrand' ? 'lg:w-full' : ''}`}
             >
                 <label className="mb-2.5 block font-helvetica text-sm md:text-base font-bold text-foreground-fixed">
                     {field.label}
@@ -214,15 +213,14 @@ export default function ServiceContactForm({data}) {
                                 className="flex md:flex-row flex-row-reverse justify-between md:justify-start cursor-pointer items-center gap-1.5 font-helvetica text-sm md:text-base text-foreground-fixed"
                             >
                                 <span
-                                    className={`flex size-5 md:size-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
-                                        hasError
+                                    className={`flex size-5 md:size-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${hasError
                                             ? "border-foreground-fixed"
                                             : checked
                                                 ? "border-foreground-fixed"
                                                 : "border-white/40"
-                                    }`}
+                                        }`}
                                 >
-                                    {checked && <span className="size-2.5 md:size-3.5 rounded-full bg-foreground-fixed"/>}
+                                    {checked && <span className="size-2.5 md:size-3.5 rounded-full bg-foreground-fixed" />}
                                 </span>
                                 <input
                                     type="radio"
@@ -274,34 +272,33 @@ export default function ServiceContactForm({data}) {
                             <div className={'relative pb-1'}>
                                 <label
                                     className="flex flex-row-reverse justify-between md:flex-row cursor-pointer md:justify-start items-center gap-2.5 font-helvetica text-sm md:text-base text-foreground-fixed">
-                                <span
-                                    className={`mt-0.5 p-1 flex size-6 md:size-7 shrink-0 items-center justify-center rounded border transition-colors ${
-                                        errors.consent
-                                            ? "border-foreground-fixed"
-                                            : consent
+                                    <span
+                                        className={`mt-0.5 p-1 flex size-6 md:size-7 shrink-0 items-center justify-center rounded border transition-colors ${errors.consent
                                                 ? "border-foreground-fixed"
-                                                : "border-[#c4c4c4]"
-                                    }`}
-                                >
-                                    {consent && (
-                                        <Icon name={'square'} className={'size-5 md:size-6'} />
-                                    )}
-                                </span>
-                                <input
-                                    type="checkbox"
-                                    checked={consent}
-                                    onChange={handleConsentChange}
-                                    className="sr-only"
-                                />
-                                <span className={'inline'}>
-                                    {form.consent.label}{" "}
+                                                : consent
+                                                    ? "border-foreground-fixed"
+                                                    : "border-[#c4c4c4]"
+                                            }`}
+                                    >
+                                        {consent && (
+                                            <Icon name={'square'} className={'size-5 md:size-6'} />
+                                        )}
+                                    </span>
+                                    <input
+                                        type="checkbox"
+                                        checked={consent}
+                                        onChange={handleConsentChange}
+                                        className="sr-only"
+                                    />
+                                    <span className={'inline'}>
+                                        {form.consent.label}{" "}
                                         <LegalLink
                                             slug={form.consent.slug}
                                             className="pb-px border-b hover:opacity-60"
                                         >
-                                        {form.consent.linkText}
-                                    </LegalLink>
-                                </span>
+                                            {form.consent.linkText}
+                                        </LegalLink>
+                                    </span>
 
                                 </label>
                                 <FieldError className="absolute bottom-[-20] left-0" colorClass="text-foreground-fixed">

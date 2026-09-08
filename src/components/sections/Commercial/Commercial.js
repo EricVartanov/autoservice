@@ -1,23 +1,23 @@
 // components/sections/CommercialSection.js
 "use client";
 
-import {useState} from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
-import PhoneInput, {getCleanPhone} from "@/components/ui/PhoneInput";
+import PhoneInput, { getCleanPhone } from "@/components/ui/PhoneInput";
 import Select from "@/components/ui/Select";
 import FieldError from "@/components/ui/FieldError";
 import SectionTitle from "@/components/ui/SectionTitle";
-import {Container} from "@/components/Container";
-import {useMediaQuery} from "@/hooks/useMediaQuery";
+import { Container } from "@/components/Container";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
-import {useModalStore} from "../../../../public/store/useModalStore";
-import {mediaAlt, mediaUrl} from "@/lib/media";
-import {collectFormErrors} from "@/lib/formValidation";
+import { useModalStore } from "../../../../public/store/useModalStore";
+import { mediaAlt, mediaUrl } from "@/lib/media";
+import { collectFormErrors } from "@/lib/formValidation";
 
-export default function Commercial({data}) {
-    const {mark, title, subtitle, cta, backgroundImage, limitations, form} = data;
+export default function Commercial({ data }) {
+    const { mark, title, subtitle, cta, backgroundImage, limitations, form } = data;
     const openModal = useModalStore((s) => s.openModal);
 
     const [name, setName] = useState("");
@@ -32,7 +32,7 @@ export default function Commercial({data}) {
     const clearError = (field) => {
         setErrors((prev) => {
             if (!prev[field]) return prev;
-            const next = {...prev};
+            const next = { ...prev };
             delete next[field];
             return next;
         });
@@ -56,7 +56,7 @@ export default function Commercial({data}) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const validationErrors = collectFormErrors(form.errors, {name, phoneDigits, carBrand});
+        const validationErrors = collectFormErrors(form.errors, { name, phoneDigits, carBrand });
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length > 0) {
@@ -69,7 +69,7 @@ export default function Commercial({data}) {
             carBrand,
         };
         // сюда позже уйдёт fetch на WP-эндпоинт
-        console.log(payload);
+        // console.log(payload);
 
         setSubmitted(true);
         setName("");
@@ -78,8 +78,7 @@ export default function Commercial({data}) {
     };
 
     const fieldInputClass = (hasError) =>
-        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-3 md:py-3.5 h-[44] md:h-[54] font-helvetica text-sm lg:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${
-            hasError ? "border-primary" : "border-white/20 focus:border-foreground-fixed"
+        `w-full rounded-full border bg-transparent text-foreground-fixed px-5 py-3 md:py-3.5 h-[44] md:h-[54] font-helvetica text-sm lg:text-base outline-none placeholder:text-foreground-fixed focus:placeholder:text-transparent transition-colors ${hasError ? "border-primary" : "border-white/20 focus:border-foreground-fixed"
         }`;
 
     const renderField = (field) => {
@@ -134,37 +133,37 @@ export default function Commercial({data}) {
     return (
         <section className="relative py-[80] md:py-[90] lg:pt-[150] lg:pb-[60]">
             <div className="absolute inset-0 -z-10 overflow-hidden">
-                <Image src={mediaUrl(backgroundImage)} alt={mediaAlt(backgroundImage)} fill className="object-cover"/>
+                <Image src={mediaUrl(backgroundImage)} alt={mediaAlt(backgroundImage)} fill className="object-cover" />
                 <div className="absolute inset-0 bg-black/40" />
             </div>
 
             <Container className="relative flex flex-col justify-between">
-               <div className={'w-full ml-0 lg:w-1/2 lg:ml-auto text-center lg:text-left '}>
-                   <SectionTitle
-                       variant={isMobileOrTablet ? 'center' : "left"}
-                       mark={mark}
-                       title={title}
-                       subtitle={subtitle}
-                       titleColor={'text-foreground-fixed'}
-                       subtitleClass={`!mx-0 ${isMobileOrTablet ? 'text-center' : 'text-left'} !text-foreground-fixed`}
-                   />
+                <div className={'w-full ml-0 lg:w-1/2 lg:ml-auto text-center lg:text-left '}>
+                    <SectionTitle
+                        variant={isMobileOrTablet ? 'center' : "left"}
+                        mark={mark}
+                        title={title}
+                        subtitle={subtitle}
+                        titleColor={'text-foreground-fixed'}
+                        subtitleClass={`!mx-0 ${isMobileOrTablet ? 'text-center' : 'text-left'} !text-foreground-fixed`}
+                    />
 
-                   {cta && (
-                       <button
-                           type="button"
-                           onClick={() => openModal('commercial', data)}
-                           className="inline-block mt-7 lg:mt-3 text-sm md:text-lg text-foreground-fixed underline underline-offset-4 hover:text-primary transition-colors cursor-pointer"
-                       >
-                           {cta.label}
-                       </button>
-                   )}
-               </div>
+                    {cta && (
+                        <button
+                            type="button"
+                            onClick={() => openModal('commercial', data)}
+                            className="inline-block mt-7 lg:mt-3 text-sm md:text-lg text-foreground-fixed underline underline-offset-4 hover:text-primary transition-colors cursor-pointer"
+                        >
+                            {cta.label}
+                        </button>
+                    )}
+                </div>
 
                 <ScrollReveal stagger className="flex justify-center mt-[30] lg:mt-4 lg:justify-start gap-12">
                     {limitations.map((item, i) => (
                         <div key={i} className="flex flex-col items-center text-center gap-3.5 max-w-[250px] lg:items-start lg:text-left">
                             <span className="shrink-0 size-[30] md:size-[50] rounded-full bg-primary flex items-center justify-center">
-                                <Image src={mediaUrl(item.image)} width={40} height={40} className="text-white size-[25] md:size-[40]" alt={mediaAlt(item.image, item.alt)}/>
+                                <Image src={mediaUrl(item.image)} width={40} height={40} className="text-white size-[25] md:size-[40]" alt={mediaAlt(item.image, item.alt)} />
                             </span>
                             <p className="text-sm lg:text-lg font-helvetica text-foreground-fixed leading-tight whitespace-pre-line">
                                 {item.text}

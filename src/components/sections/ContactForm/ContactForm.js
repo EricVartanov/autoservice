@@ -15,8 +15,8 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
-import {mediaAlt, mediaUrl} from "@/lib/media";
-import {collectFormErrors} from "@/lib/formValidation";
+import { mediaAlt, mediaUrl } from "@/lib/media";
+import { collectFormErrors } from "@/lib/formValidation";
 
 const CUSTOM_PART_VALUE = "__custom__";
 const CUSTOM_PART_OPTION = { value: CUSTOM_PART_VALUE, label: "Указать своё" };
@@ -124,7 +124,7 @@ export default function ContactForm({ data }) {
             extra: normalizeExtra(extraValues, form.extraSection?.fields),
         };
         // сюда позже уйдёт fetch на WP-эндпоинт
-        console.log(payload);
+        // console.log(payload);
 
         setSubmitted(true);
         setName("");

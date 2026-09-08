@@ -16,7 +16,7 @@ export default function ServiceTrust({ data }) {
 
                 <p className="font-helvetica font-medium text-center md:text-left text-sm md:text-lg leading-5 text-foreground-fixed/90 w-full lg:w-[580]">
                     {lines.map((line, i) => {
-                        console.log(i);
+                        // console.log(i);
 
                         const className = i !== 0 ? 'mt-2.5 md:mt-4' : '';
 

@@ -46,7 +46,7 @@ export default function Modal({
     // const isVideo = variant === 'video';
     const isStackedOverlay = isLegal || isPanorama;
     const skipScrollLock = isStackedOverlay && !!activeModal;
-    console.log(activeModal)
+    // console.log(activeModal)
 
     useEffect(() => {
         if (!isOpen) return undefined;

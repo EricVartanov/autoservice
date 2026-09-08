@@ -1,7 +1,7 @@
 import ServiceGlyph from '@/components/modals/service/ServiceGlyph';
 
 export default function ServiceBenefits({ title, items }) {
-    console.log(items)
+    // console.log(items)
 
     return (
         <section className="px-2.5 py-20 md:px-[30] md:py-12 lg:py-[80]">

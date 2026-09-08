@@ -12,7 +12,7 @@ export default function Contacts({ data, embedded = false }) {
     const [left, right] = branches;
     const lightMap = embedded && mapImageModal ? mapImageModal : mapImage;
 
-    console.log(branches, left, right);
+    // console.log(branches, left, right);
 
     return (
         <section className={`relative overflow-hidden ${embedded ? 'py-20 md:py-16 lg:pb-[150] lg:pt-20 px-0' : 'py-10 md:py-20 lg:py-[150]'}`}>
