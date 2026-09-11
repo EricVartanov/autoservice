@@ -9,20 +9,25 @@ import ServicePopular from '@/components/modals/service/ServicePopular';
 import ServicePriceList from '@/components/modals/service/ServicePriceList';
 import Contacts from '@/components/sections/Contacts/Contacts';
 import ServiceContactForm from '@/components/modals/service/ServiceContactForm';
-import { getMockSection, getServiceDetail } from '@/lib/mock-data';
+import { useSiteData } from '@/components/SiteDataProvider';
 import { useModalStore } from '../../../public/store/useModalStore';
 
 export default function ServiceModal() {
+    const { servicesBySlug, sections } = useSiteData();
     const { activeModal, modalPayload, closeModal } = useModalStore();
     const isOpen = activeModal === 'service';
-    const detail = getServiceDetail(modalPayload?.slug);
-    const contactsData = getMockSection('contacts');
-    const contactFormData = getMockSection('contact_form');
+    const detail = servicesBySlug[modalPayload?.slug] ?? null;
+    const contactsData = sections.find((section) => section.type === 'contacts');
+    const contactFormData = sections.find((section) => section.type === 'contact_form');
 
-    const isTireService = detail?.slug === 'tyres-service';
-
-    const filteredContacts = isTireService
-        ? { ...contactsData, branches: [contactsData.branches[0]] }
+    const relatedSlugs = detail?.branches?.filter(Boolean) ?? [];
+    const filteredContacts = contactsData
+        ? {
+            ...contactsData,
+            branches: relatedSlugs.length
+                ? contactsData.branches.filter((branch) => relatedSlugs.includes(branch.slug))
+                : contactsData.branches,
+        }
         : contactsData;
 
     return (

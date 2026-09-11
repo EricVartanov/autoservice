@@ -5,9 +5,10 @@ import Button from "@/components/ui/Button";
 import { formatPrice } from "@/lib/formatPrice";
 import { useModalStore } from "../../../../public/store/useModalStore";
 import { mediaAlt, mediaUrl } from "@/lib/media";
-import { site } from "@/lib/mock-data";
+import { useSiteData } from "@/components/SiteDataProvider";
 
 export default function ServiceCard({ service }) {
+    const { site } = useSiteData();
     const openModal = useModalStore((s) => s.openModal);
 
     const openService = () => openModal('service', { slug: service.slug });

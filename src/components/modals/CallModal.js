@@ -1,10 +1,11 @@
 // components/modals/CallModal.jsx
 'use client';
 import Modal from './Modal';
-import {mockBranches, site} from "@/lib/mock-data";
+import {useSiteData} from "@/components/SiteDataProvider";
 import {useModalStore} from "../../../public/store/useModalStore";
 
 export default function CallModal() {
+    const {site, branches: mockBranches} = useSiteData();
     const {activeModal, closeModal} = useModalStore();
 
     return (

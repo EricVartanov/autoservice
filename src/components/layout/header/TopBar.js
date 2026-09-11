@@ -1,12 +1,11 @@
 import Icon from "@/components/icons/Icon";
 import Link from "next/link";
 import Image from "next/image";
-import {mockBranches} from "@/lib/mock-data";
 import {mediaAlt, mediaUrl} from "@/lib/media";
+import {useSiteData} from "@/components/SiteDataProvider";
 
 export default function TopBar({logo}) {
-
-    const branches = mockBranches
+    const {branches} = useSiteData();
     const leftBranch = branches[0];
     const rightBranch = branches[1];
 

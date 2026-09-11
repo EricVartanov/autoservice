@@ -5,13 +5,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Container } from "@/components/Container";
 import LegalLink from "@/components/ui/LegalLink";
-import { mockFooter, mockBranches, site } from "@/lib/mock-data";
+import { useSiteData } from "@/components/SiteDataProvider";
 import Icon from "@/components/icons/Icon";
 import { scrollToTop } from "@/lib/scrollToSection";
 import {mediaAlt, mediaUrl} from "@/lib/media";
 
-export default function Footer({ data = mockFooter }) {
-    const { logo, logoDark, copyright, legal, socials } = data;
+export default function Footer({ data }) {
+    const {site, branches: mockBranches} = useSiteData();
+    const footer = data ?? site.footer;
+    const { logo, logoDark, copyright, legal, socials } = footer;
     const pathname = usePathname();
     const isNews = pathname === '/news' || pathname.startsWith('/news/');
 

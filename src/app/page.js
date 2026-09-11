@@ -1,4 +1,4 @@
-import { mockPage } from '@/lib/mock-data';
+import { loadSiteData } from '@/lib/wp/load';
 import Hero from '@/components/sections/Hero/Hero';
 import About from '@/components/sections/About/About';
 import Services from '@/components/sections/Services/Services';
@@ -45,12 +45,14 @@ const LANDING_SECTIONS = [
     { id: 'feedback', theme: 'light' },
 ];
 
-export default function Home() {
+export default async function Home() {
+    const {sections} = await loadSiteData();
+
     return (
         <main>
             <HashScroll />
             <SectionIndicator sections={LANDING_SECTIONS} />
-            {mockPage.sections.map((section, i) => {
+            {sections.map((section, i) => {
                 const Component = SECTION_MAP[section.type];
                 // console.log(section);
                 if (!Component) return null;

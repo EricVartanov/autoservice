@@ -1,17 +1,21 @@
-import {mockOffers, mockNews, newsPage} from '@/lib/mock-data';
+import {loadSiteData} from '@/lib/wp/load';
 import OffersSwiper from '@/components/sections/News/OffersSwiper';
 import NewsSection from '@/components/sections/News/NewsSection';
 
-export const metadata = {
-    title: newsPage.seoTitle,
-    description: newsPage.seoDescription,
-};
+export async function generateMetadata() {
+    const {newsPage} = await loadSiteData();
+    return {
+        title: newsPage.seoTitle,
+        description: newsPage.seoDescription,
+    };
+}
 
-export default function NewsPage() {
+export default async function NewsPage() {
+    const {offers, news} = await loadSiteData();
     return (
         <main>
-            <OffersSwiper offers={mockOffers} />
-            <NewsSection items={mockNews} />
+            <OffersSwiper offers={offers} />
+            <NewsSection items={news} />
         </main>
     );
 }

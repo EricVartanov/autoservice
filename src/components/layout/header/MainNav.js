@@ -4,7 +4,7 @@ import {useEffect, useRef, useState} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {usePathname} from 'next/navigation';
-import {mockBranches, site} from '@/lib/mock-data';
+import {useSiteData} from '@/components/SiteDataProvider';
 import {getHashId, scrollToSection} from '@/lib/scrollToSection';
 import {mediaAlt, mediaUrl} from '@/lib/media';
 
@@ -31,6 +31,7 @@ function MenuToggleIcon({open}) {
 }
 
 export default function MainNav({data, isHome, collapsed}) {
+    const {site, branches: mockBranches} = useSiteData();
     const pathname = usePathname();
     const [branchesOpen, setBranchesOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);

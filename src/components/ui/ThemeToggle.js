@@ -3,9 +3,10 @@
 import {useTheme} from 'next-themes';
 import {useEffect, useState} from 'react';
 import Icon from '@/components/icons/Icon';
-import {site} from '@/lib/mock-data';
+import {useSiteData} from '@/components/SiteDataProvider';
 
 export default function ThemeToggle() {
+    const {site} = useSiteData();
     const {resolvedTheme, setTheme} = useTheme();
     const [mounted, setMounted] = useState(false);
 

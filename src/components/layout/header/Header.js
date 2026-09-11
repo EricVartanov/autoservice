@@ -2,12 +2,14 @@
 
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { mockHeader } from '@/lib/mock-data';
+import { useSiteData } from '@/components/SiteDataProvider';
 import TopBar from './TopBar';
 import MainNav from './MainNav';
 import {Container} from "@/components/Container";
 
 export default function Header() {
+    const {site} = useSiteData();
+    const mockHeader = site.header;
     const pathname = usePathname();
     const isHome = pathname === '/';
     const [isScrolled, setIsScrolled] = useState(false);

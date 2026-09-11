@@ -3,7 +3,7 @@
 import {useMemo, useState} from 'react';
 import {Container} from '@/components/Container';
 import WaveTitle from '@/components/ui/WaveTitle';
-import {NEWS_PAGE_SIZE, newsPage} from '@/lib/mock-data';
+import {useSiteData} from '@/components/SiteDataProvider';
 import NewsCard from './NewsCard';
 import NewsPagination from './NewsPagination';
 
@@ -12,6 +12,8 @@ function getYear(iso) {
 }
 
 export default function NewsSection({items = []}) {
+    const {newsPage} = useSiteData();
+    const NEWS_PAGE_SIZE = newsPage.pageSize || 2;
     const years = useMemo(
         () =>
             [...new Set(items.map((n) => getYear(n.date)))].sort((a, b) => a - b),

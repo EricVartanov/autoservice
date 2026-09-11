@@ -5,7 +5,7 @@ import {useState, useMemo} from "react";
 import {motion, AnimatePresence, useReducedMotion} from "framer-motion";
 import Image from "next/image";
 import Icon from "@/components/icons/Icon";
-import {mockBranches} from "@/lib/mock-data";
+import {useSiteData} from "@/components/SiteDataProvider";
 import {Container} from "@/components/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
 import Button from "@/components/ui/Button";
@@ -17,6 +17,7 @@ import {mediaAlt, mediaUrl} from "@/lib/media";
 const VISIBLE_COUNT = 4;
 
 export default function Reviews({data}) {
+    const {branches: mockBranches, site} = useSiteData();
     const {mark, title, titleBack, summary, platforms, items, cta} = data;
 
     const availableBranches = mockBranches.filter((b) =>
@@ -163,7 +164,7 @@ export default function Reviews({data}) {
                         </div>
                         {matched.length === 0 && (
                             <p className="absolute inset-0 flex items-center justify-center text-center text-foreground-light">
-                                Пока нет отзывов по этому фильтру
+                                {site.labels.reviewsEmpty || 'Пока нет отзывов по этому фильтру'}
                             </p>
                         )}
                     </div>

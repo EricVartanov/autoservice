@@ -10,7 +10,8 @@ import SpecialOfferModal from "@/components/modals/SpecialOfferModal";
 import LegalModal from "@/components/modals/LegalModal";
 import PanoramaModal from "@/components/modals/PanoramaModal";
 import AboutVideoModal from "@/components/modals/AboutVideoModal";
-import { site } from '@/lib/mock-data';
+import { SiteDataProvider } from '@/components/SiteDataProvider';
+import { loadSiteData } from '@/lib/wp/load';
 
 const fontVariables = [
     muller.variable,
@@ -21,27 +22,34 @@ const fontVariables = [
     neueHaas.variable,
 ].join(' ');
 
-export const metadata = {
-    title: site.seo.title,
-    description: site.seo.description,
-};
+export async function generateMetadata() {
+    const data = await loadSiteData();
+    return {
+        title: data.site.seo.title,
+        description: data.site.seo.description,
+    };
+}
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+    const data = await loadSiteData();
+
     return (
         <html lang="ru" className={fontVariables} suppressHydrationWarning>
             <body className={'overflow-x-hidden'}>
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-                    <LenisProvider>
-                        <Header />
-                        {children}
-                        <Footer />
-                        <CallModal />
-                        <ServiceModal />
-                        <SpecialOfferModal />
-                        <LegalModal />
-                        <PanoramaModal />
-                        <AboutVideoModal />
-                    </LenisProvider>
+                    <SiteDataProvider value={data}>
+                        <LenisProvider>
+                            <Header />
+                            {children}
+                            <Footer />
+                            <CallModal />
+                            <ServiceModal />
+                            <SpecialOfferModal />
+                            <LegalModal />
+                            <PanoramaModal />
+                            <AboutVideoModal />
+                        </LenisProvider>
+                    </SiteDataProvider>
                 </ThemeProvider>
             </body>
         </html>

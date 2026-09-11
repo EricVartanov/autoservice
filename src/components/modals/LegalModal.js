@@ -1,8 +1,7 @@
 'use client';
 
 import Modal from '@/components/modals/Modal';
-import {getLegalDoc} from '@/lib/mock-legal';
-import {site} from '@/lib/mock-data';
+import {useSiteData} from '@/components/SiteDataProvider';
 import {useModalStore} from '../../../public/store/useModalStore';
 
 function formatRuDate(iso) {
@@ -11,8 +10,9 @@ function formatRuDate(iso) {
 }
 
 export default function LegalModal() {
+    const {site, legalDocs} = useSiteData();
     const {legalSlug, closeLegal} = useModalStore();
-    const doc = getLegalDoc(legalSlug);
+    const doc = legalDocs?.[legalSlug] ?? null;
 
     return (
         <Modal isOpen={!!doc} onClose={closeLegal} variant="legal" showClose>
