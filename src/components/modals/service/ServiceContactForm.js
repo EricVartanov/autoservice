@@ -12,6 +12,8 @@ import { Container } from "@/components/Container";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
+import HoneypotField from "@/components/ui/HoneypotField";
+import { honeypotValue, submitLead, SUBMIT_ERROR_MESSAGE } from "@/lib/submitLead";
 
 function validate({ name, phoneDigits, carBrand, timing, branch, consent }) {
     const errors = {};
@@ -56,6 +58,7 @@ export default function ServiceContactForm({ data }) {
     const [consent, setConsent] = useState(false);
     const [errors, setErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const isMobileOrTablet = useMediaQuery('(max-width: 1278px)');
 
@@ -98,8 +101,9 @@ export default function ServiceContactForm({ data }) {
         clearError("consent");
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        if (isSubmitting) return;
 
         const validationErrors = validate({
             name,
@@ -116,23 +120,30 @@ export default function ServiceContactForm({ data }) {
         }
 
         const payload = {
+            type: "contact",
             name: name.trim(),
             phone: getCleanPhone(phoneDigits),
             carBrand,
             timing,
             branch,
-            consent,
+            website: honeypotValue(e.currentTarget),
         };
-        // сюда позже уйдёт fetch на WP-эндпоинт
-        // console.log(payload);
 
-        setSubmitted(true);
-        setName("");
-        setPhoneDigits("");
-        setCarBrand("");
-        setTiming("");
-        setBranch("");
-        setConsent(false);
+        setIsSubmitting(true);
+        try {
+            await submitLead(payload);
+            setSubmitted(true);
+            setName("");
+            setPhoneDigits("");
+            setCarBrand("");
+            setTiming("");
+            setBranch("");
+            setConsent(false);
+        } catch {
+            setErrors((prev) => ({ ...prev, submit: SUBMIT_ERROR_MESSAGE }));
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const fieldInputClass = (hasError) =>
@@ -259,6 +270,7 @@ export default function ServiceContactForm({ data }) {
                     noValidate
                     className="relative w-full rounded-[30] mx-auto lg:w-1/2 max-w-[715]"
                 >
+                    <HoneypotField />
                     <div className="flex flex-col">
                         <div className={'flex flex-col lg:flex-row lg:flex-wrap lg:justify-between gap-[30] md:gap-y-6 md:gap-2.5 lg:gap-y-6 lg:gap-x-3'}>
                             {form.fields.map(renderMainField)}
@@ -307,9 +319,14 @@ export default function ServiceContactForm({ data }) {
                             </div>
 
 
-                            <Button type="submit" className="shrink-0 w-full md:w-auto min-w-[180] bg-foreground-fixed! text-primary! hover:opacity-60">
-                                {form.submitLabel}
-                            </Button>
+                            <div className="relative w-full md:w-auto">
+                                <Button type="submit" disabled={isSubmitting} className="shrink-0 w-full md:w-auto min-w-[180] bg-foreground-fixed! text-primary! hover:opacity-60">
+                                    {form.submitLabel}
+                                </Button>
+                                <FieldError className="absolute left-0 top-full mt-1.5" colorClass="text-foreground-fixed">
+                                    {errors.submit}
+                                </FieldError>
+                            </div>
                         </div>
                     </div>
                 </form>

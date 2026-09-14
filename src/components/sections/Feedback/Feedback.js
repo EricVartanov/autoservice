@@ -11,7 +11,9 @@ import LegalLink from "@/components/ui/LegalLink";
 import { Container } from "@/components/Container";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
+import HoneypotField from "@/components/ui/HoneypotField";
 import { mediaAlt, mediaUrl } from "@/lib/media";
+import { honeypotValue, submitLead, SUBMIT_ERROR_MESSAGE } from "@/lib/submitLead";
 
 const cardGradient =
     "bg-[radial-gradient(circle_at_top_left,rgba(200,0,0,1)_0%,rgba(0,0,0,0.8)_50%,rgba(0,0,0,0.8)_100%)]";
@@ -57,6 +59,7 @@ export default function Feedback({ data }) {
     const [consent, setConsent] = useState(false);
     const [errors, setErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const clearError = (field) => {
         setErrors((prev) => {
@@ -67,8 +70,9 @@ export default function Feedback({ data }) {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        if (isSubmitting) return;
 
         const validationErrors = validate({ name, phoneDigits, branch, consent });
         setErrors(validationErrors);
@@ -78,21 +82,28 @@ export default function Feedback({ data }) {
         }
 
         const payload = {
+            type: "feedback",
             name: name.trim(),
             phone: getCleanPhone(phoneDigits),
             branch,
             message: message.trim(),
-            consent,
+            website: honeypotValue(e.currentTarget),
         };
-        // сюда позже уйдёт fetch на WP-эндпоинт
-        // console.log(payload);
 
-        setSubmitted(true);
-        setName("");
-        setPhoneDigits("");
-        setBranch("");
-        setMessage("");
-        setConsent(false);
+        setIsSubmitting(true);
+        try {
+            await submitLead(payload);
+            setSubmitted(true);
+            setName("");
+            setPhoneDigits("");
+            setBranch("");
+            setMessage("");
+            setConsent(false);
+        } catch {
+            setErrors((prev) => ({ ...prev, submit: SUBMIT_ERROR_MESSAGE }));
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const fieldInputClass = (hasError) =>
@@ -108,6 +119,7 @@ export default function Feedback({ data }) {
                         noValidate
                         className={`w-full lg:w-[calc(50%-10px)] relative z-10 flex flex-col rounded-[30] py-[50] px-2.5 md:py-12 md:px-10 text-foreground-fixed ${cardGradient}`}
                     >
+                        <HoneypotField />
                         <p className="font-helvetica text-center lg:text-left text-sm md:text-lg leading-tight text-foreground-light-fixed whitespace-break-spaces">
                             {intro}
                         </p>
@@ -269,9 +281,14 @@ export default function Feedback({ data }) {
                                 </FieldError>
                             </div>
 
-                            <Button type="submit" variant="primary" className="shrink-0 w-full min-h-10 md:w-auto">
-                                {form.submitLabel}
-                            </Button>
+                            <div className="relative w-full md:w-auto">
+                                <Button type="submit" disabled={isSubmitting} variant="primary" className="shrink-0 w-full min-h-10 md:w-auto">
+                                    {form.submitLabel}
+                                </Button>
+                                <FieldError className="absolute left-0 top-full mt-1.5">
+                                    {errors.submit}
+                                </FieldError>
+                            </div>
                         </div>
                         <FormSuccessOverlay
                             open={submitted}

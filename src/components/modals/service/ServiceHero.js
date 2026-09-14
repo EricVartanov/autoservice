@@ -9,8 +9,10 @@ import PhoneInput, { getCleanPhone } from '@/components/ui/PhoneInput';
 import Icon from '@/components/icons/Icon';
 import LegalLink from '@/components/ui/LegalLink';
 import FormSuccessOverlay from '@/components/ui/FormSuccessOverlay';
+import HoneypotField from '@/components/ui/HoneypotField';
 import { mediaAlt, mediaUrl } from '@/lib/media';
 import { collectFormErrors } from '@/lib/formValidation';
+import { honeypotValue, submitLead, SUBMIT_ERROR_MESSAGE } from '@/lib/submitLead';
 
 export default function ServiceHero({ data }) {
     const { mark, title, description, heroImage, quickForm } = data;
@@ -21,6 +23,7 @@ export default function ServiceHero({ data }) {
     const [consent, setConsent] = useState(false);
     const [errors, setErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const clearError = (field) => {
         setErrors((prev) => {
@@ -31,26 +34,36 @@ export default function ServiceHero({ data }) {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        if (isSubmitting) return;
 
         const validationErrors = collectFormErrors(quickForm.errors, { name, phoneDigits, carBrand, consent });
         setErrors(validationErrors);
         if (Object.keys(validationErrors).length > 0) return;
 
-        // console.log({
-        //     service: title,
-        //     name: name.trim(),
-        //     phone: getCleanPhone(phoneDigits),
-        //     carBrand,
-        //     consent,
-        // });
+        const payload = {
+            type: 'quick',
+            service: title,
+            name: name.trim(),
+            phone: getCleanPhone(phoneDigits),
+            carBrand,
+            website: honeypotValue(e.currentTarget),
+        };
 
-        setSubmitted(true);
-        setName('');
-        setPhoneDigits('');
-        setCarBrand('');
-        setConsent(false);
+        setIsSubmitting(true);
+        try {
+            await submitLead(payload);
+            setSubmitted(true);
+            setName('');
+            setPhoneDigits('');
+            setCarBrand('');
+            setConsent(false);
+        } catch {
+            setErrors((prev) => ({ ...prev, submit: SUBMIT_ERROR_MESSAGE }));
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const fieldInputClass = (hasError) =>
@@ -140,6 +153,7 @@ export default function ServiceHero({ data }) {
                 </div>
 
                 <form onSubmit={handleSubmit} noValidate className="relative">
+                    <HoneypotField />
                     <div className="grid grid-cols-1 gap-[30] md:gap-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-x-[75] lg:gap-y-10">
                         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-[30] md:gap-8 lg:gap-5 min-w-0">
                             {quickForm.fields.map(renderField)}
@@ -183,12 +197,18 @@ export default function ServiceHero({ data }) {
                             </div>
                         )}
 
-                        <Button
-                            type="submit"
-                            className="w-full min-h-10 lg:w-auto shrink-0 bg-foreground-fixed! text-black! hover:bg-foreground-fixed/90! min-w-0 md:max-w-[262] mx-auto mt-5 lg:mt-0 lg:mx-0 lg:col-start-2 lg:row-start-1"
-                        >
-                            {quickForm.submitLabel}
-                        </Button>
+                        <div className="relative w-full min-h-10 lg:w-auto shrink-0 min-w-0 md:max-w-[262] mx-auto mt-5 lg:mt-0 lg:mx-0 lg:col-start-2 lg:row-start-1">
+                            <Button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className="w-full min-h-10 lg:w-auto shrink-0 bg-foreground-fixed! text-black! hover:bg-foreground-fixed/90! min-w-0 md:max-w-[262]"
+                            >
+                                {quickForm.submitLabel}
+                            </Button>
+                            <FieldError className="absolute left-0 top-full mt-1.5">
+                                {errors.submit}
+                            </FieldError>
+                        </div>
                     </div>
                 </form>
                 <FormSuccessOverlay

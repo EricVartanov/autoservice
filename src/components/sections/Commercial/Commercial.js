@@ -12,9 +12,11 @@ import { Container } from "@/components/Container";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
+import HoneypotField from "@/components/ui/HoneypotField";
 import { useModalStore } from "../../../../public/store/useModalStore";
 import { mediaAlt, mediaUrl } from "@/lib/media";
 import { collectFormErrors } from "@/lib/formValidation";
+import { honeypotValue, submitLead, SUBMIT_ERROR_MESSAGE } from "@/lib/submitLead";
 
 export default function Commercial({ data }) {
     const { mark, title, subtitle, cta, backgroundImage, limitations, form } = data;
@@ -25,6 +27,7 @@ export default function Commercial({ data }) {
     const [carBrand, setCarBrand] = useState("");
     const [errors, setErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const isMobileOrTablet = useMediaQuery('(max-width: 1278px)');
 
@@ -53,8 +56,9 @@ export default function Commercial({ data }) {
         clearError("carBrand");
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        if (isSubmitting) return;
 
         const validationErrors = collectFormErrors(form.errors, { name, phoneDigits, carBrand });
         setErrors(validationErrors);
@@ -64,17 +68,25 @@ export default function Commercial({ data }) {
         }
 
         const payload = {
+            type: "commercial",
             name: name.trim(),
             phone: getCleanPhone(phoneDigits),
             carBrand,
+            website: honeypotValue(e.currentTarget),
         };
-        // сюда позже уйдёт fetch на WP-эндпоинт
-        // console.log(payload);
 
-        setSubmitted(true);
-        setName("");
-        setPhoneDigits("");
-        setCarBrand("");
+        setIsSubmitting(true);
+        try {
+            await submitLead(payload);
+            setSubmitted(true);
+            setName("");
+            setPhoneDigits("");
+            setCarBrand("");
+        } catch {
+            setErrors((prev) => ({ ...prev, submit: SUBMIT_ERROR_MESSAGE }));
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const fieldInputClass = (hasError) =>
@@ -178,13 +190,19 @@ export default function Commercial({ data }) {
                         noValidate
                         className="relative mt-8 lg:mt-10 px-[25] py-[30] rounded-[30] w-full mx-auto lg:mx-0 max-w-[450] lg:max-w-none bg-black/60 p-6 lg:p-[50]"
                     >
+                        <HoneypotField />
                         <div className="flex flex-col lg:flex-row lg:items-end lg:gap-7">
                             <div className={'flex flex-col gap-5 min-w-0 flex-1 lg:flex-row lg:items-end lg:gap-6'}>
                                 {form.fields.map(renderField)}
                             </div>
-                            <Button type="submit" className="shrink-0 py-4 lg:ml-auto md:max-w-[213] mx-auto lg:mx-0 lg:max-w-none min-w-0 px-10 w-full mt-6 lg:mt-0 lg:w-auto lg:min-w-[200] xl:min-w-[260]">
-                                {form.submitLabel}
-                            </Button>
+                            <div className="relative w-full lg:w-auto shrink-0">
+                                <Button type="submit" disabled={isSubmitting} className="shrink-0 py-4 lg:ml-auto md:max-w-[213] mx-auto lg:mx-0 lg:max-w-none min-w-0 px-10 w-full mt-6 lg:mt-0 lg:w-auto lg:min-w-[200] xl:min-w-[260]">
+                                    {form.submitLabel}
+                                </Button>
+                                <FieldError className="absolute left-0 top-full mt-1.5">
+                                    {errors.submit}
+                                </FieldError>
+                            </div>
                         </div>
                         <FormSuccessOverlay
                             open={submitted}

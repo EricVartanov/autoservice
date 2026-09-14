@@ -125,6 +125,13 @@ function autoservice_options_page_defs() {
 			'position'   => '3.18',
 		),
 		array(
+			'page_title' => 'Уведомления',
+			'menu_title' => 'Уведомления',
+			'menu_slug'  => 'site-notifications',
+			'icon_url'   => 'dashicons-email-alt2',
+			'position'   => '3.19',
+		),
+		array(
 			'page_title' => 'Модалки',
 			'menu_title' => 'Модалки',
 			'menu_slug'  => 'site-modals',
