@@ -168,6 +168,150 @@ export const SITE_QUERY = `
         showMore
         symptomsTitle
       }
+      heroFields {
+        title
+        ${CTA}
+        backgroundVideo { ${MEDIA_EDGE} }
+        slides { title text }
+        stats { value label }
+      }
+      aboutFields {
+        title
+        titleBack
+        subtitle
+        first {
+          eyebrow
+          title
+          text
+          image { ${MEDIA_EDGE} }
+        }
+        second {
+          eyebrow
+          title
+          text
+          image { ${MEDIA_EDGE} }
+        }
+        third { stat statLabel title text }
+        aboutStats {
+          value
+          text
+          image { ${MEDIA_EDGE} }
+        }
+        videoWrapper {
+          videoBtnLabel
+          videosRepeater {
+            label
+            file { ${MEDIA_EDGE} }
+          }
+        }
+      }
+      servicesSectionFields {
+        title
+        titleBack
+        mark
+        serviceList {
+          nodes {
+            slug
+            ... on Service {
+              slug
+              title
+              serviceFields {
+                price
+                image { ${MEDIA_EDGE} }
+              }
+            }
+          }
+        }
+      }
+      stepsFields {
+        title
+        mark
+        steps { title text }
+        images { ${MEDIA_NODES} }
+      }
+      teamFields {
+        mark
+        title
+        titleBack
+        highlightHtml
+        subtitle
+        image { ${MEDIA_EDGE} }
+      }
+      specialOfferFields {
+        title
+        titleLine2
+        subtitle
+        highlightHtml
+        highlightMark
+        detailsHtml
+        ${CTA}
+        image { ${MEDIA_EDGE} }
+      }
+      reviewsSectionFields {
+        mark
+        title
+        titleBack
+        ${CTA}
+        summary {
+          count
+          countLabel
+          platforms {
+            id
+            logo { ${MEDIA_EDGE} }
+          }
+        }
+        platforms {
+          id
+          label
+          links {
+            url
+            branchId {
+              nodes {
+                databaseId
+                slug
+                ... on Branch { databaseId slug }
+              }
+            }
+          }
+        }
+      }
+      commercialFields {
+        mark
+        title
+        subtitle
+        detailsHtml
+        ${CTA}
+        backgroundImage { ${MEDIA_EDGE} }
+        limitations {
+          text
+          image { ${MEDIA_EDGE} }
+        }
+      }
+      faqFields {
+        mark
+        title
+        ${CTA}
+        items { question answer }
+      }
+      contactFormSectionFields {
+        title
+        backgroundImage { ${MEDIA_EDGE} }
+      }
+      contactsFields {
+        email
+        mapImage { ${MEDIA_EDGE} }
+        mapImageDark { ${MEDIA_EDGE} }
+        mapImageModal { ${MEDIA_EDGE} }
+      }
+      feedbackSectionFields {
+        intro
+        title
+        tires { ${MEDIA_EDGE} }
+        manager {
+          title
+          photo { ${MEDIA_EDGE} }
+        }
+      }
     }
     branches(first: 20) {
       nodes {
@@ -271,159 +415,6 @@ export const SITE_QUERY = `
             disclaimer
             until
             image { ${MEDIA_EDGE} }
-          }
-        }
-      }
-    }
-    home: nodeByUri(uri: "/") {
-      ... on Page {
-        homeSectionFields {
-          homeSectionsFields {
-            __typename
-            ... on HomeSectionFieldsHomeSectionsFieldsHeroLayout {
-              title
-              ${CTA}
-              backgroundVideo { ${MEDIA_EDGE} }
-              slides { title text }
-              stats { value label }
-            }
-            ... on HomeSectionFieldsHomeSectionsFieldsAboutLayout {
-              title
-              titleBack
-              subtitle
-              first {
-                eyebrow
-                title
-                text
-                image { ${MEDIA_EDGE} }
-              }
-              second {
-                eyebrow
-                title
-                text
-                image { ${MEDIA_EDGE} }
-              }
-              third { stat statLabel title text }
-              aboutStats {
-                value
-                text
-                image { ${MEDIA_EDGE} }
-              }
-              videoWrapper {
-                videoBtnLabel
-                videosRepeater {
-                  label
-                  file { ${MEDIA_EDGE} }
-                }
-              }
-            }
-            ... on HomeSectionFieldsHomeSectionsFieldsServicesLayout {
-              title
-              titleBack
-              mark
-              serviceList {
-                nodes {
-                  slug
-                  ... on Service {
-                    slug
-                    title
-                    serviceFields {
-                      price
-                      image { ${MEDIA_EDGE} }
-                    }
-                  }
-                }
-              }
-            }
-            ... on HomeSectionFieldsHomeSectionsFieldsStepsLayout {
-              title
-              mark
-              steps { title text }
-              images { ${MEDIA_NODES} }
-            }
-            ... on HomeSectionFieldsHomeSectionsFieldsTeamLayout {
-              mark
-              title
-              titleBack
-              highlightHtml
-              subtitle
-              image { ${MEDIA_EDGE} }
-            }
-            ... on HomeSectionFieldsHomeSectionsFieldsSpecialOfferLayout {
-              title
-              titleLine2
-              subtitle
-              highlightHtml
-              highlightMark
-              detailsHtml
-              ${CTA}
-              image { ${MEDIA_EDGE} }
-            }
-            ... on HomeSectionFieldsHomeSectionsFieldsReviewsLayout {
-              mark
-              title
-              titleBack
-              ${CTA}
-              summary {
-                count
-                countLabel
-                platforms {
-                  id
-                  logo { ${MEDIA_EDGE} }
-                }
-              }
-              platforms {
-                id
-                label
-                links {
-                  url
-                  branchId {
-                    nodes {
-                      databaseId
-                      slug
-                      ... on Branch { databaseId slug }
-                    }
-                  }
-                }
-              }
-            }
-            ... on HomeSectionFieldsHomeSectionsFieldsCommercialLayout {
-              mark
-              title
-              subtitle
-              detailsHtml
-              ${CTA}
-              backgroundImage { ${MEDIA_EDGE} }
-              limitations {
-                text
-                image { ${MEDIA_EDGE} }
-              }
-            }
-            ... on HomeSectionFieldsHomeSectionsFieldsFaqLayout {
-              mark
-              title
-              ${CTA}
-              items { question answer }
-            }
-            ... on HomeSectionFieldsHomeSectionsFieldsContactFormLayout {
-              title
-              backgroundImage { ${MEDIA_EDGE} }
-            }
-            ... on HomeSectionFieldsHomeSectionsFieldsContactsLayout {
-              email
-              mapImage { ${MEDIA_EDGE} }
-              mapImageDark { ${MEDIA_EDGE} }
-              mapImageModal { ${MEDIA_EDGE} }
-            }
-            ... on HomeSectionFieldsHomeSectionsFieldsFeedbackLayout {
-              intro
-              title
-              tires { ${MEDIA_EDGE} }
-              manager {
-                title
-                photo { ${MEDIA_EDGE} }
-              }
-            }
           }
         }
       }

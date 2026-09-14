@@ -13,6 +13,7 @@ import Contacts from "@/components/sections/Contacts/Contacts";
 import Feedback from "@/components/sections/Feedback/Feedback";
 import SectionIndicator from '@/components/ui/SectionIndicator';
 import HashScroll from '@/components/HashScroll';
+import { LANDING_SECTIONS } from '@/lib/landingSections';
 
 const SECTION_MAP = {
     hero: Hero,
@@ -29,22 +30,6 @@ const SECTION_MAP = {
     feedback: Feedback,
 };
 
-/** Ordered section meta for scroll indicator (must match mockPage.sections order). */
-const LANDING_SECTIONS = [
-    { id: 'hero', theme: 'dark', className: 'relative' },
-    { id: 'about', theme: 'light', className: 'relative' },
-    { id: 'services', theme: 'light' },
-    { id: 'steps', theme: 'dark' },
-    { id: 'team', theme: 'light' },
-    { id: 'specialOffer', theme: 'dark' },
-    { id: 'reviews', theme: 'light' },
-    { id: 'commercial', theme: 'dark' },
-    { id: 'faq', theme: 'light' },
-    { id: 'contact-form', theme: 'dark' },
-    { id: 'contacts', theme: 'light' },
-    { id: 'feedback', theme: 'light' },
-];
-
 export default async function Home() {
     const {sections} = await loadSiteData();
 
@@ -54,7 +39,6 @@ export default async function Home() {
             <SectionIndicator sections={LANDING_SECTIONS} />
             {sections.map((section, i) => {
                 const Component = SECTION_MAP[section.type];
-                // console.log(section);
                 if (!Component) return null;
                 const meta = LANDING_SECTIONS[i];
                 return (

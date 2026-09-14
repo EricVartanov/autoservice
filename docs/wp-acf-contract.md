@@ -10,13 +10,13 @@ Mapper `mapWpPage` / WPGraphQL — отдельный шаг. Он собира�
 
 ## Что в WP, что в коде
 
-**В WP (Options / CPT / Flexible Content)** — весь копирайт: seo, меню, лейблы UI, согласие, тексты ошибок и успеха, лейблы/плейсхолдеры форм, заголовки модалки услуги, секции главной, записи услуг/новостей/акций/филиалов/legal.
+**В WP (Options / CPT)** — весь копирайт: seo, меню, лейблы UI, согласие, тексты ошибок и успеха, лейблы/плейсхолдеры форм, заголовки модалки услуги, секции главной, записи услуг/новостей/акций/филиалов/legal.
 
 **В коде (не редактируется)** — ключи контракта:
 
 - `fields[].name` и `type` как enum (`name`, `phone`, `carBrand`, `vin`, `partName`)
 - `radio.value` (`today`, `week`, `month`, `other`; филиал = `branch.slug` **или `any`**)
-- `section.type`, `LANDING_SECTIONS` (id / theme / className)
+- `section.type`, `LANDING_SECTIONS` (id / theme / className) в `src/lib/landingSections.js`
 - логика валидации (`src/lib/formValidation.js`)
 
 Не делать в ACF repeater полей со свободным текстовым `name` — редактор сломает `phone`. Формы — **именованные группы**. Mapper собирает `form.fields[]` для текущих компонентов.
@@ -219,26 +219,26 @@ Pages (или CPT) со slug `privacy`, `personal-data`. Поля: title, `updat
 
 ---
 
-## Главная: Flexible Content `sections`
+## Главная: Options по секциям
 
-Layouts 1:1 к `type` в `src/content/home.js` / `src/app/page.js`.
+Каждая секция — отдельная top-level options page в сайдбаре WP (CPT `service` и `review` вложены в пункты «Услуги» и «Отзывы»). GraphQL без изменений: `siteSettings.heroFields`, `aboutFields`, `servicesSectionFields`, … Порядок на фронте — `LANDING_SECTIONS`, не Flexible Content.
 
-В layout — тексты блока. Списки сущностей — relationship, не вложенный дубль.
+В группе — тексты блока. Списки сущностей — relationship / CPT, не вложенный дубль.
 
-| layout | Поля layout | Источник списков |
+| GraphQL | Поля | Источник списков |
 |---|---|---|
-| `hero` | title, `backgroundVideo`, slides[], stats[], cta | brands — Options `brands` (не дубль в layout) |
-| `about` | title, title_back, subtitle, 3 named groups карточек, stats[], `videoWrapper` | `variant` не свободный ввод — три group |
-| `services` | title, title_back, mark | relationship `service` |
-| `steps` | title, mark, steps[] (title, text), images[] | номер шага считает фронт |
-| `team` | mark, title, title_back, highlight_html, subtitle, image | |
-| `specialOffer` | **две строки title** (два поля или textarea; mapper → `title[0]` / `title[1]`), subtitle, highlight_html, highlight_mark, image, **cta.label**, `details_html` (WYSIWYG; CTA открывает модалку, не URL) | |
-| `reviews` | mark, title, title_back, summary (`count`, `countLabel`, `platforms[]` `{ id, logo }`), platforms[] (`id`, `label`, `links[]` `{ branchId, url }`), cta.label | items — CPT `review` или виджеты |
-| `commercial` | mark, title, subtitle, cta.label, `details_html` (WYSIWYG; CTA открывает ту же модалку), `backgroundImage`, `limitations[]` `{ image, text }` | `forms.commercial` |
-| `faq` | mark, title, cta, items[] `{ question, answer }` | messengers ← `branch`; `id` считает фронт; свёртка = `labels.collapse` |
-| `contact_form` | title, `backgroundImage` | `forms.contact` |
-| `contacts` | email, `mapImage`, `mapImageDark`, `mapImageModal` | все `branch` (в модалке услуги — только relationship записи) |
-| `feedback` | intro, title, manager, tires | `forms.feedback` |
+| `heroFields` | title, `backgroundVideo`, slides[], stats[], cta | brands — Options `brands` (не дубль в Hero) |
+| `aboutFields` | title, titleBack, subtitle, 3 named groups карточек, aboutStats[], `videoWrapper` | `variant` не свободный ввод — три group |
+| `servicesSectionFields` | title, titleBack, mark | relationship `service`; форма `formQuickFields`; обвязка модалки `serviceModalFields` |
+| `stepsFields` | title, mark, steps[] (title, text), images[] | номер шага считает фронт |
+| `teamFields` | mark, title, titleBack, highlightHtml, subtitle, image | |
+| `specialOfferFields` | **две строки title** (`title` + `titleLine2`; mapper → `title[0]` / `title[1]`), subtitle, highlightHtml, highlightMark, image, **cta.label**, `detailsHtml` | |
+| `reviewsSectionFields` | mark, title, titleBack, summary (`count`, `countLabel`, `platforms[]` `{ id, logo }`), platforms[] (`id`, `label`, `links[]` `{ branchId, url }`), cta.label | items — CPT `review` |
+| `commercialFields` | mark, title, subtitle, cta.label, `detailsHtml`, `backgroundImage`, `limitations[]` `{ image, text }` | `formCommercialFields` |
+| `faqFields` | mark, title, cta, items[] `{ question, answer }` | messengers ← `branch`; `id` считает фронт; свёртка = `labels.collapse` |
+| `contactFormSectionFields` | title, `backgroundImage` | `formContactFields` |
+| `contactsFields` | email, `mapImage`, `mapImageDark`, `mapImageModal` | все `branch` (в модалке услуги — только relationship записи) |
+| `feedbackSectionFields` | intro, title, manager, tires | `formFeedbackFields` |
 
 ### `about` — карточки и видео
 
@@ -265,7 +265,7 @@ Layouts 1:1 к `type` в `src/content/home.js` / `src/app/page.js`.
 | `map_image_dark` | `mapImageDark` |
 | `map_image_modal` | `mapImageModal` (секция embedded в модалке услуги) |
 
-`LANDING_SECTIONS` (id, theme, className) — только фронт.
+`LANDING_SECTIONS` (id, theme, className) — только фронт (`src/lib/landingSections.js`).
 
 ---
 
@@ -273,8 +273,8 @@ Layouts 1:1 к `type` в `src/content/home.js` / `src/app/page.js`.
 
 Shape CPT: `{ id, branchId, platform, author, avatar, rating, text }`.
 
-1. CPT `review` + relationship на филиал + select площадки; summary в layout секции (`count`, `countLabel`, логотипы площадок).
-2. Внешние виджеты — в ACF только summary и ссылки. У площадки в layout: repeater `links` `{ branchId, url }` (relationship филиала + URL Яндекс / 2GIS / Google). CTA «Смотреть все» ведёт на URL выбранной пары площадка+филиал. Пустой фильтр — `labels.reviews_empty`.
+1. CPT `review` + relationship на филиал + select площадки; summary в секции Отзывы (`count`, `countLabel`, логотипы площадок).
+2. Внешние виджеты — в ACF только summary и ссылки. У площадки: repeater `links` `{ branchId, url }` (relationship филиала + URL Яндекс / 2GIS / Google). CTA «Смотреть все» ведёт на URL выбранной пары площадка+филиал. Пустой фильтр — `labels.reviews_empty`.
 
 Не смешивать в одном repeater.
 
@@ -289,11 +289,11 @@ Shape CPT: `{ id, branchId, platform, author, avatar, rating, text }`.
 - дубли title/price/image услуги в секции главной
 - дубли филиалов в header / footer / FAQ / формах
 - дубли consent / form_errors на каждой форме — только Options
-- дубли списка брендов в layout `hero` — только Options `brands`
+- дубли списка брендов в Hero — только Options `brands`
 - хардкод slug услуги для фильтра филиалов — только relationship `branches`
 
 ---
 
-## Mapper (следующий шаг)
+## Mapper
 
-`mapWpPage(acf) → { sections, site, forms, … }` приводит ответ WP к JS-shape. Компоненты не знают `acf_fc_layout`. Картинки → `{ url, alt }` до UI.
+`mapWpPayload` читает `siteSettings.<section>Fields` и собирает `sections[]` в JS-shape. Компоненты не знают ACF. Картинки → `{ url, alt }` до UI.

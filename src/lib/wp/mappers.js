@@ -1,4 +1,5 @@
 import {img, mediaUrl} from '@/lib/media';
+import {SECTION_MAP_TYPES} from '@/lib/landingSections';
 
 function scalar(value) {
     if (Array.isArray(value)) return value[0] ?? '';
@@ -520,11 +521,11 @@ function mapAboutCards(layout) {
     return cards;
 }
 
-function mapLayout(layout, ctx) {
-    const typeName = layout.__typename || '';
+function mapSection(type, layout, ctx) {
+    if (!layout) return null;
     const {brands, branches, forms, services, reviews, serviceCards} = ctx;
 
-    if (typeName.endsWith('HeroLayout')) {
+    if (type === 'hero') {
         return {
             type: 'hero',
             title: layout.title || '',
@@ -542,7 +543,7 @@ function mapLayout(layout, ctx) {
         };
     }
 
-    if (typeName.endsWith('AboutLayout')) {
+    if (type === 'about') {
         return {
             type: 'about',
             title: layout.title || '',
@@ -567,7 +568,7 @@ function mapLayout(layout, ctx) {
         };
     }
 
-    if (typeName.endsWith('ServicesLayout')) {
+    if (type === 'services') {
         const related = (layout.serviceList?.nodes || [])
             .map((node) => {
                 const rec = services.find((s) => s.slug === node.slug);
@@ -589,7 +590,7 @@ function mapLayout(layout, ctx) {
         };
     }
 
-    if (typeName.endsWith('StepsLayout')) {
+    if (type === 'steps') {
         return {
             type: 'steps',
             title: layout.title || '',
@@ -606,7 +607,7 @@ function mapLayout(layout, ctx) {
         };
     }
 
-    if (typeName.endsWith('TeamLayout')) {
+    if (type === 'team') {
         return {
             type: 'team',
             mark: layout.mark || '',
@@ -618,7 +619,7 @@ function mapLayout(layout, ctx) {
         };
     }
 
-    if (typeName.endsWith('SpecialOfferLayout')) {
+    if (type === 'specialOffer') {
         return {
             type: 'specialOffer',
             title: [layout.title || '', layout.titleLine2 || ''],
@@ -631,7 +632,7 @@ function mapLayout(layout, ctx) {
         };
     }
 
-    if (typeName.endsWith('ReviewsLayout')) {
+    if (type === 'reviews') {
         return {
             type: 'reviews',
             mark: layout.mark || '',
@@ -658,7 +659,7 @@ function mapLayout(layout, ctx) {
         };
     }
 
-    if (typeName.endsWith('CommercialLayout')) {
+    if (type === 'commercial') {
         return {
             type: 'commercial',
             mark: layout.mark || '',
@@ -675,7 +676,7 @@ function mapLayout(layout, ctx) {
         };
     }
 
-    if (typeName.endsWith('FaqLayout')) {
+    if (type === 'faq') {
         return {
             type: 'faq',
             mark: layout.mark || '',
@@ -690,7 +691,7 @@ function mapLayout(layout, ctx) {
         };
     }
 
-    if (typeName.endsWith('ContactFormLayout')) {
+    if (type === 'contact_form') {
         return {
             type: 'contact_form',
             id: 'contact-form',
@@ -700,7 +701,7 @@ function mapLayout(layout, ctx) {
         };
     }
 
-    if (typeName.endsWith('ContactsLayout')) {
+    if (type === 'contacts') {
         return {
             type: 'contacts',
             id: 'contacts',
@@ -712,7 +713,7 @@ function mapLayout(layout, ctx) {
         };
     }
 
-    if (typeName.endsWith('FeedbackLayout')) {
+    if (type === 'feedback') {
         return {
             type: 'feedback',
             id: 'feedback',
@@ -730,17 +731,29 @@ function mapLayout(layout, ctx) {
     return null;
 }
 
+const SECTION_SETTING_KEYS = {
+    hero: 'heroFields',
+    about: 'aboutFields',
+    services: 'servicesSectionFields',
+    steps: 'stepsFields',
+    team: 'teamFields',
+    specialOffer: 'specialOfferFields',
+    reviews: 'reviewsSectionFields',
+    commercial: 'commercialFields',
+    faq: 'faqFields',
+    contact_form: 'contactFormSectionFields',
+    contacts: 'contactsFields',
+    feedback: 'feedbackSectionFields',
+};
+
 export function mapWpPayload(raw) {
-    const layouts = raw.home?.homeSectionFields?.homeSectionsFields;
-    if (!Array.isArray(layouts) || layouts.length === 0) {
-        throw new Error('WordPress home has no sections');
-    }
+    const settings = raw.siteSettings || {};
     const branchNodes = raw.branches?.nodes || [];
     if (!branchNodes.length) {
         throw new Error('WordPress has no branches');
     }
 
-    const brands = (raw.siteSettings?.brands?.brandsList || []).map((row) => ({
+    const brands = (settings.brands?.brandsList || []).map((row) => ({
         name: row.name || '',
         logo: mapMedia(row.logo),
         logoDark: mapMedia(row.logoDark),
@@ -754,9 +767,10 @@ export function mapWpPayload(raw) {
         services.map((service) => [service.slug, toServiceDetail(service, {site, forms})]),
     );
     const reviews = (raw.reviews?.nodes || []).map((node) => mapReview(node, branches));
-    const sections = layouts
-        .map((layout) => mapLayout(layout, {brands, branches, forms, services, reviews, serviceCards}))
-        .filter(Boolean);
+    const ctx = {brands, branches, forms, services, reviews, serviceCards};
+    const sections = SECTION_MAP_TYPES.map((type) =>
+        mapSection(type, settings[SECTION_SETTING_KEYS[type]], ctx),
+    ).filter(Boolean);
 
     if (!sections.length) {
         throw new Error('WordPress sections did not map');

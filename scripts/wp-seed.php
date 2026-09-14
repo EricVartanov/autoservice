@@ -91,12 +91,16 @@ update_field(
 	$dorozhnaya
 );
 update_field( 'map_url', 'https://yandex.ru/maps', $dorozhnaya );
+update_field( 'marker_x', 45, $dorozhnaya );
+update_field( 'marker_y', 27, $dorozhnaya );
 update_field(
 	'panorama_url',
 	'https://yandex.ru/map-widget/v1/?ll=38.997736%2C45.133651&z=10&l=stv&panorama%5Bpoint%5D=38.997132%2C45.133730&panorama%5Bdirection%5D=292.765806%2C-9.262492&panorama%5Bspan%5D=117.625646%2C60.000000',
 	$maya
 );
 update_field( 'map_url', 'https://yandex.ru/maps', $maya );
+update_field( 'marker_x', 53, $maya );
+update_field( 'marker_y', 58, $maya );
 
 $icons = array(
 	'engine'  => as_media( 'services/icons/engine.png' ),
