@@ -14,6 +14,7 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
 import HoneypotField from "@/components/ui/HoneypotField";
 import { honeypotValue, submitLead, SUBMIT_ERROR_MESSAGE } from "@/lib/submitLead";
+import { InvisibleCaptcha, useInvisibleCaptcha } from "@/lib/useInvisibleCaptcha";
 
 function validate({ name, phoneDigits, carBrand, timing, branch, consent }) {
     const errors = {};
@@ -59,6 +60,7 @@ export default function ServiceContactForm({ data }) {
     const [errors, setErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const { captchaContainerId, executeCaptcha } = useInvisibleCaptcha();
 
     const isMobileOrTablet = useMediaQuery('(max-width: 1278px)');
 
@@ -131,6 +133,7 @@ export default function ServiceContactForm({ data }) {
 
         setIsSubmitting(true);
         try {
+            payload.captchaToken = await executeCaptcha();
             await submitLead(payload);
             setSubmitted(true);
             setName("");
@@ -271,6 +274,7 @@ export default function ServiceContactForm({ data }) {
                     className="relative w-full rounded-[30] mx-auto lg:w-1/2 max-w-[715]"
                 >
                     <HoneypotField />
+                    <InvisibleCaptcha id={captchaContainerId} />
                     <div className="flex flex-col">
                         <div className={'flex flex-col lg:flex-row lg:flex-wrap lg:justify-between gap-[30] md:gap-y-6 md:gap-2.5 lg:gap-y-6 lg:gap-x-3'}>
                             {form.fields.map(renderMainField)}

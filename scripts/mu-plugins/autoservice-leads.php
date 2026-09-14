@@ -67,6 +67,14 @@ function autoservice_leads_register_fields() {
 					'show_in_graphql' => 0,
 				),
 				array(
+					'key'             => 'field_as_smartcaptcha_secret',
+					'label'           => 'Секрет SmartCaptcha',
+					'name'            => 'smartcaptcha_secret',
+					'type'            => 'password',
+					'instructions'    => 'Серверный ключ Яндекс SmartCaptcha. Пока пустой — капча не проверяется. Клиентский ключ задаётся во фронте (NEXT_PUBLIC_YANDEX_SMARTCAPTCHA_SITEKEY).',
+					'show_in_graphql' => 0,
+				),
+				array(
 					'key'           => 'field_as_cors_origins',
 					'label'         => 'CORS origins фронта',
 					'name'          => 'cors_origins',
@@ -230,6 +238,11 @@ function autoservice_leads_handle( WP_REST_Request $request ) {
 		return new WP_Error( 'invalid_phone', 'Укажите телефон.', array( 'status' => 400 ) );
 	}
 
+	$captcha = autoservice_leads_verify_captcha( $params['captchaToken'] ?? '', $request );
+	if ( is_wp_error( $captcha ) ) {
+		return $captcha;
+	}
+
 	$extra = array();
 	if ( isset( $params['extra'] ) && is_array( $params['extra'] ) ) {
 		foreach ( array( 'vin', 'partName' ) as $key ) {
@@ -302,6 +315,60 @@ function autoservice_leads_handle( WP_REST_Request $request ) {
 			'channels' => $errors,
 		)
 	);
+}
+
+function autoservice_leads_client_ip( WP_REST_Request $request ) {
+	$forwarded = $request->get_header( 'x_forwarded_for' );
+	if ( $forwarded ) {
+		$parts = explode( ',', $forwarded );
+		$ip    = trim( $parts[0] );
+		if ( filter_var( $ip, FILTER_VALIDATE_IP ) ) {
+			return $ip;
+		}
+	}
+
+	$remote = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+	return filter_var( $remote, FILTER_VALIDATE_IP ) ? $remote : '';
+}
+
+function autoservice_leads_verify_captcha( $token, WP_REST_Request $request ) {
+	$secret = trim( (string) autoservice_leads_option( 'smartcaptcha_secret' ) );
+	if ( '' === $secret ) {
+		return true;
+	}
+
+	$token = trim( (string) $token );
+	if ( '' === $token ) {
+		return new WP_Error( 'captcha_failed', 'Капча не пройдена.', array( 'status' => 403 ) );
+	}
+
+	$body = array(
+		'secret' => $secret,
+		'token'  => $token,
+	);
+	$ip = autoservice_leads_client_ip( $request );
+	if ( $ip ) {
+		$body['ip'] = $ip;
+	}
+
+	$response = wp_remote_post(
+		'https://smartcaptcha.cloud.yandex.ru/validate',
+		array(
+			'timeout' => 10,
+			'body'    => $body,
+		)
+	);
+
+	if ( is_wp_error( $response ) ) {
+		return new WP_Error( 'captcha_failed', 'Капча не пройдена.', array( 'status' => 403 ) );
+	}
+
+	$data = json_decode( wp_remote_retrieve_body( $response ), true );
+	if ( ! is_array( $data ) || 'ok' !== ( $data['status'] ?? '' ) ) {
+		return new WP_Error( 'captcha_failed', 'Капча не пройдена.', array( 'status' => 403 ) );
+	}
+
+	return true;
 }
 
 function autoservice_leads_type_label( $type ) {

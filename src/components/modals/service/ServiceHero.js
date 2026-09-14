@@ -13,6 +13,7 @@ import HoneypotField from '@/components/ui/HoneypotField';
 import { mediaAlt, mediaUrl } from '@/lib/media';
 import { collectFormErrors } from '@/lib/formValidation';
 import { honeypotValue, submitLead, SUBMIT_ERROR_MESSAGE } from '@/lib/submitLead';
+import { InvisibleCaptcha, useInvisibleCaptcha } from '@/lib/useInvisibleCaptcha';
 
 export default function ServiceHero({ data }) {
     const { mark, title, description, heroImage, quickForm } = data;
@@ -24,6 +25,7 @@ export default function ServiceHero({ data }) {
     const [errors, setErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const { captchaContainerId, executeCaptcha } = useInvisibleCaptcha();
 
     const clearError = (field) => {
         setErrors((prev) => {
@@ -53,6 +55,7 @@ export default function ServiceHero({ data }) {
 
         setIsSubmitting(true);
         try {
+            payload.captchaToken = await executeCaptcha();
             await submitLead(payload);
             setSubmitted(true);
             setName('');
@@ -154,6 +157,7 @@ export default function ServiceHero({ data }) {
 
                 <form onSubmit={handleSubmit} noValidate className="relative">
                     <HoneypotField />
+                    <InvisibleCaptcha id={captchaContainerId} />
                     <div className="grid grid-cols-1 gap-[30] md:gap-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-x-[75] lg:gap-y-10">
                         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-[30] md:gap-8 lg:gap-5 min-w-0">
                             {quickForm.fields.map(renderField)}

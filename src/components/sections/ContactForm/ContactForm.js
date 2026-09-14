@@ -19,6 +19,7 @@ import HoneypotField from "@/components/ui/HoneypotField";
 import { mediaAlt, mediaUrl } from "@/lib/media";
 import { collectFormErrors } from "@/lib/formValidation";
 import { honeypotValue, submitLead, SUBMIT_ERROR_MESSAGE } from "@/lib/submitLead";
+import { InvisibleCaptcha, useInvisibleCaptcha } from "@/lib/useInvisibleCaptcha";
 
 const CUSTOM_PART_VALUE = "__custom__";
 const CUSTOM_PART_OPTION = { value: CUSTOM_PART_VALUE, label: "Указать своё" };
@@ -53,6 +54,7 @@ export default function ContactForm({ data }) {
     const [errors, setErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const { captchaContainerId, executeCaptcha } = useInvisibleCaptcha();
 
     const isMobileOrTablet = useMediaQuery('(max-width: 1278px)');
 
@@ -131,6 +133,7 @@ export default function ContactForm({ data }) {
 
         setIsSubmitting(true);
         try {
+            payload.captchaToken = await executeCaptcha();
             await submitLead(payload);
             setSubmitted(true);
             setName("");
@@ -337,6 +340,7 @@ export default function ContactForm({ data }) {
                         className="relative w-full rounded-[30] bg-black/60 p-5 pb-10 md:p-[30]"
                     >
                         <HoneypotField />
+                        <InvisibleCaptcha id={captchaContainerId} />
                         <div className="flex flex-col">
                             <div className={'flex flex-wrap gap-5 md:gap-y-6 md:gap-2.5 lg:gap-y-6 lg:gap-x-3'}>
                                 {form.fields.map(renderMainField)}

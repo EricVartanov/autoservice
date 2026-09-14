@@ -17,6 +17,7 @@ import { useModalStore } from "../../../../public/store/useModalStore";
 import { mediaAlt, mediaUrl } from "@/lib/media";
 import { collectFormErrors } from "@/lib/formValidation";
 import { honeypotValue, submitLead, SUBMIT_ERROR_MESSAGE } from "@/lib/submitLead";
+import { InvisibleCaptcha, useInvisibleCaptcha } from "@/lib/useInvisibleCaptcha";
 
 export default function Commercial({ data }) {
     const { mark, title, subtitle, cta, backgroundImage, limitations, form } = data;
@@ -28,6 +29,7 @@ export default function Commercial({ data }) {
     const [errors, setErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const { captchaContainerId, executeCaptcha } = useInvisibleCaptcha();
 
     const isMobileOrTablet = useMediaQuery('(max-width: 1278px)');
 
@@ -77,6 +79,7 @@ export default function Commercial({ data }) {
 
         setIsSubmitting(true);
         try {
+            payload.captchaToken = await executeCaptcha();
             await submitLead(payload);
             setSubmitted(true);
             setName("");
@@ -191,6 +194,7 @@ export default function Commercial({ data }) {
                         className="relative mt-8 lg:mt-10 px-[25] py-[30] rounded-[30] w-full mx-auto lg:mx-0 max-w-[450] lg:max-w-none bg-black/60 p-6 lg:p-[50]"
                     >
                         <HoneypotField />
+                        <InvisibleCaptcha id={captchaContainerId} />
                         <div className="flex flex-col lg:flex-row lg:items-end lg:gap-7">
                             <div className={'flex flex-col gap-5 min-w-0 flex-1 lg:flex-row lg:items-end lg:gap-6'}>
                                 {form.fields.map(renderField)}

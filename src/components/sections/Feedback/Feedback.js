@@ -14,6 +14,7 @@ import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
 import HoneypotField from "@/components/ui/HoneypotField";
 import { mediaAlt, mediaUrl } from "@/lib/media";
 import { honeypotValue, submitLead, SUBMIT_ERROR_MESSAGE } from "@/lib/submitLead";
+import { InvisibleCaptcha, useInvisibleCaptcha } from "@/lib/useInvisibleCaptcha";
 
 const cardGradient =
     "bg-[radial-gradient(circle_at_top_left,rgba(200,0,0,1)_0%,rgba(0,0,0,0.8)_50%,rgba(0,0,0,0.8)_100%)]";
@@ -60,6 +61,7 @@ export default function Feedback({ data }) {
     const [errors, setErrors] = useState({});
     const [submitted, setSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const { captchaContainerId, executeCaptcha } = useInvisibleCaptcha();
 
     const clearError = (field) => {
         setErrors((prev) => {
@@ -92,6 +94,7 @@ export default function Feedback({ data }) {
 
         setIsSubmitting(true);
         try {
+            payload.captchaToken = await executeCaptcha();
             await submitLead(payload);
             setSubmitted(true);
             setName("");
@@ -120,6 +123,7 @@ export default function Feedback({ data }) {
                         className={`w-full lg:w-[calc(50%-10px)] relative z-10 flex flex-col rounded-[30] py-[50] px-2.5 md:py-12 md:px-10 text-foreground-fixed ${cardGradient}`}
                     >
                         <HoneypotField />
+                        <InvisibleCaptcha id={captchaContainerId} />
                         <p className="font-helvetica text-center lg:text-left text-sm md:text-lg leading-tight text-foreground-light-fixed whitespace-break-spaces">
                             {intro}
                         </p>
