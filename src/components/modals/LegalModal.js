@@ -10,7 +10,7 @@ function formatRuDate(iso) {
 }
 
 export default function LegalModal() {
-    const {site, legalDocs} = useSiteData();
+    const {legalDocs} = useSiteData();
     const {legalSlug, closeLegal} = useModalStore();
     const doc = legalDocs?.[legalSlug] ?? null;
 
@@ -26,7 +26,7 @@ export default function LegalModal() {
                     </h1>
                     {doc.updatedAt && (
                         <p className="mt-2 font-helvetica text-sm text-neutral-500 md:text-base">
-                            {site.labels.legalUpdated}: {formatRuDate(doc.updatedAt)}
+                            Дата последнего обновления: {formatRuDate(doc.updatedAt)}
                         </p>
                     )}
                     <div

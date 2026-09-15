@@ -220,11 +220,11 @@ export default function ContactForm({ data }) {
                     {group.required && <span className="text-primary"> *</span>}
                 </p>
                 <div className="flex items-start flex-col md:flex-row md:flex-wrap gap-x-5 gap-y-3">
-                    {group.options.map((opt) => {
+                    {group.options.map((opt, i) => {
                         const checked = value === opt.value;
                         return (
                             <label
-                                key={opt.value}
+                                key={`${group.name}-${opt.value}-${i}`}
                                 className="flex cursor-pointer items-center gap-1.5 font-helvetica text-sm md:text-base text-foreground-fixed"
                             >
                                 <span

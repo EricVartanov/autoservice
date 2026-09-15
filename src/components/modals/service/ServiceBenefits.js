@@ -9,8 +9,8 @@ export default function ServiceBenefits({ title, items }) {
                 {title}
             </h3>
             <div className="mt-[30] md:mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-3.5 lg:gap-2">
-                {items.map((item) => (
-                    <div key={item.text} className="flex flex-col items-start text-left gap-2.5 md:gap-3.5 lg:gap-5 bg-foreground-fixed p-[15] md:p-5 rounded-[20] md:rounded-[30]">
+                {items.map((item, i) => (
+                    <div key={`${item.text}-${i}`} className="flex flex-col items-start text-left gap-2.5 md:gap-3.5 lg:gap-5 bg-foreground-fixed p-[15] md:p-5 rounded-[20] md:rounded-[30]">
                         <ServiceGlyph src={item.icon} alt={item.text} />
                         <p className="font-helvetica font-medium text-sm md:text-lg leading-tight text-black max-w-[160] lg:max-w-none font-medium">
                             {item.text}

@@ -96,6 +96,40 @@ function brandSelectOptions(brands, otherLabel = 'Другая') {
     return otherLabel ? [...names, otherLabel] : names;
 }
 
+const TIMING_CODES = new Set(['today', 'week', 'month', 'other']);
+const TIMING_BY_LABEL = {
+    сегодня: 'today',
+    'в ближайшую неделю': 'week',
+    'в ближайший месяц': 'month',
+    другое: 'other',
+};
+const DEFAULT_TIMING_OPTIONS = [
+    {value: 'today', label: 'Сегодня'},
+    {value: 'week', label: 'В ближайшую неделю'},
+    {value: 'month', label: 'В ближайший месяц'},
+    {value: 'other', label: 'Другое'},
+];
+
+function mapTimingOptions(rows) {
+    const seen = new Set();
+    const options = [];
+    for (const row of rows || []) {
+        const label = String(row?.label || '').trim();
+        const raw = String(scalar(row?.value) || '').trim();
+        const code = TIMING_CODES.has(raw)
+            ? raw
+            : TIMING_BY_LABEL[raw.toLowerCase()] || TIMING_BY_LABEL[label.toLowerCase()];
+        if (!code || seen.has(code)) continue;
+        seen.add(code);
+        const fallback = DEFAULT_TIMING_OPTIONS.find((opt) => opt.value === code);
+        options.push({
+            value: code,
+            label: label || fallback?.label || code,
+        });
+    }
+    return options.length ? options : DEFAULT_TIMING_OPTIONS;
+}
+
 function withShared(form, site) {
     return {
         ...form,
@@ -296,7 +330,6 @@ function mapLegalPage(node) {
 function mapSite(raw, branches) {
     const settings = raw.siteSettings || {};
     const chrome = settings.siteSettingsFields || {};
-    const labels = settings.labelsFields || {};
     const seo = settings.seoFields || {};
     const modal = settings.modalErrorsFields || {};
     const serviceModal = settings.serviceModalFields || {};
@@ -320,28 +353,6 @@ function mapSite(raw, branches) {
         seo: {
             title: seo.seoTitle || '',
             description: seo.seoDescription || '',
-        },
-        labels: {
-            branches: labels.branches || '',
-            openMenu: labels.openMenu || '',
-            closeMenu: labels.closeMenu || '',
-            backToTop: labels.backToTop || '',
-            showMore: labels.showMore || '',
-            collapse: labels.collapse || '',
-            expand: labels.expand || '',
-            moreDetails: labels.moreDetails || '',
-            legalUpdated: labels.legalUpdated || '',
-            themeToggle: labels.themeToggle || '',
-            prevSlide: labels.prevSlide || '',
-            nextSlide: labels.nextSlide || '',
-            newsPagination: labels.newsPagination || '',
-            prevPage: labels.prevPage || '',
-            nextPage: labels.nextPage || '',
-            selectPlaceholder: labels.selectPlaceholder || '',
-            panoramaCta: labels.panoramaCta || '',
-            mapCta: labels.mapCta || '',
-            reviewsEmpty: labels.reviewsEmpty || '',
-            brandOther: labels.brandOther || 'Другая',
         },
         callModal: {
             title: modal.callModalTitle || '',
@@ -394,7 +405,7 @@ function mapSite(raw, branches) {
 
 function mapForms(raw, site, brands, branches) {
     const settings = raw.siteSettings || {};
-    const otherLabel = site.labels.brandOther;
+    const otherLabel = 'Другая';
     const anyLabel = settings.formContactFields?.branchAnyLabel || 'Не имеет значения';
 
     const quick = withShared(
@@ -420,10 +431,7 @@ function mapForms(raw, site, brands, branches) {
                     name: 'timing',
                     label: contactGroup.timingLabel || '',
                     required: true,
-                    options: (contactGroup.timingOptions || []).map((row) => ({
-                        value: scalar(row.value),
-                        label: row.label || '',
-                    })),
+                    options: mapTimingOptions(contactGroup.timingOptions),
                 },
                 {
                     name: 'branch',

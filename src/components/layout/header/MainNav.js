@@ -31,7 +31,7 @@ function MenuToggleIcon({open}) {
 }
 
 export default function MainNav({data, isHome, collapsed}) {
-    const {site, branches: mockBranches} = useSiteData();
+    const {branches: mockBranches} = useSiteData();
     const pathname = usePathname();
     const [branchesOpen, setBranchesOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
@@ -106,20 +106,22 @@ export default function MainNav({data, isHome, collapsed}) {
                 </Link>
 
                 <div className="flex items-center gap-5 md:gap-7">
-                    {data.socials.map((social) => (
+                    {data.socials.map((social, i) => (
                         <a
-                            key={social.name}
+                            key={`${social.name}-${i}`}
                             href={social.url}
                             className="transition hover:opacity-60"
                             aria-label={social.alt || social.name}
                         >
-                            <Image
-                                src={mediaUrl(social.logo)}
-                                alt={mediaAlt(social.logo, social.alt)}
-                                width={60}
-                                height={60}
-                                className="size-[30px]"
-                            />
+                            {mediaUrl(social.logo) && (
+                                <Image
+                                    src={mediaUrl(social.logo)}
+                                    alt={mediaAlt(social.logo, social.alt)}
+                                    width={60}
+                                    height={60}
+                                    className="size-[30px]"
+                                />
+                            )}
                         </a>
                     ))}
 
@@ -131,7 +133,7 @@ export default function MainNav({data, isHome, collapsed}) {
                             aria-expanded={branchesOpen}
                             className="inline-flex cursor-pointer items-center gap-2.5 rounded-full border border-foreground-fixed px-8 py-1.5 text-base text-foreground-fixed transition hover:bg-white/5"
                         >
-                            {site.labels.branches}
+                            Филиалы
                             <MenuToggleIcon open={branchesOpen} />
                         </button>
 
@@ -141,7 +143,7 @@ export default function MainNav({data, isHome, collapsed}) {
                                     {mockBranches.map((branch) => (
                                         <a
                                             key={branch.id}
-                                            href={`tel:${branch.phone.replace(/\D/g, '')}`}
+                                            href={`tel:${String(branch.phone || '').replace(/\D/g, '')}`}
                                             className="rounded-xl border border-white/10 px-3 py-2.5 transition hover:bg-white/5"
                                             onClick={() => setBranchesOpen(false)}
                                         >
@@ -160,6 +162,7 @@ export default function MainNav({data, isHome, collapsed}) {
                                             className="flex items-center gap-2.5 rounded-xl border border-white/10 px-3 py-2.5 transition hover:bg-white/5"
                                             onClick={() => setBranchesOpen(false)}
                                         >
+                                            {mediaUrl(branch.messenger?.logo) && (
                                             <Image
                                                 src={mediaUrl(branch.messenger.logo)}
                                                 alt={mediaAlt(branch.messenger.logo, branch.messenger.alt)}
@@ -167,6 +170,7 @@ export default function MainNav({data, isHome, collapsed}) {
                                                 height={60}
                                                 className="size-[24px]"
                                             />
+                                            )}
                                             <span className="text-sm text-foreground-fixed">
                                                 {branch.shortName}
                                             </span>
@@ -183,7 +187,7 @@ export default function MainNav({data, isHome, collapsed}) {
                             type="button"
                             onClick={() => setMenuOpen((v) => !v)}
                             aria-expanded={menuOpen}
-                            aria-label={menuOpen ? site.labels.closeMenu : site.labels.openMenu}
+                            aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
                             className="flex cursor-pointer items-center justify-center p-1"
                         >
                             <MenuToggleIcon open={menuOpen} />
@@ -192,8 +196,8 @@ export default function MainNav({data, isHome, collapsed}) {
                         {menuOpen && (
                             <div className="absolute right-0 z-50 mt-3 w-[min(280px,calc(100vw-2.5rem))] rounded-[20px] border border-white/15 bg-black/95 p-4 shadow-lg backdrop-blur-sm">
                                 <ul className="flex flex-col gap-3 text-base">
-                                    {data.menu.map((item) => (
-                                        <li key={item.link}>
+                                    {data.menu.map((item, i) => (
+                                        <li key={`${item.link}-${i}`}>
                                             <Link
                                                 href={item.link}
                                                 className="block transition-colors hover:text-white/70"
@@ -207,13 +211,13 @@ export default function MainNav({data, isHome, collapsed}) {
 
                                 <div className="mt-4 border-t border-white/15 pt-4">
                                     <p className="mb-2 text-xs uppercase tracking-wide text-white/50">
-                                        {site.labels.branches}
+                                        Филиалы
                                     </p>
                                     <div className="flex flex-col gap-2">
                                         {mockBranches.map((branch) => (
                                             <a
                                                 key={branch.id}
-                                                href={`tel:${branch.phone.replace(/\D/g, '')}`}
+                                                href={`tel:${String(branch.phone || '').replace(/\D/g, '')}`}
                                                 className="rounded-xl border border-white/10 px-3 py-2.5 transition hover:bg-white/5"
                                                 onClick={closeMenu}
                                             >
@@ -232,6 +236,7 @@ export default function MainNav({data, isHome, collapsed}) {
                                                 className="flex items-center gap-2.5 rounded-xl border border-white/10 px-3 py-2.5 transition hover:bg-white/5"
                                                 onClick={closeMenu}
                                             >
+                                                {mediaUrl(branch.messenger?.logo) && (
                                                 <Image
                                                     src={mediaUrl(branch.messenger.logo)}
                                                     alt={mediaAlt(branch.messenger.logo, branch.messenger.alt)}
@@ -239,6 +244,7 @@ export default function MainNav({data, isHome, collapsed}) {
                                                     height={60}
                                                     className="size-[24px]"
                                                 />
+                                                )}
                                                 <span className="text-sm text-foreground-fixed">
                                                     {branch.shortName}
                                                 </span>
@@ -276,8 +282,8 @@ export default function MainNav({data, isHome, collapsed}) {
                 </Link>
 
                 <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-foreground-fixed sm:gap-x-5 lg:gap-6 xl:gap-7 lg:text-base xl:text-lg">
-                    {data.menu.map((item) => (
-                        <li key={item.link}>
+                    {data.menu.map((item, i) => (
+                        <li key={`${item.link}-${i}`}>
                             <Link
                                 href={item.link}
                                 className="transition-colors hover:text-white/70"
@@ -299,6 +305,7 @@ export default function MainNav({data, isHome, collapsed}) {
                             href={branch.messenger.url}
                             className="flex items-center gap-2.5 transition hover:opacity-60"
                         >
+                            {mediaUrl(branch.messenger?.logo) && (
                             <Image
                                 src={mediaUrl(branch.messenger.logo)}
                                 alt={mediaAlt(branch.messenger.logo, branch.messenger.alt)}
@@ -306,6 +313,7 @@ export default function MainNav({data, isHome, collapsed}) {
                                 height={60}
                                 className="size-[30px]"
                             />
+                            )}
                             <span className="relative before:absolute before:bottom-[3] before:h-[1] before:w-full before:bg-foreground-fixed lg:text-base xl:text-lg">
                                 {branch.shortName}
                             </span>
@@ -314,12 +322,13 @@ export default function MainNav({data, isHome, collapsed}) {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    {data.socials.map((social) => (
+                    {data.socials.map((social, i) => (
                         <a
-                            key={social.name}
+                            key={`${social.name}-${i}`}
                             href={social.url}
                             className="transition hover:opacity-60"
                         >
+                            {mediaUrl(social.logo) && (
                             <Image
                                 src={mediaUrl(social.logo)}
                                 alt={mediaAlt(social.logo, social.alt)}
@@ -327,6 +336,7 @@ export default function MainNav({data, isHome, collapsed}) {
                                 height={60}
                                 className="size-[30px]"
                             />
+                            )}
                         </a>
                     ))}
                 </div>

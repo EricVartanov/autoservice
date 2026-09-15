@@ -133,6 +133,7 @@ export default function ServiceHero({ data }) {
 
     return (
         <div className="relative overflow-hidden rounded-[20] md:rounded-[30]">
+            {mediaUrl(heroImage) && (
             <Image
                 src={mediaUrl(heroImage)}
                 alt={mediaAlt(heroImage, title)}
@@ -140,6 +141,7 @@ export default function ServiceHero({ data }) {
                 priority
                 className="object-cover"
             />
+            )}
             <div className="absolute inset-0 bg-[linear-gradient(335deg,#be0000_0%,rgba(0,0,0,0.4)_50%,transparent_100%)]" />
 
             <div className="relative z-10 flex h-full flex-col justify-between gap-[60] md:gap-[50] px-2.5 pb-[50] pt-10 md:px-[30] md:py-12 md:pb-16 lg:px-20 lg:pt-20 lg:pb-[35]">

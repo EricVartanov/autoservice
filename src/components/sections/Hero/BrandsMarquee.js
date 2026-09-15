@@ -2,18 +2,22 @@ import Image from "next/image";
 import {mediaAlt, mediaUrl} from "@/lib/media";
 
 function BrandLogo({ brand, className }) {
+    const logo = mediaUrl(brand.logo);
+    const logoDark = mediaUrl(brand.logoDark);
     return (
         <>
-            <Image
-                src={mediaUrl(brand.logo)}
-                alt={brand.name}
-                width={185}
-                height={85}
-                className={`hidden not-even:${className} dark:block`}
-            />
-            {brand.logoDark && (
+            {logo && (
                 <Image
-                    src={mediaUrl(brand.logoDark)}
+                    src={logo}
+                    alt={brand.name}
+                    width={185}
+                    height={85}
+                    className={`hidden not-even:${className} dark:block`}
+                />
+            )}
+            {logoDark && (
+                <Image
+                    src={logoDark}
                     alt=""
                     width={185}
                     height={85}
@@ -32,9 +36,9 @@ export default function BrandsMarquee({ brands }) {
         <>
             {/* Mobile: static 3×3 grid */}
             <div className="grid grid-cols-3 items-center justify-items-center gap-x-4 gap-y-4 px-2 md:hidden">
-                {brands.map((brand) => (
+                {brands.map((brand, i) => (
                     <BrandLogo
-                        key={brand.name}
+                        key={`${brand.name}-${i}`}
                         brand={brand}
                         className="h-auto w-full max-w-[90px] object-contain"
                     />

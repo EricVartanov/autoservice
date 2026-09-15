@@ -27,7 +27,7 @@ export default function Footer({ data }) {
     [@media(min-width:365px)]:bottom-12.5 md:bottom-0 lg:top-1/2 lg:-translate-y-1/2 z-50">
                     <button
                         type="button"
-                        aria-label={site.labels.backToTop}
+                        aria-label="Наверх"
                         onClick={() => scrollToTop()}
                         className="flex size-10 md:size-[40] lg:size-[54] cursor-pointer items-center justify-center rounded-full bg-primary text-foreground-fixed dark:bg-white dark:text-black"
                     >
@@ -65,9 +65,9 @@ export default function Footer({ data }) {
                     <p className="order-2 shrink-0 text-foreground-light lg:order-none">{copyright} {new Date().getFullYear()}</p>
 
                     <div className="order-1 flex flex-col gap-3 lg:order-none md:flex-row lg:justify-between lg:gap-8 xl:gap-[97]">
-                        {legal?.map((item) => (
+                        {legal?.map((item, i) => (
                             <LegalLink
-                                key={item.label}
+                                key={`${item.slug ?? item.label}-${i}`}
                                 slug={item.slug}
                                 className="underline underline-offset-2 transition hover:text-foreground"
                             >
@@ -109,15 +109,16 @@ export default function Footer({ data }) {
                             ))}
                         </div>
 
-                        {socials?.map((social) => (
+                        {socials?.map((social, i) => (
                             <Link
-                                key={social.name}
+                                key={`${social.name}-${i}`}
                                 href={social.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="transition hover:opacity-80"
                                 aria-label={social.alt || social.name}
                             >
+                                {mediaUrl(social.logo) && (
                                 <Image
                                     src={mediaUrl(social.logo)}
                                     alt={mediaAlt(social.logo, social.alt || social.name)}
@@ -125,7 +126,8 @@ export default function Footer({ data }) {
                                     height={24}
                                     className="size-[30] md:size-6 dark:hidden"
                                 />
-                                {social.logoDark && (
+                                )}
+                                {mediaUrl(social.logoDark) && (
                                     <Image
                                         src={mediaUrl(social.logoDark)}
                                         alt={mediaAlt(social.logoDark, social.alt || social.name)}

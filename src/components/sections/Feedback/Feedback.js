@@ -184,11 +184,11 @@ export default function Feedback({ data }) {
                                 )}
                             </p>
                             <div className="flex justify-start flex-wrap gap-x-5 gap-y-3">
-                                {form.branch.options.map((opt) => {
+                                {form.branch.options.map((opt, i) => {
                                     const checked = branch === opt.value;
                                     return (
                                         <label
-                                            key={opt.value}
+                                            key={`${form.branch.name}-${opt.value}-${i}`}
                                             className="flex cursor-pointer items-center gap-1.5 font-helvetica text-sm md:text-base"
                                         >
                                             <span

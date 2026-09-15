@@ -7,8 +7,8 @@ export default function ServiceSymptoms({ title, items }) {
                 {title}
             </h3>
             <div className="mt-6 md:mt-10 grid w-[80%] md:w-auto mx-auto md:mx-0 grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3.5 md:gap-x-10 md:gap-y-5 lg:gap-[70]">
-                {items.map((item) => (
-                    <div key={item.text} className="flex gap-2.5 md:gap-1.5 md:justify-start items-center">
+                {items.map((item, i) => (
+                    <div key={`${item.text}-${i}`} className="flex gap-2.5 md:gap-1.5 md:justify-start items-center">
                         <ServiceGlyph src={item.icon} alt={item.text} variant="outline" />
                         <p className="font-helvetica text-sm font-medium md:text-lg leading-tight text-foreground max-w-[224]">
                             {item.text}

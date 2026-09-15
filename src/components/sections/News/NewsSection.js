@@ -80,7 +80,7 @@ export default function NewsSection({items = []}) {
                             {newsPage.empty.replace('{year}', String(year))}
                         </p>
                     ) : (
-                        visible.map((item) => <NewsCard key={item.id} item={item} />)
+                        visible.map((item, i) => <NewsCard key={item.id ?? i} item={item} />)
                     )}
                 </div>
 

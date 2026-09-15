@@ -15,7 +15,7 @@ export default function CallModal() {
                 {mockBranches.map((b) => (
 
                     <a key={b.id}
-                       href={`tel:${b.phone.replace(/\D/g, '')}`}
+                       href={`tel:${String(b.phone || '').replace(/\D/g, '')}`}
                        className="flex flex-col p-4 rounded-xl border border-white/10 hover:bg-white/5 transition"
                     >
                         <span className="text-white font-medium">{b.name}</span>

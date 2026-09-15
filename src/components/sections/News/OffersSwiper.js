@@ -108,7 +108,7 @@ export default function OffersSwiper({offers = []}) {
                 >
                     {offers.map((offer, i) => (
                         <div
-                            key={offer.id}
+                            key={offer.id ?? i}
                             className="shrink-0"
                             style={{width: slideWidth || `${slideRatio * 100}%`}}
                         >

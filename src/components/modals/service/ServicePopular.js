@@ -8,11 +8,12 @@ export default function ServicePopular({ title, items }) {
                 {title}
             </h3>
             <div className="mt-[30] md:mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-2">
-                {items.map((item) => (
+                {items.map((item, i) => (
                     <div
-                        key={item.title}
+                        key={`${item.title}-${i}`}
                         className="relative overflow-hidden rounded-[30] min-h-[200] flex flex-col justify-center p-6"
                     >
+                        {mediaUrl(item.image) && (
                         <Image
                             src={mediaUrl(item.image)}
                             alt={mediaAlt(item.image, item.title)}
@@ -21,6 +22,7 @@ export default function ServicePopular({ title, items }) {
                             loading="eager"
                             className="object-cover"
                         />
+                        )}
                         <div className="absolute inset-0 bg-[linear-gradient(320deg,#be0000_0%,rgba(0,0,0,0.4)_50%,transparent_100%)]" />
                         <div className="relative z-10 text-center">
                             <h4 className="font-heading text-lg md:text-[22px] font-bold leading-none text-foreground-fixed">

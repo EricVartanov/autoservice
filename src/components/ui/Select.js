@@ -114,12 +114,12 @@ export default function Select({
                             className="max-h-60 overflow-y-auto overscroll-contain py-1"
                             data-lenis-prevent
                         >
-                            {options.map((opt) => {
+                            {options.map((opt, i) => {
                                 const val = opt.value ?? opt;
                                 const label = opt.label ?? opt;
                                 const isActive = val === value;
                                 return (
-                                    <li key={val}>
+                                    <li key={`${val}-${i}`}>
                                         <button
                                             type="button"
                                             onClick={() => {

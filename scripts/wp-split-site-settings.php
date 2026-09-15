@@ -14,7 +14,6 @@ if ( ! function_exists( 'acf_get_field_group' ) ) {
 $map = array(
 	'group_6a845d326061c' => 'site-chrome',
 	'group_6a855d6421951' => 'site-seo-page',
-	'group_6a855eabc15e6' => 'site-labels-page',
 	'group_6aa2644130630' => 'site-brands',
 	'group_6a8563ec447ff' => 'site-services',
 	'group_6a85657edc994' => 'site-commercial',

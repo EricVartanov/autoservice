@@ -20,7 +20,7 @@ export default function ServicePriceList({ title, items, subtitle }) {
             <ul className="mt-[30] md:mt-8">
                 {items.map((item, index) => (
                     <li
-                        key={item.title}
+                        key={`${item.title}-${index}`}
                         className={`mb-2.5 flex gap-5 md:flex-row items-center justify-between px-2.5 py-[15] md:px-[30] md:py-[21] lg:px-[35] rounded-[10] md:rounded-full bg-foreground-fixed ${!expanded && index >= MOBILE_INITIAL_COUNT ? 'max-md:hidden' : ''
                             }`}
                     >

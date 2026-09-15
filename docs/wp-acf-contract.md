@@ -1,6 +1,6 @@
 # Контракт контента: Next.js ↔ WP + ACF
 
-Живой JS-канон: `src/content/`. Всё, что видит пользователь (заголовки, формы, кнопки, ошибки, SEO, aria-подписи), приходит из WP. Код знает только технические ключи.
+Живой JS-канон: `src/content/`. Всё, что видит пользователь (заголовки, формы, кнопки, ошибки, SEO), приходит из WP. Служебные UI-подписи (aria, «Показать еще», «Филиалы», стрелки слайдера) — хардкод в компонентах. Код знает только технические ключи.
 
 Канон картинки: `{ url, alt }`. Хелпер `mediaUrl()` / `mediaAlt()` в `src/lib/media.js`.
 
@@ -10,7 +10,7 @@ Mapper `mapWpPage` / WPGraphQL — отдельный шаг. Он собира�
 
 ## Что в WP, что в коде
 
-**В WP (Options / CPT)** — весь копирайт: seo, меню, лейблы UI, согласие, тексты ошибок и успеха, лейблы/плейсхолдеры форм, заголовки модалки услуги, секции главной, записи услуг/новостей/акций/филиалов/legal.
+**В WP (Options / CPT)** — весь копирайт: seo, меню, согласие, тексты ошибок и успеха, лейблы/плейсхолдеры форм, заголовки модалки услуги, секции главной, записи услуг/новостей/акций/филиалов/legal.
 
 **В коде (не редактируется)** — ключи контракта:
 
@@ -18,6 +18,7 @@ Mapper `mapWpPage` / WPGraphQL — отдельный шаг. Он собира�
 - `radio.value` (`today`, `week`, `month`, `other`; филиал = `branch.slug` **или `any`**)
 - `section.type`, `LANDING_SECTIONS` (id / theme / className) в `src/lib/landingSections.js`
 - логика валидации (`src/lib/formValidation.js`)
+- служебные UI-подписи (меню, слайдер, пагинация, «Показать еще», aria)
 
 Не делать в ACF repeater полей со свободным текстовым `name` — редактор сломает `phone`. Формы — **именованные группы**. Mapper собирает `form.fields[]` для текущих компонентов.
 
@@ -46,30 +47,6 @@ Mapper `mapWpPage` / WPGraphQL — отдельный шаг. Он собира�
 | `legal` relationship на legal-страницы | `site.footer.legal[]` `{ label, slug }` |
 
 Мессенджеры и филиалы здесь **не дублировать** — CPT `branch`.
-
-### Labels (все UI-подписи)
-
-`site.labels` — одна группа:
-
-| key | пример |
-|---|---|
-| `branches` | Филиалы |
-| `open_menu` / `close_menu` | Открыть / Закрыть меню |
-| `back_to_top` | Наверх |
-| `show_more` | Показать еще |
-| `collapse` / `expand` | Свернуть / Развернуть |
-| `more_details` | Подробнее |
-| `legal_updated` | Дата последнего обновления |
-| `theme_toggle` | Переключить тему |
-| `prev_slide` / `next_slide` | слайдер |
-| `news_pagination` / `prev_page` / `next_page` | пагинация новостей |
-| `select_placeholder` | Выберите |
-| `panorama_cta` | Смотреть панораму |
-| `map_cta` | Открыть на Яндекс карте |
-| `reviews_empty` | Пока нет отзывов по этому фильтру |
-| `brand_other` | Другая |
-
-FAQ: CTA «Смотреть все» = `cta.label` layout; свёртка списка = `labels.collapse` (не хардкод в компоненте).
 
 ### Call modal / consent / формы (общие)
 
@@ -108,7 +85,7 @@ Consent и ошибки **один раз** в Options. Формы только 
 |---|---|
 | repeater `brands` (`name`, `logo`, `logo_dark`) | `brands[]` `{ name, logo, logoDark }` |
 
-Селект форм = имена марок + опция `labels.brand_other` («Другая»). Value «Другая» — фиксированный ключ на фронте (`brandSelectOptions()`), не свободный ввод в ACF.
+Селект форм = имена марок + опция «Другая» (хардкод на фронте, `brandSelectOptions()`). Value «Другая» — фиксированный ключ, не свободный ввод в ACF.
 
 ### Forms (именованные группы)
 
@@ -148,7 +125,7 @@ Consent и ошибки **один раз** в Options. Формы только 
 | `messenger_url`, `messenger_logo` | |
 | `footer_logo`, `footer_logo_dark` | |
 
-Подписи кнопок панорамы / карты — `labels.panorama_cta` / `labels.map_cta`, не поля филиала.
+Подписи кнопок панорамы / карты — хардкод на фронте (`BranchCard`), не поля филиала.
 
 Шапка / FAQ messengers и футер-ссылки собираются из филиалов. Радио форм — `slug` + `form_label`; в `contact` дополнительно option `any`.
 
@@ -235,7 +212,7 @@ Pages (или CPT) со slug `privacy`, `personal-data`. Поля: title, `updat
 | `specialOfferFields` | **две строки title** (`title` + `titleLine2`; mapper → `title[0]` / `title[1]`), subtitle, highlightHtml, highlightMark, image, **cta.label**, `detailsHtml` | |
 | `reviewsSectionFields` | mark, title, titleBack, summary (`count`, `countLabel`, `platforms[]` `{ id, logo }`), platforms[] (`id`, `label`, `links[]` `{ branchId, url }`), cta.label | items — CPT `review` |
 | `commercialFields` | mark, title, subtitle, cta.label, `detailsHtml`, `backgroundImage`, `limitations[]` `{ image, text }` | `formCommercialFields` |
-| `faqFields` | mark, title, cta, items[] `{ question, answer }` | messengers ← `branch`; `id` считает фронт; свёртка = `labels.collapse` |
+| `faqFields` | mark, title, cta, items[] `{ question, answer }` | messengers ← `branch`; `id` считает фронт; свёртка — хардкод на фронте |
 | `contactFormSectionFields` | title, `backgroundImage` | `formContactFields` |
 | `contactsFields` | email, `mapImage`, `mapImageDark`, `mapImageModal` | все `branch` (в модалке услуги — только relationship записи) |
 | `feedbackSectionFields` | intro, title, manager, tires | `formFeedbackFields` |
@@ -274,7 +251,7 @@ Pages (или CPT) со slug `privacy`, `personal-data`. Поля: title, `updat
 Shape CPT: `{ id, branchId, platform, author, avatar, rating, text }`.
 
 1. CPT `review` + relationship на филиал + select площадки; summary в секции Отзывы (`count`, `countLabel`, логотипы площадок).
-2. Внешние виджеты — в ACF только summary и ссылки. У площадки: repeater `links` `{ branchId, url }` (relationship филиала + URL Яндекс / 2GIS / Google). CTA «Смотреть все» ведёт на URL выбранной пары площадка+филиал. Пустой фильтр — `labels.reviews_empty`.
+2. Внешние виджеты — в ACF только summary и ссылки. У площадки: repeater `links` `{ branchId, url }` (relationship филиала + URL Яндекс / 2GIS / Google). CTA «Смотреть все» ведёт на URL выбранной пары площадка+филиал. Пустой фильтр — хардкод на фронте.
 
 Не смешивать в одном repeater.
 
@@ -291,6 +268,7 @@ Shape CPT: `{ id, branchId, platform, author, avatar, rating, text }`.
 - дубли consent / form_errors на каждой форме — только Options
 - дубли списка брендов в Hero — только Options `brands`
 - хардкод slug услуги для фильтра филиалов — только relationship `branches`
+- служебные UI-подписи (меню, слайдер, пагинация, «Показать еще», aria) — хардкод на фронте
 
 ---
 

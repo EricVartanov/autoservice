@@ -17,14 +17,10 @@ import {mediaAlt, mediaUrl} from "@/lib/media";
 const VISIBLE_COUNT = 4;
 
 export default function Reviews({data}) {
-    const {branches: mockBranches, site} = useSiteData();
+    const {branches: mockBranches} = useSiteData();
     const {mark, title, titleBack, summary, platforms, items, cta} = data;
 
-    const availableBranches = mockBranches.filter((b) =>
-        items.some((r) => r.branchId === b.id)
-    );
-
-    const [activeBranch, setActiveBranch] = useState(availableBranches[0]?.id);
+    const [activeBranch, setActiveBranch] = useState(mockBranches[0]?.id);
     const [activePlatform, setActivePlatform] = useState(platforms[0]?.id);
     const isMobileOrTablet = useMediaQuery('(max-width: 1279px)');
     const reduceMotion = useReducedMotion();
@@ -54,12 +50,14 @@ export default function Reviews({data}) {
                     {summary && (
                         <div className="flex items-center gap-3.5 md:gap-5 shrink-0">
                             <div className="flex -space-x-3">
-                                {summary.platforms.map((platform) => (
+                                {summary.platforms.map((platform, i) => (
                                     <span
-                                        key={platform.id}
+                                        key={platform.id ?? i}
                                         className="size-[10vw] md:size-13.75 border-[3px] border-platforms-border overflow-hidden rounded-full bg-foreground-fixed flex items-center justify-center shadow-[-3px_4px_20px_0_rgba(0,0,0,0.25)]"
                                     >
+                                        {mediaUrl(platform.logo) && (
                                         <Image src={mediaUrl(platform.logo)} alt={mediaAlt(platform.logo, platform.alt)} width={55} height={55}/>
+                                        )}
                                     </span>
                                 ))}
                             </div>
@@ -75,7 +73,7 @@ export default function Reviews({data}) {
                     <div
                         className="mt-10 lg:mt-[70] flex bg-white-grey flex-col flex-wrap justify-center rounded-3xl lg:rounded-full shadow-[0px_4px_20px_0_rgba(0,0,0,0.15)] md:flex-row md:items-center lg:justify-between gap-5 md:gap-7 lg:gap-4 pt-2.5 pb-5 px-6 md:px-5 lg:px-10 md:py-7 lg:py-3.5">
                         <div className="flex justify-center flex-wrap items-center gap-2">
-                            {availableBranches.map((branch) => (
+                            {mockBranches.map((branch) => (
                                 <button
                                     key={branch.id}
                                     onClick={() => setActiveBranch(branch.id)}
@@ -91,9 +89,9 @@ export default function Reviews({data}) {
                         </div>
 
                         <div className="flex md:flex-wrap justify-center items-center gap-7 lg:gap-6">
-                            {platforms.map((platform) => (
+                            {platforms.map((platform, i) => (
                                 <button
-                                    key={platform.id}
+                                    key={platform.id ?? i}
                                     onClick={() => setActivePlatform(platform.id)}
                                     className={`relative text-sm md:text-base font-helvetica cursor-pointer text-foreground w-[33%] max-w-[80] md:w-auto md:max-w-none`}
                                 >
@@ -111,7 +109,7 @@ export default function Reviews({data}) {
                             <AnimatePresence mode="popLayout" initial={false}>
                                 {visible.map((review, i) => (
                                     <motion.div
-                                        key={review.id}
+                                        key={review.id ?? i}
                                         initial={reduceMotion ? {opacity: 0} : {x: '-100vw', opacity: 0}}
                                         animate={
                                             reduceMotion
@@ -136,6 +134,7 @@ export default function Reviews({data}) {
                                         <div className="flex items-center gap-2.5 justify-between">
                                             <div className="flex items-center gap-2.5">
                                                 <div className="relative shrink-0 size-10 rounded-full overflow-hidden ">
+                                                    {mediaUrl(review.avatar) && (
                                                     <Image
                                                         src={mediaUrl(review.avatar)}
                                                         alt={review.author}
@@ -143,6 +142,7 @@ export default function Reviews({data}) {
                                                         height={40}
                                                         className="size-full object-cover"
                                                     />
+                                                    )}
                                                 </div>
                                                 <span
                                                     className="text-sm md:text-base font-medium leading-tight">
@@ -164,7 +164,7 @@ export default function Reviews({data}) {
                         </div>
                         {matched.length === 0 && (
                             <p className="absolute inset-0 flex items-center justify-center text-center text-foreground-light">
-                                {site.labels.reviewsEmpty || 'Пока нет отзывов по этому фильтру'}
+                                Пока нет отзывов по этому фильтру
                             </p>
                         )}
                     </div>

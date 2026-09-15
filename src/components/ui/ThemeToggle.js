@@ -3,10 +3,8 @@
 import {useTheme} from 'next-themes';
 import {useEffect, useState} from 'react';
 import Icon from '@/components/icons/Icon';
-import {useSiteData} from '@/components/SiteDataProvider';
 
 export default function ThemeToggle() {
-    const {site} = useSiteData();
     const {resolvedTheme, setTheme} = useTheme();
     const [mounted, setMounted] = useState(false);
 
@@ -26,7 +24,7 @@ export default function ThemeToggle() {
         <button
             type="button"
             onClick={toggleTheme}
-            aria-label={site.labels.themeToggle}
+            aria-label="Переключить тему"
             className={`w-full h-full flex justify-center items-center cursor-pointer rounded-full transition-colors ${
                 isDark ? 'bg-black/20' : 'bg-white/20'
             }`}

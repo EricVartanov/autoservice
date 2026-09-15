@@ -55,6 +55,7 @@ export function useInvisibleCaptcha() {
     const reactId = useId();
     const containerId = `smartcaptcha-${reactId.replace(/:/g, '')}`;
     const widgetIdRef = useRef(null);
+    const hostRef = useRef(null);
     const pendingRef = useRef(null);
 
     useEffect(() => {
@@ -64,14 +65,20 @@ export function useInvisibleCaptcha() {
         }
 
         let cancelled = false;
+        const host = document.createElement('div');
+        host.id = containerId;
+        host.setAttribute('aria-hidden', 'true');
+        host.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;pointer-events:none;';
+        document.body.appendChild(host);
+        hostRef.current = host;
 
         loadCaptchaScript()
             .then(() => {
-                if (cancelled || !window.smartCaptcha) {
+                if (cancelled || !window.smartCaptcha || !host.isConnected) {
                     return;
                 }
 
-                widgetIdRef.current = window.smartCaptcha.render(containerId, {
+                widgetIdRef.current = window.smartCaptcha.render(host, {
                     sitekey,
                     invisible: true,
                     hl: 'ru',
@@ -97,6 +104,8 @@ export function useInvisibleCaptcha() {
                 window.smartCaptcha.destroy(widgetIdRef.current);
             }
             widgetIdRef.current = null;
+            hostRef.current?.remove();
+            hostRef.current = null;
         };
     }, [containerId]);
 
@@ -143,6 +152,7 @@ export function useInvisibleCaptcha() {
     };
 }
 
-export function InvisibleCaptcha({id}) {
-    return <div id={id} className="h-0 overflow-hidden" aria-hidden="true" />;
+/** Host is created outside React; keep a no-op for call sites that still pass an id. */
+export function InvisibleCaptcha() {
+    return null;
 }

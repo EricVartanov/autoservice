@@ -5,7 +5,7 @@ import Icon from "@/components/icons/Icon";
 import { useModalStore } from "../../../../public/store/useModalStore";
 
 export default function BranchCard({ branch, embedded = false, side }) {
-    const phoneHref = `tel:${branch.phone.replace(/\D/g, '')}`;
+    const phoneHref = `tel:${String(branch.phone || '').replace(/\D/g, '')}`;
     const openPanorama = useModalStore((s) => s.openPanorama);
 
     return (

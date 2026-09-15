@@ -20,8 +20,8 @@ export default function About({ data }) {
                                 stagger
                                 className="flex flex-col items-stretch gap-4 lg:gap-7 lg:flex-row lg:justify-center lg:items-center"
                             >
-                                {cards.map((card) => (
-                                    <QualityCard key={card.title} card={card} />
+                                {cards.map((card, i) => (
+                                    <QualityCard key={`${card.title}-${i}`} card={card} />
                                 ))}
                             </ScrollReveal>
 

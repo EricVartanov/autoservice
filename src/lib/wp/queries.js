@@ -42,28 +42,6 @@ export const SITE_QUERY = `
           }
         }
       }
-      labelsFields {
-        backToTop
-        branches
-        brandOther
-        closeMenu
-        collapse
-        expand
-        legalUpdated
-        mapCta
-        moreDetails
-        newsPagination
-        nextPage
-        nextSlide
-        openMenu
-        panoramaCta
-        prevPage
-        prevSlide
-        reviewsEmpty
-        selectPlaceholder
-        showMore
-        themeToggle
-      }
       seoFields { seoTitle seoDescription }
       modalErrorsFields {
         callModalTitle
@@ -403,7 +381,7 @@ export const SITE_QUERY = `
         }
       }
     }
-    offers(first: 20) {
+    offers(first: 20, where: {orderby: {field: MENU_ORDER, order: ASC}}) {
       nodes {
         databaseId
         slug

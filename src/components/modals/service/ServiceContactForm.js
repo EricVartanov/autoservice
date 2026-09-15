@@ -219,11 +219,11 @@ export default function ServiceContactForm({ data }) {
                     {group.required && <span className="text-primary"> *</span>}
                 </p>
                 <div className="flex flex-col md:flex-row md:flex-wrap gap-x-5 gap-y-3">
-                    {group.options.map((opt) => {
+                    {group.options.map((opt, i) => {
                         const checked = value === opt.value;
                         return (
                             <label
-                                key={opt.value}
+                                key={`${group.name}-${opt.value}-${i}`}
                                 className="flex md:flex-row flex-row-reverse justify-between md:justify-start cursor-pointer items-center gap-1.5 font-helvetica text-sm md:text-base text-foreground-fixed"
                             >
                                 <span

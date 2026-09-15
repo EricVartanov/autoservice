@@ -118,13 +118,6 @@ function autoservice_options_page_defs() {
 			'position'   => '3.17',
 		),
 		array(
-			'page_title' => 'Подписи',
-			'menu_title' => 'Подписи',
-			'menu_slug'  => 'site-labels-page',
-			'icon_url'   => 'dashicons-translation',
-			'position'   => '3.18',
-		),
-		array(
 			'page_title' => 'Уведомления',
 			'menu_title' => 'Уведомления',
 			'menu_slug'  => 'site-notifications',

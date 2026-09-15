@@ -57,10 +57,6 @@ $home        = 248;
 
 update_field( 'seo_title', 'Авторитет — автосервис в Краснодаре', 'option' );
 update_field( 'seo_description', 'Диагностика, ремонт и обслуживание автомобилей в Краснодаре. Два филиала.', 'option' );
-update_field( 'panorama_cta', 'Смотреть панораму', 'option' );
-update_field( 'map_cta', 'Открыть на Яндекс карте', 'option' );
-update_field( 'reviews_empty', 'Пока нет отзывов по этому фильтру', 'option' );
-update_field( 'brand_other', 'Другая', 'option' );
 update_field( 'form_errors_name_short', 'Слишком короткое имя', 'option' );
 update_field( 'consent_required', 1, 'option' );
 update_field( 'card_cta', 'Подробнее', 'option' );
