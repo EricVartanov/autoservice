@@ -29,17 +29,36 @@ function autoservice_leads_register_fields() {
 					'label'           => '',
 					'name'            => '',
 					'type'            => 'message',
-					'message'         => 'Заявки с сайта уходят на почту и/или в Max. Пока оба канала пустые, формы вернут ошибку отправки. Для Max: создайте бота, добавьте его в группу (или напишите ему в личку) и вставьте токен и ID.',
+					'message'         => 'Заявки с сайта уходят на почту и (при выборе конкретного филиала) в Max. Пока нет ни одного email и Max не настроен, формы вернут ошибку. Для Max: создайте бота, добавьте его в группу (или напишите в личку) и вставьте токен и ID. Ссылка на Max филиала уходит только в Max, в письме её нет.',
 					'new_lines'       => 'wpautop',
 					'esc_html'        => 0,
 					'show_in_graphql' => 0,
 				),
 				array(
-					'key'             => 'field_as_notify_email',
-					'label'           => 'Email для заявок',
-					'name'            => 'notify_email',
+					'key'          => 'field_as_notify_emails',
+					'label'        => 'Email для заявок',
+					'name'         => 'notify_emails',
+					'type'         => 'repeater',
+					'instructions' => 'На все эти адреса уходит письмо с данными формы. Можно добавить несколько.',
+					'layout'       => 'table',
+					'button_label' => 'Добавить email',
+					'sub_fields'   => array(
+						array(
+							'key'           => 'field_as_notify_emails_email',
+							'label'         => 'Email',
+							'name'          => 'email',
+							'type'          => 'email',
+							'required'      => 1,
+						),
+					),
+					'show_in_graphql' => 0,
+				),
+				array(
+					'key'             => 'field_as_feedback_manager_email',
+					'label'           => 'Email менеджера по работе с клиентами',
+					'name'            => 'feedback_manager_email',
 					'type'            => 'email',
-					'instructions'    => 'На этот адрес уходит письмо с данными формы.',
+					'instructions'    => 'Только для формы отзывов / обратной связи (feedback): письмо уходит и на этот адрес.',
 					'show_in_graphql' => 0,
 				),
 				array(
@@ -211,6 +230,36 @@ function autoservice_leads_text( $value ) {
 	return sanitize_text_field( is_scalar( $value ) ? (string) $value : '' );
 }
 
+function autoservice_leads_notify_emails() {
+	$emails = array();
+	$rows   = autoservice_leads_option( 'notify_emails' );
+
+	if ( is_array( $rows ) ) {
+		foreach ( $rows as $row ) {
+			$email = '';
+			if ( is_array( $row ) ) {
+				$email = isset( $row['email'] ) ? (string) $row['email'] : '';
+			} elseif ( is_string( $row ) ) {
+				$email = $row;
+			}
+			$email = sanitize_email( $email );
+			if ( is_email( $email ) ) {
+				$emails[] = $email;
+			}
+		}
+	}
+
+	// Backward compat: old single notify_email field.
+	if ( ! $emails ) {
+		$legacy = sanitize_email( (string) autoservice_leads_option( 'notify_email' ) );
+		if ( is_email( $legacy ) ) {
+			$emails[] = $legacy;
+		}
+	}
+
+	return array_values( array_unique( $emails ) );
+}
+
 function autoservice_leads_handle( WP_REST_Request $request ) {
 	$params = $request->get_json_params();
 	if ( ! is_array( $params ) ) {
@@ -252,27 +301,48 @@ function autoservice_leads_handle( WP_REST_Request $request ) {
 		}
 	}
 
+	$branch_slug = sanitize_key( (string) ( $params['branchSlug'] ?? '' ) );
+	if ( 'any' === $branch_slug ) {
+		$branch_slug = '';
+	}
+
+	$branch_max_url = esc_url_raw( (string) ( $params['branchMaxUrl'] ?? '' ) );
+	if ( '' === $branch_slug ) {
+		$branch_max_url = '';
+	}
+
 	$lead = array(
-		'type'     => $type,
-		'name'     => $name,
-		'phone'    => $phone_digits,
-		'carBrand' => autoservice_leads_text( $params['carBrand'] ?? '' ),
-		'timing'   => autoservice_leads_text( $params['timing'] ?? '' ),
-		'branch'   => autoservice_leads_text( $params['branch'] ?? '' ),
-		'message'  => sanitize_textarea_field( (string) ( $params['message'] ?? '' ) ),
-		'service'  => autoservice_leads_text( $params['service'] ?? '' ),
-		'extra'    => $extra,
+		'type'         => $type,
+		'name'         => $name,
+		'phone'        => $phone_digits,
+		'carBrand'     => autoservice_leads_text( $params['carBrand'] ?? '' ),
+		'timing'       => autoservice_leads_text( $params['timing'] ?? '' ),
+		'branch'       => autoservice_leads_text( $params['branch'] ?? '' ),
+		'branchSlug'   => $branch_slug,
+		'branchMaxUrl' => $branch_max_url,
+		'message'      => sanitize_textarea_field( (string) ( $params['message'] ?? '' ) ),
+		'service'      => autoservice_leads_text( $params['service'] ?? '' ),
+		'extra'        => $extra,
 	);
 
-	$email_to   = sanitize_email( (string) autoservice_leads_option( 'notify_email' ) );
-	$max_token  = trim( (string) autoservice_leads_option( 'max_bot_token' ) );
-	$max_chat   = trim( (string) autoservice_leads_option( 'max_chat_id' ) );
-	$max_user   = trim( (string) autoservice_leads_option( 'max_user_id' ) );
+	$email_tos = autoservice_leads_notify_emails();
+	if ( 'feedback' === $type ) {
+		$manager = sanitize_email( (string) autoservice_leads_option( 'feedback_manager_email' ) );
+		if ( is_email( $manager ) ) {
+			$email_tos[] = $manager;
+			$email_tos   = array_values( array_unique( $email_tos ) );
+		}
+	}
 
-	$mail_enabled = (bool) is_email( $email_to );
-	$max_enabled  = ( '' !== $max_token && ( '' !== $max_chat || '' !== $max_user ) );
+	$max_token = trim( (string) autoservice_leads_option( 'max_bot_token' ) );
+	$max_chat  = trim( (string) autoservice_leads_option( 'max_chat_id' ) );
+	$max_user  = trim( (string) autoservice_leads_option( 'max_user_id' ) );
 
-	if ( ! $mail_enabled && ! $max_enabled ) {
+	$mail_enabled     = ! empty( $email_tos );
+	$max_configured   = ( '' !== $max_token && ( '' !== $max_chat || '' !== $max_user ) );
+	$max_for_this_lead = $max_configured && '' !== $branch_slug;
+
+	if ( ! $mail_enabled && ! $max_for_this_lead ) {
 		return new WP_Error(
 			'not_configured',
 			'Каналы уведомлений не настроены.',
@@ -280,22 +350,29 @@ function autoservice_leads_handle( WP_REST_Request $request ) {
 		);
 	}
 
-	$body    = autoservice_leads_format_message( $lead );
-	$sent    = false;
-	$errors  = array();
+	$email_body = autoservice_leads_format_message( $lead );
+	$max_body   = autoservice_leads_format_max_json( $lead );
+	$sent       = false;
+	$errors     = array();
 
 	if ( $mail_enabled ) {
 		$subject = 'Новая заявка с сайта — ' . autoservice_leads_type_label( $type );
 		$headers = array( 'Content-Type: text/plain; charset=UTF-8' );
-		if ( wp_mail( $email_to, $subject, $body, $headers ) ) {
+		$mail_ok = false;
+		foreach ( $email_tos as $email_to ) {
+			if ( wp_mail( $email_to, $subject, $email_body, $headers ) ) {
+				$mail_ok = true;
+			}
+		}
+		if ( $mail_ok ) {
 			$sent = true;
 		} else {
 			$errors[] = 'email';
 		}
 	}
 
-	if ( $max_enabled ) {
-		$max_result = autoservice_leads_send_max( $max_token, $max_chat, $max_user, $body );
+	if ( $max_for_this_lead ) {
+		$max_result = autoservice_leads_send_max( $max_token, $max_chat, $max_user, $max_body );
 		if ( is_wp_error( $max_result ) ) {
 			$errors[] = 'max';
 		} else {
@@ -412,6 +489,32 @@ function autoservice_leads_format_message( $lead ) {
 	}
 
 	return implode( "\n", $lines );
+}
+
+function autoservice_leads_format_max_json( $lead ) {
+	$payload = array(
+		'type'  => $lead['type'],
+		'name'  => $lead['name'],
+		'phone' => '+' . $lead['phone'],
+	);
+
+	foreach ( array( 'service', 'carBrand', 'timing', 'branch', 'message' ) as $key ) {
+		if ( ! empty( $lead[ $key ] ) ) {
+			$payload[ $key ] = $lead[ $key ];
+		}
+	}
+
+	if ( ! empty( $lead['extra']['vin'] ) ) {
+		$payload['vin'] = $lead['extra']['vin'];
+	}
+	if ( ! empty( $lead['extra']['partName'] ) ) {
+		$payload['partName'] = $lead['extra']['partName'];
+	}
+	if ( ! empty( $lead['branchMaxUrl'] ) ) {
+		$payload['branchMaxUrl'] = $lead['branchMaxUrl'];
+	}
+
+	return wp_json_encode( $payload, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT );
 }
 
 function autoservice_leads_send_max( $token, $chat_id, $user_id, $text ) {

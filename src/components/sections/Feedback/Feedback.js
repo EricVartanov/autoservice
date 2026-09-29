@@ -12,8 +12,14 @@ import { Container } from "@/components/Container";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
 import HoneypotField from "@/components/ui/HoneypotField";
+import { useSiteData } from "@/components/SiteDataProvider";
 import { mediaAlt, mediaUrl } from "@/lib/media";
-import { honeypotValue, submitLead, SUBMIT_ERROR_MESSAGE } from "@/lib/submitLead";
+import {
+    honeypotValue,
+    resolveBranchLeadFields,
+    submitLead,
+    SUBMIT_ERROR_MESSAGE,
+} from "@/lib/submitLead";
 import { InvisibleCaptcha, useInvisibleCaptcha } from "@/lib/useInvisibleCaptcha";
 
 const cardGradient =
@@ -52,6 +58,7 @@ function validate({ name, phoneDigits, branch, consent }) {
 
 export default function Feedback({ data }) {
     const { intro, title, manager, tires, form } = data;
+    const { branches } = useSiteData();
 
     const [name, setName] = useState("");
     const [phoneDigits, setPhoneDigits] = useState("");
@@ -83,11 +90,18 @@ export default function Feedback({ data }) {
             return;
         }
 
+        const branchFields = resolveBranchLeadFields(branch, {
+            options: form.branch?.options,
+            branches,
+        });
+
         const payload = {
             type: "feedback",
             name: name.trim(),
             phone: getCleanPhone(phoneDigits),
-            branch,
+            branch: branchFields.branch,
+            branchSlug: branchFields.branchSlug,
+            branchMaxUrl: branchFields.branchMaxUrl,
             message: message.trim(),
             website: honeypotValue(e.currentTarget),
         };

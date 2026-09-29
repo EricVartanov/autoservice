@@ -17,8 +17,15 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
 import HoneypotField from "@/components/ui/HoneypotField";
 import { mediaAlt, mediaUrl } from "@/lib/media";
+import { useSiteData } from "@/components/SiteDataProvider";
 import { collectFormErrors } from "@/lib/formValidation";
-import { honeypotValue, submitLead, SUBMIT_ERROR_MESSAGE } from "@/lib/submitLead";
+import {
+    formOptionLabel,
+    honeypotValue,
+    resolveBranchLeadFields,
+    submitLead,
+    SUBMIT_ERROR_MESSAGE,
+} from "@/lib/submitLead";
 import { InvisibleCaptcha, useInvisibleCaptcha } from "@/lib/useInvisibleCaptcha";
 
 const CUSTOM_PART_VALUE = "__custom__";
@@ -42,6 +49,7 @@ function normalizeExtra(extraValues, extraFields) {
 
 export default function ContactForm({ data }) {
     const { title, backgroundImage, form } = data;
+    const { branches } = useSiteData();
 
     const [name, setName] = useState("");
     const [phoneDigits, setPhoneDigits] = useState("");
@@ -120,13 +128,22 @@ export default function ContactForm({ data }) {
             return;
         }
 
+        const timingGroup = form.radioGroups?.find((g) => g.name === "timing");
+        const branchGroup = form.radioGroups?.find((g) => g.name === "branch");
+        const branchFields = resolveBranchLeadFields(branch, {
+            options: branchGroup?.options,
+            branches,
+        });
+
         const payload = {
             type: "contact",
             name: name.trim(),
             phone: getCleanPhone(phoneDigits),
             carBrand,
-            timing,
-            branch,
+            timing: formOptionLabel(timingGroup?.options, timing),
+            branch: branchFields.branch,
+            branchSlug: branchFields.branchSlug,
+            branchMaxUrl: branchFields.branchMaxUrl,
             extra: normalizeExtra(extraValues, form.extraSection?.fields),
             website: honeypotValue(e.currentTarget),
         };

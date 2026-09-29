@@ -13,7 +13,14 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import FormSuccessOverlay from "@/components/ui/FormSuccessOverlay";
 import HoneypotField from "@/components/ui/HoneypotField";
-import { honeypotValue, submitLead, SUBMIT_ERROR_MESSAGE } from "@/lib/submitLead";
+import { useSiteData } from "@/components/SiteDataProvider";
+import {
+    formOptionLabel,
+    honeypotValue,
+    resolveBranchLeadFields,
+    submitLead,
+    SUBMIT_ERROR_MESSAGE,
+} from "@/lib/submitLead";
 import { InvisibleCaptcha, useInvisibleCaptcha } from "@/lib/useInvisibleCaptcha";
 
 function validate({ name, phoneDigits, carBrand, timing, branch, consent }) {
@@ -50,6 +57,7 @@ function validate({ name, phoneDigits, carBrand, timing, branch, consent }) {
 
 export default function ServiceContactForm({ data }) {
     const { title, backgroundImage, form } = data;
+    const { branches } = useSiteData();
 
     const [name, setName] = useState("");
     const [phoneDigits, setPhoneDigits] = useState("");
@@ -121,13 +129,22 @@ export default function ServiceContactForm({ data }) {
             return;
         }
 
+        const timingGroup = form.radioGroups?.find((g) => g.name === "timing");
+        const branchGroup = form.radioGroups?.find((g) => g.name === "branch");
+        const branchFields = resolveBranchLeadFields(branch, {
+            options: branchGroup?.options,
+            branches,
+        });
+
         const payload = {
             type: "contact",
             name: name.trim(),
             phone: getCleanPhone(phoneDigits),
             carBrand,
-            timing,
-            branch,
+            timing: formOptionLabel(timingGroup?.options, timing),
+            branch: branchFields.branch,
+            branchSlug: branchFields.branchSlug,
+            branchMaxUrl: branchFields.branchMaxUrl,
             website: honeypotValue(e.currentTarget),
         };
 
