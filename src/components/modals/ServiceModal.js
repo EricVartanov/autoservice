@@ -21,7 +21,6 @@ export default function ServiceModal() {
     const contactFormData = sections.find((section) => section.type === 'contact_form');
 
     const relatedSlugs = detail?.branches?.filter(Boolean) ?? [];
-    console.log(detail)
     const filteredContacts = contactsData
         ? {
             ...contactsData,
@@ -43,7 +42,9 @@ export default function ServiceModal() {
                     {detail.popular?.length > 0 && <ServicePopular title={detail.popularTitle} items={detail.popular} />}
                     <ServicePriceList title={detail.priceListTitle} items={detail.priceList} subtitle={detail.priceListSubTitle} />
                     {contactsData && <Contacts data={filteredContacts} embedded />}
-                    {contactFormData && <ServiceContactForm data={contactFormData} />}
+                    {contactFormData && (
+                        <ServiceContactForm data={contactFormData} serviceTitle={detail.title} />
+                    )}
                 </div>
             )}
         </Modal>

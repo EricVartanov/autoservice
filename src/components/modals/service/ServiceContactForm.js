@@ -55,7 +55,7 @@ function validate({ name, phoneDigits, carBrand, timing, branch, consent }) {
     return errors;
 }
 
-export default function ServiceContactForm({ data }) {
+export default function ServiceContactForm({ data, serviceTitle }) {
     const { title, backgroundImage, form } = data;
     const { branches } = useSiteData();
 
@@ -147,6 +147,10 @@ export default function ServiceContactForm({ data }) {
             branchMaxUrl: branchFields.branchMaxUrl,
             website: honeypotValue(e.currentTarget),
         };
+
+        if (serviceTitle) {
+            payload.service = serviceTitle;
+        }
 
         setIsSubmitting(true);
         try {

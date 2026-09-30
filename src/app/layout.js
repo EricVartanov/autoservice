@@ -11,6 +11,7 @@ import LegalModal from "@/components/modals/LegalModal";
 import PanoramaModal from "@/components/modals/PanoramaModal";
 import AboutVideoModal from "@/components/modals/AboutVideoModal";
 import { SiteDataProvider } from '@/components/SiteDataProvider';
+import NavigationProgress from '@/components/NavigationProgress';
 import { loadSiteData } from '@/lib/wp/load';
 
 const fontVariables = [
@@ -39,6 +40,7 @@ export default async function RootLayout({ children }) {
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
                     <SiteDataProvider value={data}>
                         <LenisProvider>
+                            <NavigationProgress />
                             <Header />
                             {children}
                             <Footer />

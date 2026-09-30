@@ -42,7 +42,7 @@ export const site = {
         menu: [
             {label: 'Об автосервисе', link: '/#about'},
             { label: 'Услуги', link: '/#services'},       
-            { label: 'Контакты', link: '/#contact s'},
+            {label: 'Контакты', link: '/#contacts'},
             { label: 'Новости', link: '/news'},       
             { label: 'Коммерческий транспорт' , link: '/#commercial'},
         ],     

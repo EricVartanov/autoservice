@@ -378,7 +378,7 @@ function mapSite(raw, branches) {
             logo: mapMedia(chrome.logo),
             menu: (chrome.menu || []).map((item) => ({
                 label: item.label || '',
-                link: item.link || '',
+                link: (item.link || '').trim(),
             })),
             socials,
         },

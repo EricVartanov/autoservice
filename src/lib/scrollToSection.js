@@ -10,6 +10,15 @@ export function getLenis() {
     return lenisInstance;
 }
 
+function headerOffsetPx() {
+    if (typeof document === 'undefined') return 0;
+    const raw = getComputedStyle(document.documentElement)
+        .getPropertyValue('--header-offset')
+        .trim();
+    const n = Number.parseFloat(raw);
+    return Number.isFinite(n) ? n : 0;
+}
+
 /**
  * Smooth-scroll to a DOM element.
  * Uses Lenis when available; falls back to native scrollIntoView.
@@ -20,8 +29,10 @@ export function getLenis() {
 export function scrollToElement(el, {behavior = 'smooth'} = {}) {
     if (typeof document === 'undefined' || !el) return false;
 
+    const offset = -headerOffsetPx();
+
     if (lenisInstance && behavior !== 'auto') {
-        lenisInstance.scrollTo(el);
+        lenisInstance.scrollTo(el, {offset});
         return true;
     }
 
@@ -62,6 +73,6 @@ export function getHashId(href) {
     if (!href || typeof href !== 'string') return null;
     const hashIndex = href.indexOf('#');
     if (hashIndex === -1) return null;
-    const id = href.slice(hashIndex + 1);
+    const id = href.slice(hashIndex + 1).trim();
     return id || null;
 }
